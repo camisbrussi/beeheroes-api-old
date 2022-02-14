@@ -1,0 +1,89 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "BeeHeroes Documentation",
+    "description": "This is a Beeheroes system api",
+    "version": "1.0.0",
+    "contact": {
+      "email": "camila.sbrussi@universo.univates.br"
+    }
+  },
+  "paths": {
+    "/entityTypes": {
+      "post": {
+        "tags": ["Entity Type"],
+        "summary": "Create a Entity Type",
+        "description": "Create a New Entity Type",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "entity type name sample",
+                  "description": "entity type description sample"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Entity Type already exists!"
+          }
+        }
+      }
+    },
+    "/usersadmin": {
+      "post": {
+        "tags": ["User Admin"],
+        "summary": "Create a User Admin",
+        "description": "Create a New User Admin",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Admin Example",
+                  "email": "admin@example.com",
+                  "password": "123456789"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "User Admin already exists!"
+          }
+        }
+      }
+    }
+  }
+}
