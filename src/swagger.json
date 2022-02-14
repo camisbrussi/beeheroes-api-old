@@ -9,7 +9,7 @@
     }
   },
   "paths": {
-    "/entityTypes": {
+    "/entitytypes": {
       "post": {
         "tags": ["Entity Type"],
         "summary": "Create a Entity Type",
@@ -45,11 +45,11 @@
         }
       }
     },
-    "/usersadmin": {
+    "/usertypes": {
       "post": {
-        "tags": ["User Admin"],
-        "summary": "Create a User Admin",
-        "description": "Create a New User Admin",
+        "tags": ["User Type"],
+        "summary": "Create a User Type",
+        "description": "Create a New User Type",
         "requestBody": {
           "content": {
             "application/json": {
@@ -59,17 +59,13 @@
                   "name": {
                     "type": "string"
                   },
-                  "email": {
-                    "type": "string"
-                  },
-                  "password": {
+                  "description": {
                     "type": "string"
                   }
                 },
                 "example": {
-                  "name": "Admin Example",
-                  "email": "admin@example.com",
-                  "password": "123456789"
+                  "name": "user type name sample",
+                  "description": "user type description sample"
                 }
               }
             }
@@ -80,7 +76,7 @@
             "description": "Created"
           },
           "500": {
-            "description": "User Admin already exists!"
+            "description": "User Type already exists!"
           }
         }
       }

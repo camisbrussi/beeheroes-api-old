@@ -1,5 +1,6 @@
-import { ICreateEntityTypeDTO, IEntityTypesRepository } from '../IEntityTypesRepository';
+import { IEntityTypesRepository } from '../IEntityTypesRepository';
 import { EntityType } from '@modules/entities/infra/typeorm/entities/EntityTypes'
+import { ICreateEntityTypeDTO } from '@modules/entities/dtos/ICreateEntityTypeDTO';
 
 class EntityTypeRepositoryInMemory implements IEntityTypesRepository {
   entityTypes: EntityType[] = [];

@@ -1,20 +1,11 @@
 
 import { EntityType } from '@modules/entities/infra/typeorm/entities/EntityTypes'
-
-interface ICreateEntityTypeDTO {
-  name: string;
-  description: string;
-}
-
-interface IEntityTypesRepositoryDTO {
-  name: string;
-  description: string;
-}
+import { ICreateEntityTypeDTO } from '../dtos/ICreateEntityTypeDTO';
 
 interface IEntityTypesRepository {
   findByName(name: string): Promise<EntityType>;
   list(): Promise<EntityType[]>
-  create({ name, description }: IEntityTypesRepositoryDTO): Promise<EntityType>;
+  create({ name, description }: ICreateEntityTypeDTO): Promise<EntityType>;
 }
 
-export { IEntityTypesRepository, ICreateEntityTypeDTO }
+export { IEntityTypesRepository }

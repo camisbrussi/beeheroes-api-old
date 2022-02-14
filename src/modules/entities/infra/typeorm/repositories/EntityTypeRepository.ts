@@ -1,7 +1,8 @@
 import { getRepository, Repository } from 'typeorm';
 
 import { EntityType } from '@modules/entities/infra/typeorm/entities/EntityTypes'
-import { IEntityTypesRepository, ICreateEntityTypeDTO } from '@modules/entities/repositories/IEntityTypesRepository'
+import { IEntityTypesRepository } from '@modules/entities/repositories/IEntityTypesRepository'
+import { ICreateEntityTypeDTO } from '@modules/entities/dtos/ICreateEntityTypeDTO';
 
 class EntityTypesRepository implements IEntityTypesRepository{
   private repository: Repository<EntityType>
