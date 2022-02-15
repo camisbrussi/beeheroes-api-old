@@ -80,6 +80,50 @@
           }
         }
       }
+    },
+    "/users": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Create a User",
+        "description": "Create a New User",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "user_type_id": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "user type name sample",
+                  "email": "beeheroes@example.com",
+                  "password": "123456",
+                  "user_type_id": "ba863673-b4e0-42d2-9fea-41d98e9d541a"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "User already exists!"
+          }
+        }
+      }
     }
   }
 }

@@ -25,7 +25,7 @@ describe('Create Entity Type Controller', () => {
     expect(response.status).toBe(201);
   });
 
-  it('should not be able to create a entity category with name exist', async () => {
+  it('should not be able to create a entity type with name exist', async () => {
     const response = await request(app).post('/entitytypes').send({
       name: 'Entity Type Supertest',
       description: 'Category Supertest',

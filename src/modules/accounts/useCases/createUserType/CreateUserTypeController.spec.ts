@@ -31,8 +31,6 @@ describe('Create User Type Controller', () => {
       description: 'User Supertest',
     });
 
-    console.log(response);
-
     expect(response.status).toBe(400);
   });
 });
