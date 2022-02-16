@@ -29,6 +29,6 @@ describe("Create Entity Type", () => {
       name: "Entity Type",
       description: "Entity type description"
     });
-    }).rejects.toBeInstanceOf(AppError);
+    }).rejects.toEqual(new AppError("Entity type already exists!"));
   })
 })

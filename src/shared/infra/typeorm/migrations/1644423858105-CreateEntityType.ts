@@ -6,7 +6,7 @@ export class CreateEntityType1644423858105 implements MigrationInterface {
         await queryRunner.createTable(
             new Table(
                 {
-                    name: "entity_types",
+                    name: "entities_types",
                     columns: [
                         {
                             name: "id",
@@ -39,7 +39,7 @@ export class CreateEntityType1644423858105 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-         await queryRunner.dropTable("entity_types")
+         await queryRunner.dropTable("entities_types")
     }
 
 }

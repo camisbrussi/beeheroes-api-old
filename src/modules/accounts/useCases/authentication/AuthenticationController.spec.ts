@@ -8,12 +8,15 @@ import createdConnection from '@shared/infra/typeorm';
 
 let connection: Connection;
 
-describe('Create User Type Controller', () => {
-  beforeAll(async() => {
-    const id = uuidV4();
+describe('Authentication Controller', () => {
+
+  let id;
+  beforeAll(async () => {
+    id = uuidV4();
+
     connection = await createdConnection();
     await connection.runMigrations();
-    
+
     await connection.query(
       `INSERT INTO USERS_TYPES(id, name, description, created_at, updated_at) 
       VALUES('${id}', 'Entity Type', 'xxxxxx', 'now()', 'now()')`,
@@ -21,51 +24,35 @@ describe('Create User Type Controller', () => {
 
     const password = await hash('admin', 8);
 
-    await connection.query(
+     await connection.query(
       `INSERT INTO USERS(id, name, email, password, user_type_id, status, created_at, updated_at) 
       VALUES('${id}', 'Admin', 'admin@beeheroes.com', '${password}', '${id}', 'true' , 'now()', 'now()')`,
     );
   });
 
-    afterAll(async () => {
+  afterAll(async () => {
     await connection.dropDatabase();
     await connection.close();
   });
 
-  it('should be able to create a new user type', async() => {
-    const responseToken = await request(app).post('/sessions')
+  it('should be able to authentication an user', async () => {
+    const response = await request(app).post('/sessions')
       .send({
         email: 'admin@beeheroes.com',
         password: 'admin',
     });
 
-    const { refresh_token } = responseToken.body;
-
-    const response = await request(app).post('/usertypes').send({ 
-      name: 'User Type Supertest',
-      description: 'User Type Supertest',
-    }).set({
-      Authorization: `Bearer ${refresh_token}`,
-    });
-    
-    expect(response.status).toBe(201);
+    expect(response.status).toBe(200);
   });
 
-  it('should not be able to create a user type with name exist', async () => {
-    const responseToken = await request(app).post('/sessions')
+    it('should not be able to authentication an user', async () => {
+    const response = await request(app).post('/sessions')
       .send({
         email: 'admin@beeheroes.com',
-        password: 'admin',
-    });
-
-    const { refresh_token } = responseToken.body;
-    const response = await request(app).post('/usertypes').send({
-      name: 'User Type Supertest',
-      description: 'User Supertest',
-    }).set({
-      Authorization: `Bearer ${refresh_token}`,
+        password: 'password incorret',
     });
 
     expect(response.status).toBe(400);
   });
-});
+
+})

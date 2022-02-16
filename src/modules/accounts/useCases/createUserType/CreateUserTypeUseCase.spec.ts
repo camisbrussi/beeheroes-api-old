@@ -30,6 +30,6 @@ describe("Create User Type", () => {
       name: "User Type",
       description: "User type description"
     });
-    }).rejects.toBeInstanceOf(AppError);
+    }).rejects.toEqual(new AppError('User type already exists!'));
   })
 })

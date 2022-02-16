@@ -1,7 +1,7 @@
 import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from 'typeorm';
 import { v4 as uuidV4 } from 'uuid';
 
-@Entity('user_types')
+@Entity('users_types')
 class UserType {
   @PrimaryColumn()
   id:string;

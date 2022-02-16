@@ -47,7 +47,7 @@ export class CreateUsers1644871598467 implements MigrationInterface {
                     foreignKeys: [
                         {
                             name: 'FKTyperUser',
-                            referencedTableName: 'user_types',
+                            referencedTableName: 'users_types',
                             referencedColumnNames: ['id'],
                             columnNames: ['user_type_id'],
                             onDelete: 'SET NULL',

@@ -8,12 +8,51 @@
       "email": "camila.sbrussi@universo.univates.br"
     }
   },
-  "paths": {
+  "paths": {    
+    "/sessions": {
+      "post": {
+        "tags": ["Session"],
+        "summary": "Authentication user",
+        "description":  "Authentication user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                 "example": {
+                  "email": "beeheroes@example.com",
+                  "password": "123456"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Email or password incorrect!"
+          }
+        }
+      }
+    },
     "/entitytypes": {
       "post": {
         "tags": ["Entity Type"],
         "summary": "Create a Entity Type",
         "description": "Create a New Entity Type",
+        "security": [
+          { "bearerAuth": []}
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -50,6 +89,9 @@
         "tags": ["User Type"],
         "summary": "Create a User Type",
         "description": "Create a New User Type",
+        "security": [
+          { "bearerAuth": []}
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -86,6 +128,9 @@
         "tags": ["User"],
         "summary": "Create a User",
         "description": "Create a New User",
+        "security": [
+          { "bearerAuth": []}
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -109,7 +154,7 @@
                   "name": "user type name sample",
                   "email": "beeheroes@example.com",
                   "password": "123456",
-                  "user_type_id": "ba863673-b4e0-42d2-9fea-41d98e9d541a"
+                  "user_type_id": "adb275ef-a90b-49cb-8d9b-376ddfb53f76"
                 }
               }
             }
@@ -123,6 +168,15 @@
             "description": "User already exists!"
           }
         }
+      }
+    }
+  },
+    "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }
