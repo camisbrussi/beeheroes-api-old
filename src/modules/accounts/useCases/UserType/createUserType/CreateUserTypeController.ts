@@ -9,9 +9,9 @@ class CreateUserTypeController {
 
     const createUserTypeUseCase = container.resolve(CreateUserTypeUseCase);
 
-    await createUserTypeUseCase.execute({ name, description });
+    const typeUser = await createUserTypeUseCase.execute({ name, description });
 
-    return response.status(201).send();
+    return response.status(201).send(JSON.stringify(typeUser));
   }
 }
 

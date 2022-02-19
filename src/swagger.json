@@ -45,45 +45,6 @@
         }
       }
     },
-    "/entitytypes": {
-      "post": {
-        "tags": ["Entity Type"],
-        "summary": "Create a Entity Type",
-        "description": "Create a New Entity Type",
-        "security": [
-          { "bearerAuth": []}
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "description": {
-                    "type": "string"
-                  }
-                },
-                "example": {
-                  "name": "entity type name sample",
-                  "description": "entity type description sample"
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "500": {
-            "description": "Entity Type already exists!"
-          }
-        }
-      }
-    },
     "/usertypes": {
       "post": {
         "tags": ["User Type"],
@@ -166,6 +127,45 @@
           },
           "500": {
             "description": "User already exists!"
+          }
+        }
+      }
+    },
+        "/entitytypes": {
+      "post": {
+        "tags": ["Entity Type"],
+        "summary": "Create a Entity Type",
+        "description": "Create a New Entity Type",
+        "security": [
+          { "bearerAuth": []}
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "entity type name sample",
+                  "description": "entity type description sample"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Entity Type already exists!"
           }
         }
       }

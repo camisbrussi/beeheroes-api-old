@@ -13,10 +13,16 @@ describe("Create User Type", () => {
     createUserTypeUseCase = new CreateUserTypeUseCase(userTypesRepositoryInMemory);
   })
   it("should be able to create a new user type", async () => {
-    await createUserTypeUseCase.execute({
+    const userType = {
       name: "User Type name",
-      description: "User type description"
-    });
+      description: "User type description" 
+    }
+    
+    await createUserTypeUseCase.execute(userType);
+
+    const userTypeCreated = await userTypesRepositoryInMemory.findByName(userType.name);
+
+    expect(userTypeCreated).toHaveProperty('id');
   });
 
   it("should not be able to create a user type if exists name", () => {

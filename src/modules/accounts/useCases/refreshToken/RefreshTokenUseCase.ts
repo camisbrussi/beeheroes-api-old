@@ -24,7 +24,6 @@ class RefreshTokenUseCase {
      private usersTokensRepository: IUsersTokensRepository,
      @inject('DayjsDateProvider')
      private dateProvider: IDateProvider,
-
   ) {}
 
   async execute(token: string): Promise<ITokenResponse> {

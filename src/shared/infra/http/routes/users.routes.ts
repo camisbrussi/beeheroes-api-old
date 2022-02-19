@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { ensureAuthentication } from '../middlewares/ensureAuthentication';
 
-import { CreateUserController } from '@modules/accounts/useCases/createUser/CreateUseController';
+import { CreateUserController } from '@modules/accounts/useCases/User/createUser/CreateUseController';
 
 const usersRoutes = Router();
 

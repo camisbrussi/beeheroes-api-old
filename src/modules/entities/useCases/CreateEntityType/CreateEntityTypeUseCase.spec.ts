@@ -12,10 +12,14 @@ describe("Create Entity Type", () => {
     createEntityTypeUseCase = new CreateEntityTypeUseCase(entityTypesRepositoryInMemory);
   })
   it("should be able to create a new entity type", async () => {
-    await createEntityTypeUseCase.execute({
+    const entityType = {
       name: "Entity Type name",
       description: "Entity type description"
-    });
+    }
+    await createEntityTypeUseCase.execute(entityType);
+
+    const entityTypeCreated = await entityTypesRepositoryInMemory.findByName(entityType.name);
+    expect(entityTypeCreated).toHaveProperty('id');
   });
 
   it("should not be able to create a entity type if exists name", () => {

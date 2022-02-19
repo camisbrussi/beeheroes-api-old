@@ -39,6 +39,12 @@ class UsersRepository implements IUsersRepository {
     const user = await this.repository.find();
     return user;
   }
+
+  async listUsersByUserType(user_type_id: string): Promise<User[]> {
+    const users = await this.repository.find({ user_type_id });
+
+    return users;
+  }
 }
 
 export { UsersRepository };
