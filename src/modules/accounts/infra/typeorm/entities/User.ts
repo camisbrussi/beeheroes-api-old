@@ -26,7 +26,7 @@ class User{
   user_type_id: string;
 
   @Column()
-  status: boolean;
+  status: number;
 
   @CreateDateColumn()
   created_at: Date;
@@ -37,7 +37,7 @@ class User{
   constructor() {
     if(!this.id){
       this.id = uuidV4();
-      this.status = true;
+      this.status = Number(process.env.USER_STATUS_ACTIVE);
     }
   }
 }

@@ -1,6 +1,6 @@
 import { IEntityTypesRepository } from '../IEntityTypesRepository';
 import { EntityType } from '@modules/entities/infra/typeorm/entities/EntityTypes'
-import { ICreateEntityTypeDTO } from '@modules/entities/dtos/ICreateEntityTypeDTO';
+import { IEntityTypeDTO } from '@modules/entities/dtos/IEntityTypeDTO';
 
 class EntityTypeRepositoryInMemory implements IEntityTypesRepository {
   entityTypes: EntityType[] = [];
@@ -18,7 +18,7 @@ class EntityTypeRepositoryInMemory implements IEntityTypesRepository {
   async create({
     name,
     description
-  }: ICreateEntityTypeDTO): Promise<EntityType> {
+  }: IEntityTypeDTO): Promise<EntityType> {
     const entityTypes = new EntityType();
     
     const entityType = Object.assign(entityTypes, {

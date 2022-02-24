@@ -3,7 +3,11 @@ import { inject, injectable } from 'tsyringe';
 import { AppError } from '@shared/errors/AppError';
 import { IUserTypesRepository } from '@modules/accounts/repositories/IUserTypesRepository';
 import { UserType } from '@modules/accounts/infra/typeorm/entities/UserTypes';
-import { IUserTypeDTO } from '@modules/accounts/dtos/IUserTypeDTO';
+
+interface IRequest{ 
+  name: string,
+  description?: string,
+}
 
 @injectable()
 class CreateUserTypeUseCase{
@@ -12,7 +16,7 @@ class CreateUserTypeUseCase{
     private userTypeRepository: IUserTypesRepository
   ){}
 
-  async execute({ name, description }: IUserTypeDTO): Promise<UserType> {
+  async execute({ name, description }: IRequest): Promise<UserType> {
     const userTypeExist = await this.userTypeRepository.findByName(name);
 
     if(userTypeExist) {

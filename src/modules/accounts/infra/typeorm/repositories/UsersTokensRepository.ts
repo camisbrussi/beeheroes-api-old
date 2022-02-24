@@ -1,6 +1,6 @@
 import { getRepository, Repository } from 'typeorm';
 
-import { ICreateUserTokenDTO } from '@modules/accounts/dtos/ICreateUserTokenDTO';
+import { IUserTokenDTO } from '@modules/accounts/dtos/IUserTokenDTO';
 import { IUsersTokensRepository } from '@modules/accounts/repositories/IUsersTokensRepository';
 
 import { UserTokens } from '../entities/UserTokens';
@@ -16,7 +16,7 @@ class UsersTokensRepository implements IUsersTokensRepository {
     expires_date,
     refresh_token,
     user_id,
-  }: ICreateUserTokenDTO): Promise<UserTokens> {
+  }: IUserTokenDTO): Promise<UserTokens> {
     const userToken = this.repository.create({
       expires_date,
       refresh_token,

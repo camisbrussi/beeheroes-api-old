@@ -37,15 +37,15 @@ class UserTypesRepository implements IUserTypesRepository{
 
   async update({ id, name, description }: IUserTypeDTO): Promise<UserType> {
 
-    const setUserType = [];
+    const setUserType: IUserTypeDTO = {};
 
-    if(name) setUserType.push(name);
-    if(description) setUserType.push(description);
+    if(name) setUserType.name = name;
+    if(description) setUserType.description = description;
 
     const userTypeEdited = await this.repository
       .createQueryBuilder()
       .update()
-      .set({name, description})
+      .set(setUserType)
       .where('id = :id')
       .setParameters({ id })
       .execute();

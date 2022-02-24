@@ -1,4 +1,4 @@
-import { ICreateUserDTO } from '@modules/accounts/dtos/ICreateUserDTO';
+import { IUserDTO } from '@modules/accounts/dtos/IUserDTO';
 import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory';
 import { UsersTokensRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersTokensRepositoryInMemory';
 import { DayjsDateProvider } from '@shared/container/providers/DateProvider/implementations/DayjsDateProvider';
@@ -27,7 +27,7 @@ describe('Authentication User', () => {
   });
 
   it('should be able to authentication an user', async () => {
-    const user: ICreateUserDTO = {
+    const user = {
       email: 'user@test.com',
       password: '1234',
       name: 'User test',
@@ -44,7 +44,7 @@ describe('Authentication User', () => {
   });
 
   it('should not be able to authentication an no existent user', async () => {
-    const user: ICreateUserDTO = {
+    const user = {
       email: 'userincorrect@test.com',
       password: '1234',
       name: 'User Test Error',
@@ -60,7 +60,7 @@ describe('Authentication User', () => {
   });
 
   it('should not be able to authentication with incorrect password', async () => {
-    const user: ICreateUserDTO = {
+    const user = {
       email: 'passwordincorrect@test.com',
       password: '1234',
       name: 'User Test Error',

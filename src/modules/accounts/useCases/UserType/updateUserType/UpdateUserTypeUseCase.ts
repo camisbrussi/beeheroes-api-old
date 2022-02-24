@@ -5,6 +5,11 @@ import { IUserTypesRepository } from '@modules/accounts/repositories/IUserTypesR
 import { UserType } from '@modules/accounts/infra/typeorm/entities/UserTypes';
 import { IUserTypeDTO } from '@modules/accounts/dtos/IUserTypeDTO';
 
+interface IRequest {
+  id: string,
+  name?:string,
+  description?:string;
+}
 @injectable()
 class UpdateUserTypeUseCase{
   constructor(
@@ -12,7 +17,7 @@ class UpdateUserTypeUseCase{
     private userTypeRepository: IUserTypesRepository
   ){}
 
-  async execute({ id, name, description }: IUserTypeDTO): Promise<UserType> {
+  async execute({ id, name, description }: IRequest): Promise<UserType> {
     const userTypeExist = await this.userTypeRepository.findByName(name);
 
     if(userTypeExist) {

@@ -61,6 +61,6 @@ describe('Create User ', () => {
       user_type_id: 'admin'
     });
 
-    expect(user.status).toBe(true);
+    expect(user.status).toBe(Number(process.env.USER_STATUS_ACTIVE));
   })
 })

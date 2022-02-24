@@ -27,7 +27,7 @@ export class CreateUsers1644871598467 implements MigrationInterface {
                         },
                         {
                             name: "status",
-                            type: "boolean"
+                            type: "smallint"
                         },
                         {
                             name: "user_type_id",
@@ -46,7 +46,7 @@ export class CreateUsers1644871598467 implements MigrationInterface {
                     ],
                     foreignKeys: [
                         {
-                            name: 'FKTyperUser',
+                            name: 'FKTypeUser',
                             referencedTableName: 'users_types',
                             referencedColumnNames: ['id'],
                             columnNames: ['user_type_id'],

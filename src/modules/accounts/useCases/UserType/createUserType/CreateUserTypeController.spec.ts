@@ -23,7 +23,7 @@ describe('Create User Type Controller', () => {
 
     await connection.query(
       `INSERT INTO USERS(id, name, email, password, user_type_id, status, created_at, updated_at) 
-      VALUES('${id}', 'Admin', 'admin@beeheroes.com', '${password}', '${id}', 'true' , 'now()', 'now()')`,
+      VALUES('${id}', 'Admin', 'admin@beeheroes.com', '${password}', '${id}', '1' , 'now()', 'now()')`,
     );
   });
 

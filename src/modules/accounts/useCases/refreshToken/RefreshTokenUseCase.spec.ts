@@ -1,4 +1,4 @@
-import { ICreateUserDTO } from '@modules/accounts/dtos/ICreateUserDTO';
+import { IUserDTO } from '@modules/accounts/dtos/IUserDTO';
 import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory';
 import { UsersTokensRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersTokensRepositoryInMemory';
 import { DayjsDateProvider } from '@shared/container/providers/DateProvider/implementations/DayjsDateProvider';
@@ -33,7 +33,7 @@ describe('Refresh Token', () => {
   })
 
     it('should be able to refresh token', async () => {
-    const user: ICreateUserDTO = {
+    const user = {
       name: 'Admin',
       email: 'admin@beeheroes.com',
       password: '123456',
@@ -55,7 +55,7 @@ describe('Refresh Token', () => {
   });
 
   it('should not be able to refresh token', async () => {
-    const user: ICreateUserDTO = {
+    const user = {
       name: 'Admin',
       email: 'admin@beeheroes.com',
       password: '123456',

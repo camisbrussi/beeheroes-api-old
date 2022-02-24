@@ -8,7 +8,7 @@ import createdConnection from '@shared/infra/typeorm';
 
 let connection: Connection;
 
-describe('Update User Type Controller', () => {
+describe('Find User Type Controller', () => {
   const id = uuidV4();
   beforeAll(async() => {
     connection = await createdConnection();
@@ -23,7 +23,7 @@ describe('Update User Type Controller', () => {
 
     await connection.query(
       `INSERT INTO USERS(id, name, email, password, user_type_id, status, created_at, updated_at) 
-      VALUES('${id}', 'Admin', 'admin@beeheroes.com', '${password}', '${id}', 'true' , 'now()', 'now()')`,
+      VALUES('${id}', 'Admin', 'admin@beeheroes.com', '${password}', '${id}', '1' , 'now()', 'now()')`,
     );
   });
 

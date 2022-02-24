@@ -8,15 +8,16 @@ import createdConnection from '@shared/infra/typeorm';
 
 let connection: Connection;
 
-describe('Create Entity Type Controller', () => {
-  beforeAll(async() => {
-    const id = uuidV4();
+describe('List User Controller', () => {
+  beforeAll(async () => {
     connection = await createdConnection();
     await connection.runMigrations();
 
+    const id = uuidV4();
+    
     await connection.query(
       `INSERT INTO USERS_TYPES(id, name, description, created_at, updated_at) 
-      VALUES('${id}', 'Entity Type', 'xxxxxx', 'now()', 'now()')`,
+      VALUES('${id}', 'User Type', 'xxxxxx', 'now()', 'now()')`,
     );
 
     const password = await hash('admin', 8);
@@ -27,44 +28,26 @@ describe('Create Entity Type Controller', () => {
     );
   });
 
-    afterAll(async () => {
+  afterAll(async () => {
     await connection.dropDatabase();
     await connection.close();
   });
 
-  it('should be able to create a new entity type', async() => {
+  it('should be able to list all users', async () => {
     const responseToken = await request(app).post('/sessions')
       .send({
         email: 'admin@beeheroes.com',
         password: 'admin',
-    });
-
+      });
     const { refresh_token } = responseToken.body;
 
-    const response = await request(app).post('/entitytypes').send({ 
-      name: 'Entity Type Supertest',
-      description: 'Entity Type Supertest',
-    }).set({
-      Authorization: `Bearer ${refresh_token}`,
-    });
-    expect(response.status).toBe(201);
-  });
-
-  it('should not be able to create a entity type with name exist', async () => {
-    const responseToken = await request(app).post('/sessions')
-      .send({
-        email: 'admin@beeheroes.com',
-        password: 'admin',
-    });
-
-    const { refresh_token } = responseToken.body;
-    const response = await request(app).post('/entitytypes').send({
-      name: 'Entity Type Supertest',
-      description: 'Category Supertest',
-    }).set({
+    const response = await request(app).get('/users').set({
       Authorization: `Bearer ${refresh_token}`,
     });;
 
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(200);
+    expect(response.body.length).toBe(1);
+    expect(response.body[0]).toHaveProperty('id');
+    expect(response.body[0].name).toEqual('Admin');
   });
 });

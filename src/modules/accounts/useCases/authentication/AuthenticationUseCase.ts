@@ -7,12 +7,12 @@ import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepositor
 import { IUsersTokensRepository } from '@modules/accounts/repositories/IUsersTokensRepository';
 import { IDateProvider } from '@shared/container/providers/DateProvider/IDateProvider';
 import { AppError } from '@shared/errors/AppError';
+import { IUserDTO } from '@modules/accounts/dtos/IUserDTO';
 
 interface IRequest {
-  email: string;
-  password: string;
+  email: string, 
+  password:string
 }
-
 interface IResponse {
   user: {
     name: string;

@@ -1,4 +1,4 @@
-import { ICreateUserTokenDTO } from '@modules/accounts/dtos/ICreateUserTokenDTO';
+import { IUserTokenDTO } from '@modules/accounts/dtos/IUserTokenDTO';
 import { UserTokens } from '@modules/accounts/infra/typeorm/entities/UserTokens';
 
 import { IUsersTokensRepository } from '../IUsersTokensRepository';
@@ -10,7 +10,7 @@ class UsersTokensRepositoryInMemory implements IUsersTokensRepository {
     expires_date,
     refresh_token,
     user_id,
-  }: ICreateUserTokenDTO): Promise<UserTokens> {
+  }: IUserTokenDTO): Promise<UserTokens> {
     const userToken = new UserTokens();
 
     Object.assign(userToken, {

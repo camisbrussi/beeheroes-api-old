@@ -8,15 +8,15 @@ import createdConnection from '@shared/infra/typeorm';
 
 let connection: Connection;
 
-describe('Create Entity Type Controller', () => {
+describe('Filer User Controller', () => {
+  const id = uuidV4();
   beforeAll(async() => {
-    const id = uuidV4();
     connection = await createdConnection();
     await connection.runMigrations();
-
+    
     await connection.query(
       `INSERT INTO USERS_TYPES(id, name, description, created_at, updated_at) 
-      VALUES('${id}', 'Entity Type', 'xxxxxx', 'now()', 'now()')`,
+      VALUES('${id}', 'User Type', 'xxxxxx', 'now()', 'now()')`,
     );
 
     const password = await hash('admin', 8);
@@ -27,12 +27,12 @@ describe('Create Entity Type Controller', () => {
     );
   });
 
-    afterAll(async () => {
+  afterAll(async () => {
     await connection.dropDatabase();
     await connection.close();
   });
 
-  it('should be able to create a new entity type', async() => {
+  it('should be able to filter a user for name', async() => {
     const responseToken = await request(app).post('/sessions')
       .send({
         email: 'admin@beeheroes.com',
@@ -41,16 +41,26 @@ describe('Create Entity Type Controller', () => {
 
     const { refresh_token } = responseToken.body;
 
-    const response = await request(app).post('/entitytypes').send({ 
-      name: 'Entity Type Supertest',
-      description: 'Entity Type Supertest',
+    await request(app).post(`/users`).send({
+      name: "Admin Admin",
+      email: 'admin2@beeheroes.com',
+      password: 'admin',
+      user_type_id: id
     }).set({
       Authorization: `Bearer ${refresh_token}`,
     });
-    expect(response.status).toBe(201);
+
+
+    const response = await request(app).get(`/users/filter`).send({
+      name: "Admin"
+    }).set({
+      Authorization: `Bearer ${refresh_token}`,
+    });
+
+    expect(response.body.length).toEqual(2);
   });
 
-  it('should not be able to create a entity type with name exist', async () => {
+    it('should be able to filter a user for name and user type', async() => {
     const responseToken = await request(app).post('/sessions')
       .send({
         email: 'admin@beeheroes.com',
@@ -58,13 +68,14 @@ describe('Create Entity Type Controller', () => {
     });
 
     const { refresh_token } = responseToken.body;
-    const response = await request(app).post('/entitytypes').send({
-      name: 'Entity Type Supertest',
-      description: 'Category Supertest',
+
+    const response = await request(app).get(`/users/filter`).send({
+      name: "Admin",
+      user_type_id: id
     }).set({
       Authorization: `Bearer ${refresh_token}`,
-    });;
+    });
 
-    expect(response.status).toBe(400);
+    expect(response.body.length).toEqual(2);
   });
-});
+})
