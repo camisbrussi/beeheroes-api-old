@@ -25,8 +25,8 @@ describe("Create User Type", () => {
     expect(userTypeCreated).toHaveProperty('id');
   });
 
-  it("should not be able to create a user type if exists name", () => {
-    expect(async() => {
+  it("should not be able to create a user type if exists name", async () => {
+    await expect(async() => {
       await createUserTypeUseCase.execute({
       name: "User Type",
       description: "User type description"

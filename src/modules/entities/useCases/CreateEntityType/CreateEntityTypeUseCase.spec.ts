@@ -22,8 +22,8 @@ describe("Create Entity Type", () => {
     expect(entityTypeCreated).toHaveProperty('id');
   });
 
-  it("should not be able to create a entity type if exists name", () => {
-    expect(async() => {
+  it("should not be able to create a entity type if exists name", async() => {
+    await expect(async() => {
       await createEntityTypeUseCase.execute({
       name: "Entity Type",
       description: "Entity type description"

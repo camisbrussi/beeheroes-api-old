@@ -60,7 +60,7 @@ describe('Update Type User', () => {
 
   it("should not be able to edit a user with exists email", async () => {
 
-    expect(async() => {
+    await expect(async() => {
       const user = await createUserUseCase.execute({
        name: 'Admin',
        email: 'admin1@beeheroes.com',

@@ -48,7 +48,6 @@ describe('Create User ', () => {
       email: user.email,
       password: user.password,
       user_type_id: 'admin'
-
     }),
     ).rejects.toEqual(new AppError(`User ${user.email} already exists`));
   });

@@ -31,8 +31,6 @@ describe('List Users', () => {
 
     const users = await filterUserUseCase.execute({ name: "User"});
 
-    console.log(users);
-
     expect(users.length).toBe(2);
 
   });

@@ -74,7 +74,7 @@ describe('Update Type User', () => {
 
   it("should not be able to edit a user type with exists name", async () => {
 
-    expect(async() => {
+   await expect(async() => {
       const userType = await createUserTypeUseCase.execute({
       name: "User Type name",
       description: "User type description" 
@@ -86,6 +86,7 @@ describe('Update Type User', () => {
 
     const userTypeEdit = {
       id: userType.id,
+      name: "User Type name",
       description: "User Type name2" 
     }
      await updateTypeUseCase.execute(userTypeEdit);
