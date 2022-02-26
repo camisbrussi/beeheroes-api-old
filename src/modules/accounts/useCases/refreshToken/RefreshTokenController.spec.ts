@@ -20,7 +20,7 @@ describe('Refresh Token Controller', () => {
   await connection.runMigrations();
 
   await connection.query(
-    `INSERT INTO USERS_TYPES(id, name, description, created_at, updated_at) 
+    `INSERT INTO USER_TYPES(id, name, description, created_at, updated_at) 
       VALUES('${id}', 'Entity Type', 'xxxxxx', 'now()', 'now()')`,
   );
 

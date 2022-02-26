@@ -53,7 +53,7 @@ class UserTypesRepository implements IUserTypesRepository{
       return userTypeEdited.raw;
   }
 
-  async deleteById( id: string): Promise<void> {
+  async delete( id: string): Promise<void> {
     await this.repository.delete(id);
   }
 }

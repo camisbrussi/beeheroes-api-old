@@ -18,7 +18,7 @@ describe('Authentication Controller', () => {
     await connection.runMigrations();
 
     await connection.query(
-      `INSERT INTO USERS_TYPES(id, name, description, created_at, updated_at) 
+      `INSERT INTO USER_TYPES(id, name, description, created_at, updated_at) 
       VALUES('${id}', 'User Type', 'xxxxxx', 'now()', 'now()')`,
     );
 

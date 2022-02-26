@@ -34,7 +34,7 @@ class RefreshTokenUseCase {
 
     const userToken = await this.usersTokensRepository.findByUserIdAndRefreshToken(user_id, token);
 
-    await this.usersTokensRepository.deleteById(userToken.id);
+    await this.usersTokensRepository.delete(userToken.id);
 
     const expires_date = this.dateProvider.addDays(
       auth.expires_refresh_token_days,

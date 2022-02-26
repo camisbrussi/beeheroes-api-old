@@ -1,11 +1,11 @@
 import { Router } from 'express';
 import { ensureAuthentication } from '../middlewares/ensureAuthentication';
 
-import { CreateUserController } from '@modules/accounts/useCases/User/createUser/CreateUseController';
-import { FindUserController } from '@modules/accounts/useCases/User/findUser/FindUserController';
-import { UpdateUserController } from '@modules/accounts/useCases/User/updateUser/UpdateUserController';
-import { ListUserController } from '@modules/accounts/useCases/User/listUser/ListUserController';
-import { FilterUserController } from '@modules/accounts/useCases/User/filterUser/FilterUserController';
+import { FindUserController } from '@modules/accounts/useCases/User/find/FindController';
+import { UpdateUserController } from '@modules/accounts/useCases/User/update/UpdateController';
+import { ListUserController } from '@modules/accounts/useCases/User/list/ListUserController';
+import { FilterUserController } from '@modules/accounts/useCases/User/filter/FilterController';
+import { CreateUserController } from '@modules/accounts/useCases/User/create/CreateController';
 
 
 const usersRoutes = Router();

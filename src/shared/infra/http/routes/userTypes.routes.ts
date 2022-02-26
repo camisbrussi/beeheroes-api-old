@@ -1,12 +1,11 @@
 import { Router } from 'express';
 import { ensureAuthentication } from '../middlewares/ensureAuthentication';
 
-import { CreateUserTypeController } from '@modules/accounts/useCases/UserType/createUserType/CreateUserTypeController';
-import { ListUserTypesController } from '@modules/accounts/useCases/UserType/listUserType/ListUserTypeController';
-import { UpdateUserTypeController } from '@modules/accounts/useCases/UserType/updateUserType/UpdateUserTypeController'
-import { FindUserTypeController } from '@modules/accounts/useCases/UserType/findUserType/FindUserTypeController';
-import { DeleteUserTypeController } from '@modules/accounts/useCases/UserType/deleteUserType/DeleteTypeController';
-
+import { CreateUserTypeController } from '@modules/accounts/useCases/UserType/create/CreateController';
+import { ListUserTypesController } from '@modules/accounts/useCases/UserType/list/ListController';
+import { UpdateUserTypeController } from '@modules/accounts/useCases/UserType/update/UpdateController';
+import { FindUserTypeController } from '@modules/accounts/useCases/UserType/find/FindController';
+import { DeleteUserTypeController } from '@modules/accounts/useCases/UserType/delete/DeleteController';
 
 const userTypesRoutes = Router();
 

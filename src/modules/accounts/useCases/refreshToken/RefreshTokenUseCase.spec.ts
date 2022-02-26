@@ -4,7 +4,7 @@ import { UsersTokensRepositoryInMemory } from '@modules/accounts/repositories/in
 import { DayjsDateProvider } from '@shared/container/providers/DateProvider/implementations/DayjsDateProvider';
 import { AppError } from '@shared/errors/AppError';
 import { AuthenticationUseCase } from '../authentication/AuthenticationUseCase';
-import { CreateUserUseCase } from '../User/createUser/CreateUserUseCase';
+import { CreateUserUseCase } from '../User/create/CreateUseCase';
 import { RefreshTokenUseCase } from './RefreshTokenUseCase';
 
 let authenticationUseCase: AuthenticationUseCase;

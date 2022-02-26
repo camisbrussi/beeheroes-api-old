@@ -45,7 +45,7 @@ class UserTypeRepositoryInMemory implements IUserTypesRepository {
     return this.userTypes[findIndex];
   }
 
-  async deleteById(id: string): Promise<void> {
+  async delete(id: string): Promise<void> {
     const userType = this.userTypes.find((ut) => ut.id === id);
     this.userTypes.splice(this.userTypes.indexOf(userType));
   }

@@ -7,7 +7,7 @@ interface IUserTypesRepository {
   findById(id: string): Promise<UserType>;
   list(): Promise<UserType[]>;
   update({ id, name, description }: IUserTypeDTO): Promise<UserType>
-  deleteById( id: string ): Promise<void>;
+  delete( id: string ): Promise<void>;
 }
 
 export { IUserTypesRepository }
