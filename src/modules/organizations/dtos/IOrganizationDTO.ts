@@ -8,4 +8,4 @@ interface IOrganizationDTO {
   organization_type_id?: string;
 }
 
-export { IOrganizationDTO }
+export { IOrganizationDTO };

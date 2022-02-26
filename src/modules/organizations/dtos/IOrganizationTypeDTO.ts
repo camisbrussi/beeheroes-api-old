@@ -4,4 +4,4 @@ interface IOrganizationTypeDTO {
   description?: string;
 }
 
-export { IOrganizationTypeDTO }
+export { IOrganizationTypeDTO };

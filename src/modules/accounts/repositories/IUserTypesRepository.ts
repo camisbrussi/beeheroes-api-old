@@ -1,5 +1,5 @@
-import { IUserTypeDTO } from '../dtos/IUserTypeDTO'
-import { UserType } from '../infra/typeorm/entities/UserTypes'
+import { IUserTypeDTO } from '../dtos/IUserTypeDTO';
+import { UserType } from '../infra/typeorm/entities/UserTypes';
 
 interface IUserTypesRepository {
   create({ name, description }: IUserTypeDTO): Promise<UserType>;
@@ -7,7 +7,7 @@ interface IUserTypesRepository {
   findById(id: string): Promise<UserType>;
   list(): Promise<UserType[]>;
   update({ id, name, description }: IUserTypeDTO): Promise<UserType>
-  delete( id: string ): Promise<void>;
+  delete(id: string): Promise<void>;
 }
 
-export { IUserTypesRepository }
+export { IUserTypesRepository };

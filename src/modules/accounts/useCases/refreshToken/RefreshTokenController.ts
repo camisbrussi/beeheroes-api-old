@@ -5,16 +5,15 @@ import { RefreshTokenUseCase } from './RefreshTokenUseCase';
 
 class RefreshTokenController {
   async handle(request: Request, response: Response): Promise<Response> {
-
     const { authorization } = request.headers;
 
     let authorizationToken;
 
-    if(authorization){
+    if (authorization) {
       [, authorizationToken] = authorization.split(' ');
     }
 
-    const token = request.body.token || authorizationToken
+    const token = request.body.token || authorizationToken;
 
     const refreshTokenUseCase = container.resolve(RefreshTokenUseCase);
 

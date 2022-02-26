@@ -1,8 +1,8 @@
 import { inject, injectable } from 'tsyringe';
 
-import { AppError } from '@shared/errors/AppError';
-import { IOrganizationsRepository } from '@modules/organizations/repositories/IOrganizationRepository';
 import { Organization } from '@modules/organizations/infra/typeorm/entities/Organization';
+import { IOrganizationsRepository } from '@modules/organizations/repositories/IOrganizationRepository';
+import { AppError } from '@shared/errors/AppError';
 
 @injectable()
 class FindOrganizationUseCase {
@@ -12,11 +12,10 @@ class FindOrganizationUseCase {
   ) { }
 
   async execute(id: string): Promise<Organization> {
-
     const organization = await this.organizationsRepository.findById(id);
 
-    if(!organization){
-      throw new AppError('Organization does not exist')
+    if (!organization) {
+      throw new AppError('Organization does not exist');
     }
 
     return organization;

@@ -13,7 +13,7 @@ describe('List Organization Controller', () => {
   beforeAll(async () => {
     connection = await createdConnection();
     await connection.runMigrations();
-    
+
     await connection.query(
       `INSERT INTO USER_TYPES(id, name, description, created_at, updated_at) 
       VALUES('${id}', 'User Type', 'xxxxxx', 'now()', 'now()')`,
@@ -43,7 +43,7 @@ describe('List Organization Controller', () => {
         email: 'admin@beeheroes.com',
         password: 'admin',
       });
-    
+
     const { refresh_token } = responseToken.body;
 
     await request(app).post('/organizations').send({
@@ -58,8 +58,7 @@ describe('List Organization Controller', () => {
 
     const response = await request(app).get('/organizations').set({
       Authorization: `Bearer ${refresh_token}`,
-    });;
-    
+    });
 
     expect(response.status).toBe(200);
     expect(response.body.length).toBe(1);

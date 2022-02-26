@@ -45,9 +45,9 @@ describe('Create Organization Controller', () => {
         password: 'admin',
       });
 
-     const token = responseToken.body.refresh_token;
+    const token = responseToken.body.refresh_token;
 
-     const response = await request(app).post('/organizations').send({
+    const response = await request(app).post('/organizations').send({
       name: 'Organization Name',
       email: 'organization@beeheroes.com',
       cnpj: '000000000000',
@@ -56,12 +56,12 @@ describe('Create Organization Controller', () => {
     }).set({
       Authorization: `Bearer ${token}`,
     });
-    
+
     expect(response.status).toBe(201);
   });
 
   it('should not be able to create a organization with email exist', async () => {
-     const responseToken = await request(app).post('/sessions')
+    const responseToken = await request(app).post('/sessions')
       .send({
         email: 'admin@beeheroes.com',
         password: 'admin',
@@ -81,4 +81,4 @@ describe('Create Organization Controller', () => {
 
     expect(response.status).toBe(400);
   });
-})
+});

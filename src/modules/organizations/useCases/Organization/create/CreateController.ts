@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+
 import { CreateOrganizationUseCase } from './CreateUseCase';
 
 class CreateOrganizationController {
@@ -9,7 +10,7 @@ class CreateOrganizationController {
       email,
       description,
       cnpj,
-      organization_type_id
+      organization_type_id,
     } = request.body;
 
     const createOrganizationUseCase = container.resolve(CreateOrganizationUseCase);
@@ -19,12 +20,11 @@ class CreateOrganizationController {
       email,
       description,
       cnpj,
-      organization_type_id
+      organization_type_id,
     });
-      
+
     return response.status(201).send(JSON.stringify(organization));
   }
 }
 
-export { CreateOrganizationController }
-
+export { CreateOrganizationController };

@@ -1,4 +1,5 @@
 import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory';
+
 import { ListUsersUseCase } from './ListUserUseCase';
 
 let listUsersUseCase: ListUsersUseCase;
@@ -20,6 +21,6 @@ describe('List Users', () => {
 
     const user = await listUsersUseCase.execute();
 
-    expect(user).toEqual([newUser])
+    expect(user).toEqual([newUser]);
   });
-})
+});

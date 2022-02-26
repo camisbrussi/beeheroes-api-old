@@ -7,4 +7,4 @@ interface IUserDTO {
   user_type_id?: string;
 }
 
-export { IUserDTO }
+export { IUserDTO };

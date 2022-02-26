@@ -1,11 +1,13 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn,
+} from 'typeorm';
 import { v4 as uuidV4 } from 'uuid';
 
 @Entity('user_types')
 class UserType {
   @PrimaryColumn()
   id:string;
-  
+
   @Column()
   name: string;
 
@@ -18,11 +20,11 @@ class UserType {
   @UpdateDateColumn()
   updated_at: Date;
 
-  constructor(){
-    if(!this.id) {
+  constructor() {
+    if (!this.id) {
       this.id = uuidV4();
     }
   }
 }
 
-export { UserType }
+export { UserType };

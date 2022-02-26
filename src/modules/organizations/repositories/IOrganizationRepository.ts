@@ -7,7 +7,7 @@ interface IOrganizationsRepository{
     email,
     description,
     cnpj,
-    organization_type_id
+    organization_type_id,
   }: IOrganizationDTO): Promise<Organization>;
   findByEmail(email: string): Promise<Organization>;
   findById(id: string): Promise<Organization>;
@@ -18,7 +18,7 @@ interface IOrganizationsRepository{
     email,
     description,
     cnpj,
-    organization_type_id
+    organization_type_id,
   }: IOrganizationDTO): Promise<Organization[]>;
   update({
     id,
@@ -26,8 +26,8 @@ interface IOrganizationsRepository{
     email,
     description,
     cnpj,
-    organization_type_id
+    organization_type_id,
   }: IOrganizationDTO): Promise<Organization>;
 }
 
-export { IOrganizationsRepository }
+export { IOrganizationsRepository };

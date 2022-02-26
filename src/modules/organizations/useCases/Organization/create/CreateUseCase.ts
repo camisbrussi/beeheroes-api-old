@@ -1,8 +1,8 @@
 import { inject, injectable } from 'tsyringe';
 
-import { AppError } from '@shared/errors/AppError';
-import { IOrganizationsRepository } from '@modules/organizations/repositories/IOrganizationRepository';
 import { Organization } from '@modules/organizations/infra/typeorm/entities/Organization';
+import { IOrganizationsRepository } from '@modules/organizations/repositories/IOrganizationRepository';
+import { AppError } from '@shared/errors/AppError';
 
 interface IRequest {
   name: string;
@@ -17,18 +17,18 @@ class CreateOrganizationUseCase {
   constructor(
     @inject('OrganizationsRepository')
     private organizationsRepository: IOrganizationsRepository,
-  ){}
+  ) {}
 
-  async execute({ 
+  async execute({
     name,
     email,
     description,
     cnpj,
-    organization_type_id
+    organization_type_id,
   }: IRequest): Promise<Organization> {
     const organizationAlreadyExists = await this.organizationsRepository.findByEmail(email);
 
-    if(organizationAlreadyExists) {
+    if (organizationAlreadyExists) {
       throw new AppError(`Organization ${email} already exists`);
     }
 
@@ -37,11 +37,11 @@ class CreateOrganizationUseCase {
       email,
       description,
       cnpj,
-      organization_type_id
+      organization_type_id,
     });
 
     return organization;
   }
 }
 
-export { CreateOrganizationUseCase }
+export { CreateOrganizationUseCase };

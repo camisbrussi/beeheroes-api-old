@@ -2,9 +2,10 @@ import { getRepository, Repository } from 'typeorm';
 
 import { IOrganizationTypeDTO } from '@modules/organizations/dtos/IOrganizationTypeDTO';
 import { IOrganizationTypesRepository } from '@modules/organizations/repositories/IOrganizationTypesRepository';
+
 import { OrganizationType } from '../entities/OrganizationType';
 
-class OrganizationTypesRepository implements IOrganizationTypesRepository{
+class OrganizationTypesRepository implements IOrganizationTypesRepository {
   private repository: Repository<OrganizationType>
 
   constructor() {
@@ -14,7 +15,7 @@ class OrganizationTypesRepository implements IOrganizationTypesRepository{
   async create({ name, description }: IOrganizationTypeDTO): Promise<OrganizationType> {
     const organizationType = this.repository.create({
       name,
-      description
+      description,
     });
     await this.repository.save(organizationType);
 
@@ -37,11 +38,10 @@ class OrganizationTypesRepository implements IOrganizationTypesRepository{
   }
 
   async update({ id, name, description }: IOrganizationTypeDTO): Promise<OrganizationType> {
-
     const setOrganizationType: IOrganizationTypeDTO = {};
 
-    if(name) setOrganizationType.name = name;
-    if(description) setOrganizationType.description = description;
+    if (name) setOrganizationType.name = name;
+    if (description) setOrganizationType.description = description;
 
     const organizationTypeEdited = await this.repository
       .createQueryBuilder()
@@ -51,12 +51,12 @@ class OrganizationTypesRepository implements IOrganizationTypesRepository{
       .setParameters({ id })
       .execute();
 
-      return organizationTypeEdited.raw;
+    return organizationTypeEdited.raw;
   }
 
-  async delete( id: string): Promise<void> {
+  async delete(id: string): Promise<void> {
     await this.repository.delete(id);
   }
 }
 
-export { OrganizationTypesRepository }
+export { OrganizationTypesRepository };

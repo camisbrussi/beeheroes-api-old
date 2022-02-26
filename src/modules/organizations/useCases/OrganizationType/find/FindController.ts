@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-import { FindOrganizationTypeUseCase } from './FindUseCase';
 
+import { FindOrganizationTypeUseCase } from './FindUseCase';
 
 class FindOrganizationTypeController {
   async handle(request: Request, response: Response): Promise<Response> {

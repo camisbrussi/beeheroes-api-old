@@ -1,4 +1,3 @@
-import { IUserDTO } from '@modules/accounts/dtos/IUserDTO';
 import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory';
 import { UsersTokensRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersTokensRepositoryInMemory';
 import { DayjsDateProvider } from '@shared/container/providers/DateProvider/implementations/DayjsDateProvider';
@@ -31,7 +30,7 @@ describe('Authentication User', () => {
       email: 'user@test.com',
       password: '1234',
       name: 'User test',
-      user_type_id: 'admin'
+      user_type_id: 'admin',
     };
     await createUserUseCase.execute(user);
 
@@ -52,7 +51,7 @@ describe('Authentication User', () => {
     };
 
     await createUserUseCase.execute(user);
-  
+
     await expect(authenticationUseCase.execute({
       email: 'false@email.com',
       password: user.password,

@@ -1,35 +1,35 @@
 import { inject, injectable } from 'tsyringe';
 
-import { AppError } from '@shared/errors/AppError';
-import { IUserTypesRepository } from '@modules/accounts/repositories/IUserTypesRepository';
 import { UserType } from '@modules/accounts/infra/typeorm/entities/UserTypes';
+import { IUserTypesRepository } from '@modules/accounts/repositories/IUserTypesRepository';
+import { AppError } from '@shared/errors/AppError';
 
-interface IRequest{ 
+interface IRequest{
   name: string,
   description?: string,
 }
 
 @injectable()
-class CreateUserTypeUseCase{
+class CreateUserTypeUseCase {
   constructor(
     @inject('UserTypesRepository')
-    private userTypeRepository: IUserTypesRepository
-  ){}
+    private userTypeRepository: IUserTypesRepository,
+  ) {}
 
   async execute({ name, description }: IRequest): Promise<UserType> {
     const userTypeExist = await this.userTypeRepository.findByName(name);
 
-    if(userTypeExist) {
-      throw new AppError("User type already exists!")
+    if (userTypeExist) {
+      throw new AppError('User type already exists!');
     }
 
     const userType = await this.userTypeRepository.create({
       name,
-      description
+      description,
     });
 
     return userType;
   }
 }
 
-export { CreateUserTypeUseCase }
+export { CreateUserTypeUseCase };

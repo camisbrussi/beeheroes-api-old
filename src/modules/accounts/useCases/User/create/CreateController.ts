@@ -9,22 +9,20 @@ class CreateUserController {
       name,
       email,
       password,
-      user_type_id
+      user_type_id,
     } = request.body;
-
 
     const createUserUseCase = container.resolve(CreateUserUseCase);
 
-   const user = await createUserUseCase.execute({
+    const user = await createUserUseCase.execute({
       name,
       email,
       password,
-      user_type_id
+      user_type_id,
     });
-    
+
     return response.status(201).send(JSON.stringify(user));
   }
 }
 
-export { CreateUserController }
-
+export { CreateUserController };

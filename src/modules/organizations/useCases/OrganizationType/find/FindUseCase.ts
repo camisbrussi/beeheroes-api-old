@@ -1,9 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 
-
-import { IOrganizationTypesRepository } from '@modules/organizations/repositories/IOrganizationTypesRepository';
 import { OrganizationType } from '@modules/organizations/infra/typeorm/entities/OrganizationType';
-
+import { IOrganizationTypesRepository } from '@modules/organizations/repositories/IOrganizationTypesRepository';
 
 @injectable()
 class FindOrganizationTypeUseCase {
@@ -13,7 +11,6 @@ class FindOrganizationTypeUseCase {
   ) { }
 
   async execute(id: string): Promise<OrganizationType> {
-
     const organizationsType = await this.organizationTypesRepository.findById(id);
 
     return organizationsType;

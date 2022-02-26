@@ -10,10 +10,10 @@ let connection: Connection;
 
 describe('Delete User Type Controller', () => {
   const id = uuidV4();
-  beforeAll(async() => {
+  beforeAll(async () => {
     connection = await createdConnection();
     await connection.runMigrations();
-    
+
     await connection.query(
       `INSERT INTO USER_TYPES(id, name, description, created_at, updated_at) 
       VALUES('${id}', 'User Type', 'xxxxxx', 'now()', 'now()')`,
@@ -32,12 +32,12 @@ describe('Delete User Type Controller', () => {
     await connection.close();
   });
 
-  it('should be able to delete a user type', async() => {
+  it('should be able to delete a user type', async () => {
     const responseToken = await request(app).post('/sessions')
       .send({
         email: 'admin@beeheroes.com',
         password: 'admin',
-    });
+      });
 
     const { refresh_token } = responseToken.body;
 
@@ -57,12 +57,12 @@ describe('Delete User Type Controller', () => {
     expect(response.status).toEqual(200);
   });
 
-  it('should not be able to delete a user type in use', async() => {
+  it('should not be able to delete a user type in use', async () => {
     const responseToken = await request(app).post('/sessions')
       .send({
         email: 'admin@beeheroes.com',
         password: 'admin',
-    });
+      });
 
     const { refresh_token } = responseToken.body;
 
@@ -72,4 +72,4 @@ describe('Delete User Type Controller', () => {
 
     expect(response.status).toEqual(400);
   });
-})
+});

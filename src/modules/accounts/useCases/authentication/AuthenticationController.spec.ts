@@ -9,7 +9,6 @@ import createdConnection from '@shared/infra/typeorm';
 let connection: Connection;
 
 describe('Authentication Controller', () => {
-
   let id;
   beforeAll(async () => {
     id = uuidV4();
@@ -24,7 +23,7 @@ describe('Authentication Controller', () => {
 
     const password = await hash('admin', 8);
 
-     await connection.query(
+    await connection.query(
       `INSERT INTO USERS(id, name, email, password, user_type_id, status, created_at, updated_at) 
       VALUES('${id}', 'Admin', 'admin@beeheroes.com', '${password}', '${id}', '1' , 'now()', 'now()')`,
     );
@@ -40,19 +39,18 @@ describe('Authentication Controller', () => {
       .send({
         email: 'admin@beeheroes.com',
         password: 'admin',
-    });
+      });
 
     expect(response.status).toBe(200);
   });
 
-    it('should not be able to authentication an user', async () => {
+  it('should not be able to authentication an user', async () => {
     const response = await request(app).post('/sessions')
       .send({
         email: 'admin@beeheroes.com',
         password: 'password incorret',
-    });
+      });
 
     expect(response.status).toBe(400);
   });
-
-})
+});

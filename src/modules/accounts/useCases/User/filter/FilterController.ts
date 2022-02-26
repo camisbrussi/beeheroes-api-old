@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { container } from 'tsyringe'
-import { FilterUserUseCase } from './FilterUseCase';
+import { container } from 'tsyringe';
 
+import { FilterUserUseCase } from './FilterUseCase';
 
 class FilterUserController {
   async handle(request: Request, response: Response): Promise<Response> {
@@ -10,7 +10,7 @@ class FilterUserController {
       email: request.body.email,
       status: request.body.status,
       user_type_id: request.body.user_type_id,
-    }
+    };
 
     const filterUserUseCase = container.resolve(FilterUserUseCase);
 

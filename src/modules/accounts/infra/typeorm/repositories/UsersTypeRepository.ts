@@ -1,9 +1,11 @@
+import { getRepository, Repository } from 'typeorm';
+
 import { IUserTypeDTO } from '@modules/accounts/dtos/IUserTypeDTO';
 import { IUserTypesRepository } from '@modules/accounts/repositories/IUserTypesRepository';
-import { getRepository, Repository } from 'typeorm';
+
 import { UserType } from '../entities/UserTypes';
 
-class UserTypesRepository implements IUserTypesRepository{
+class UserTypesRepository implements IUserTypesRepository {
   private repository: Repository<UserType>
 
   constructor() {
@@ -13,7 +15,7 @@ class UserTypesRepository implements IUserTypesRepository{
   async create({ name, description }: IUserTypeDTO): Promise<UserType> {
     const userType = this.repository.create({
       name,
-      description
+      description,
     });
     await this.repository.save(userType);
 
@@ -36,11 +38,10 @@ class UserTypesRepository implements IUserTypesRepository{
   }
 
   async update({ id, name, description }: IUserTypeDTO): Promise<UserType> {
-
     const setUserType: IUserTypeDTO = {};
 
-    if(name) setUserType.name = name;
-    if(description) setUserType.description = description;
+    if (name) setUserType.name = name;
+    if (description) setUserType.description = description;
 
     const userTypeEdited = await this.repository
       .createQueryBuilder()
@@ -50,12 +51,12 @@ class UserTypesRepository implements IUserTypesRepository{
       .setParameters({ id })
       .execute();
 
-      return userTypeEdited.raw;
+    return userTypeEdited.raw;
   }
 
-  async delete( id: string): Promise<void> {
+  async delete(id: string): Promise<void> {
     await this.repository.delete(id);
   }
 }
 
-export { UserTypesRepository }
+export { UserTypesRepository };

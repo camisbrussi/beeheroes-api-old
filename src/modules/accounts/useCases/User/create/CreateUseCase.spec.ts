@@ -1,7 +1,7 @@
 import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory';
 import { AppError } from '@shared/errors/AppError';
-import { CreateUserUseCase } from './CreateUseCase';
 
+import { CreateUserUseCase } from './CreateUseCase';
 
 let createUserUseCase: CreateUserUseCase;
 let usersRepositoryInMemory: UsersRepositoryInMemory;
@@ -11,14 +11,13 @@ beforeEach(() => {
   createUserUseCase = new CreateUserUseCase(usersRepositoryInMemory);
 });
 
-
 describe('Create User ', () => {
-  it('should be able to create a new user ', async() => {
+  it('should be able to create a new user ', async () => {
     const user = {
       name: 'Admin',
       email: 'admin@beeheroes.com',
       password: '123456',
-      user_type_id: 'admin'
+      user_type_id: 'admin',
     };
 
     await createUserUseCase.execute(user);
@@ -32,7 +31,7 @@ describe('Create User ', () => {
       name: 'Name test',
       email: 'teste@beeheroes.com',
       password: '123456',
-      user_type_id: 'admin'
+      user_type_id: 'admin',
     };
 
     await createUserUseCase.execute({
@@ -44,22 +43,22 @@ describe('Create User ', () => {
 
     await expect(
       createUserUseCase.execute({
-      name: user.name,
-      email: user.email,
-      password: user.password,
-      user_type_id: 'admin'
-    }),
+        name: user.name,
+        email: user.email,
+        password: user.password,
+        user_type_id: 'admin',
+      }),
     ).rejects.toEqual(new AppError(`User ${user.email} already exists`));
   });
 
-  it('should not be able to create a user  with status active by default', async () =>{
-     const user = await createUserUseCase.execute({
+  it('should not be able to create a user  with status active by default', async () => {
+    const user = await createUserUseCase.execute({
       name: 'Admin',
       email: 'admin@beeheroes.com',
       password: '123456',
-      user_type_id: 'admin'
+      user_type_id: 'admin',
     });
 
     expect(user.status).toBe(Number(process.env.USER_STATUS_ACTIVE));
-  })
-})
+  });
+});

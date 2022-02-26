@@ -1,11 +1,12 @@
-
-
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, UpdateDateColumn,
+} from 'typeorm';
 import { v4 as uuidV4 } from 'uuid';
+
 import { UserType } from './UserTypes';
 
 @Entity('users')
-class User{
+class User {
   @PrimaryColumn()
   id: string;
 
@@ -35,7 +36,7 @@ class User{
   updated_at: Date;
 
   constructor() {
-    if(!this.id){
+    if (!this.id) {
       this.id = uuidV4();
       this.status = Number(process.env.USER_STATUS_ACTIVE);
     }

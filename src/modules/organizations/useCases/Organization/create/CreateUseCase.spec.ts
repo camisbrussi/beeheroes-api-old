@@ -1,7 +1,7 @@
 import { OrganizationsRepositoryInMemory } from '@modules/organizations/repositories/in-memory/OrganizationRepositoryInMemory';
 import { AppError } from '@shared/errors/AppError';
-import { CreateOrganizationUseCase } from './CreateUseCase';
 
+import { CreateOrganizationUseCase } from './CreateUseCase';
 
 let createOrganizationUseCase: CreateOrganizationUseCase;
 let organizationsRepositoryInMemory: OrganizationsRepositoryInMemory;
@@ -11,9 +11,8 @@ beforeEach(() => {
   createOrganizationUseCase = new CreateOrganizationUseCase(organizationsRepositoryInMemory);
 });
 
-
 describe('Create Organization ', () => {
-  it('should be able to create a new organization ', async() => {
+  it('should be able to create a new organization ', async () => {
     const organization = {
       name: 'Organization Name',
       email: 'organization@beeheroes.com',
@@ -24,7 +23,9 @@ describe('Create Organization ', () => {
 
     await createOrganizationUseCase.execute(organization);
 
-    const organizationCreated = await organizationsRepositoryInMemory.findByEmail(organization.email);
+    const organizationCreated = await organizationsRepositoryInMemory
+      .findByEmail(organization.email);
+
     expect(organizationCreated).toHaveProperty('id');
   });
 
@@ -47,17 +48,17 @@ describe('Create Organization ', () => {
 
     await expect(
       createOrganizationUseCase.execute({
-      name: 'Organization Name',
-      email: 'organization@beeheroes.com',
-      cnpj: '000000000000',
-      description: 'Description Organization',
-      organization_type_id: 'id',
-    }),
+        name: 'Organization Name',
+        email: 'organization@beeheroes.com',
+        cnpj: '000000000000',
+        description: 'Description Organization',
+        organization_type_id: 'id',
+      }),
     ).rejects.toEqual(new AppError(`Organization ${organization.email} already exists`));
   });
 
-  it('should not be able to create a organization truetruewith status await by default', async () =>{
-     const organization = await createOrganizationUseCase.execute({
+  it('should not be able to create a organization truetruewith status await by default', async () => {
+    const organization = await createOrganizationUseCase.execute({
       name: 'Organization Name',
       email: 'organization@beeheroes.com',
       cnpj: '000000000000',
@@ -66,5 +67,5 @@ describe('Create Organization ', () => {
     });
 
     expect(organization.status).toBe(Number(process.env.ORGANIZATION_STATUS_AWAIT));
-  })
-})
+  });
+});

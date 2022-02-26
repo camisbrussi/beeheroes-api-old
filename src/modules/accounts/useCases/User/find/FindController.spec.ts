@@ -10,10 +10,10 @@ let connection: Connection;
 
 describe('Find User Controller', () => {
   const id = uuidV4();
-  beforeAll(async() => {
+  beforeAll(async () => {
     connection = await createdConnection();
     await connection.runMigrations();
-    
+
     await connection.query(
       `INSERT INTO USER_TYPES(id, name, description, created_at, updated_at) 
       VALUES('${id}', 'User Type', 'xxxxxx', 'now()', 'now()')`,
@@ -32,12 +32,12 @@ describe('Find User Controller', () => {
     await connection.close();
   });
 
-  it('should be able to find a user', async() => {
+  it('should be able to find a user', async () => {
     const responseToken = await request(app).post('/sessions')
       .send({
         email: 'admin@beeheroes.com',
         password: 'admin',
-    });
+      });
 
     const { refresh_token } = responseToken.body;
     const { email } = responseToken.body.user;
@@ -50,4 +50,4 @@ describe('Find User Controller', () => {
     expect(response.body).toHaveProperty('id');
     expect(response.body.name).toEqual('Admin');
   });
-})
+});

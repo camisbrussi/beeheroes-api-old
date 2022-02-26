@@ -1,6 +1,6 @@
 import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory';
-import { UserTypeRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UserTypesRepositoryInMemory';
 import { AppError } from '@shared/errors/AppError';
+
 import { CreateUserUseCase } from '../create/CreateUseCase';
 import { UpdateUserUseCase } from './UpdateUseCase';
 
@@ -15,19 +15,19 @@ describe('Update Type User', () => {
     updateUseCase = new UpdateUserUseCase(usersRepositoryInMemory);
   });
 
-  it("should be able to edit a user", async () => {
+  it('should be able to edit a user', async () => {
     const user = await createUserUseCase.execute({
-       name: 'Admin',
-       email: 'admin@beeheroes.com',
-       password: '123456',
-       user_type_id: 'admin'
+      name: 'Admin',
+      email: 'admin@beeheroes.com',
+      password: '123456',
+      user_type_id: 'admin',
     });
 
     const userEdit = {
       id: user.id,
       name: 'Admin editado',
       email: 'editado@beeheroes.com',
-    }
+    };
 
     await updateUseCase.execute(userEdit);
 
@@ -37,18 +37,18 @@ describe('Update Type User', () => {
     expect(userEdited.email).toEqual(userEdit.email);
   });
 
-  it("should be able to edit a user name", async () => {
+  it('should be able to edit a user name', async () => {
     const user = await createUserUseCase.execute({
-       name: 'Admin',
-       email: 'admin@beeheroes.com',
-       password: '123456',
-       user_type_id: 'admin'
+      name: 'Admin',
+      email: 'admin@beeheroes.com',
+      password: '123456',
+      user_type_id: 'admin',
     });
 
     const userEdit = {
       id: user.id,
-      name: "User name editado",
-    }
+      name: 'User name editado',
+    };
 
     await updateUseCase.execute(userEdit);
 
@@ -58,22 +58,20 @@ describe('Update Type User', () => {
     expect(userEdited.email).toEqual(user.email);
   });
 
-  it("should not be able to edit a user with exists email", async () => {
-
-    await expect(async() => {
+  it('should not be able to edit a user with exists email', async () => {
+    await expect(async () => {
       const user = await createUserUseCase.execute({
-       name: 'Admin',
-       email: 'admin1@beeheroes.com',
-       password: '123456',
-       user_type_id: 'admin'
-    });
+        name: 'Admin',
+        email: 'admin1@beeheroes.com',
+        password: '123456',
+        user_type_id: 'admin',
+      });
 
-    const userEdit = {
-      id: user.id,
-      email: 'admin1@beeheroes.com',
-    }
-     await updateUseCase.execute(userEdit);
-
+      const userEdit = {
+        id: user.id,
+        email: 'admin1@beeheroes.com',
+      };
+      await updateUseCase.execute(userEdit);
     }).rejects.toEqual(new AppError('User already exists!'));
   });
-})
+});

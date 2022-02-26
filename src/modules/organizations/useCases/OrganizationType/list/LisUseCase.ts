@@ -1,7 +1,7 @@
-import { OrganizationType } from '@modules/organizations/infra/typeorm/entities/OrganizationType';
-import { IOrganizationTypesRepository } from '@modules/organizations/repositories/IOrganizationTypesRepository';
 import { inject, injectable } from 'tsyringe';
 
+import { OrganizationType } from '@modules/organizations/infra/typeorm/entities/OrganizationType';
+import { IOrganizationTypesRepository } from '@modules/organizations/repositories/IOrganizationTypesRepository';
 
 @injectable()
 class ListOrganizationTypesUseCase {

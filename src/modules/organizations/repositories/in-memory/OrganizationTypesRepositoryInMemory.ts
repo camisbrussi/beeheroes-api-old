@@ -1,34 +1,36 @@
 import { IOrganizationTypeDTO } from '@modules/organizations/dtos/IOrganizationTypeDTO';
 import { OrganizationType } from '@modules/organizations/infra/typeorm/entities/OrganizationType';
-import { IOrganizationTypesRepository } from '../IOrganizationTypesRepository';
 
+import { IOrganizationTypesRepository } from '../IOrganizationTypesRepository';
 
 class OrganizationTypeRepositoryInMemory implements IOrganizationTypesRepository {
   organizationTypes: OrganizationType[] = [];
 
   async create({
     name,
-    description
+    description,
   }: IOrganizationTypeDTO): Promise<OrganizationType> {
     const organizationTypes = new OrganizationType();
-    
+
     const organizationType = Object.assign(organizationTypes, {
       name,
-      description
+      description,
     });
 
-    this.organizationTypes.push( organizationTypes );
+    this.organizationTypes.push(organizationTypes);
 
     return organizationType;
   }
 
   async findByName(name: string): Promise<OrganizationType> {
-    const organizationType = this.organizationTypes.find((organizationType) => organizationType.name === name);
+    const organizationType = this.organizationTypes
+      .find((organizationType) => organizationType.name === name);
     return organizationType;
   }
 
   async findById(id: string): Promise<OrganizationType> {
-    const organizationType = this.organizationTypes.find((organizationType) => organizationType.id === id);
+    const organizationType = this.organizationTypes
+      .find((organizationType) => organizationType.id === id);
     return organizationType;
   }
 
@@ -38,10 +40,11 @@ class OrganizationTypeRepositoryInMemory implements IOrganizationTypesRepository
   }
 
   async update({ id, name, description }: IOrganizationTypeDTO): Promise<OrganizationType> {
-    const findIndex = this.organizationTypes.findIndex((organizationType) => organizationType.id === id);
+    const findIndex = this.organizationTypes
+      .findIndex((organizationType) => organizationType.id === id);
 
-    if(description) this.organizationTypes[findIndex].description = description;
-    if(name) this.organizationTypes[findIndex].name = name;
+    if (description) this.organizationTypes[findIndex].description = description;
+    if (name) this.organizationTypes[findIndex].name = name;
 
     return this.organizationTypes[findIndex];
   }
@@ -52,4 +55,4 @@ class OrganizationTypeRepositoryInMemory implements IOrganizationTypesRepository
   }
 }
 
-export { OrganizationTypeRepositoryInMemory }
+export { OrganizationTypeRepositoryInMemory };

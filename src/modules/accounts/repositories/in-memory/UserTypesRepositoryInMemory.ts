@@ -1,5 +1,6 @@
 import { IUserTypeDTO } from '@modules/accounts/dtos/IUserTypeDTO';
 import { UserType } from '@modules/accounts/infra/typeorm/entities/UserTypes';
+
 import { IUserTypesRepository } from '../IUserTypesRepository';
 
 class UserTypeRepositoryInMemory implements IUserTypesRepository {
@@ -7,16 +8,16 @@ class UserTypeRepositoryInMemory implements IUserTypesRepository {
 
   async create({
     name,
-    description
+    description,
   }: IUserTypeDTO): Promise<UserType> {
     const userTypes = new UserType();
-    
+
     const userType = Object.assign(userTypes, {
       name,
-      description
+      description,
     });
 
-    this.userTypes.push( userTypes );
+    this.userTypes.push(userTypes);
 
     return userType;
   }
@@ -39,8 +40,8 @@ class UserTypeRepositoryInMemory implements IUserTypesRepository {
   async update({ id, name, description }: IUserTypeDTO): Promise<UserType> {
     const findIndex = this.userTypes.findIndex((userType) => userType.id === id);
 
-    if(description) this.userTypes[findIndex].description = description;
-    if(name) this.userTypes[findIndex].name = name;
+    if (description) this.userTypes[findIndex].description = description;
+    if (name) this.userTypes[findIndex].name = name;
 
     return this.userTypes[findIndex];
   }
@@ -51,4 +52,4 @@ class UserTypeRepositoryInMemory implements IUserTypesRepository {
   }
 }
 
-export { UserTypeRepositoryInMemory }
+export { UserTypeRepositoryInMemory };

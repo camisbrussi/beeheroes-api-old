@@ -9,11 +9,11 @@ import createdConnection from '@shared/infra/typeorm';
 let connection: Connection;
 
 describe('Find Organization Type Controller', () => {
-  beforeAll(async() => {
+  beforeAll(async () => {
     connection = await createdConnection();
     await connection.runMigrations();
     const id = uuidV4();
-    
+
     await connection.query(
       `INSERT INTO USER_TYPES(id, name, description, created_at, updated_at) 
       VALUES('${id}', 'Organization Type', 'xxxxxx', 'now()', 'now()')`,
@@ -32,16 +32,16 @@ describe('Find Organization Type Controller', () => {
     await connection.close();
   });
 
-  it('should be able to find a organization type by id', async() => {
+  it('should be able to find a organization type by id', async () => {
     const responseToken = await request(app).post('/sessions')
       .send({
         email: 'admin@beeheroes.com',
         password: 'admin',
-    });
+      });
 
     const { refresh_token } = responseToken.body;
 
-    const responseType = await request(app).post('/organizationtypes').send({ 
+    const responseType = await request(app).post('/organizationtypes').send({
       name: 'Organization Type Supertest',
       description: 'Organization Type Supertest',
     }).set({
@@ -58,4 +58,4 @@ describe('Find Organization Type Controller', () => {
     expect(response.body).toHaveProperty('id');
     expect(response.body.name).toEqual('Organization Type Supertest');
   });
-})
+});

@@ -1,14 +1,15 @@
+import { getRepository, Repository } from 'typeorm';
+
 import { IOrganizationDTO } from '@modules/organizations/dtos/IOrganizationDTO';
 import { IOrganizationsRepository } from '@modules/organizations/repositories/IOrganizationRepository';
-import { getRepository, Repository } from 'typeorm';
-import { Organization } from '../entities/Organization';
 
+import { Organization } from '../entities/Organization';
 
 class OrganizationsRepository implements IOrganizationsRepository {
   private repository: Repository<Organization>
 
   constructor() {
-    this.repository = getRepository(Organization)
+    this.repository = getRepository(Organization);
   }
 
   async create({
@@ -18,12 +19,12 @@ class OrganizationsRepository implements IOrganizationsRepository {
     cnpj,
     organization_type_id,
   }: IOrganizationDTO): Promise<Organization> {
-    const organization = this.repository.create({ 
+    const organization = this.repository.create({
       name,
       email,
       description,
       cnpj,
-      organization_type_id
+      organization_type_id,
     });
 
     await this.repository.save(organization);
@@ -55,8 +56,8 @@ class OrganizationsRepository implements IOrganizationsRepository {
   }
 
   async filter({
-    name, 
-    email, 
+    name,
+    email,
     status,
     organization_type_id,
     cnpj,
@@ -77,7 +78,7 @@ class OrganizationsRepository implements IOrganizationsRepository {
       organizationsQuery.andWhere('status = :status', { status });
     }
 
-     if (cnpj) {
+    if (cnpj) {
       organizationsQuery.andWhere('cnpj = :cnpj', { cnpj });
     }
 
@@ -97,16 +98,16 @@ class OrganizationsRepository implements IOrganizationsRepository {
     description,
     cnpj,
     status,
-    organization_type_id
+    organization_type_id,
   }: IOrganizationDTO): Promise<Organization> {
-     const setOrganization: IOrganizationDTO = { };
+    const setOrganization: IOrganizationDTO = { };
 
-    if(name) setOrganization.name = name;
-    if(email) setOrganization.email = email;
-    if(description) setOrganization.email = description;
-    if(cnpj) setOrganization.email = cnpj;
-    if(status) setOrganization.status = status;
-    if(organization_type_id) setOrganization.organization_type_id = organization_type_id;
+    if (name) setOrganization.name = name;
+    if (email) setOrganization.email = email;
+    if (description) setOrganization.email = description;
+    if (cnpj) setOrganization.email = cnpj;
+    if (status) setOrganization.status = status;
+    if (organization_type_id) setOrganization.organization_type_id = organization_type_id;
 
     const organizationTypeEdited = await this.repository
       .createQueryBuilder()
@@ -116,7 +117,7 @@ class OrganizationsRepository implements IOrganizationsRepository {
       .setParameters({ id })
       .execute();
 
-      return organizationTypeEdited.raw;
+    return organizationTypeEdited.raw;
   }
 }
 

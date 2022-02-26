@@ -4,4 +4,4 @@ interface IUserTypeDTO {
   description?: string;
 }
 
-export { IUserTypeDTO }
+export { IUserTypeDTO };

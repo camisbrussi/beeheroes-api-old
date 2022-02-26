@@ -1,13 +1,15 @@
+import { getRepository, Repository } from 'typeorm';
+
 import { IUserDTO } from '@modules/accounts/dtos/IUserDTO';
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
-import { getRepository, Repository } from 'typeorm';
+
 import { User } from '../entities/User';
 
 class UsersRepository implements IUsersRepository {
   private repository: Repository<User>
 
   constructor() {
-    this.repository = getRepository(User)
+    this.repository = getRepository(User);
   }
 
   async create({
@@ -16,7 +18,7 @@ class UsersRepository implements IUsersRepository {
     password,
     user_type_id,
   }: IUserDTO): Promise<User> {
-    const user = this.repository.create({ 
+    const user = this.repository.create({
       name,
       email,
       password,
@@ -52,7 +54,7 @@ class UsersRepository implements IUsersRepository {
   }
 
   async filter({
-    name, email, status, user_type_id
+    name, email, status, user_type_id,
   }: IUserDTO): Promise<User[]> {
     const usersQuery = await this.repository
       .createQueryBuilder('u')
@@ -81,19 +83,19 @@ class UsersRepository implements IUsersRepository {
 
   async update({
     id,
-    name, 
-    email, 
-    password, 
+    name,
+    email,
+    password,
     user_type_id,
     status,
   }: IUserDTO): Promise<User> {
-     const setUser: IUserDTO = { };
+    const setUser: IUserDTO = { };
 
-    if(name) setUser.name = name;
-    if(email) setUser.email = email;
-    if(password) setUser.password = password;
-    if(status) setUser.status = status;
-    if(user_type_id) setUser.user_type_id = user_type_id;
+    if (name) setUser.name = name;
+    if (email) setUser.email = email;
+    if (password) setUser.password = password;
+    if (status) setUser.status = status;
+    if (user_type_id) setUser.user_type_id = user_type_id;
 
     const userTypeEdited = await this.repository
       .createQueryBuilder()
@@ -103,7 +105,7 @@ class UsersRepository implements IUsersRepository {
       .setParameters({ id })
       .execute();
 
-      return userTypeEdited.raw;
+    return userTypeEdited.raw;
   }
 }
 

@@ -1,6 +1,6 @@
 import { UserTypeRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UserTypesRepositoryInMemory';
-import { ListUserTypesUseCase } from './LisUseCase'
 
+import { ListUserTypesUseCase } from './LisUseCase';
 
 let listUsersTypeUseCase: ListUserTypesUseCase;
 let userTypesRepositoryInMemory: UserTypeRepositoryInMemory;
@@ -19,6 +19,6 @@ describe('List Users Type', () => {
 
     const userTypes = await listUsersTypeUseCase.execute();
 
-    expect(userTypes).toEqual([userType])
+    expect(userTypes).toEqual([userType]);
   });
-})
+});

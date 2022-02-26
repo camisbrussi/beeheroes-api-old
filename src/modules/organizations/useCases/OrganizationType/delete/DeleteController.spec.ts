@@ -10,10 +10,10 @@ let connection: Connection;
 
 describe('Delete Organization Type Controller', () => {
   const id = uuidV4();
-  beforeAll(async() => {
+  beforeAll(async () => {
     connection = await createdConnection();
     await connection.runMigrations();
-    
+
     await connection.query(
       `INSERT INTO USER_TYPES(id, name, description, created_at, updated_at) 
       VALUES('${id}', 'Organization Type', 'xxxxxx', 'now()', 'now()')`,
@@ -25,7 +25,7 @@ describe('Delete Organization Type Controller', () => {
       `INSERT INTO USERS(id, name, email, password, user_type_id, status, created_at, updated_at) 
       VALUES('${id}', 'Admin', 'admin@beeheroes.com', '${password}', '${id}', '1', 'now()', 'now()')`,
     );
-     
+
     await connection.query(
       `INSERT INTO ORGANIZATION_TYPES(id, name, description, created_at, updated_at) 
       VALUES('${id}', 'Organization Type', 'xxxxxx', 'now()', 'now()')`,
@@ -37,12 +37,12 @@ describe('Delete Organization Type Controller', () => {
     await connection.close();
   });
 
-  it('should be able to delete a organization type', async() => {
+  it('should be able to delete a organization type', async () => {
     const responseToken = await request(app).post('/sessions')
       .send({
         email: 'admin@beeheroes.com',
         password: 'admin',
-    });
+      });
 
     const { refresh_token } = responseToken.body;
 
@@ -62,16 +62,16 @@ describe('Delete Organization Type Controller', () => {
     expect(response.status).toEqual(200);
   });
 
-  it('should not be able to delete a organization type in use', async() => {
+  it('should not be able to delete a organization type in use', async () => {
     const responseToken = await request(app).post('/sessions')
       .send({
         email: 'admin@beeheroes.com',
         password: 'admin',
-    });
+      });
 
     const { refresh_token } = responseToken.body;
 
-     await request(app).post('/organizations').send({
+    await request(app).post('/organizations').send({
       name: 'Organization Name',
       email: 'organization@beeheroes.com',
       cnpj: '000000000000',
@@ -87,4 +87,4 @@ describe('Delete Organization Type Controller', () => {
 
     expect(response.status).toEqual(400);
   });
-})
+});

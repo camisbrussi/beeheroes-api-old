@@ -10,10 +10,10 @@ let connection: Connection;
 
 describe('Find User Type Controller', () => {
   const id = uuidV4();
-  beforeAll(async() => {
+  beforeAll(async () => {
     connection = await createdConnection();
     await connection.runMigrations();
-    
+
     await connection.query(
       `INSERT INTO USER_TYPES(id, name, description, created_at, updated_at) 
       VALUES('${id}', 'User Type', 'xxxxxx', 'now()', 'now()')`,
@@ -32,16 +32,16 @@ describe('Find User Type Controller', () => {
     await connection.close();
   });
 
-  it('should be able to find a user type by id', async() => {
+  it('should be able to find a user type by id', async () => {
     const responseToken = await request(app).post('/sessions')
       .send({
         email: 'admin@beeheroes.com',
         password: 'admin',
-    });
+      });
 
     const { refresh_token } = responseToken.body;
 
-    await request(app).post('/usertypes').send({ 
+    await request(app).post('/usertypes').send({
       name: 'User Type Supertest',
       description: 'User Type Supertest',
     }).set({
@@ -56,4 +56,4 @@ describe('Find User Type Controller', () => {
     expect(response.body).toHaveProperty('id');
     expect(response.body.name).toEqual('User Type');
   });
-})
+});

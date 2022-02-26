@@ -1,5 +1,5 @@
-
 import { OrganizationsRepositoryInMemory } from '@modules/organizations/repositories/in-memory/OrganizationRepositoryInMemory';
+
 import { ListOrganizationsUseCase } from './ListUseCase';
 
 let listOrganizationsUseCase: ListOrganizationsUseCase;
@@ -22,6 +22,6 @@ describe('List Organization', () => {
 
     const organization = await listOrganizationsUseCase.execute();
 
-    expect(organization).toEqual([newOrganization])
+    expect(organization).toEqual([newOrganization]);
   });
-})
+});

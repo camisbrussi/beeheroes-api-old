@@ -10,10 +10,10 @@ let connection: Connection;
 
 describe('Filer Organization Controller', () => {
   const id = uuidV4();
-  beforeAll(async() => {
+  beforeAll(async () => {
     connection = await createdConnection();
     await connection.runMigrations();
-    
+
     await connection.query(
       `INSERT INTO USER_TYPES(id, name, description, created_at, updated_at) 
       VALUES('${id}', 'User Type', 'xxxxxx', 'now()', 'now()')`,
@@ -37,16 +37,16 @@ describe('Filer Organization Controller', () => {
     await connection.close();
   });
 
-  it('should be able to filter a organization for name', async() => {
+  it('should be able to filter a organization for name', async () => {
     const responseToken = await request(app).post('/sessions')
       .send({
         email: 'admin@beeheroes.com',
         password: 'admin',
-    });
+      });
 
     const { refresh_token } = responseToken.body;
 
-    await request(app).post(`/organizations`).send({
+    await request(app).post('/organizations').send({
       name: 'Organization Name',
       email: 'organization@beeheroes.com',
       cnpj: '000000000000',
@@ -56,7 +56,7 @@ describe('Filer Organization Controller', () => {
       Authorization: `Bearer ${refresh_token}`,
     });
 
-    await request(app).post(`/organizations`).send({
+    await request(app).post('/organizations').send({
       name: 'Organization Name',
       email: 'organization2@beeheroes.com',
       cnpj: '000000000000',
@@ -66,9 +66,8 @@ describe('Filer Organization Controller', () => {
       Authorization: `Bearer ${refresh_token}`,
     });
 
-
-    const response = await request(app).get(`/organizations/filter`).send({
-      name: "Organization"
+    const response = await request(app).get('/organizations/filter').send({
+      name: 'Organization',
     }).set({
       Authorization: `Bearer ${refresh_token}`,
     });
@@ -78,22 +77,22 @@ describe('Filer Organization Controller', () => {
     expect(response.body.length).toEqual(2);
   });
 
-    it('should be able to filter a organization for name and organization type', async() => {
+  it('should be able to filter a organization for name and organization type', async () => {
     const responseToken = await request(app).post('/sessions')
       .send({
         email: 'admin@beeheroes.com',
         password: 'admin',
-    });
+      });
 
     const { refresh_token } = responseToken.body;
 
-    const response = await request(app).get(`/organizations/filter`).send({
-      name: "Organization Name",
-      organization_type_id: id
+    const response = await request(app).get('/organizations/filter').send({
+      name: 'Organization Name',
+      organization_type_id: id,
     }).set({
       Authorization: `Bearer ${refresh_token}`,
     });
 
     expect(response.body.length).toEqual(2);
   });
-})
+});

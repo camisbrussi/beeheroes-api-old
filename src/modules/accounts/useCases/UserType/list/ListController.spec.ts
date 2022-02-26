@@ -14,7 +14,7 @@ describe('List User Type Controller', () => {
     await connection.runMigrations();
 
     const id = uuidV4();
-    
+
     await connection.query(
       `INSERT INTO USER_TYPES(id, name, description, created_at, updated_at) 
       VALUES('${id}', 'User Type', 'xxxxxx', 'now()', 'now()')`,
@@ -43,7 +43,7 @@ describe('List User Type Controller', () => {
 
     const response = await request(app).get('/usertypes').set({
       Authorization: `Bearer ${refresh_token}`,
-    });;
+    });
 
     expect(response.status).toBe(200);
     expect(response.body.length).toBe(1);

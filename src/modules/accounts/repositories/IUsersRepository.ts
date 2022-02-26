@@ -6,7 +6,7 @@ interface IUsersRepository{
     name,
     email,
     status,
-    user_type_id
+    user_type_id,
   }: IUserDTO): Promise<User>;
   findByEmail(email: string): Promise<User>;
   findById(id: string): Promise<User>;
@@ -16,7 +16,7 @@ interface IUsersRepository{
     name,
     email,
     status,
-    user_type_id
+    user_type_id,
   }: IUserDTO): Promise<User[]>;
   update({
     id,
@@ -24,8 +24,8 @@ interface IUsersRepository{
     email,
     status,
     user_type_id,
-    password
+    password,
   }: IUserDTO): Promise<User>;
 }
 
-export { IUsersRepository }
+export { IUsersRepository };

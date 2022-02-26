@@ -9,7 +9,7 @@ import createdConnection from '@shared/infra/typeorm';
 let connection: Connection;
 
 describe('Update Organization Type Controller', () => {
-  beforeAll(async() => {
+  beforeAll(async () => {
     connection = await createdConnection();
     await connection.runMigrations();
     const id = uuidV4();
@@ -32,12 +32,12 @@ describe('Update Organization Type Controller', () => {
     await connection.close();
   });
 
-  it('should be able to edit a organization type', async() => {
+  it('should be able to edit a organization type', async () => {
     const responseToken = await request(app).post('/sessions')
       .send({
         email: 'admin@beeheroes.com',
         password: 'admin',
-    });
+      });
 
     const { refresh_token } = responseToken.body;
 
@@ -64,4 +64,4 @@ describe('Update Organization Type Controller', () => {
     expect(response.body[0].name).toEqual('Organization Type Edit test 1');
     expect(response.body[0].description).toEqual('Organization Type description Edit test 1');
   });
-})
+});

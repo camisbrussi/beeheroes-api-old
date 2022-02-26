@@ -1,9 +1,9 @@
 import { inject, injectable } from 'tsyringe';
 
-import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
-import { User } from '@modules/accounts/infra/typeorm/entities/User';
-import { AppError } from '@shared/errors/AppError';
 import { IUserDTO } from '@modules/accounts/dtos/IUserDTO';
+import { User } from '@modules/accounts/infra/typeorm/entities/User';
+import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
+import { AppError } from '@shared/errors/AppError';
 
 @injectable()
 class FilterUserUseCase {
@@ -13,23 +13,22 @@ class FilterUserUseCase {
   ) { }
 
   async execute({
-    name, 
-    password, 
-    email, 
-    user_type_id, 
-    status
+    name,
+    password,
+    email,
+    user_type_id,
+    status,
   }: IUserDTO): Promise<User[]> {
-
     const users = await this.usersRepository.filter({
-      name, 
-      password, 
-      email, 
-      user_type_id, 
-      status
+      name,
+      password,
+      email,
+      user_type_id,
+      status,
     });
 
-    if(!users){
-      throw new AppError('User does not exist')
+    if (!users) {
+      throw new AppError('User does not exist');
     }
 
     return users;

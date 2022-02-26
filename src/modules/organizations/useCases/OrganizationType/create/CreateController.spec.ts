@@ -9,11 +9,11 @@ import createdConnection from '@shared/infra/typeorm';
 let connection: Connection;
 
 describe('Create Organization Type Controller', () => {
-  beforeAll(async() => {
+  beforeAll(async () => {
     const id = uuidV4();
     connection = await createdConnection();
     await connection.runMigrations();
-    
+
     await connection.query(
       `INSERT INTO USER_TYPES(id, name, description, created_at, updated_at) 
       VALUES('${id}', 'User Type', 'xxxxxx', 'now()', 'now()')`,
@@ -32,22 +32,22 @@ describe('Create Organization Type Controller', () => {
     await connection.close();
   });
 
-  it('should be able to create a new organization type', async() => {
+  it('should be able to create a new organization type', async () => {
     const responseToken = await request(app).post('/sessions')
       .send({
         email: 'admin@beeheroes.com',
         password: 'admin',
-    });
+      });
 
     const { refresh_token } = responseToken.body;
 
-    const response = await request(app).post('/organizationtypes').send({ 
+    const response = await request(app).post('/organizationtypes').send({
       name: 'Organization Type Supertest',
       description: 'Organization Type Supertest',
     }).set({
       Authorization: `Bearer ${refresh_token}`,
     });
-    
+
     expect(response.status).toBe(201);
   });
 
@@ -56,7 +56,7 @@ describe('Create Organization Type Controller', () => {
       .send({
         email: 'admin@beeheroes.com',
         password: 'admin',
-    });
+      });
 
     const { refresh_token } = responseToken.body;
     const response = await request(app).post('/organizationtypes').send({
