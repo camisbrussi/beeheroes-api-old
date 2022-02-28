@@ -10,6 +10,7 @@ interface IUsersRepository{
   }: IUserDTO): Promise<User>;
   findByEmail(email: string): Promise<User>;
   findById(id: string): Promise<User>;
+  findByIds(ids: string[]): Promise<User[]>
   listUsersByUserType(user_type_id: string): Promise<User[]>;
   list(): Promise<User[]>
   filter({

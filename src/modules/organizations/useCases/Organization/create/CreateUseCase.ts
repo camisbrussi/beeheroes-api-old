@@ -1,5 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 
+import { User } from '@modules/accounts/infra/typeorm/entities/User';
 import { Organization } from '@modules/organizations/infra/typeorm/entities/Organization';
 import { IOrganizationsRepository } from '@modules/organizations/repositories/IOrganizationRepository';
 import { AppError } from '@shared/errors/AppError';
@@ -10,6 +11,7 @@ interface IRequest {
   cnpj: string;
   description: string;
   organization_type_id: string;
+  users?: User[];
 }
 
 @injectable()
@@ -25,6 +27,7 @@ class CreateOrganizationUseCase {
     description,
     cnpj,
     organization_type_id,
+    users,
   }: IRequest): Promise<Organization> {
     const organizationAlreadyExists = await this.organizationsRepository.findByEmail(email);
 
@@ -38,6 +41,7 @@ class CreateOrganizationUseCase {
       description,
       cnpj,
       organization_type_id,
+      users,
     });
 
     return organization;

@@ -13,18 +13,22 @@ class OrganizationsRepository implements IOrganizationsRepository {
   }
 
   async create({
+    id,
     name,
     email,
     description,
     cnpj,
     organization_type_id,
+    users,
   }: IOrganizationDTO): Promise<Organization> {
     const organization = this.repository.create({
+      id,
       name,
       email,
       description,
       cnpj,
       organization_type_id,
+      users,
     });
 
     await this.repository.save(organization);

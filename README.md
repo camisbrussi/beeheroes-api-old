@@ -45,7 +45,7 @@ Título do TCC: BEE HEROES: APLICANDO OS PRINCÍPIOS DE EXPERIÊNCIA DO USUÁRIO
   npm run test / yarn test
   ``` 
  
-![image](https://user-images.githubusercontent.com/40186019/155848721-9b0ea5e1-b825-461e-9e40-2b6a7fedfc93.png)
+![image](https://user-images.githubusercontent.com/40186019/155908121-9d0ef857-fce0-4423-8e1f-dd3b6e5af72d.png)
 
   
 Criado por: [Camila Sbrussi](https://github.com/camisbrussi/)!

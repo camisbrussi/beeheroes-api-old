@@ -72,8 +72,6 @@ describe('Filer Organization Controller', () => {
       Authorization: `Bearer ${refresh_token}`,
     });
 
-    // console.log(response);
-
     expect(response.body.length).toEqual(2);
   });
 

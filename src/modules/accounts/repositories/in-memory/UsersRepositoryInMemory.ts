@@ -30,6 +30,13 @@ class UsersRepositoryInMemory implements IUsersRepository {
     return user;
   }
 
+  async findByIds(ids: string[]): Promise<User[]> {
+    const allUsers = this.users
+      .filter((user) => ids.includes(user.id));
+
+    return allUsers;
+  }
+
   async filter({
     name,
     email,
@@ -37,10 +44,10 @@ class UsersRepositoryInMemory implements IUsersRepository {
     user_type_id,
   }: IUserDTO): Promise<User[]> {
     const users = this.users.filter((user) => {
-      if (email && email.includes(email)
-        || name && user.name.includes(name)
-        || status && user.status === status
-        || user_type_id && user.user_type_id === user_type_id
+      if ((email && email.includes(email))
+        || (name && user.name.includes(name))
+        || (status && user.status === status)
+        || (user_type_id && user.user_type_id === user_type_id)
       ) {
         return user;
       }

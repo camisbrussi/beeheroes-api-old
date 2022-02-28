@@ -1,7 +1,17 @@
 import {
-  Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, UpdateDateColumn,
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  PrimaryColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { v4 as uuidV4 } from 'uuid';
+
+import { User } from '@modules/accounts/infra/typeorm/entities/User';
 
 import { OrganizationType } from './OrganizationType';
 
@@ -28,6 +38,15 @@ class Organization {
 
   @Column()
   organization_type_id: string;
+
+  @ManyToMany(() => User)
+  @JoinTable({
+    name: 'organizations_users',
+    joinColumns: [{ name: 'organization_id' }],
+    inverseJoinColumns: [{ name: 'user_id' }],
+  })
+
+  users: User[];
 
   @Column()
   status: number;
