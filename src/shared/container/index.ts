@@ -12,6 +12,10 @@ import { OrganizationTypesRepository } from '@modules/organizations/infra/typeor
 import { OrganizationsRepository } from '@modules/organizations/infra/typeorm/repositories/OrganzationsRepository';
 import { IOrganizationsRepository } from '@modules/organizations/repositories/IOrganizationRepository';
 import { IOrganizationTypesRepository } from '@modules/organizations/repositories/IOrganizationTypesRepository';
+import { OccupationAreaRepository } from '@modules/volunteers/infra/typeorm/repositories/OccupationAreaRepository';
+import { VolunteersRepository } from '@modules/volunteers/infra/typeorm/repositories/VolunteersRepository';
+import { IOccupationAreaRepository } from '@modules/volunteers/repositories/IOccupationAreaRepository';
+import { IVolunteersRepository } from '@modules/volunteers/repositories/IVolunteersRepository';
 
 container.registerSingleton<IUserTypesRepository>(
   'UserTypesRepository',
@@ -28,12 +32,22 @@ container.registerSingleton<IUsersTokensRepository>(
   UsersTokensRepository,
 );
 
+container.registerSingleton<IOrganizationTypesRepository>(
+  'OrganizationTypesRepository',
+  OrganizationTypesRepository,
+);
+
 container.registerSingleton<IOrganizationsRepository>(
   'OrganizationsRepository',
   OrganizationsRepository,
 );
 
-container.registerSingleton<IOrganizationTypesRepository>(
-  'OrganizationTypesRepository',
-  OrganizationTypesRepository,
+container.registerSingleton<IOccupationAreaRepository>(
+  'OccupationAreaRepository',
+  OccupationAreaRepository,
+);
+
+container.registerSingleton<IVolunteersRepository>(
+  'VolunteersRepository',
+  VolunteersRepository,
 );

@@ -48,6 +48,12 @@ class OrganizationsRepository implements IOrganizationsRepository {
     return organization;
   }
 
+  async findByCnpj(cnpj: string): Promise<Organization> {
+    const organization = await this.repository.findOne({ cnpj });
+
+    return organization;
+  }
+
   async list(): Promise<Organization[]> {
     const organization = await this.repository.find();
     return organization;
@@ -108,8 +114,8 @@ class OrganizationsRepository implements IOrganizationsRepository {
 
     if (name) setOrganization.name = name;
     if (email) setOrganization.email = email;
-    if (description) setOrganization.email = description;
-    if (cnpj) setOrganization.email = cnpj;
+    if (description) setOrganization.description = description;
+    if (cnpj) setOrganization.cnpj = cnpj;
     if (status) setOrganization.status = status;
     if (organization_type_id) setOrganization.organization_type_id = organization_type_id;
 

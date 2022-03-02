@@ -15,15 +15,15 @@ describe('Update Organization Type Controller', () => {
     const id = uuidV4();
 
     await connection.query(
-      `INSERT INTO USER_TYPES(id, name, description, created_at, updated_at) 
-      VALUES('${id}', 'Organization Type', 'xxxxxx', 'now()', 'now()')`,
+      `INSERT INTO USER_TYPES(name, description, created_at, updated_at) 
+      VALUES('Organization Type', 'xxxxxx', 'now()', 'now()')`,
     );
 
     const password = await hash('admin', 8);
 
     await connection.query(
       `INSERT INTO USERS(id, name, email, password, user_type_id, status, created_at, updated_at) 
-      VALUES('${id}', 'Admin', 'admin@beeheroes.com', '${password}', '${id}', '1' , 'now()', 'now()')`,
+      VALUES('${id}', 'Admin', 'admin@beeheroes.com', '${password}', '1', '1' , 'now()', 'now()')`,
     );
   });
 

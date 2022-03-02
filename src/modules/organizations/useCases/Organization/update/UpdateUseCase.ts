@@ -29,9 +29,10 @@ class UpdateOrganizationUseCase {
     organization_type_id,
     status,
   }: IRequest): Promise<Organization> {
-    const organizationExist = await this.organizationsRepository.findByEmail(email);
+    const organizationEmailExist = await this.organizationsRepository.findByEmail(email);
+    const organizationCnpjExist = await this.organizationsRepository.findByCnpj(cnpj);
 
-    if (organizationExist) {
+    if (organizationEmailExist || organizationCnpjExist) {
       throw new AppError('Organization already exists!');
     }
 

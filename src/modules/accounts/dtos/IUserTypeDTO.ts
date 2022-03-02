@@ -1,5 +1,5 @@
 interface IUserTypeDTO {
-  id?: string;
+  id?: number;
   name?: string;
   description?: string;
 }

@@ -5,11 +5,11 @@ import { DeleteUserTypeUseCase } from './DeleteUseCase';
 
 class DeleteUserTypeController {
   async handle(request: Request, response: Response): Promise<Response> {
-    const id = request.query.id as string;
+    const { id } = request.query;
 
     const deleteUserTypeUseCase = container.resolve(DeleteUserTypeUseCase);
 
-    const userType = await deleteUserTypeUseCase.execute(id);
+    const userType = await deleteUserTypeUseCase.execute(Number(id));
 
     return response.status(200).json(userType);
   }

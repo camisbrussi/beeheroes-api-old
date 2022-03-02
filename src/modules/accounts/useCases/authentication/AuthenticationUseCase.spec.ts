@@ -30,7 +30,7 @@ describe('Authentication User', () => {
       email: 'user@test.com',
       password: '1234',
       name: 'User test',
-      user_type_id: 'admin',
+      user_type_id: 1,
     };
     await createUserUseCase.execute(user);
 
@@ -47,7 +47,7 @@ describe('Authentication User', () => {
       email: 'userincorrect@test.com',
       password: '1234',
       name: 'User Test Error',
-      user_type_id: 'admin',
+      user_type_id: 1,
     };
 
     await createUserUseCase.execute(user);
@@ -63,7 +63,7 @@ describe('Authentication User', () => {
       email: 'passwordincorrect@test.com',
       password: '1234',
       name: 'User Test Error',
-      user_type_id: 'admin',
+      user_type_id: 1,
     };
 
     await createUserUseCase.execute(user);

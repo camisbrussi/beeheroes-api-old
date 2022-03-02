@@ -17,14 +17,14 @@ describe('List Users', () => {
       name: 'User',
       email: 'teste@beeheroes',
       password: 'test',
-      user_type_id: 'test',
+      user_type_id: 1,
     };
 
     const newUser2: IUserDTO = {
       name: 'User',
       email: 'teste2@beeheroes',
       password: 'test',
-      user_type_id: 'test',
+      user_type_id: 1,
     };
 
     await usersRepositoryInMemory.create(newUser1);
@@ -40,20 +40,20 @@ describe('List Users', () => {
       name: 'User',
       email: 'teste@beeheroes',
       password: 'test',
-      user_type_id: 'test',
+      user_type_id: 1,
     };
 
     const newUser2: IUserDTO = {
       name: 'User',
       email: 'teste2@beeheroes',
       password: 'test',
-      user_type_id: 'test1',
+      user_type_id: 2,
     };
 
     await usersRepositoryInMemory.create(newUser1);
     await usersRepositoryInMemory.create(newUser2);
 
-    const users = await filterUserUseCase.execute({ name: 'User', user_type_id: 'test' });
+    const users = await filterUserUseCase.execute({ name: 'User', user_type_id: 1 });
 
     expect(users.length).toBe(2);
   });

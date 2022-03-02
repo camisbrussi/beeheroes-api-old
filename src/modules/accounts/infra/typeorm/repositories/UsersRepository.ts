@@ -52,7 +52,7 @@ class UsersRepository implements IUsersRepository {
     return user;
   }
 
-  async listUsersByUserType(user_type_id: string): Promise<User[]> {
+  async listUsersByUserType(user_type_id: number): Promise<User[]> {
     const users = await this.repository.find({ user_type_id });
 
     return users;

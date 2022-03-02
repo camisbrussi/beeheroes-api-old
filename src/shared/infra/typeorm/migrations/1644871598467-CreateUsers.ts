@@ -30,7 +30,7 @@ export class CreateUsers1644871598467 implements MigrationInterface {
             },
             {
               name: 'user_type_id',
-              type: 'uuid',
+              type: 'int',
             },
             {
               name: 'created_at',

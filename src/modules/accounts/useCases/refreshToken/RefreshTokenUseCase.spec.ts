@@ -1,4 +1,3 @@
-import { IUserDTO } from '@modules/accounts/dtos/IUserDTO';
 import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory';
 import { UsersTokensRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersTokensRepositoryInMemory';
 import { DayjsDateProvider } from '@shared/container/providers/DateProvider/implementations/DayjsDateProvider';
@@ -37,10 +36,11 @@ describe('Refresh Token', () => {
       name: 'Admin',
       email: 'admin@beeheroes.com',
       password: '123456',
-      user_type_id: 'admin',
+      user_type_id: 1,
     };
 
     await createUserUseCase.execute(user);
+
     const resultToken = await authenticationUseCase.execute({
       email: user.email,
       password: user.password,
@@ -58,7 +58,7 @@ describe('Refresh Token', () => {
       name: 'Admin',
       email: 'admin@beeheroes.com',
       password: '123456',
-      user_type_id: 'admin',
+      user_type_id: 1,
     };
 
     await createUserUseCase.execute(user);

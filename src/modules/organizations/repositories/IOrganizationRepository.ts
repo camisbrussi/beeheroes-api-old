@@ -11,6 +11,7 @@ interface IOrganizationsRepository{
   }: IOrganizationDTO): Promise<Organization>;
   findByEmail(email: string): Promise<Organization>;
   findById(id: string): Promise<Organization>;
+  findByCnpj(cnpj: string): Promise<Organization>;
   listOrganizationsByOrganizationType(organization_type_id: string): Promise<Organization[]>;
   list(): Promise<Organization[]>
   filter({

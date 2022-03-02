@@ -5,6 +5,7 @@ import { IUserTypesRepository } from '@modules/accounts/repositories/IUserTypesR
 import { AppError } from '@shared/errors/AppError';
 
 interface IRequest{
+  id?: number,
   name: string,
   description?: string,
 }
@@ -16,7 +17,7 @@ class CreateUserTypeUseCase {
     private userTypeRepository: IUserTypesRepository,
   ) {}
 
-  async execute({ name, description }: IRequest): Promise<UserType> {
+  async execute({ id, name, description }: IRequest): Promise<UserType> {
     const userTypeExist = await this.userTypeRepository.findByName(name);
 
     if (userTypeExist) {
@@ -24,6 +25,7 @@ class CreateUserTypeUseCase {
     }
 
     const userType = await this.userTypeRepository.create({
+      id,
       name,
       description,
     });

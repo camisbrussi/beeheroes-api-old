@@ -16,7 +16,7 @@ describe('List Users', () => {
       name: 'Admin',
       email: 'supertest@beeheroes.com',
       password: '123456',
-      user_type_id: 'admin',
+      user_type_id: 1,
     });
 
     const user = await listUsersUseCase.execute();

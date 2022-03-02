@@ -4,7 +4,7 @@ interface IUserDTO {
   password?: string,
   id?:string,
   status?:number,
-  user_type_id?: string;
+  user_type_id?: number;
 }
 
 export { IUserDTO };

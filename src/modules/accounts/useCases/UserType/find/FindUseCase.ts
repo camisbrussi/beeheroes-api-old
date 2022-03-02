@@ -10,7 +10,7 @@ class FindUserTypeUseCase {
     private userTypesRepository: IUserTypesRepository,
   ) { }
 
-  async execute(id: string): Promise<UserType> {
+  async execute(id: number): Promise<UserType> {
     const usersType = await this.userTypesRepository.findById(id);
 
     return usersType;

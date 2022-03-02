@@ -1,12 +1,11 @@
 import {
-  Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn,
+  Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn,
 } from 'typeorm';
-import { v4 as uuidV4 } from 'uuid';
 
 @Entity('user_types')
 class UserType {
-  @PrimaryColumn()
-  id:string;
+  @PrimaryGeneratedColumn('increment')
+  id:number;
 
   @Column()
   name: string;
@@ -19,12 +18,6 @@ class UserType {
 
   @UpdateDateColumn()
   updated_at: Date;
-
-  constructor() {
-    if (!this.id) {
-      this.id = uuidV4();
-    }
-  }
 }
 
 export { UserType };

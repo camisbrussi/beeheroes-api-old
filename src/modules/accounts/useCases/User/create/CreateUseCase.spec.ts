@@ -17,7 +17,7 @@ describe('Create User ', () => {
       name: 'Admin',
       email: 'admin@beeheroes.com',
       password: '123456',
-      user_type_id: 'admin',
+      user_type_id: 1,
     };
 
     await createUserUseCase.execute(user);
@@ -31,14 +31,14 @@ describe('Create User ', () => {
       name: 'Name test',
       email: 'teste@beeheroes.com',
       password: '123456',
-      user_type_id: 'admin',
+      user_type_id: 1,
     };
 
     await createUserUseCase.execute({
       name: user.name,
       email: user.email,
       password: user.password,
-      user_type_id: 'admin',
+      user_type_id: 1,
     });
 
     await expect(
@@ -46,7 +46,7 @@ describe('Create User ', () => {
         name: user.name,
         email: user.email,
         password: user.password,
-        user_type_id: 'admin',
+        user_type_id: 1,
       }),
     ).rejects.toEqual(new AppError(`User ${user.email} already exists`));
   });
@@ -56,7 +56,7 @@ describe('Create User ', () => {
       name: 'Admin',
       email: 'admin@beeheroes.com',
       password: '123456',
-      user_type_id: 'admin',
+      user_type_id: 1,
     });
 
     expect(user.status).toBe(Number(process.env.USER_STATUS_ACTIVE));

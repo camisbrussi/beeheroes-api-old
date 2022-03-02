@@ -36,7 +36,7 @@ Título do TCC: BEE HEROES: APLICANDO OS PRINCÍPIOS DE EXPERIÊNCIA DO USUÁRIO
   docker-compose up -d
   ``` 
  3. Acesse http://localhost:3333 para ver o resultado.
- 4. Acesse a documentação http://localhost:3333/api-docs
+ 4. Você pode exportar o arquivo Insonia para fazer os testes das rotas
     
  ## TDD Desenvolvimento Orientado por Testes (Test Driven Development)
  
@@ -45,7 +45,6 @@ Título do TCC: BEE HEROES: APLICANDO OS PRINCÍPIOS DE EXPERIÊNCIA DO USUÁRIO
   npm run test / yarn test
   ``` 
  
-![image](https://user-images.githubusercontent.com/40186019/155908121-9d0ef857-fce0-4423-8e1f-dd3b6e5af72d.png)
-
+![image](https://user-images.githubusercontent.com/40186019/156446445-7adabe8e-c1dc-4352-85fd-89b0f6ac5a61.png)
   
 Criado por: [Camila Sbrussi](https://github.com/camisbrussi/)!

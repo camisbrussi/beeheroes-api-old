@@ -16,7 +16,7 @@ const updateUserTypeController = new UpdateUserTypeController();
 const findUserTypeController = new FindUserTypeController();
 const deleteUserTypeController = new DeleteUserTypeController();
 
-userTypesRoutes.post('/', ensureAuthentication, createUserTypeController.handle);
+userTypesRoutes.post('/', createUserTypeController.handle);
 userTypesRoutes.get('/', ensureAuthentication, listUserTypeController.handle);
 userTypesRoutes.get('/find', ensureAuthentication, findUserTypeController.handle);
 userTypesRoutes.put('/', ensureAuthentication, updateUserTypeController.handle);

@@ -81,7 +81,7 @@ class UsersRepositoryInMemory implements IUsersRepository {
     return all;
   }
 
-  async listUsersByUserType(user_type_id: string): Promise<User[]> {
+  async listUsersByUserType(user_type_id: number): Promise<User[]> {
     const users = this.users.filter((user) => {
       if (user.user_type_id === user_type_id) {
         return user;

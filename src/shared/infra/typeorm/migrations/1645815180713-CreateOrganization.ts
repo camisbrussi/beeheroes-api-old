@@ -19,6 +19,7 @@ export class CreateOrganization1645815180713 implements MigrationInterface {
             {
               name: 'description',
               type: 'varchar',
+              isNullable: true,
             },
             {
               name: 'cnpj',

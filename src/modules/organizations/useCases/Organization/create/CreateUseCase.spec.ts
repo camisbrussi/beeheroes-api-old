@@ -30,14 +30,6 @@ describe('Create Organization ', () => {
   });
 
   it('should not be able to create a new  with email exists', async () => {
-    const organization = {
-      name: 'Organization Name',
-      email: 'organization@beeheroes.com',
-      cnpj: '000000000000',
-      description: 'Description Organization',
-      organization_type_id: 'id',
-    };
-
     await createOrganizationUseCase.execute({
       name: 'Organization Name',
       email: 'organization@beeheroes.com',
@@ -50,14 +42,34 @@ describe('Create Organization ', () => {
       createOrganizationUseCase.execute({
         name: 'Organization Name',
         email: 'organization@beeheroes.com',
+        cnpj: '111111111',
+        description: 'Description Organization',
+        organization_type_id: 'id',
+      }),
+    ).rejects.toEqual(new AppError('Organization already exists!'));
+  });
+
+  it('should not be able to create a new  with cnpj exists', async () => {
+    await createOrganizationUseCase.execute({
+      name: 'Organization Name',
+      email: 'organization@beeheroes.com',
+      cnpj: '000000000000',
+      description: 'Description Organization',
+      organization_type_id: 'id',
+    });
+
+    await expect(
+      createOrganizationUseCase.execute({
+        name: 'Organization Name',
+        email: 'organization1@beeheroes.com',
         cnpj: '000000000000',
         description: 'Description Organization',
         organization_type_id: 'id',
       }),
-    ).rejects.toEqual(new AppError(`Organization ${organization.email} already exists`));
+    ).rejects.toEqual(new AppError('Organization already exists!'));
   });
 
-  it('should not be able to create a organization truetruewith status await by default', async () => {
+  it('should not be able to create a organization with status await by default', async () => {
     const organization = await createOrganizationUseCase.execute({
       name: 'Organization Name',
       email: 'organization@beeheroes.com',

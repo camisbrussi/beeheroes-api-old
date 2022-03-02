@@ -38,6 +38,11 @@ class OrganizationsRepositoryInMemory implements IOrganizationsRepository {
     return organization;
   }
 
+  async findByCnpj(cnpj: string): Promise<Organization> {
+    const organization = this.organizations.find((organization) => organization.cnpj === cnpj);
+    return organization;
+  }
+
   async filter({
     name,
     email,

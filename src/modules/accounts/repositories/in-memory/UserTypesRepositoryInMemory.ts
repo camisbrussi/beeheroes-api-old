@@ -7,12 +7,14 @@ class UserTypeRepositoryInMemory implements IUserTypesRepository {
   userTypes: UserType[] = [];
 
   async create({
+    id,
     name,
     description,
   }: IUserTypeDTO): Promise<UserType> {
     const userTypes = new UserType();
 
     const userType = Object.assign(userTypes, {
+      id,
       name,
       description,
     });
@@ -27,7 +29,7 @@ class UserTypeRepositoryInMemory implements IUserTypesRepository {
     return userType;
   }
 
-  async findById(id: string): Promise<UserType> {
+  async findById(id: number): Promise<UserType> {
     const userType = this.userTypes.find((userType) => userType.id === id);
     return userType;
   }
@@ -46,7 +48,7 @@ class UserTypeRepositoryInMemory implements IUserTypesRepository {
     return this.userTypes[findIndex];
   }
 
-  async delete(id: string): Promise<void> {
+  async delete(id: number): Promise<void> {
     const userType = this.userTypes.find((ut) => ut.id === id);
     this.userTypes.splice(this.userTypes.indexOf(userType));
   }

@@ -13,7 +13,7 @@ class DeleteUserTypeUseCase {
     private userTypeRepository: IUserTypesRepository,
   ) {}
 
-  async execute(id: string): Promise<void> {
+  async execute(id: number): Promise<void> {
     const userTypeUsed = await this.usersRepository.listUsersByUserType(id);
 
     if (userTypeUsed.length > 0) {

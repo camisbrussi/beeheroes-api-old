@@ -6,10 +6,11 @@ import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepositor
 import { AppError } from '@shared/errors/AppError';
 
 interface IRequest {
+  id?: string;
   name: string;
   email: string;
   password: string;
-  user_type_id: string;
+  user_type_id: number;
 }
 
 @injectable()
@@ -20,6 +21,7 @@ class CreateUserUseCase {
   ) {}
 
   async execute({
+    id,
     name,
     email,
     password,
@@ -34,6 +36,7 @@ class CreateUserUseCase {
     const passwordHash = await hash(password, 8);
 
     const user = await this.usersRepository.create({
+      id,
       name,
       email,
       password: passwordHash,

@@ -9,7 +9,7 @@ interface IRequest {
   name?:string,
   password?:string;
   email?:string;
-  user_type_id?: string;
+  user_type_id?: number;
   status?: number;
 }
 @injectable()

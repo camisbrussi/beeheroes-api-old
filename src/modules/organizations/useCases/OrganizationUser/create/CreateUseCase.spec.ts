@@ -40,7 +40,7 @@ describe('Create Organization User', () => {
       name: 'Admin',
       email: 'supertest@beeheroes.com',
       password: '123456',
-      user_type_id: 'id',
+      user_type_id: 1,
     });
 
     const users_id = [user.id];

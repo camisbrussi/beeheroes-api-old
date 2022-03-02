@@ -28,19 +28,21 @@ describe('Update Type user', () => {
   });
 
   it('should be able to delete a user type', async () => {
-    const userType = await createUserTypeUseCase.execute({
+    await createUserTypeUseCase.execute({
+      id: 1,
       name: 'User Type name',
       description: 'User type description',
     });
 
-    await deleteTypeUseCase.execute(userType.id);
-    const typeUser = await findUserTypeUseCase.execute(userType.id);
+    await deleteTypeUseCase.execute(1);
+    const typeUser = await findUserTypeUseCase.execute(1);
 
     expect(typeUser).toBeUndefined();
   });
 
   it('should not be able to delete a user type in use', async () => {
-    const userType = await createUserTypeUseCase.execute({
+    await createUserTypeUseCase.execute({
+      id: 2,
       name: 'User Type name',
       description: 'User type description',
     });
@@ -49,11 +51,11 @@ describe('Update Type user', () => {
       name: 'User Type name',
       email: 'teste@beeheroes.com',
       password: '123456',
-      user_type_id: userType.id,
+      user_type_id: 2,
     });
 
     await expect(
-      deleteTypeUseCase.execute(userType.id),
+      deleteTypeUseCase.execute(2),
     ).rejects.toEqual(new AppError("User type is in use and can't deleted!"));
   });
 });

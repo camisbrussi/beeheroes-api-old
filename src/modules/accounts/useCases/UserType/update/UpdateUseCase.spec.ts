@@ -16,20 +16,21 @@ describe('Update Type User', () => {
   });
 
   it('should be able to edit a user type', async () => {
-    const userType = await createUserTypeUseCase.execute({
+    await createUserTypeUseCase.execute({
+      id: 1,
       name: 'User Type name',
       description: 'User type description',
     });
 
     const userTypeEdit = {
-      id: userType.id,
+      id: 1,
       name: 'User Type name editado',
       description: 'User type description editado',
     };
 
     await updateTypeUseCase.execute(userTypeEdit);
 
-    const userTypeEdited = await userTypesRepositoryInMemory.findByName(userTypeEdit.name);
+    const userTypeEdited = await userTypesRepositoryInMemory.findById(1);
 
     expect(userTypeEdited.name).toEqual(userTypeEdit.name);
     expect(userTypeEdited.description).toEqual(userTypeEdit.description);
@@ -37,12 +38,13 @@ describe('Update Type User', () => {
 
   it('should be able to edit a user type name', async () => {
     const userType = await createUserTypeUseCase.execute({
+      id: 2,
       name: 'User Type name',
       description: 'User type description',
     });
 
     const userTypeEdit = {
-      id: userType.id,
+      id: 2,
       name: 'User Type name editado',
     };
 
@@ -56,12 +58,13 @@ describe('Update Type User', () => {
 
   it('should be able to edit a user type description', async () => {
     const userType = await createUserTypeUseCase.execute({
+      id: 3,
       name: 'User Type name',
       description: 'User type description',
     });
 
     const userTypeEdit = {
-      id: userType.id,
+      id: 3,
       description: 'User type description - editado',
     };
 
@@ -75,17 +78,19 @@ describe('Update Type User', () => {
 
   it('should not be able to edit a user type with exists name', async () => {
     await expect(async () => {
-      const userType = await createUserTypeUseCase.execute({
+      await createUserTypeUseCase.execute({
+        id: 4,
         name: 'User Type name',
         description: 'User type description',
       });
 
       await createUserTypeUseCase.execute({
+        id: 5,
         name: 'User Type name2',
       });
 
       const userTypeEdit = {
-        id: userType.id,
+        id: 5,
         name: 'User Type name',
         description: 'User Type name2',
       };

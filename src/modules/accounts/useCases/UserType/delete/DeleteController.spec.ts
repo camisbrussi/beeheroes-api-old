@@ -15,15 +15,15 @@ describe('Delete User Type Controller', () => {
     await connection.runMigrations();
 
     await connection.query(
-      `INSERT INTO USER_TYPES(id, name, description, created_at, updated_at) 
-      VALUES('${id}', 'User Type', 'xxxxxx', 'now()', 'now()')`,
+      `INSERT INTO USER_TYPES(name, description, created_at, updated_at) 
+      VALUES('User Type', 'xxxxxx', 'now()', 'now()')`,
     );
 
     const password = await hash('admin', 8);
 
     await connection.query(
       `INSERT INTO USERS(id, name, email, password, user_type_id, status, created_at, updated_at) 
-      VALUES('${id}', 'Admin', 'admin@beeheroes.com', '${password}', '${id}', '1', 'now()', 'now()')`,
+      VALUES('${id}', 'Admin', 'admin@beeheroes.com', '${password}', '1', '1', 'now()', 'now()')`,
     );
   });
 
@@ -41,16 +41,14 @@ describe('Delete User Type Controller', () => {
 
     const { refresh_token } = responseToken.body;
 
-    const userType = await request(app).post('/usertypes').send({
+    await request(app).post('/usertypes').send({
       name: 'User Type test Delete',
       description: 'User Type description',
     }).set({
       Authorization: `Bearer ${refresh_token}`,
     });
 
-    const idUserType = JSON.parse(userType.text).id;
-
-    const response = await request(app).delete(`/usertypes?id=${idUserType}`).send().set({
+    const response = await request(app).delete('/usertypes?id=2').send().set({
       Authorization: `Bearer ${refresh_token}`,
     });
 
@@ -66,7 +64,7 @@ describe('Delete User Type Controller', () => {
 
     const { refresh_token } = responseToken.body;
 
-    const response = await request(app).delete(`/usertypes?id=${id}`).send().set({
+    const response = await request(app).delete('/usertypes?id=1').send().set({
       Authorization: `Bearer ${refresh_token}`,
     });
 

@@ -24,7 +24,7 @@ class User {
   userType: UserType;
 
   @Column()
-  user_type_id: string;
+  user_type_id: number;
 
   @Column()
   status: number;

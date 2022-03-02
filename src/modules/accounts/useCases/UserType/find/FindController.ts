@@ -5,11 +5,11 @@ import { FindUserTypeUseCase } from './FindUseCase';
 
 class FindUserTypeController {
   async handle(request: Request, response: Response): Promise<Response> {
-    const id = request.query.id as string;
+    const { id } = request.query;
 
     const findUserTypeUseCase = container.resolve(FindUserTypeUseCase);
 
-    const userType = await findUserTypeUseCase.execute(id);
+    const userType = await findUserTypeUseCase.execute(Number(id));
 
     return response.status(200).json(userType);
   }

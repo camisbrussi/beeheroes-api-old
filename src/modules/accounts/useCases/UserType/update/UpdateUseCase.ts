@@ -5,7 +5,7 @@ import { IUserTypesRepository } from '@modules/accounts/repositories/IUserTypesR
 import { AppError } from '@shared/errors/AppError';
 
 interface IRequest {
-  id: string,
+  id: number,
   name?:string,
   description?:string;
 }

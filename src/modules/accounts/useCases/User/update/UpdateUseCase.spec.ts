@@ -20,7 +20,7 @@ describe('Update Type User', () => {
       name: 'Admin',
       email: 'admin@beeheroes.com',
       password: '123456',
-      user_type_id: 'admin',
+      user_type_id: 1,
     });
 
     const userEdit = {
@@ -42,7 +42,7 @@ describe('Update Type User', () => {
       name: 'Admin',
       email: 'admin@beeheroes.com',
       password: '123456',
-      user_type_id: 'admin',
+      user_type_id: 1,
     });
 
     const userEdit = {
@@ -64,7 +64,7 @@ describe('Update Type User', () => {
         name: 'Admin',
         email: 'admin1@beeheroes.com',
         password: '123456',
-        user_type_id: 'admin',
+        user_type_id: 1,
       });
 
       const userEdit = {

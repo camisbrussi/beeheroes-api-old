@@ -6,12 +6,12 @@ import { UpdateUserTypeUseCase } from './UpdateUseCase';
 class UpdateUserTypeController {
   async handle(request: Request, response: Response): Promise<Response> {
     const { name, description } = request.body;
-    const id = request.query.id as string;
+    const { id } = request.query;
 
     const updateUserTypeUseCase = container.resolve(UpdateUserTypeUseCase);
 
     const userType = await updateUserTypeUseCase.execute({
-      id,
+      id: Number(id),
       name,
       description,
     });

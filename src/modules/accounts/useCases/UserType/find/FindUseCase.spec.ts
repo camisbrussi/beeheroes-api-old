@@ -16,7 +16,7 @@ describe('List Users ', () => {
       name: 'User',
       email: 'admin@beeheroes.com',
       password: '123',
-      user_type_id: 'admin',
+      user_type_id: 1,
     };
 
     const { id } = await usersRepositoryInMemory.create(user);

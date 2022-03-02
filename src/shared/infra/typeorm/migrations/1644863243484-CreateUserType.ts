@@ -9,8 +9,10 @@ export class UserType1644863243484 implements MigrationInterface {
           columns: [
             {
               name: 'id',
-              type: 'uuid',
+              type: 'int',
               isPrimary: true,
+              isGenerated: true,
+              generationStrategy: 'increment',
             },
             {
               name: 'name',

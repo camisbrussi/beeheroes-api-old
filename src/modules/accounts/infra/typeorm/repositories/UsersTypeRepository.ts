@@ -32,7 +32,7 @@ class UserTypesRepository implements IUserTypesRepository {
     return userType;
   }
 
-  async findById(id: string): Promise<UserType> {
+  async findById(id: number): Promise<UserType> {
     const userType = await this.repository.findOne({ id });
     return userType;
   }
@@ -54,7 +54,7 @@ class UserTypesRepository implements IUserTypesRepository {
     return userTypeEdited.raw;
   }
 
-  async delete(id: string): Promise<void> {
+  async delete(id: number): Promise<void> {
     await this.repository.delete(id);
   }
 }

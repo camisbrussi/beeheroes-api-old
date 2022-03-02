@@ -29,10 +29,13 @@ class CreateOrganizationUseCase {
     organization_type_id,
     users,
   }: IRequest): Promise<Organization> {
-    const organizationAlreadyExists = await this.organizationsRepository.findByEmail(email);
+    const organizationEmailAlreadyExists = await
+    this.organizationsRepository.findByEmail(email);
+    const organizationCnpjAlreadyExists = await
+    this.organizationsRepository.findByCnpj(cnpj);
 
-    if (organizationAlreadyExists) {
-      throw new AppError(`Organization ${email} already exists`);
+    if (organizationEmailAlreadyExists || organizationCnpjAlreadyExists) {
+      throw new AppError('Organization already exists!');
     }
 
     const organization = await this.organizationsRepository.create({

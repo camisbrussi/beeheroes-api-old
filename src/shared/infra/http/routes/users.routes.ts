@@ -16,7 +16,7 @@ const updateUserController = new UpdateUserController();
 const listUserController = new ListUserController();
 const filterUserController = new FilterUserController();
 
-usersRoutes.post('/', ensureAuthentication, createUserController.handle);
+usersRoutes.post('/', createUserController.handle);
 usersRoutes.get('/find', ensureAuthentication, findUserController.handle);
 usersRoutes.get('/filter', ensureAuthentication, filterUserController.handle);
 usersRoutes.get('/', ensureAuthentication, listUserController.handle);
