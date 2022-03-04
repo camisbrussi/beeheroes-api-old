@@ -1,15 +1,18 @@
 import { getRepository, Repository } from 'typeorm';
 
+import { Phone } from '@modules/addresses/infra/typeorm/entities/Phone';
 import { IOrganizationDTO } from '@modules/organizations/dtos/IOrganizationDTO';
-import { IOrganizationsRepository } from '@modules/organizations/repositories/IOrganizationRepository';
+import { IOrganizationsRepository } from '@modules/organizations/repositories/IOrganizationsRepository';
 
 import { Organization } from '../entities/Organization';
 
 class OrganizationsRepository implements IOrganizationsRepository {
-  private repository: Repository<Organization>
+  private organizationsRepository: Repository<Organization>
+  private phonesRepository: Repository<Phone>
 
   constructor() {
-    this.repository = getRepository(Organization);
+    this.organizationsRepository = getRepository(Organization);
+    this.phonesRepository = getRepository(Phone);
   }
 
   async create({
@@ -22,7 +25,7 @@ class OrganizationsRepository implements IOrganizationsRepository {
     users,
     address_id,
   }: IOrganizationDTO): Promise<Organization> {
-    const organization = this.repository.create({
+    const organization = this.organizationsRepository.create({
       id,
       name,
       email,
@@ -33,29 +36,40 @@ class OrganizationsRepository implements IOrganizationsRepository {
       address_id,
     });
 
-    await this.repository.save(organization);
+    await this.organizationsRepository.save(organization);
 
     return organization;
   }
 
   async findByEmail(email: string): Promise<Organization> {
-    const organization = await this.repository.findOne({ email });
+    const organization = await this.organizationsRepository.findOne({ email });
 
     return organization;
   }
 
-  async findById(id: string): Promise<Organization> {
-    const organization = await this.repository
+  async findById(id: string): Promise<{
+    organization: Organization,
+    phones: Phone[],
+    }> {
+    const organization = await this.organizationsRepository
       .createQueryBuilder('organization')
       .leftJoinAndSelect('organization.address', 'address')
-      .where('organization.id =:id', { id })
+      .where('organization.id = :id', { id })
       .getOne();
 
-    return organization;
+    const phones = await this.phonesRepository
+      .createQueryBuilder('phone')
+      .where('phone.organization_id = :organization_id', { organization_id: id })
+      .getMany();
+
+    return {
+      organization,
+      phones,
+    };
   }
 
   async findByCnpj(cnpj: string): Promise<Organization> {
-    const organization = await this.repository.createQueryBuilder('organization')
+    const organization = await this.organizationsRepository.createQueryBuilder('organization')
       .leftJoinAndSelect('organization.address', 'address')
       .where('organization.cnpj =:cnpj', { cnpj })
       .getOne();
@@ -64,12 +78,12 @@ class OrganizationsRepository implements IOrganizationsRepository {
   }
 
   async list(): Promise<Organization[]> {
-    const organization = await this.repository.find();
+    const organization = await this.organizationsRepository.find();
     return organization;
   }
 
   async listOrganizationsByOrganizationType(organization_type_id: string): Promise<Organization[]> {
-    const organizations = await this.repository.find({ organization_type_id });
+    const organizations = await this.organizationsRepository.find({ organization_type_id });
 
     return organizations;
   }
@@ -81,7 +95,7 @@ class OrganizationsRepository implements IOrganizationsRepository {
     organization_type_id,
     cnpj,
   }: IOrganizationDTO): Promise<Organization[]> {
-    const organizationsQuery = await this.repository
+    const organizationsQuery = await this.organizationsRepository
       .createQueryBuilder('u')
       .where('1 = 1');
 
@@ -130,7 +144,7 @@ class OrganizationsRepository implements IOrganizationsRepository {
     if (organization_type_id) setOrganization.organization_type_id = organization_type_id;
     if (address_id) setOrganization.address_id = address_id;
 
-    const organizationTypeEdited = await this.repository
+    const organizationTypeEdited = await this.organizationsRepository
       .createQueryBuilder()
       .update()
       .set(setOrganization)

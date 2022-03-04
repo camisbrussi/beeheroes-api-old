@@ -2,7 +2,7 @@ import { inject, injectable } from 'tsyringe';
 
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
 import { Organization } from '@modules/organizations/infra/typeorm/entities/Organization';
-import { IOrganizationsRepository } from '@modules/organizations/repositories/IOrganizationRepository';
+import { IOrganizationsRepository } from '@modules/organizations/repositories/IOrganizationsRepository';
 import { AppError } from '@shared/errors/AppError';
 
 interface IRequest {
@@ -23,17 +23,17 @@ class CreateOrganizationUserUseCase {
   async execute({ users_id, organization_id }: IRequest): Promise<Organization> {
     const organizationExists = await this.organizationsRepository.findById(organization_id);
 
-    if (!organizationExists) throw new AppError('Organization does not exist');
+    if (!organizationExists.organization) throw new AppError('Organization does not exist');
 
     const userExists = await this.usersRepository.findByIds(users_id);
 
     if (!userExists) throw new AppError('User does not exists');
 
-    organizationExists.users = userExists;
+    organizationExists.organization.users = userExists;
 
-    await this.organizationsRepository.create(organizationExists);
+    await this.organizationsRepository.create(organizationExists.organization);
 
-    return organizationExists;
+    return organizationExists.organization;
   }
 }
 

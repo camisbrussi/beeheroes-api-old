@@ -1,7 +1,7 @@
 import { IOrganizationDTO } from '@modules/organizations/dtos/IOrganizationDTO';
 import { OrganizationsRepositoryInMemory } from '@modules/organizations/repositories/in-memory/OrganizationRepositoryInMemory';
 
-import { FilterOrganizationUseCase } from './FilteUseCase';
+import { FilterOrganizationUseCase } from './FilterUseCase';
 
 let filterOrganizationUseCase: FilterOrganizationUseCase;
 let organizationsRepositoryInMemory: OrganizationsRepositoryInMemory;

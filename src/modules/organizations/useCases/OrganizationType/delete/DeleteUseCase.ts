@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 
-import { IOrganizationsRepository } from '@modules/organizations/repositories/IOrganizationRepository';
+import { IOrganizationsRepository } from '@modules/organizations/repositories/IOrganizationsRepository';
 import { IOrganizationTypesRepository } from '@modules/organizations/repositories/IOrganizationTypesRepository';
 import { AppError } from '@shared/errors/AppError';
 

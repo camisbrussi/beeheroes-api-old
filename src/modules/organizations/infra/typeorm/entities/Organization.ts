@@ -12,7 +12,7 @@ import {
 import { v4 as uuidV4 } from 'uuid';
 
 import { User } from '../../../../accounts/infra/typeorm/entities/User';
-import { Address } from '../../../../address/infra/typeorm/entities/Address';
+import { Address } from '../../../../addresses/infra/typeorm/entities/Address';
 import { OrganizationType } from './OrganizationType';
 
 @Entity('organizations')

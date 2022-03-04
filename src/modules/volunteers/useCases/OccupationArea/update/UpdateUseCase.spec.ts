@@ -1,4 +1,4 @@
-import { OccupationAreaRepositoryInMemory } from '@modules/volunteers/repositories/in-memory/OccupationAreaRepositoryInMemory';
+import { OccupationsAreaRepositoryInMemory } from '@modules/volunteers/repositories/in-memory/OccupationAreaRepositoryInMemory';
 import { AppError } from '@shared/errors/AppError';
 
 import { CreateOccupationAreaUseCase } from '../create/CreateUseCase';
@@ -6,11 +6,11 @@ import { UpdateOccupationAreaUseCase } from './UpdateUseCase';
 
 let createOccupationAreaUseCase: CreateOccupationAreaUseCase;
 let updateOccupationAreaUseCase: UpdateOccupationAreaUseCase;
-let occupationAreaRepositoryInMemory: OccupationAreaRepositoryInMemory;
+let occupationAreaRepositoryInMemory: OccupationsAreaRepositoryInMemory;
 
 describe('Update Occupation Area', () => {
   beforeEach(() => {
-    occupationAreaRepositoryInMemory = new OccupationAreaRepositoryInMemory();
+    occupationAreaRepositoryInMemory = new OccupationsAreaRepositoryInMemory();
     createOccupationAreaUseCase = new CreateOccupationAreaUseCase(
       occupationAreaRepositoryInMemory,
     );

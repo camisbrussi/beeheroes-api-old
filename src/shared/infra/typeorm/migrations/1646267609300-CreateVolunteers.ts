@@ -60,7 +60,7 @@ export class CreateVolunteers1646267609300 implements MigrationInterface {
             },
             {
               name: 'FKOccupationAreaVolunteer',
-              referencedTableName: 'occupation_area',
+              referencedTableName: 'occupations_area',
               referencedColumnNames: ['id'],
               columnNames: ['occupation_area_id'],
               onDelete: 'SET NULL',

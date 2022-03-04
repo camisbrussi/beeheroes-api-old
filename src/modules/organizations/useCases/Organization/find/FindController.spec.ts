@@ -62,8 +62,8 @@ describe('Find Organization Controller', () => {
       Authorization: `Bearer ${refresh_token}`,
     });
 
-    expect(response.body.id).toEqual(organizationId);
-    expect(response.body).toHaveProperty('id');
-    expect(response.body.name).toEqual('Organization Name');
+    expect(response.body.organization.id).toEqual(organizationId);
+    expect(response.body.organization).toHaveProperty('id');
+    expect(response.body.organization.name).toEqual('Organization Name');
   });
 });

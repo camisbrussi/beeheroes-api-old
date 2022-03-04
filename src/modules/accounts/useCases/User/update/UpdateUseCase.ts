@@ -2,7 +2,8 @@ import { inject, injectable } from 'tsyringe';
 
 import { User } from '@modules/accounts/infra/typeorm/entities/User';
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
-import { IAddressRepository } from '@modules/address/repositories/IAddressRepository';
+import { IAddressesRepository } from '@modules/addresses/repositories/IAddressesRepository';
+import { IRequestAddress } from '@modules/addresses/useCases/address/create/CreateUseCase';
 import { AppError } from '@shared/errors/AppError';
 
 interface IRequest {
@@ -13,22 +14,15 @@ interface IRequest {
   user_type_id?: number;
   status?: number;
   address_id?:string;
-  address?: {
-    street: string;
-    number: string;
-    complement?: string;
-    district: string;
-    cep: number,
-    city_id: number,
-  },
+  address?: IRequestAddress;
 }
 @injectable()
 class UpdateUserUseCase {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
-    @inject('AddressRepository')
-    private addressRepository: IAddressRepository,
+    @inject('AddressesRepository')
+    private addressesRepository: IAddressesRepository,
   ) {}
 
   async execute({
@@ -49,7 +43,7 @@ class UpdateUserUseCase {
 
     let addressId: string;
     if (address) {
-      const createdAddress = await this.addressRepository.create(address);
+      const createdAddress = await this.addressesRepository.create(address);
       addressId = createdAddress.id;
     }
 
@@ -64,7 +58,7 @@ class UpdateUserUseCase {
     });
 
     if (address && address_id) {
-      await this.addressRepository.delete(address_id);
+      await this.addressesRepository.delete(address_id);
     }
 
     return userType;

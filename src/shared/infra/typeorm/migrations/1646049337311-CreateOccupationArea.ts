@@ -5,7 +5,7 @@ export class CreateOccupationArea1646049337311 implements MigrationInterface {
     await queryRunner.createTable(
       new Table(
         {
-          name: 'occupation_area',
+          name: 'occupations_area',
           columns: [
             {
               name: 'id',
@@ -33,6 +33,6 @@ export class CreateOccupationArea1646049337311 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('occupation_area');
+    await queryRunner.dropTable('occupations_area');
   }
 }

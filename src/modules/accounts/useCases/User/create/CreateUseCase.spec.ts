@@ -1,19 +1,19 @@
 import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory';
-import { AddressRepositoryInMemory } from '@modules/address/repositories/in-memory/AddressRepositoryInMemory';
+import { AddressesRepositoryInMemory } from '@modules/addresses/repositories/in-memory/AddressRepositoryInMemory';
 import { AppError } from '@shared/errors/AppError';
 
 import { CreateUserUseCase } from './CreateUseCase';
 
 let createUserUseCase: CreateUserUseCase;
 let usersRepositoryInMemory: UsersRepositoryInMemory;
-let addressRepositoryInMemory: AddressRepositoryInMemory;
+let addressesRepositoryInMemory: AddressesRepositoryInMemory;
 
 beforeEach(() => {
   usersRepositoryInMemory = new UsersRepositoryInMemory();
-  addressRepositoryInMemory = new AddressRepositoryInMemory();
+  addressesRepositoryInMemory = new AddressesRepositoryInMemory();
   createUserUseCase = new CreateUserUseCase(
     usersRepositoryInMemory,
-    addressRepositoryInMemory,
+    addressesRepositoryInMemory,
   );
 });
 

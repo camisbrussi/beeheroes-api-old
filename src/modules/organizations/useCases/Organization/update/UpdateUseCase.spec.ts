@@ -1,4 +1,5 @@
-import { AddressRepositoryInMemory } from '@modules/address/repositories/in-memory/AddressRepositoryInMemory';
+import { AddressesRepositoryInMemory } from '@modules/addresses/repositories/in-memory/AddressRepositoryInMemory';
+import { PhonesRepositoryInMemory } from '@modules/addresses/repositories/in-memory/PhonesRepositoryInMemory';
 import { OrganizationsRepositoryInMemory } from '@modules/organizations/repositories/in-memory/OrganizationRepositoryInMemory';
 import { AppError } from '@shared/errors/AppError';
 
@@ -8,19 +9,23 @@ import { UpdateOrganizationUseCase } from './UpdateUseCase';
 let createOrganizationUseCase: CreateOrganizationUseCase;
 let updateUseCase: UpdateOrganizationUseCase;
 let organizationsRepositoryInMemory: OrganizationsRepositoryInMemory;
-let addressRepositoryInMemory: AddressRepositoryInMemory;
+let addressesRepositoryInMemory: AddressesRepositoryInMemory;
+let phonesRepositoryInMemory: PhonesRepositoryInMemory;
 
 describe('Update Type Organization', () => {
   beforeEach(() => {
     organizationsRepositoryInMemory = new OrganizationsRepositoryInMemory();
-    addressRepositoryInMemory = new AddressRepositoryInMemory();
+    addressesRepositoryInMemory = new AddressesRepositoryInMemory();
+    phonesRepositoryInMemory = new PhonesRepositoryInMemory();
     createOrganizationUseCase = new CreateOrganizationUseCase(
       organizationsRepositoryInMemory,
-      addressRepositoryInMemory,
+      addressesRepositoryInMemory,
+      phonesRepositoryInMemory,
     );
     updateUseCase = new UpdateOrganizationUseCase(
       organizationsRepositoryInMemory,
-      addressRepositoryInMemory,
+      addressesRepositoryInMemory,
+      phonesRepositoryInMemory,
     );
   });
 
@@ -120,7 +125,7 @@ describe('Update Type Organization', () => {
 
     const organizationData = await updateUseCase.execute(organizationEdit);
 
-    const organizationAddress = await addressRepositoryInMemory
+    const organizationAddress = await addressesRepositoryInMemory
       .findById(organizationData.address_id);
 
     expect(organizationAddress.street).toEqual('Street Example edited');
@@ -158,9 +163,78 @@ describe('Update Type Organization', () => {
 
     const organizationData = await updateUseCase.execute(organizationEdit);
 
-    const organizationAddress = await addressRepositoryInMemory
+    const organizationAddress = await addressesRepositoryInMemory
       .findById(organizationData.address_id);
 
     expect(organizationAddress.street).toEqual('Street Example edited');
+  });
+
+  it('should be able to edit a organization and add phones', async () => {
+    const organization = await createOrganizationUseCase.execute({
+      name: 'Organization Name',
+      email: 'organization@beeheroes.com',
+      cnpj: '000000000000',
+      description: 'Description Organization',
+      organization_type_id: 'id',
+    });
+
+    const organizationEdit = {
+      id: organization.id,
+      phones: [
+        {
+          number: '123',
+          is_whatsapp: true,
+        },
+        {
+          number: '321',
+          is_whatsapp: true,
+        },
+      ],
+    };
+
+    const organizationData = await updateUseCase.execute(organizationEdit);
+
+    const organizationPhones = await phonesRepositoryInMemory
+      .findByOrganizationId(organizationData.id);
+
+    expect(organizationPhones.length).toBe(2);
+  });
+
+  it('should be able to edit a organization and edit address', async () => {
+    const organization = await createOrganizationUseCase.execute({
+      name: 'Organization Name',
+      email: 'organization@beeheroes.com',
+      cnpj: '000000000000',
+      description: 'Description Organization',
+      organization_type_id: 'id',
+      phones: [
+        {
+          number: '123',
+          is_whatsapp: true,
+        },
+        {
+          number: '321',
+          is_whatsapp: true,
+        },
+      ],
+    });
+
+    const organizationEdit = {
+      id: organization.id,
+      phones: [
+        {
+          number: '789',
+          is_whatsapp: true,
+        },
+      ],
+    };
+
+    const organizationData = await updateUseCase.execute(organizationEdit);
+
+    const organizationPhones = await phonesRepositoryInMemory
+      .findByOrganizationId(organizationData.id);
+
+    expect(organizationPhones.length).toBe(1);
+    expect(organizationPhones[0].number).toBe('789');
   });
 });

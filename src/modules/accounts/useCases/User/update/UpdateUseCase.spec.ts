@@ -1,5 +1,5 @@
 import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory';
-import { AddressRepositoryInMemory } from '@modules/address/repositories/in-memory/AddressRepositoryInMemory';
+import { AddressesRepositoryInMemory } from '@modules/addresses/repositories/in-memory/AddressRepositoryInMemory';
 import { AppError } from '@shared/errors/AppError';
 
 import { CreateUserUseCase } from '../create/CreateUseCase';
@@ -8,12 +8,12 @@ import { UpdateUserUseCase } from './UpdateUseCase';
 let createUserUseCase: CreateUserUseCase;
 let updateUseCase: UpdateUserUseCase;
 let usersRepositoryInMemory: UsersRepositoryInMemory;
-let addressRepositoryInMemory: AddressRepositoryInMemory;
+let addressRepositoryInMemory: AddressesRepositoryInMemory;
 
 describe('Update Type User', () => {
   beforeEach(() => {
     usersRepositoryInMemory = new UsersRepositoryInMemory();
-    addressRepositoryInMemory = new AddressRepositoryInMemory();
+    addressRepositoryInMemory = new AddressesRepositoryInMemory();
     createUserUseCase = new CreateUserUseCase(
       usersRepositoryInMemory,
       addressRepositoryInMemory,

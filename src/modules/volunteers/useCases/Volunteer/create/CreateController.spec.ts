@@ -28,7 +28,7 @@ describe('Create Volunteer Controller', () => {
     );
 
     await connection.query(
-      `INSERT INTO OCCUPATION_AREA(id, name, created_at, updated_at) 
+      `INSERT INTO OCCUPATIONS_AREA(id, name, created_at, updated_at) 
       VALUES('${id}', 'Occupation Area', 'now()', 'now()')`,
     );
   });

@@ -1,8 +1,11 @@
 import { inject, injectable } from 'tsyringe';
 
-import { IAddressRepository } from '@modules/address/repositories/IAddressRepository';
+import { IAddressesRepository } from '@modules/addresses/repositories/IAddressesRepository';
+import { IPhonesRepository } from '@modules/addresses/repositories/IPhonesRepository';
+import { IRequestAddress } from '@modules/addresses/useCases/address/create/CreateUseCase';
+import { IRequestPhones } from '@modules/addresses/useCases/phones/create/CreateUseCase';
 import { Organization } from '@modules/organizations/infra/typeorm/entities/Organization';
-import { IOrganizationsRepository } from '@modules/organizations/repositories/IOrganizationRepository';
+import { IOrganizationsRepository } from '@modules/organizations/repositories/IOrganizationsRepository';
 import { AppError } from '@shared/errors/AppError';
 
 interface IRequest {
@@ -14,22 +17,18 @@ interface IRequest {
   organization_type_id?: string;
   status?: number;
   address_id?:string;
-  address?: {
-    street: string;
-    number: string;
-    complement?: string;
-    district: string;
-    cep: number,
-    city_id: number,
-  },
+  address?: IRequestAddress;
+  phones?: IRequestPhones[];
 }
 @injectable()
 class UpdateOrganizationUseCase {
   constructor(
     @inject('OrganizationsRepository')
     private organizationsRepository: IOrganizationsRepository,
-    @inject('AddressRepository')
-    private addressRepository: IAddressRepository,
+    @inject('AddressesRepository')
+    private addressesRepository: IAddressesRepository,
+     @inject('PhonesRepository')
+    private phonesRepository: IPhonesRepository,
   ) {}
 
   async execute({
@@ -42,6 +41,7 @@ class UpdateOrganizationUseCase {
     status,
     address_id,
     address,
+    phones,
   }: IRequest): Promise<Organization> {
     const organizationEmailExist = await this.organizationsRepository.findByEmail(email);
     const organizationCnpjExist = await this.organizationsRepository.findByCnpj(cnpj);
@@ -53,7 +53,7 @@ class UpdateOrganizationUseCase {
     let addressId: string = null;
 
     if (address) {
-      const createdAddress = await this.addressRepository.create(address);
+      const createdAddress = await this.addressesRepository.create(address);
       addressId = createdAddress.id;
     }
 
@@ -69,7 +69,19 @@ class UpdateOrganizationUseCase {
     });
 
     if (address && address_id) {
-      await this.addressRepository.delete(address_id);
+      await this.addressesRepository.delete(address_id);
+    }
+
+    if (phones && phones.length > 0) {
+      await this.phonesRepository.deleteByIdOrOrganization(id);
+
+      phones.map(async (phone) => {
+        await this.phonesRepository.create({
+          number: phone.number,
+          is_whatsapp: phone.is_whatsapp,
+          organization_id: id,
+        });
+      });
     }
 
     return organization;

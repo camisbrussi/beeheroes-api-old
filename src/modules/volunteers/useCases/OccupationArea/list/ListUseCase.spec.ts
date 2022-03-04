@@ -1,13 +1,13 @@
-import { OccupationAreaRepositoryInMemory } from '@modules/volunteers/repositories/in-memory/OccupationAreaRepositoryInMemory';
+import { OccupationsAreaRepositoryInMemory } from '@modules/volunteers/repositories/in-memory/OccupationAreaRepositoryInMemory';
 
 import { ListOccupationAreaUseCase } from './LisUseCase';
 
 let listOccupationAreaUseCase: ListOccupationAreaUseCase;
-let occupationAreaRepositoryInMemory: OccupationAreaRepositoryInMemory;
+let occupationAreaRepositoryInMemory: OccupationsAreaRepositoryInMemory;
 
 describe('List Organizations Type', () => {
   beforeEach(() => {
-    occupationAreaRepositoryInMemory = new OccupationAreaRepositoryInMemory();
+    occupationAreaRepositoryInMemory = new OccupationsAreaRepositoryInMemory();
     listOccupationAreaUseCase = new ListOccupationAreaUseCase(
       occupationAreaRepositoryInMemory,
     );

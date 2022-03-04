@@ -128,4 +128,43 @@ describe('Create Organization Controller', () => {
     expect(organization.status).toBe(201);
     expect(response.body.address).not.toBeNull();
   });
+
+  it('should be able to create a new organization with phones', async () => {
+    const responseToken = await request(app).post('/sessions')
+      .send({
+        email: 'admin@beeheroes.com',
+        password: 'admin',
+      });
+
+    const token = responseToken.body.refresh_token;
+
+    const organization = await request(app).post('/organizations').send({
+      name: 'Organization Name',
+      email: 'organization2@beeheroes.com',
+      cnpj: '000000000002',
+      description: 'Description Organization',
+      organization_type_id: id,
+      phones: [
+        {
+          number: '123',
+          is_whatsapp: true,
+        },
+        {
+          number: '321',
+          is_whatsapp: true,
+        },
+      ],
+    }).set({
+      Authorization: `Bearer ${token}`,
+    });
+
+    const idOrganization = JSON.parse(organization.text).id;
+
+    const response = await request(app).get(`/organizations/find?id=${idOrganization}`).send().set({
+      Authorization: `Bearer ${token}`,
+    });
+
+    expect(organization.status).toBe(201);
+    expect(response.body.phones[0].number).toBe('123');
+  });
 });

@@ -1,6 +1,6 @@
 import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory';
 import { UsersTokensRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersTokensRepositoryInMemory';
-import { AddressRepositoryInMemory } from '@modules/address/repositories/in-memory/AddressRepositoryInMemory';
+import { AddressesRepositoryInMemory } from '@modules/addresses/repositories/in-memory/AddressRepositoryInMemory';
 import { DayjsDateProvider } from '@shared/container/providers/DateProvider/implementations/DayjsDateProvider';
 import { AppError } from '@shared/errors/AppError';
 
@@ -12,7 +12,7 @@ let authenticationUseCase: AuthenticationUseCase;
 let refreshTokenUseCase: RefreshTokenUseCase;
 let usersRepositoryInMemory: UsersRepositoryInMemory;
 let usersTokensRepositoryInMemory: UsersTokensRepositoryInMemory;
-let addressRepositoryInMemory: AddressRepositoryInMemory;
+let addressesRepositoryInMemory: AddressesRepositoryInMemory;
 let createUserUseCase: CreateUserUseCase;
 let dateProvider: DayjsDateProvider;
 
@@ -28,7 +28,7 @@ describe('Refresh Token', () => {
     );
     createUserUseCase = new CreateUserUseCase(
       usersRepositoryInMemory,
-      addressRepositoryInMemory,
+      addressesRepositoryInMemory,
     );
     refreshTokenUseCase = new RefreshTokenUseCase(
       usersTokensRepositoryInMemory,

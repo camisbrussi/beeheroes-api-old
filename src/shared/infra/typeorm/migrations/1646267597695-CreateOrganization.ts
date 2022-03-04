@@ -65,7 +65,7 @@ export class CreateOrganization1646267597695 implements MigrationInterface {
 
             {
               name: 'FKAddressOrganization',
-              referencedTableName: 'address',
+              referencedTableName: 'addresses',
               referencedColumnNames: ['id'],
               columnNames: ['address_id'],
               onDelete: 'SET NULL',
@@ -78,6 +78,6 @@ export class CreateOrganization1646267597695 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('organization');
+    await queryRunner.dropTable('organizations');
   }
 }

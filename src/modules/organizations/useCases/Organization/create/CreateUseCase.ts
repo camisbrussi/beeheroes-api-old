@@ -1,10 +1,12 @@
 import { inject, injectable } from 'tsyringe';
 
 import { User } from '@modules/accounts/infra/typeorm/entities/User';
-import { Address } from '@modules/address/infra/typeorm/entities/Address';
-import { IAddressRepository } from '@modules/address/repositories/IAddressRepository';
+import { IAddressesRepository } from '@modules/addresses/repositories/IAddressesRepository';
+import { IPhonesRepository } from '@modules/addresses/repositories/IPhonesRepository';
+import { IRequestAddress } from '@modules/addresses/useCases/address/create/CreateUseCase';
+import { IRequestPhones } from '@modules/addresses/useCases/phones/create/CreateUseCase';
 import { Organization } from '@modules/organizations/infra/typeorm/entities/Organization';
-import { IOrganizationsRepository } from '@modules/organizations/repositories/IOrganizationRepository';
+import { IOrganizationsRepository } from '@modules/organizations/repositories/IOrganizationsRepository';
 import { AppError } from '@shared/errors/AppError';
 
 interface IRequest {
@@ -14,14 +16,8 @@ interface IRequest {
   description: string;
   organization_type_id: string;
   users?: User[];
-  address?: {
-    street: string;
-    number: string;
-    complement?: string;
-    district: string;
-    cep: number,
-    city_id: number,
-  }
+  address?: IRequestAddress;
+  phones?: IRequestPhones[]
 }
 
 @injectable()
@@ -29,8 +25,10 @@ class CreateOrganizationUseCase {
   constructor(
     @inject('OrganizationsRepository')
     private organizationsRepository: IOrganizationsRepository,
-    @inject('AddressRepository')
-    private addressRepository: IAddressRepository,
+    @inject('AddressesRepository')
+    private addressesRepository: IAddressesRepository,
+    @inject('PhonesRepository')
+    private phonesRepository: IPhonesRepository,
   ) {}
 
   async execute({
@@ -41,6 +39,7 @@ class CreateOrganizationUseCase {
     organization_type_id,
     users,
     address,
+    phones,
   }: IRequest): Promise<Organization> {
     const organizationEmailAlreadyExists = await
     this.organizationsRepository.findByEmail(email);
@@ -53,7 +52,7 @@ class CreateOrganizationUseCase {
 
     let addressId: string;
     if (address) {
-      const createdAddress = await this.addressRepository.create(address);
+      const createdAddress = await this.addressesRepository.create(address);
       addressId = createdAddress.id;
     }
 
@@ -66,6 +65,16 @@ class CreateOrganizationUseCase {
       users,
       address_id: addressId,
     });
+
+    if (phones && phones.length > 0) {
+      phones.map(async (phone) => {
+        await this.phonesRepository.create({
+          number: phone.number,
+          is_whatsapp: phone.is_whatsapp,
+          organization_id: organization.id,
+        });
+      });
+    }
 
     return organization;
   }

@@ -8,15 +8,17 @@ import { UserTypesRepository } from '@modules/accounts/infra/typeorm/repositorie
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
 import { IUsersTokensRepository } from '@modules/accounts/repositories/IUsersTokensRepository';
 import { IUserTypesRepository } from '@modules/accounts/repositories/IUserTypesRepository';
-import { AddressRepository } from '@modules/address/infra/typeorm/repositories/AddressRepository';
-import { IAddressRepository } from '@modules/address/repositories/IAddressRepository';
+import { AddressesRepository } from '@modules/addresses/infra/typeorm/repositories/AddressesRepository';
+import { PhonesRepository } from '@modules/addresses/infra/typeorm/repositories/PhonesRepository';
+import { IAddressesRepository } from '@modules/addresses/repositories/IAddressesRepository';
+import { IPhonesRepository } from '@modules/addresses/repositories/IPhonesRepository';
 import { OrganizationTypesRepository } from '@modules/organizations/infra/typeorm/repositories/OrganizationTypesRepository';
 import { OrganizationsRepository } from '@modules/organizations/infra/typeorm/repositories/OrganzationsRepository';
-import { IOrganizationsRepository } from '@modules/organizations/repositories/IOrganizationRepository';
+import { IOrganizationsRepository } from '@modules/organizations/repositories/IOrganizationsRepository';
 import { IOrganizationTypesRepository } from '@modules/organizations/repositories/IOrganizationTypesRepository';
-import { OccupationAreaRepository } from '@modules/volunteers/infra/typeorm/repositories/OccupationAreaRepository';
+import { OccupationsAreaRepository } from '@modules/volunteers/infra/typeorm/repositories/OccupationsAreaRepository';
 import { VolunteersRepository } from '@modules/volunteers/infra/typeorm/repositories/VolunteersRepository';
-import { IOccupationAreaRepository } from '@modules/volunteers/repositories/IOccupationAreaRepository';
+import { IOccupationsAreaRepository } from '@modules/volunteers/repositories/IOccupationsAreaRepository';
 import { IVolunteersRepository } from '@modules/volunteers/repositories/IVolunteersRepository';
 
 container.registerSingleton<IUserTypesRepository>(
@@ -44,9 +46,9 @@ container.registerSingleton<IOrganizationsRepository>(
   OrganizationsRepository,
 );
 
-container.registerSingleton<IOccupationAreaRepository>(
-  'OccupationAreaRepository',
-  OccupationAreaRepository,
+container.registerSingleton<IOccupationsAreaRepository>(
+  'OccupationsAreaRepository',
+  OccupationsAreaRepository,
 );
 
 container.registerSingleton<IVolunteersRepository>(
@@ -54,7 +56,12 @@ container.registerSingleton<IVolunteersRepository>(
   VolunteersRepository,
 );
 
-container.registerSingleton<IAddressRepository>(
-  'AddressRepository',
-  AddressRepository,
+container.registerSingleton<IAddressesRepository>(
+  'AddressesRepository',
+  AddressesRepository,
+);
+
+container.registerSingleton<IPhonesRepository>(
+  'PhonesRepository',
+  PhonesRepository,
 );

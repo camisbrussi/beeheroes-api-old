@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
-import { FilterOrganizationUseCase } from './FilteUseCase';
+import { FilterOrganizationUseCase } from './FilterUseCase';
 
 class FilterOrganizationController {
   async handle(request: Request, response: Response): Promise<Response> {

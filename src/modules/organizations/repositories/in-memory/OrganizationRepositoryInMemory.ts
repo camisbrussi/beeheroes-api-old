@@ -1,7 +1,11 @@
+import { Phone } from '@modules/addresses/infra/typeorm/entities/Phone';
+import { PhonesRepositoryInMemory } from '@modules/addresses/repositories/in-memory/PhonesRepositoryInMemory';
 import { IOrganizationDTO } from '@modules/organizations/dtos/IOrganizationDTO';
 import { Organization } from '@modules/organizations/infra/typeorm/entities/Organization';
 
-import { IOrganizationsRepository } from '../IOrganizationRepository';
+import { IOrganizationsRepository } from '../IOrganizationsRepository';
+
+let phonesRepositoryInMemory: PhonesRepositoryInMemory;
 
 class OrganizationsRepositoryInMemory implements IOrganizationsRepository {
   organizations: Organization[] = [];
@@ -35,9 +39,19 @@ class OrganizationsRepositoryInMemory implements IOrganizationsRepository {
     return organization;
   }
 
-  async findById(id: string): Promise<Organization> {
+  async findById(id: string): Promise<{
+    organization: Organization
+    phones: Phone[]
+  }> {
+    phonesRepositoryInMemory = new PhonesRepositoryInMemory();
     const organization = this.organizations.find((organization) => organization.id === id);
-    return organization;
+
+    const phones = await phonesRepositoryInMemory.findByOrganizationId(id);
+
+    return {
+      organization,
+      phones,
+    };
   }
 
   async findByCnpj(cnpj: string): Promise<Organization> {

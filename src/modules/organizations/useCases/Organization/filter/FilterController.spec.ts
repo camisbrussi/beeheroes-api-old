@@ -56,7 +56,7 @@ describe('Filer Organization Controller', () => {
       Authorization: `Bearer ${refresh_token}`,
     });
 
-    await request(app).post('/organizations').send({
+    const create = await request(app).post('/organizations').send({
       name: 'Organization Name',
       email: 'organization2@beeheroes.com',
       cnpj: '1111111111',
@@ -65,7 +65,6 @@ describe('Filer Organization Controller', () => {
     }).set({
       Authorization: `Bearer ${refresh_token}`,
     });
-
     const response = await request(app).get('/organizations/filter').send({
       name: 'Organization',
     }).set({

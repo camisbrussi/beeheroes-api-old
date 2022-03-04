@@ -23,6 +23,6 @@ describe('List Organization', () => {
 
     const organization = await findOrganizationUseCase.execute(id);
 
-    expect(organization.id).toEqual(id);
+    expect(organization.organization.id).toEqual(id);
   });
 });

@@ -10,7 +10,7 @@ import {
 import { v4 as uuidV4 } from 'uuid';
 
 import { User } from '../../../../accounts/infra/typeorm/entities/User';
-import { OccupationArea } from './Occupation_area';
+import { OccupationArea } from './OccupationArea';
 
 @Entity('volunteers')
 class Volunteer {

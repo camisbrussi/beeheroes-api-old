@@ -59,7 +59,7 @@ export class CreateUsers1646267575016 implements MigrationInterface {
             },
             {
               name: 'FKAddressUser',
-              referencedTableName: 'address',
+              referencedTableName: 'addresses',
               referencedColumnNames: ['id'],
               columnNames: ['address_id'],
               onDelete: 'SET NULL',

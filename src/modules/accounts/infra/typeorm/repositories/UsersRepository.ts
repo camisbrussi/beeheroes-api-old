@@ -34,7 +34,7 @@ class UsersRepository implements IUsersRepository {
 
   async findByEmail(email: string): Promise<User> {
     const user = await this.repository.createQueryBuilder('user')
-      .leftJoinAndSelect('user.address', 'address')
+      .leftJoinAndSelect('user.address', 'addresses')
       .where('user.email =:email', { email })
       .getOne();
 
@@ -44,7 +44,7 @@ class UsersRepository implements IUsersRepository {
   async findById(id: string): Promise<User> {
     const user = this.repository
       .createQueryBuilder('user')
-      .leftJoinAndSelect('user.address', 'address')
+      .leftJoinAndSelect('user.address', 'addresses')
       .where('user.id =:id', { id })
       .getOne();
 

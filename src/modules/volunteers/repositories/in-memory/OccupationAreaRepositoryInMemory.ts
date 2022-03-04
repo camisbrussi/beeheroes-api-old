@@ -1,9 +1,9 @@
 import { IOccupationAreaDTO } from '@modules/volunteers/dtos/IOccupationAreaDTO';
-import { OccupationArea } from '@modules/volunteers/infra/typeorm/entities/Occupation_area';
+import { OccupationArea } from '@modules/volunteers/infra/typeorm/entities/OccupationArea';
 
-import { IOccupationAreaRepository } from '../IOccupationAreaRepository';
+import { IOccupationsAreaRepository } from '../IOccupationsAreaRepository';
 
-class OccupationAreaRepositoryInMemory implements IOccupationAreaRepository {
+class OccupationsAreaRepositoryInMemory implements IOccupationsAreaRepository {
   occupationArea: OccupationArea[] = [];
 
   async create({
@@ -52,4 +52,4 @@ class OccupationAreaRepositoryInMemory implements IOccupationAreaRepository {
   }
 }
 
-export { OccupationAreaRepositoryInMemory };
+export { OccupationsAreaRepositoryInMemory };

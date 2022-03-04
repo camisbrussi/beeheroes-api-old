@@ -1,7 +1,8 @@
 import { inject, injectable } from 'tsyringe';
 
+import { Phone } from '@modules/addresses/infra/typeorm/entities/Phone';
 import { Organization } from '@modules/organizations/infra/typeorm/entities/Organization';
-import { IOrganizationsRepository } from '@modules/organizations/repositories/IOrganizationRepository';
+import { IOrganizationsRepository } from '@modules/organizations/repositories/IOrganizationsRepository';
 import { AppError } from '@shared/errors/AppError';
 
 @injectable()
@@ -11,14 +12,20 @@ class FindOrganizationUseCase {
     private organizationsRepository: IOrganizationsRepository,
   ) { }
 
-  async execute(id: string): Promise<Organization> {
-    const organization = await this.organizationsRepository.findById(id);
+  async execute(id: string): Promise<{
+    organization: Organization,
+    phones: Phone[]
+  }> {
+    const data = await this.organizationsRepository.findById(id);
 
-    if (!organization) {
+    if (!data.organization) {
       throw new AppError('Organization does not exist');
     }
 
-    return organization;
+    return {
+      organization: data.organization,
+      phones: data.phones,
+    };
   }
 }
 

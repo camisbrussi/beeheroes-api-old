@@ -3,7 +3,8 @@ import { inject, injectable } from 'tsyringe';
 
 import { User } from '@modules/accounts/infra/typeorm/entities/User';
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
-import { IAddressRepository } from '@modules/address/repositories/IAddressRepository';
+import { IAddressesRepository } from '@modules/addresses/repositories/IAddressesRepository';
+import { IRequestAddress } from '@modules/addresses/useCases/address/create/CreateUseCase';
 import { AppError } from '@shared/errors/AppError';
 
 interface IRequest {
@@ -12,14 +13,7 @@ interface IRequest {
   email: string;
   password: string;
   user_type_id: number;
-  address?: {
-    street: string;
-    number: string;
-    complement?: string;
-    district: string;
-    cep: number,
-    city_id: number,
-  },
+  address?: IRequestAddress;
 }
 
 @injectable()
@@ -27,8 +21,8 @@ class CreateUserUseCase {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
-    @inject('AddressRepository')
-    private addressRepository: IAddressRepository,
+    @inject('AddressesRepository')
+    private addressRepository: IAddressesRepository,
   ) {}
 
   async execute({

@@ -3,7 +3,7 @@ import {
 } from 'typeorm';
 import { v4 as uuidV4 } from 'uuid';
 
-import { Address } from '../../../../address/infra/typeorm/entities/Address';
+import { Address } from '../../../../addresses/infra/typeorm/entities/Address';
 import { UserType } from './UserTypes';
 
 @Entity('users')

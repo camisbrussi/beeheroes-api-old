@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 
-import { OccupationArea } from '@modules/volunteers/infra/typeorm/entities/Occupation_area';
-import { IOccupationAreaRepository } from '@modules/volunteers/repositories/IOccupationAreaRepository';
+import { OccupationArea } from '@modules/volunteers/infra/typeorm/entities/OccupationArea';
+import { IOccupationsAreaRepository } from '@modules/volunteers/repositories/IOccupationsAreaRepository';
 import { AppError } from '@shared/errors/AppError';
 
 interface IRequest {
@@ -11,8 +11,8 @@ interface IRequest {
 @injectable()
 class UpdateOccupationAreaUseCase {
   constructor(
-    @inject('OccupationAreaRepository')
-    private occupationAreaRepository: IOccupationAreaRepository,
+    @inject('OccupationsAreaRepository')
+    private occupationAreaRepository: IOccupationsAreaRepository,
   ) {}
 
   async execute({ id, name }: IRequest): Promise<OccupationArea> {

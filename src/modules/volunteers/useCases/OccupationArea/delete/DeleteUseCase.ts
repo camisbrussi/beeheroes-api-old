@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 
-import { IOccupationAreaRepository } from '@modules/volunteers/repositories/IOccupationAreaRepository';
+import { IOccupationsAreaRepository } from '@modules/volunteers/repositories/IOccupationsAreaRepository';
 import { IVolunteersRepository } from '@modules/volunteers/repositories/IVolunteersRepository';
 import { AppError } from '@shared/errors/AppError';
 
@@ -9,8 +9,8 @@ class DeleteOccupationAreaUseCase {
   constructor(
     @inject('VolunteersRepository')
     private volunteersRepository: IVolunteersRepository,
-    @inject('OccupationAreaRepository')
-    private occupationAreaRepository: IOccupationAreaRepository,
+    @inject('OccupationsAreaRepository')
+    private occupationAreaRepository: IOccupationsAreaRepository,
   ) {}
 
   async execute(id: string): Promise<void> {
