@@ -2,7 +2,7 @@ import {
   MigrationInterface, QueryRunner, Table, TableForeignKey,
 } from 'typeorm';
 
-export class CreateOrganizationResponsibles1645899369139 implements MigrationInterface {
+export class CreateOrganizarionResponsibles1646267734614 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({

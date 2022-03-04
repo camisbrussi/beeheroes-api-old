@@ -7,12 +7,20 @@ class UsersRepositoryInMemory implements IUsersRepository {
   users: User[] = [];
 
   async create({
-    name, email, password, user_type_id,
+    name,
+    email,
+    password,
+    user_type_id,
+    address_id,
   }: IUserDTO): Promise<User> {
     const user = new User();
 
     Object.assign(user, {
-      name, email, password, user_type_id,
+      name,
+      email,
+      password,
+      user_type_id,
+      address_id,
     });
 
     this.users.push(user);
@@ -64,6 +72,7 @@ class UsersRepositoryInMemory implements IUsersRepository {
     password,
     user_type_id,
     status,
+    address_id,
   }: IUserDTO): Promise<User> {
     const findIndex = this.users.findIndex((user) => user.id === id);
 
@@ -72,6 +81,7 @@ class UsersRepositoryInMemory implements IUsersRepository {
     if (password) this.users[findIndex].password = password;
     if (status) this.users[findIndex].status = status;
     if (user_type_id) this.users[findIndex].user_type_id = user_type_id;
+    if (address_id) this.users[findIndex].address_id = address_id;
 
     return this.users[findIndex];
   }

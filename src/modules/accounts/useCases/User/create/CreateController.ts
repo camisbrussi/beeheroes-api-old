@@ -10,6 +10,7 @@ class CreateUserController {
       email,
       password,
       user_type_id,
+      address,
     } = request.body;
 
     const createUserUseCase = container.resolve(CreateUserUseCase);
@@ -19,6 +20,7 @@ class CreateUserController {
       email,
       password,
       user_type_id,
+      address,
     });
 
     return response.status(201).send(JSON.stringify(user));

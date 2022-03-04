@@ -12,6 +12,7 @@ class OrganizationsRepositoryInMemory implements IOrganizationsRepository {
     description,
     cnpj,
     organization_type_id,
+    address_id,
   }: IOrganizationDTO): Promise<Organization> {
     const organization = new Organization();
 
@@ -21,6 +22,7 @@ class OrganizationsRepositoryInMemory implements IOrganizationsRepository {
       description,
       cnpj,
       organization_type_id,
+      address_id,
     });
 
     this.organizations.push(organization);
@@ -73,6 +75,7 @@ class OrganizationsRepositoryInMemory implements IOrganizationsRepository {
     cnpj,
     status,
     organization_type_id,
+    address_id,
   }: IOrganizationDTO): Promise<Organization> {
     const findIndex = this.organizations.findIndex((organization) => organization.id === id);
 
@@ -84,6 +87,10 @@ class OrganizationsRepositoryInMemory implements IOrganizationsRepository {
     if (organization_type_id) {
       this.organizations[findIndex]
         .organization_type_id = organization_type_id;
+    }
+    if (address_id) {
+      this.organizations[findIndex]
+        .address_id = address_id;
     }
 
     return this.organizations[findIndex];

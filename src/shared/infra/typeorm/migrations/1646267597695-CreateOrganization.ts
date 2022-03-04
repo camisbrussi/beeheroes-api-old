@@ -1,11 +1,11 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateVolunteers1646049467103 implements MigrationInterface {
+export class CreateOrganization1646267597695 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table(
         {
-          name: 'volunteers',
+          name: 'organizations',
           columns: [
             {
               name: 'id',
@@ -13,30 +13,34 @@ export class CreateVolunteers1646049467103 implements MigrationInterface {
               isPrimary: true,
             },
             {
+              name: 'name',
+              type: 'varchar',
+            },
+            {
               name: 'description',
               type: 'varchar',
               isNullable: true,
             },
             {
-              name: 'profession',
+              name: 'cnpj',
               type: 'varchar',
             },
             {
-              name: 'cpf',
+              name: 'email',
               type: 'varchar',
             },
             {
-              name: 'avatar',
-              type: 'varchar',
+              name: 'status',
+              type: 'smallint',
+            },
+            {
+              name: 'organization_type_id',
+              type: 'uuid',
+            },
+            {
+              name: 'address_id',
+              type: 'uuid',
               isNullable: true,
-            },
-            {
-              name: 'user_id',
-              type: 'uuid',
-            },
-            {
-              name: 'occupation_area_id',
-              type: 'uuid',
             },
             {
               name: 'created_at',
@@ -51,18 +55,19 @@ export class CreateVolunteers1646049467103 implements MigrationInterface {
           ],
           foreignKeys: [
             {
-              name: 'FKUserVolunteer',
-              referencedTableName: 'users',
+              name: 'FKTypeOrganization',
+              referencedTableName: 'organization_types',
               referencedColumnNames: ['id'],
-              columnNames: ['user_id'],
+              columnNames: ['organization_type_id'],
               onDelete: 'SET NULL',
               onUpdate: 'SET NULL',
             },
+
             {
-              name: 'FKOccupationAreaVolunteer',
-              referencedTableName: 'occupation_area',
+              name: 'FKAddressOrganization',
+              referencedTableName: 'address',
               referencedColumnNames: ['id'],
-              columnNames: ['occupation_area_id'],
+              columnNames: ['address_id'],
               onDelete: 'SET NULL',
               onUpdate: 'SET NULL',
             },
@@ -73,6 +78,6 @@ export class CreateVolunteers1646049467103 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('volunteers');
+    await queryRunner.dropTable('organization');
   }
 }

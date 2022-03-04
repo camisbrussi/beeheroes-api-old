@@ -17,12 +17,14 @@ class UsersRepository implements IUsersRepository {
     email,
     password,
     user_type_id,
+    address_id,
   }: IUserDTO): Promise<User> {
     const user = this.repository.create({
       name,
       email,
       password,
       user_type_id,
+      address_id,
     });
 
     await this.repository.save(user);
@@ -31,13 +33,20 @@ class UsersRepository implements IUsersRepository {
   }
 
   async findByEmail(email: string): Promise<User> {
-    const user = await this.repository.findOne({ email });
+    const user = await this.repository.createQueryBuilder('user')
+      .leftJoinAndSelect('user.address', 'address')
+      .where('user.email =:email', { email })
+      .getOne();
 
     return user;
   }
 
   async findById(id: string): Promise<User> {
-    const user = await this.repository.findOne({ id });
+    const user = this.repository
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.address', 'address')
+      .where('user.id =:id', { id })
+      .getOne();
 
     return user;
   }
@@ -93,6 +102,7 @@ class UsersRepository implements IUsersRepository {
     password,
     user_type_id,
     status,
+    address_id,
   }: IUserDTO): Promise<User> {
     const setUser: IUserDTO = { };
 
@@ -101,6 +111,7 @@ class UsersRepository implements IUsersRepository {
     if (password) setUser.password = password;
     if (status) setUser.status = status;
     if (user_type_id) setUser.user_type_id = user_type_id;
+    if (address_id) setUser.address_id = address_id;
 
     const userTypeEdited = await this.repository
       .createQueryBuilder()

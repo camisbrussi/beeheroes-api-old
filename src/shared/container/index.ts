@@ -8,6 +8,8 @@ import { UserTypesRepository } from '@modules/accounts/infra/typeorm/repositorie
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
 import { IUsersTokensRepository } from '@modules/accounts/repositories/IUsersTokensRepository';
 import { IUserTypesRepository } from '@modules/accounts/repositories/IUserTypesRepository';
+import { AddressRepository } from '@modules/address/infra/typeorm/repositories/AddressRepository';
+import { IAddressRepository } from '@modules/address/repositories/IAddressRepository';
 import { OrganizationTypesRepository } from '@modules/organizations/infra/typeorm/repositories/OrganizationTypesRepository';
 import { OrganizationsRepository } from '@modules/organizations/infra/typeorm/repositories/OrganzationsRepository';
 import { IOrganizationsRepository } from '@modules/organizations/repositories/IOrganizationRepository';
@@ -50,4 +52,9 @@ container.registerSingleton<IOccupationAreaRepository>(
 container.registerSingleton<IVolunteersRepository>(
   'VolunteersRepository',
   VolunteersRepository,
+);
+
+container.registerSingleton<IAddressRepository>(
+  'AddressRepository',
+  AddressRepository,
 );

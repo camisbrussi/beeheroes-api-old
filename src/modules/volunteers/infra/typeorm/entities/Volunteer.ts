@@ -3,16 +3,13 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
-  JoinTable,
-  ManyToMany,
   ManyToOne,
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { v4 as uuidV4 } from 'uuid';
 
-import { User } from '@modules/accounts/infra/typeorm/entities/User';
-
+import { User } from '../../../../accounts/infra/typeorm/entities/User';
 import { OccupationArea } from './Occupation_area';
 
 @Entity('volunteers')

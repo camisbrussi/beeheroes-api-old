@@ -1,3 +1,4 @@
+import { AddressRepositoryInMemory } from '@modules/address/repositories/in-memory/AddressRepositoryInMemory';
 import { OrganizationsRepositoryInMemory } from '@modules/organizations/repositories/in-memory/OrganizationRepositoryInMemory';
 import { AppError } from '@shared/errors/AppError';
 
@@ -5,10 +6,13 @@ import { CreateOrganizationUseCase } from './CreateUseCase';
 
 let createOrganizationUseCase: CreateOrganizationUseCase;
 let organizationsRepositoryInMemory: OrganizationsRepositoryInMemory;
+let addressRepositoryInMemory: AddressRepositoryInMemory;
 
 beforeEach(() => {
   organizationsRepositoryInMemory = new OrganizationsRepositoryInMemory();
-  createOrganizationUseCase = new CreateOrganizationUseCase(organizationsRepositoryInMemory);
+  addressRepositoryInMemory = new AddressRepositoryInMemory();
+  createOrganizationUseCase = new CreateOrganizationUseCase(organizationsRepositoryInMemory,
+    addressRepositoryInMemory);
 });
 
 describe('Create Organization ', () => {

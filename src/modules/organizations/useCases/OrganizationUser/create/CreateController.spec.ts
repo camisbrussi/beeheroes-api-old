@@ -41,7 +41,7 @@ describe('Create Organization Controller', () => {
     await connection.close();
   });
 
-  it.only('should be able to add a new user to the organization ', async () => {
+  it('should be able to add a new user to the organization ', async () => {
     const responseToken = await request(app).post('/sessions')
       .send({
         email: 'admin@beeheroes.com',

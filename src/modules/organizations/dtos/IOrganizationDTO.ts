@@ -8,6 +8,7 @@ interface IOrganizationDTO {
   email?: string,
   status?:number,
   organization_type_id?: string;
+  address_id?: string;
   users?: User[]
 }
 

@@ -11,8 +11,8 @@ import {
 } from 'typeorm';
 import { v4 as uuidV4 } from 'uuid';
 
-import { User } from '@modules/accounts/infra/typeorm/entities/User';
-
+import { User } from '../../../../accounts/infra/typeorm/entities/User';
+import { Address } from '../../../../address/infra/typeorm/entities/Address';
 import { OrganizationType } from './OrganizationType';
 
 @Entity('organizations')
@@ -38,6 +38,13 @@ class Organization {
 
   @Column()
   organization_type_id: string;
+
+  @ManyToOne(() => Address)
+  @JoinColumn({ name: 'address_id' })
+  address: Address;
+
+  @Column()
+  address_id: string;
 
   @ManyToMany(() => User)
   @JoinTable({

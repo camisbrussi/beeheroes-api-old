@@ -11,7 +11,7 @@ async function create() {
 
   await connection.query(
     `INSERT INTO USER_TYPES(name, description, created_at, updated_at) 
-      VALUES('User Type', 'xxxxxx', 'now()', 'now()')`,
+      VALUES('Admin', 'Usuário Administrador do Sistema', 'now()', 'now()')`,
   );
 
   await connection.query(

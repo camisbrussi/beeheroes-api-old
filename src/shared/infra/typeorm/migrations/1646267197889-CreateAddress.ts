@@ -1,11 +1,11 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateOrganization1645815180713 implements MigrationInterface {
+export class CreateAddress1646267197889 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table(
         {
-          name: 'organizations',
+          name: 'address',
           columns: [
             {
               name: 'id',
@@ -13,29 +13,29 @@ export class CreateOrganization1645815180713 implements MigrationInterface {
               isPrimary: true,
             },
             {
-              name: 'name',
+              name: 'street',
               type: 'varchar',
             },
             {
-              name: 'description',
+              name: 'number',
+              type: 'varchar',
+            },
+            {
+              name: 'complement',
               type: 'varchar',
               isNullable: true,
             },
             {
-              name: 'cnpj',
+              name: 'district',
               type: 'varchar',
             },
             {
-              name: 'email',
-              type: 'varchar',
+              name: 'cep',
+              type: 'int',
             },
             {
-              name: 'status',
-              type: 'smallint',
-            },
-            {
-              name: 'organization_type_id',
-              type: 'uuid',
+              name: 'city_id',
+              type: 'int',
             },
             {
               name: 'created_at',
@@ -50,10 +50,10 @@ export class CreateOrganization1645815180713 implements MigrationInterface {
           ],
           foreignKeys: [
             {
-              name: 'FKTypeOrganization',
-              referencedTableName: 'organization_types',
+              name: 'FKCityAddress',
+              referencedTableName: 'cities',
               referencedColumnNames: ['id'],
-              columnNames: ['organization_type_id'],
+              columnNames: ['city_id'],
               onDelete: 'SET NULL',
               onUpdate: 'SET NULL',
             },
@@ -64,6 +64,6 @@ export class CreateOrganization1645815180713 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('organization');
+    await queryRunner.dropTable('address');
   }
 }

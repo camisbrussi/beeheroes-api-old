@@ -2,13 +2,11 @@ import { OrganizationsRepositoryInMemory } from '@modules/organizations/reposito
 import { OrganizationTypeRepositoryInMemory } from '@modules/organizations/repositories/in-memory/OrganizationTypesRepositoryInMemory';
 import { AppError } from '@shared/errors/AppError';
 
-import { CreateOrganizationUseCase } from '../../Organization/create/CreateUseCase';
 import { CreateOrganizationTypeUseCase } from '../create/CreateUseCase';
 import { FindOrganizationTypeUseCase } from '../find/FindUseCase';
 import { DeleteOrganizationTypeUseCase } from './DeleteUseCase';
 
 let createOrganizationTypeUseCase: CreateOrganizationTypeUseCase;
-let createOrganizationUseCase: CreateOrganizationUseCase;
 let deleteTypeUseCase: DeleteOrganizationTypeUseCase;
 let findOrganizationTypeUseCase: FindOrganizationTypeUseCase;
 let organizationTypesRepositoryInMemory: OrganizationTypeRepositoryInMemory;
@@ -28,7 +26,6 @@ describe('Update Type organization', () => {
     findOrganizationTypeUseCase = new FindOrganizationTypeUseCase(
       organizationTypesRepositoryInMemory,
     );
-    createOrganizationUseCase = new CreateOrganizationUseCase(organizationsRepositoryInMemory);
   });
 
   it('should be able to delete a organization type', async () => {
@@ -49,7 +46,7 @@ describe('Update Type organization', () => {
       description: 'Organization type description',
     });
 
-    await createOrganizationUseCase.execute({
+    await organizationsRepositoryInMemory.create({
       name: 'Organization Name',
       email: 'organization@beeheroes.com',
       cnpj: '000000000000',

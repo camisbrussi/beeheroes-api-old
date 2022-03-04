@@ -3,6 +3,7 @@ import {
 } from 'typeorm';
 import { v4 as uuidV4 } from 'uuid';
 
+import { Address } from '../../../../address/infra/typeorm/entities/Address';
 import { UserType } from './UserTypes';
 
 @Entity('users')
@@ -25,6 +26,13 @@ class User {
 
   @Column()
   user_type_id: number;
+
+  @ManyToOne(() => Address)
+  @JoinColumn({ name: 'address_id' })
+  address: Address;
+
+  @Column()
+  address_id: string;
 
   @Column()
   status: number;

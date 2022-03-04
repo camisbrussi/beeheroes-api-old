@@ -31,10 +31,29 @@ Título do TCC: BEE HEROES: APLICANDO OS PRINCÍPIOS DE EXPERIÊNCIA DO USUÁRIO
 2. Crie duas databases no seu banco (beeheroes e beeheroes_test)
 2. Execute os comandos abaixos;
 
-  ```
+Criação do banco de dados
+
+```
   npm run typeorm migration:run / yarn typeorm migration:run
+```
+
+Criação de um usário Admin, com a senha admin, para acesso ao sistema
+```
+  npm run seed:admin / yarn admin 
+```
+
+Alimentação do banco com os estados do Brasil
+```
+  npm run seed:states / yarn states 
+```
+
+Alimentação do banco com as citades do Brasil
+```
+  npm run seed:cities / yarn cities
+```
+
   docker-compose up -d
-  ``` 
+  
  3. Acesse http://localhost:3333 para ver o resultado.
  4. Você pode exportar o arquivo Insonia para fazer os testes das rotas
     
@@ -45,6 +64,6 @@ Título do TCC: BEE HEROES: APLICANDO OS PRINCÍPIOS DE EXPERIÊNCIA DO USUÁRIO
   npm run test / yarn test
   ``` 
  
-![image](https://user-images.githubusercontent.com/40186019/156446445-7adabe8e-c1dc-4352-85fd-89b0f6ac5a61.png)
+![image](https://user-images.githubusercontent.com/40186019/156686188-0be13c99-c41e-4150-be3c-a8f5122b6487.png)
   
 Criado por: [Camila Sbrussi](https://github.com/camisbrussi/)!

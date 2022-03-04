@@ -20,6 +20,7 @@ class OrganizationsRepository implements IOrganizationsRepository {
     cnpj,
     organization_type_id,
     users,
+    address_id,
   }: IOrganizationDTO): Promise<Organization> {
     const organization = this.repository.create({
       id,
@@ -29,6 +30,7 @@ class OrganizationsRepository implements IOrganizationsRepository {
       cnpj,
       organization_type_id,
       users,
+      address_id,
     });
 
     await this.repository.save(organization);
@@ -43,13 +45,20 @@ class OrganizationsRepository implements IOrganizationsRepository {
   }
 
   async findById(id: string): Promise<Organization> {
-    const organization = await this.repository.findOne({ id });
+    const organization = await this.repository
+      .createQueryBuilder('organization')
+      .leftJoinAndSelect('organization.address', 'address')
+      .where('organization.id =:id', { id })
+      .getOne();
 
     return organization;
   }
 
   async findByCnpj(cnpj: string): Promise<Organization> {
-    const organization = await this.repository.findOne({ cnpj });
+    const organization = await this.repository.createQueryBuilder('organization')
+      .leftJoinAndSelect('organization.address', 'address')
+      .where('organization.cnpj =:cnpj', { cnpj })
+      .getOne();
 
     return organization;
   }
@@ -109,6 +118,7 @@ class OrganizationsRepository implements IOrganizationsRepository {
     cnpj,
     status,
     organization_type_id,
+    address_id,
   }: IOrganizationDTO): Promise<Organization> {
     const setOrganization: IOrganizationDTO = { };
 
@@ -118,6 +128,7 @@ class OrganizationsRepository implements IOrganizationsRepository {
     if (cnpj) setOrganization.cnpj = cnpj;
     if (status) setOrganization.status = status;
     if (organization_type_id) setOrganization.organization_type_id = organization_type_id;
+    if (address_id) setOrganization.address_id = address_id;
 
     const organizationTypeEdited = await this.repository
       .createQueryBuilder()

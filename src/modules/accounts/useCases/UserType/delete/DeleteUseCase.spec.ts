@@ -2,13 +2,11 @@ import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memor
 import { UserTypeRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UserTypesRepositoryInMemory';
 import { AppError } from '@shared/errors/AppError';
 
-import { CreateUserUseCase } from '../../User/create/CreateUseCase';
 import { CreateUserTypeUseCase } from '../create/CreateUseCase';
 import { FindUserTypeUseCase } from '../find/FindUseCase';
 import { DeleteUserTypeUseCase } from './DeleteUseCase';
 
 let createUserTypeUseCase: CreateUserTypeUseCase;
-let createUserUseCase: CreateUserUseCase;
 let deleteTypeUseCase: DeleteUserTypeUseCase;
 let findUserTypeUseCase: FindUserTypeUseCase;
 let userTypesRepositoryInMemory: UserTypeRepositoryInMemory;
@@ -24,7 +22,6 @@ describe('Update Type user', () => {
       userTypesRepositoryInMemory,
     );
     findUserTypeUseCase = new FindUserTypeUseCase(userTypesRepositoryInMemory);
-    createUserUseCase = new CreateUserUseCase(usersRepositoryInMemory);
   });
 
   it('should be able to delete a user type', async () => {
@@ -47,7 +44,7 @@ describe('Update Type user', () => {
       description: 'User type description',
     });
 
-    await createUserUseCase.execute({
+    await usersRepositoryInMemory.create({
       name: 'User Type name',
       email: 'teste@beeheroes.com',
       password: '123456',

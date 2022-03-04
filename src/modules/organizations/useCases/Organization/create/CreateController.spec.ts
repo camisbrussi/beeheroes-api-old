@@ -31,6 +31,16 @@ describe('Create Organization Controller', () => {
       `INSERT INTO ORGANIZATION_TYPES(id, name, description, created_at, updated_at) 
       VALUES('${id}', 'Organization Type', 'xxxxxx', 'now()', 'now()')`,
     );
+
+    await connection.query(
+      `INSERT INTO states(id, name, uf, created_at, updated_at) 
+      VALUES('1', 'state', 'st', 'now()', 'now()')`,
+    );
+
+    await connection.query(
+      `INSERT INTO cities(id, name, state_id, created_at, updated_at) 
+      VALUES('1', 'city', '1', 'now()', 'now()')`,
+    );
   });
 
   afterAll(async () => {
@@ -80,5 +90,42 @@ describe('Create Organization Controller', () => {
     });
 
     expect(response.status).toBe(400);
+  });
+
+  it('should be able to create a new organization with address', async () => {
+    const responseToken = await request(app).post('/sessions')
+      .send({
+        email: 'admin@beeheroes.com',
+        password: 'admin',
+      });
+
+    const token = responseToken.body.refresh_token;
+
+    const organization = await request(app).post('/organizations').send({
+      name: 'Organization Name',
+      email: 'organization1@beeheroes.com',
+      cnpj: '000000000001',
+      description: 'Description Organization',
+      organization_type_id: id,
+      address: {
+        street: 'Street Example - Edited',
+        number: '123',
+        complement: '123',
+        district: 'District',
+        cep: 12345,
+        city_id: 1,
+      },
+    }).set({
+      Authorization: `Bearer ${token}`,
+    });
+
+    const idOrganization = JSON.parse(organization.text).id;
+
+    const response = await request(app).get(`/organizations/find?id=${idOrganization}`).send().set({
+      Authorization: `Bearer ${token}`,
+    });
+
+    expect(organization.status).toBe(201);
+    expect(response.body.address).not.toBeNull();
   });
 });

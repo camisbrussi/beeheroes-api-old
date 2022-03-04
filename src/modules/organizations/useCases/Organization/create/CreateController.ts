@@ -12,6 +12,7 @@ class CreateOrganizationController {
       cnpj,
       organization_type_id,
       users,
+      address,
     } = request.body;
 
     const createOrganizationUseCase = container.resolve(CreateOrganizationUseCase);
@@ -23,6 +24,7 @@ class CreateOrganizationController {
       cnpj,
       organization_type_id,
       users,
+      address,
     });
 
     return response.status(201).send(JSON.stringify(organization));

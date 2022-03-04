@@ -8,6 +8,7 @@ interface IOrganizationsRepository{
     description,
     cnpj,
     organization_type_id,
+    address_id,
   }: IOrganizationDTO): Promise<Organization>;
   findByEmail(email: string): Promise<Organization>;
   findById(id: string): Promise<Organization>;
@@ -28,6 +29,7 @@ interface IOrganizationsRepository{
     description,
     cnpj,
     organization_type_id,
+    address_id,
   }: IOrganizationDTO): Promise<Organization>;
 }
 
