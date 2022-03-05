@@ -77,7 +77,7 @@ describe('Create Organization ', () => {
     ).rejects.toEqual(new AppError('Organization already exists!'));
   });
 
-  it('should not be able to create a organization with status await by default', async () => {
+  it('should be able to create a organization with status await by default', async () => {
     const organization = await createOrganizationUseCase.execute({
       name: 'Organization Name',
       email: 'organization@beeheroes.com',

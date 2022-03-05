@@ -16,6 +16,8 @@ import { OrganizationTypesRepository } from '@modules/organizations/infra/typeor
 import { OrganizationsRepository } from '@modules/organizations/infra/typeorm/repositories/OrganzationsRepository';
 import { IOrganizationsRepository } from '@modules/organizations/repositories/IOrganizationsRepository';
 import { IOrganizationTypesRepository } from '@modules/organizations/repositories/IOrganizationTypesRepository';
+import { ProjectsRepository } from '@modules/projects/infra/typeorm/repositories/ProjectsRepository';
+import { IProjectsRepository } from '@modules/projects/repositories/IProjectsRepository';
 import { OccupationsAreaRepository } from '@modules/volunteers/infra/typeorm/repositories/OccupationsAreaRepository';
 import { VolunteersRepository } from '@modules/volunteers/infra/typeorm/repositories/VolunteersRepository';
 import { IOccupationsAreaRepository } from '@modules/volunteers/repositories/IOccupationsAreaRepository';
@@ -64,4 +66,9 @@ container.registerSingleton<IAddressesRepository>(
 container.registerSingleton<IPhonesRepository>(
   'PhonesRepository',
   PhonesRepository,
+);
+
+container.registerSingleton<IProjectsRepository>(
+  'ProjectsRepository',
+  ProjectsRepository,
 );

@@ -57,7 +57,7 @@ describe('Create User ', () => {
     ).rejects.toEqual(new AppError(`User ${user.email} already exists`));
   });
 
-  it('should not be able to create a user  with status active by default', async () => {
+  it('should be able to create a user  with status active by default', async () => {
     const user = await createUserUseCase.execute({
       name: 'Admin',
       email: 'admin@beeheroes.com',
