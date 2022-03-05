@@ -68,6 +68,6 @@ Alimentação do banco com as citades do Brasil
   npm run test / yarn test
   ``` 
  
-![image](https://user-images.githubusercontent.com/40186019/156891465-61eac45d-9650-41e3-897d-ba7742e245e9.png)
+![image](https://user-images.githubusercontent.com/40186019/156893342-8b5579ba-25c6-4145-9eaa-d7df5297e007.png)
   
 Criado por: [Camila Sbrussi](https://github.com/camisbrussi/)!

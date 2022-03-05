@@ -1,11 +1,11 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateProject1646434529479 implements MigrationInterface {
+export class CreateDonations1646498923892 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table(
         {
-          name: 'projects',
+          name: 'donations',
           columns: [
             {
               name: 'id',
@@ -22,22 +22,18 @@ export class CreateProject1646434529479 implements MigrationInterface {
               isNullable: true,
             },
             {
-              name: 'start',
-              type: 'timestamp',
-            },
-            {
-              name: 'end',
-              type: 'timestamp',
+              name: 'total_value',
+              type: 'int',
               isNullable: true,
             },
             {
-              name: 'vacancies',
+              name: 'total_collected',
               type: 'int',
               isNullable: true,
             },
             {
               name: 'status',
-              type: 'int',
+              type: 'smallint',
             },
             {
               name: 'organization_id',
@@ -56,7 +52,7 @@ export class CreateProject1646434529479 implements MigrationInterface {
           ],
           foreignKeys: [
             {
-              name: 'FKProjectOrganizarion',
+              name: 'FKDonationOrganizarion',
               referencedTableName: 'organizations',
               referencedColumnNames: ['id'],
               columnNames: ['organization_id'],
@@ -70,6 +66,6 @@ export class CreateProject1646434529479 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('projects');
+    await queryRunner.dropTable('donations');
   }
 }

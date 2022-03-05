@@ -16,12 +16,14 @@ class FilterProjectUseCase {
     name,
     start,
     end,
+    status,
     organization_id,
   }: IProjectDTO): Promise<Project[]> {
     const project = await this.projectsRepository.filter({
       name,
       start,
       end,
+      status,
       organization_id,
     });
 
