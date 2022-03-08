@@ -5,10 +5,12 @@ import { IOrganizationDTO } from '@modules/organizations/dtos/IOrganizationDTO';
 import { IOrganizationsRepository } from '@modules/organizations/repositories/IOrganizationsRepository';
 
 import { Organization } from '../entities/Organization';
+import { OrganizationImage } from '../entities/OrganizationImages';
 
 class OrganizationsRepository implements IOrganizationsRepository {
   private organizationsRepository: Repository<Organization>
   private phonesRepository: Repository<Phone>
+  private organizationImageRepository: Repository<OrganizationImage>
 
   constructor() {
     this.organizationsRepository = getRepository(Organization);

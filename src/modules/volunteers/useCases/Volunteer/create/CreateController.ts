@@ -10,8 +10,8 @@ class CreateVolunteerController {
       cpf,
       profession,
       description,
-      avatar,
       occupation_area_id,
+      address,
       user_id,
     } = request.body;
 
@@ -22,7 +22,7 @@ class CreateVolunteerController {
       cpf,
       profession,
       description,
-      avatar,
+      address,
       occupation_area_id,
       user_id,
     });

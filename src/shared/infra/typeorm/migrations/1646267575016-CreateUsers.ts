@@ -25,17 +25,17 @@ export class CreateUsers1646267575016 implements MigrationInterface {
               type: 'varchar',
             },
             {
+              name: 'avatar',
+              type: 'varchar',
+              isNullable: true,
+            },
+            {
               name: 'status',
               type: 'smallint',
             },
             {
               name: 'user_type_id',
               type: 'int',
-            },
-            {
-              name: 'address_id',
-              type: 'uuid',
-              isNullable: true,
             },
             {
               name: 'created_at',
@@ -54,14 +54,6 @@ export class CreateUsers1646267575016 implements MigrationInterface {
               referencedTableName: 'user_types',
               referencedColumnNames: ['id'],
               columnNames: ['user_type_id'],
-              onDelete: 'SET NULL',
-              onUpdate: 'SET NULL',
-            },
-            {
-              name: 'FKAddressUser',
-              referencedTableName: 'addresses',
-              referencedColumnNames: ['id'],
-              columnNames: ['address_id'],
               onDelete: 'SET NULL',
               onUpdate: 'SET NULL',
             },

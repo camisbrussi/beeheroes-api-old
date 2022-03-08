@@ -1,9 +1,9 @@
+import { Expose } from 'class-transformer';
 import {
   Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, UpdateDateColumn,
 } from 'typeorm';
 import { v4 as uuidV4 } from 'uuid';
 
-import { Address } from '../../../../addresses/infra/typeorm/entities/Address';
 import { UserType } from './UserTypes';
 
 @Entity('users')
@@ -20,19 +20,15 @@ class User {
   @Column()
   password: string;
 
+  @Column()
+  avatar: string;
+
   @ManyToOne(() => UserType)
   @JoinColumn({ name: 'user_type_id' })
   userType: UserType;
 
   @Column()
   user_type_id: number;
-
-  @ManyToOne(() => Address)
-  @JoinColumn({ name: 'address_id' })
-  address: Address;
-
-  @Column()
-  address_id: string;
 
   @Column()
   status: number;
@@ -42,6 +38,11 @@ class User {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @Expose({ name: 'avatar_url' })
+  avatar_url(): string {
+    return `local/avatar/${this.avatar}`;
+  }
 
   constructor() {
     if (!this.id) {

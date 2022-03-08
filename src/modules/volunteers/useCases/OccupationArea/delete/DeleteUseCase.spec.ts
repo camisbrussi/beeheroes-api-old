@@ -2,13 +2,11 @@ import { OccupationsAreaRepositoryInMemory } from '@modules/volunteers/repositor
 import { VolunteersRepositoryInMemory } from '@modules/volunteers/repositories/in-memory/VolunteersRepositoryInMemory';
 import { AppError } from '@shared/errors/AppError';
 
-import { CreateVolunteerUseCase } from '../../Volunteer/create/CreateUseCase';
 import { CreateOccupationAreaUseCase } from '../create/CreateUseCase';
 import { FindOccupationAreaUseCase } from '../find/FindUseCase';
 import { DeleteOccupationAreaUseCase } from './DeleteUseCase';
 
 let createOccupationAreaUseCase: CreateOccupationAreaUseCase;
-let createVolunteerUseCase: CreateVolunteerUseCase;
 let deleteOccupationAreaUseCase: DeleteOccupationAreaUseCase;
 let findOccupationAreaUseCase: FindOccupationAreaUseCase;
 let occupationAreaRepositoryInMemory: OccupationsAreaRepositoryInMemory;
@@ -28,7 +26,6 @@ describe('Update Occupation Area', () => {
     findOccupationAreaUseCase = new FindOccupationAreaUseCase(
       occupationAreaRepositoryInMemory,
     );
-    createVolunteerUseCase = new CreateVolunteerUseCase(volunteersRepositoryInMemory);
   });
 
   it('should be able to delete a occupation area', async () => {
@@ -47,11 +44,10 @@ describe('Update Occupation Area', () => {
       name: 'Occupation Area name',
     });
 
-    await createVolunteerUseCase.execute({
+    await volunteersRepositoryInMemory.create({
       cpf: '0000',
       profession: 'profession',
       description: 'xxxx',
-      avatar: 'xxxx',
       occupation_area_id: occupationArea.id,
       user_id: 'volunteer',
     });

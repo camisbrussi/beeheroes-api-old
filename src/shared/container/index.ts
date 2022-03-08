@@ -14,8 +14,10 @@ import { IAddressesRepository } from '@modules/addresses/repositories/IAddresses
 import { IPhonesRepository } from '@modules/addresses/repositories/IPhonesRepository';
 import { DonationsRepository } from '@modules/donations/infra/typeorm/repositories/DonationsRepository';
 import { IDonationsRepository } from '@modules/donations/repositories/IDonationsRepository';
+import { OrganizationImagesRepository } from '@modules/organizations/infra/typeorm/repositories/OrganizationImagesRepository';
 import { OrganizationTypesRepository } from '@modules/organizations/infra/typeorm/repositories/OrganizationTypesRepository';
 import { OrganizationsRepository } from '@modules/organizations/infra/typeorm/repositories/OrganzationsRepository';
+import { IOrganizationImagesRepository } from '@modules/organizations/repositories/IOrganizationImagesRepository';
 import { IOrganizationsRepository } from '@modules/organizations/repositories/IOrganizationsRepository';
 import { IOrganizationTypesRepository } from '@modules/organizations/repositories/IOrganizationTypesRepository';
 import { ProjectsRepository } from '@modules/projects/infra/typeorm/repositories/ProjectsRepository';
@@ -78,4 +80,9 @@ container.registerSingleton<IProjectsRepository>(
 container.registerSingleton<IDonationsRepository>(
   'DonationsRepository',
   DonationsRepository,
+);
+
+container.registerSingleton<IOrganizationImagesRepository>(
+  'OrganizationImagesRepository',
+  OrganizationImagesRepository,
 );

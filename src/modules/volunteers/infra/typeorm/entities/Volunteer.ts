@@ -10,6 +10,7 @@ import {
 import { v4 as uuidV4 } from 'uuid';
 
 import { User } from '../../../../accounts/infra/typeorm/entities/User';
+import { Address } from '../../../../addresses/infra/typeorm/entities/Address';
 import { OccupationArea } from './OccupationArea';
 
 @Entity('volunteers')
@@ -26,15 +27,19 @@ class Volunteer {
   @Column()
   profession: string;
 
-  @Column()
-  avatar: string;
-
   @ManyToOne(() => OccupationArea)
   @JoinColumn({ name: 'occupation_area_id' })
   occupationArea: OccupationArea;
 
   @Column()
   occupation_area_id: string;
+
+  @ManyToOne(() => Address)
+  @JoinColumn({ name: 'address_id' })
+  address: Address;
+
+  @Column()
+  address_id: string;
 
   @ManyToOne(() => User)
   @JoinColumn({ name: 'user_id' })

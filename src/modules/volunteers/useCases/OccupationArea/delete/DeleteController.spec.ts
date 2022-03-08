@@ -77,7 +77,6 @@ describe('Delete Occupation Area Controller', () => {
       cpf: '0000',
       profession: 'profession',
       description: 'xxxx',
-      avatar: 'xxxx',
       occupation_area_id: occupationAreaId,
       user_id: id,
     }).set({

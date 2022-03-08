@@ -7,7 +7,7 @@ interface IVolunteersRepository{
     cpf,
     profession,
     description,
-    avatar,
+    address_id,
     occupation_area_id,
     user_id,
   }: IVolunteerDTO): Promise<Volunteer>;
@@ -20,8 +20,8 @@ interface IVolunteersRepository{
     cpf,
     profession,
     description,
-    avatar,
     occupation_area_id,
+    address_id,
   }: IVolunteerDTO): Promise<Volunteer>;
 }
 

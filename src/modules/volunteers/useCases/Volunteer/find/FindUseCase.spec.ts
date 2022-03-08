@@ -16,7 +16,6 @@ describe('List Volunteer', () => {
       cpf: '11111',
       profession: 'profession',
       description: 'xxxx',
-      avatar: 'xxxx',
       occupation_area_id: 'occupationArea',
       user_id: 'volunteer',
     };

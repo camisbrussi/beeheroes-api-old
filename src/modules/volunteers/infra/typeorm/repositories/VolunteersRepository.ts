@@ -17,18 +17,18 @@ class VolunteersRepository implements IVolunteersRepository {
     cpf,
     profession,
     description,
-    avatar,
     occupation_area_id,
     user_id,
+    address_id,
   }: IVolunteerDTO): Promise<Volunteer> {
     const volunteer = this.repository.create({
       id,
       cpf,
       profession,
       description,
-      avatar,
       occupation_area_id,
       user_id,
+      address_id,
     });
 
     await this.repository.save(volunteer);
@@ -37,13 +37,19 @@ class VolunteersRepository implements IVolunteersRepository {
   }
 
   async findById(id: string): Promise<Volunteer> {
-    const volunteer = await this.repository.findOne({ id });
+    const volunteer = await this.repository.createQueryBuilder('volunteer')
+      .leftJoinAndSelect('volunteer.address', 'addresses')
+      .where('volunteer.id =:id', { id })
+      .getOne();
 
     return volunteer;
   }
 
   async findByCpf(cpf: string): Promise<Volunteer> {
-    const volunteer = await this.repository.findOne({ cpf });
+    const volunteer = await this.repository.createQueryBuilder('volunteer')
+      .leftJoinAndSelect('volunteer.address', 'addresses')
+      .where('volunteer.cpf =:cpf', { cpf })
+      .getOne();
 
     return volunteer;
   }
@@ -64,16 +70,16 @@ class VolunteersRepository implements IVolunteersRepository {
     cpf,
     profession,
     description,
-    avatar,
     occupation_area_id,
+    address_id,
   }: IVolunteerDTO): Promise<Volunteer> {
     const setVolunteer: IVolunteerDTO = { };
 
     if (cpf) setVolunteer.cpf = cpf;
     if (profession) setVolunteer.profession = profession;
     if (description) setVolunteer.description = description;
-    if (avatar) setVolunteer.avatar = avatar;
     if (occupation_area_id) setVolunteer.occupation_area_id = occupation_area_id;
+    if (address_id) setVolunteer.address_id = address_id;
 
     const volunteerTypeEdited = await this.repository
       .createQueryBuilder()

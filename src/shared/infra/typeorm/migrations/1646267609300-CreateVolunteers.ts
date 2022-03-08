@@ -26,17 +26,17 @@ export class CreateVolunteers1646267609300 implements MigrationInterface {
               type: 'varchar',
             },
             {
-              name: 'avatar',
-              type: 'varchar',
-              isNullable: true,
-            },
-            {
               name: 'user_id',
               type: 'uuid',
             },
             {
               name: 'occupation_area_id',
               type: 'uuid',
+            },
+            {
+              name: 'address_id',
+              type: 'uuid',
+              isNullable: true,
             },
             {
               name: 'created_at',
@@ -63,6 +63,13 @@ export class CreateVolunteers1646267609300 implements MigrationInterface {
               referencedTableName: 'occupations_area',
               referencedColumnNames: ['id'],
               columnNames: ['occupation_area_id'],
+              onDelete: 'SET NULL',
+              onUpdate: 'SET NULL',
+            }, {
+              name: 'FKAddressVolunteer',
+              referencedTableName: 'addresses',
+              referencedColumnNames: ['id'],
+              columnNames: ['address_id'],
               onDelete: 'SET NULL',
               onUpdate: 'SET NULL',
             },

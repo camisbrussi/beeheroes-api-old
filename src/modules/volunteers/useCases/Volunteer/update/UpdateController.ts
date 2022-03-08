@@ -8,8 +8,9 @@ class UpdateVolunteerController {
     const {
       profession,
       description,
-      avatar,
       occupation_area_id,
+      address_id,
+      address,
     } = request.body;
     const id = request.query.id as string;
 
@@ -19,8 +20,9 @@ class UpdateVolunteerController {
       id,
       profession,
       description,
-      avatar,
       occupation_area_id,
+      address_id,
+      address,
     });
 
     return response.status(200).json(volunteer);

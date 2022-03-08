@@ -65,34 +65,4 @@ describe('Update User Controller', () => {
     expect(response.body.name).toEqual('Admin - editado');
     expect(response.body.email).toEqual('editado@beeheroes.com');
   });
-
-  it('should be able to edit a user and add address', async () => {
-    const responseToken = await request(app).post('/sessions')
-      .send({
-        email: 'editado@beeheroes.com',
-        password: 'admin',
-      });
-
-    const { refresh_token } = responseToken.body;
-
-    await request(app).put(`/users?id=${id}`).send({
-      address: {
-        street: 'Street Example',
-        number: '123',
-        complement: '123',
-        district: 'District',
-        cep: 12345,
-        city_id: 1,
-      },
-    }).set({
-      Authorization: `Bearer ${refresh_token}`,
-    });
-
-    const response = await request(app).get(`/users/find/?id=${id}`).send().set({
-      Authorization: `Bearer ${refresh_token}`,
-    });
-
-    expect(response.body.address).not.toBeNull();
-    expect(response.body.address.street).toEqual('Street Example');
-  });
 });

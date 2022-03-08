@@ -11,8 +11,8 @@ class VolunteersRepositoryInMemory implements IVolunteersRepository {
     cpf,
     profession,
     description,
-    avatar,
     occupation_area_id,
+    address_id,
     user_id,
   }: IVolunteerDTO): Promise<Volunteer> {
     const volunteers = new Volunteer();
@@ -22,9 +22,9 @@ class VolunteersRepositoryInMemory implements IVolunteersRepository {
       cpf,
       profession,
       description,
-      avatar,
       occupation_area_id,
       user_id,
+      address_id,
     });
 
     this.volunteers.push(volunteers);
@@ -46,15 +46,15 @@ class VolunteersRepositoryInMemory implements IVolunteersRepository {
     id,
     profession,
     description,
-    avatar,
     occupation_area_id,
+    address_id,
   }: IVolunteerDTO): Promise<Volunteer> {
     const findIndex = this.volunteers.findIndex((volunteers) => volunteers.id === id);
 
     if (profession) this.volunteers[findIndex].profession = profession;
-    if (avatar) this.volunteers[findIndex].avatar = avatar;
     if (description) this.volunteers[findIndex].description = description;
     if (occupation_area_id) this.volunteers[findIndex].occupation_area_id = occupation_area_id;
+    if (address_id) this.volunteers[findIndex].address_id = address_id;
 
     return this.volunteers[findIndex];
   }

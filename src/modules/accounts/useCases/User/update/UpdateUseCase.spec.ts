@@ -1,5 +1,4 @@
 import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory';
-import { AddressesRepositoryInMemory } from '@modules/addresses/repositories/in-memory/AddressRepositoryInMemory';
 import { AppError } from '@shared/errors/AppError';
 
 import { CreateUserUseCase } from '../create/CreateUseCase';
@@ -8,20 +7,12 @@ import { UpdateUserUseCase } from './UpdateUseCase';
 let createUserUseCase: CreateUserUseCase;
 let updateUseCase: UpdateUserUseCase;
 let usersRepositoryInMemory: UsersRepositoryInMemory;
-let addressRepositoryInMemory: AddressesRepositoryInMemory;
 
 describe('Update Type User', () => {
   beforeEach(() => {
     usersRepositoryInMemory = new UsersRepositoryInMemory();
-    addressRepositoryInMemory = new AddressesRepositoryInMemory();
-    createUserUseCase = new CreateUserUseCase(
-      usersRepositoryInMemory,
-      addressRepositoryInMemory,
-    );
-    updateUseCase = new UpdateUserUseCase(
-      usersRepositoryInMemory,
-      addressRepositoryInMemory,
-    );
+    createUserUseCase = new CreateUserUseCase(usersRepositoryInMemory);
+    updateUseCase = new UpdateUserUseCase(usersRepositoryInMemory);
   });
 
   it('should be able to edit a user', async () => {
@@ -82,75 +73,5 @@ describe('Update Type User', () => {
       };
       await updateUseCase.execute(userEdit);
     }).rejects.toEqual(new AppError('User already exists!'));
-  });
-
-  it('should be able to edit a user and add address', async () => {
-    const user = await createUserUseCase.execute({
-      name: 'Admin',
-      email: 'admin@beeheroes.com',
-      password: '123456',
-      user_type_id: 1,
-    });
-
-    const userEdit = {
-      id: user.id,
-      address: {
-        street: 'Street Example',
-        number: '123',
-        complement: '123',
-        district: 'District',
-        cep: 12345,
-        city_id: 1,
-      },
-    };
-
-    await updateUseCase.execute(userEdit);
-
-    const userFind = await usersRepositoryInMemory
-      .findById(user.id);
-
-    const userAddress = await addressRepositoryInMemory
-      .findById(userFind.address_id);
-
-    expect(userAddress.street).toEqual('Street Example');
-  });
-
-  it('should be able to edit a user and edit address', async () => {
-    const user = await createUserUseCase.execute({
-      name: 'Admin',
-      email: 'admin@beeheroes.com',
-      password: '123456',
-      user_type_id: 1,
-      address: {
-        street: 'Street Example',
-        number: '123',
-        complement: '123',
-        district: 'District',
-        cep: 12345,
-        city_id: 1,
-      },
-    });
-
-    const userEdit = {
-      id: user.id,
-      address: {
-        street: 'Street Example Edited',
-        number: '456',
-        complement: '123',
-        district: 'District',
-        cep: 12345,
-        city_id: 1,
-      },
-    };
-
-    await updateUseCase.execute(userEdit);
-
-    const userFind = await usersRepositoryInMemory
-      .findById(user.id);
-
-    const userAddress = await addressRepositoryInMemory
-      .findById(userFind.address_id);
-
-    expect(userAddress.street).toEqual('Street Example Edited');
   });
 });

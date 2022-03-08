@@ -7,7 +7,7 @@ interface IUsersRepository{
     email,
     status,
     user_type_id,
-    address_id,
+    avatar,
   }: IUserDTO): Promise<User>;
   findByEmail(email: string): Promise<User>;
   findById(id: string): Promise<User>;
@@ -27,7 +27,6 @@ interface IUsersRepository{
     status,
     user_type_id,
     password,
-    address_id,
   }: IUserDTO): Promise<User>;
 }
 
