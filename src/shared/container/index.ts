@@ -21,7 +21,9 @@ import { IOrganizationImagesRepository } from '@modules/organizations/repositori
 import { IOrganizationsRepository } from '@modules/organizations/repositories/IOrganizationsRepository';
 import { IOrganizationTypesRepository } from '@modules/organizations/repositories/IOrganizationTypesRepository';
 import { ProjectsRepository } from '@modules/projects/infra/typeorm/repositories/ProjectsRepository';
+import { SubscriptionsRepository } from '@modules/projects/infra/typeorm/repositories/SubscriptionsRepository';
 import { IProjectsRepository } from '@modules/projects/repositories/IProjectsRepository';
+import { ISubscriptionsRepository } from '@modules/projects/repositories/ISubscriptiosRepository';
 import { OccupationsAreaRepository } from '@modules/volunteers/infra/typeorm/repositories/OccupationsAreaRepository';
 import { VolunteersRepository } from '@modules/volunteers/infra/typeorm/repositories/VolunteersRepository';
 import { IOccupationsAreaRepository } from '@modules/volunteers/repositories/IOccupationsAreaRepository';
@@ -85,4 +87,9 @@ container.registerSingleton<IDonationsRepository>(
 container.registerSingleton<IOrganizationImagesRepository>(
   'OrganizationImagesRepository',
   OrganizationImagesRepository,
+);
+
+container.registerSingleton<ISubscriptionsRepository>(
+  'SubscriptionsRepository',
+  SubscriptionsRepository,
 );

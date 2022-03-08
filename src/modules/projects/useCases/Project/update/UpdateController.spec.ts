@@ -66,7 +66,7 @@ describe('Update Project Controller', () => {
 
     await request(app).put(`/projects?id=${projectId}`).send({
       name: 'Project Name Editado',
-      status: Number(process.env.PROJECT_FINISHED),
+      status: Number(process.env.PROJECT_STATUS_FINISHED),
     }).set({
       Authorization: `Bearer ${refresh_token}`,
     });
@@ -76,6 +76,6 @@ describe('Update Project Controller', () => {
     });
 
     expect(response.body.name).toEqual('Project Name Editado');
-    expect(response.body.status).toEqual(Number(process.env.PROJECT_FINISHED));
+    expect(response.body.status).toEqual(Number(process.env.PROJECT_STATUS_FINISHED));
   });
 });

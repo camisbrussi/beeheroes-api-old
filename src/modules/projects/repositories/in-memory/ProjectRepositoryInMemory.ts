@@ -7,7 +7,6 @@ class ProjectsRepositoryInMemory implements IProjectsRepository {
   projects: Project[] = [];
 
   async create({
-    id,
     name,
     description,
     start,
@@ -18,7 +17,6 @@ class ProjectsRepositoryInMemory implements IProjectsRepository {
     const project = new Project();
 
     Object.assign(project, {
-      id,
       name,
       description,
       start,

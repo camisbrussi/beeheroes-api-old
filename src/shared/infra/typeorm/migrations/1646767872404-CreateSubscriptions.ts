@@ -1,11 +1,11 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateProject1646434529479 implements MigrationInterface {
+export class CreateSubscriptions1646767872404 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table(
         {
-          name: 'projects',
+          name: 'subscriptions',
           columns: [
             {
               name: 'id',
@@ -13,26 +13,12 @@ export class CreateProject1646434529479 implements MigrationInterface {
               isPrimary: true,
             },
             {
-              name: 'name',
-              type: 'varchar',
-            },
-            {
-              name: 'description',
-              type: 'varchar',
-              isNullable: true,
-            },
-            {
-              name: 'start',
+              name: 'registration_date',
               type: 'timestamp',
             },
             {
-              name: 'end',
+              name: 'participation_date',
               type: 'timestamp',
-              isNullable: true,
-            },
-            {
-              name: 'vacancies',
-              type: 'int',
               isNullable: true,
             },
             {
@@ -40,7 +26,11 @@ export class CreateProject1646434529479 implements MigrationInterface {
               type: 'int',
             },
             {
-              name: 'organization_id',
+              name: 'project_id',
+              type: 'uuid',
+            },
+            {
+              name: 'volunteer_id',
               type: 'uuid',
             },
             {
@@ -56,10 +46,18 @@ export class CreateProject1646434529479 implements MigrationInterface {
           ],
           foreignKeys: [
             {
-              name: 'FKProjectOrganization',
-              referencedTableName: 'organizations',
+              name: 'FKProjectSubscription',
+              referencedTableName: 'projects',
               referencedColumnNames: ['id'],
-              columnNames: ['organization_id'],
+              columnNames: ['project_id'],
+              onDelete: 'SET NULL',
+              onUpdate: 'SET NULL',
+            },
+            {
+              name: 'FKProjectVolunteer',
+              referencedTableName: 'volunteers',
+              referencedColumnNames: ['id'],
+              columnNames: ['volunteer_id'],
               onDelete: 'SET NULL',
               onUpdate: 'SET NULL',
             },
@@ -70,6 +68,6 @@ export class CreateProject1646434529479 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('projects');
+    await queryRunner.dropTable('subscriptions');
   }
 }

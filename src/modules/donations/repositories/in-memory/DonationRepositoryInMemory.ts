@@ -7,7 +7,6 @@ class DonationsRepositoryInMemory implements IDonationsRepository {
   donations: Donation[] = [];
 
   async create({
-    id,
     name,
     description,
     total_value,
@@ -17,7 +16,6 @@ class DonationsRepositoryInMemory implements IDonationsRepository {
     const donation = new Donation();
 
     Object.assign(donation, {
-      id,
       name,
       description,
       total_value,

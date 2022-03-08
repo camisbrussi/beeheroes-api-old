@@ -50,7 +50,7 @@ class Project {
   constructor() {
     if (!this.id) {
       this.id = uuidV4();
-      this.status = Number(process.env.PROJECT_ACTIVE);
+      this.status = Number(process.env.PROJECT_STATUS_ACTIVE);
     }
   }
 }

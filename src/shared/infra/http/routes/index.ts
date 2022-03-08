@@ -6,6 +6,7 @@ import { occupationAreaRoutes } from './occupationArea.routes';
 import { organizationsRoutes } from './organizations.routes';
 import { organizationTypesRoutes } from './organizationTypes.routes';
 import { projectsRoutes } from './projects.routes';
+import { subscriptionsRoutes } from './subscriptions.routes';
 import { usersRoutes } from './users.routes';
 import { userTypesRoutes } from './userTypes.routes';
 import { volunteersRoutes } from './volunteers.routes';
@@ -21,5 +22,6 @@ router.use('/occupationarea', occupationAreaRoutes);
 router.use('/volunteers', volunteersRoutes);
 router.use('/projects', projectsRoutes);
 router.use('/donations', donationsRoutes);
+router.use('/subscriptions', subscriptionsRoutes);
 
 export { router };

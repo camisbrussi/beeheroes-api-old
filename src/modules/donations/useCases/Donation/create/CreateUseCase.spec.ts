@@ -55,7 +55,7 @@ describe('Create Donation ', () => {
       organization_id: organization.id,
     });
 
-    expect(donation.status).toEqual(Number(process.env.DONATION_ACTIVE));
+    expect(donation.status).toEqual(Number(process.env.DONATION_STATUS_ACTIVE));
   });
 
   it('should not be able to create a new donation case organization does not exists', async () => {

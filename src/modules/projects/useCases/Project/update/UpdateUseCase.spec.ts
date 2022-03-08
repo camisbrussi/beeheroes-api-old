@@ -29,7 +29,7 @@ describe('Update Type Project', () => {
       id: project.id,
       name: 'Project Name edited',
       vacancies: 4,
-      status: Number(process.env.PROJECT_FINISHED),
+      status: Number(process.env.PROJECT_STATUS_FINISHED),
     };
 
     const editedProject = await updateProjectUseCase.execute(projectEdit);

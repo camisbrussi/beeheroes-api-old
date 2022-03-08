@@ -8,15 +8,16 @@ import createdConnection from '@shared/infra/typeorm';
 
 let connection: Connection;
 
-describe('Update Donation Controller', () => {
-  const id = uuidV4();
+describe('Create Project Controller', () => {
+  let id;
   beforeAll(async () => {
+    id = uuidV4();
     connection = await createdConnection();
     await connection.runMigrations();
 
     await connection.query(
       `INSERT INTO USER_TYPES(name, description, created_at, updated_at) 
-      VALUES('User Type', 'xxxxxx', 'now()', 'now()')`,
+      VALUES('user Type', 'xxxxxx', 'now()', 'now()')`,
     );
 
     const password = await hash('admin', 8);
@@ -28,12 +29,27 @@ describe('Update Donation Controller', () => {
 
     await connection.query(
       `INSERT INTO ORGANIZATION_TYPES(id, name, description, created_at, updated_at) 
-      VALUES('${id}', 'Donation Type', 'xxxxxx', 'now()', 'now()')`,
+      VALUES('${id}', 'Project Type', 'xxxxxx', 'now()', 'now()')`,
     );
 
     await connection.query(
       `INSERT INTO ORGANIZATIONS(id, name, description, cnpj, email, status, organization_type_id, created_at, updated_at) 
-      VALUES('${id}', 'Donation Type', 'xxxxxx', '123456', 'organization@beeheroes.com', '1', '${id}', 'now()', 'now()')`,
+      VALUES('${id}', 'Project Type', 'xxxxxx', '123456', 'organization@beeheroes.com', '1', '${id}', 'now()', 'now()')`,
+    );
+
+    await connection.query(
+      `INSERT INTO PROJECTS(id, name, start, status, organization_id, created_at, updated_at) 
+      VALUES('${id}', 'Project', 'now()', '1', '${id}', 'now()', 'now()')`,
+    );
+
+    await connection.query(
+      `INSERT INTO OCCUPATIONS_AREA(id, name, created_at, updated_at) 
+      VALUES('${id}', 'Occupation Area', 'now()', 'now()')`,
+    );
+
+    await connection.query(
+      `INSERT INTO VOLUNTEERS(id, cpf, profession, user_id, occupation_area_id, created_at, updated_at) 
+      VALUES('${id}', '123456', 'xxxxxx', '${id}', '${id}', 'now()', 'now()')`,
     );
   });
 
@@ -42,38 +58,23 @@ describe('Update Donation Controller', () => {
     await connection.close();
   });
 
-  it('should be able to edit a donation', async () => {
+  it('should be able to create a new subscription ', async () => {
     const responseToken = await request(app).post('/sessions')
       .send({
         email: 'admin@beeheroes.com',
         password: 'admin',
       });
 
-    const { refresh_token } = responseToken.body;
+    const token = responseToken.body.refresh_token;
 
-    const donation = await request(app).post('/donations').send({
-      name: 'Donation Name',
-      description: 'Test Donation',
-      total_value: 123,
-      organization_id: id,
+    const response = await request(app).post('/subscriptions').send({
+      registration_date: new Date(),
+      project_id: id,
+      volunteer_id: id,
     }).set({
-      Authorization: `Bearer ${refresh_token}`,
+      Authorization: `Bearer ${token}`,
     });
 
-    const donationId = JSON.parse(donation.text).id;
-
-    await request(app).put(`/donations?id=${donationId}`).send({
-      name: 'Donation Name Editado',
-      status: Number(process.env.DONATION_STATUS_FINISHED),
-    }).set({
-      Authorization: `Bearer ${refresh_token}`,
-    });
-
-    const response = await request(app).get(`/donations/find/?id=${donationId}`).send().set({
-      Authorization: `Bearer ${refresh_token}`,
-    });
-
-    expect(response.body.name).toEqual('Donation Name Editado');
-    expect(response.body.status).toEqual(Number(process.env.DONATION_STATUS_FINISHED));
+    expect(response.status).toBe(201);
   });
 });

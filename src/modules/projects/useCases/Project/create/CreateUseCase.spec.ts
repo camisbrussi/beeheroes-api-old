@@ -59,7 +59,7 @@ describe('Create Project ', () => {
       organization_id: organization.id,
     });
 
-    expect(project.status).toEqual(Number(process.env.PROJECT_ACTIVE));
+    expect(project.status).toEqual(Number(process.env.PROJECT_STATUS_ACTIVE));
   });
 
   it('should not be able to create a new project case organization does not exists', async () => {

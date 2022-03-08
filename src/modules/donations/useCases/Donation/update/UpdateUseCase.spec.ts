@@ -36,7 +36,7 @@ describe('Update Type Donation', () => {
       id: donation.id,
       name: 'Donation Name edited',
       total_value: 654,
-      status: Number(process.env.DONATION_FINISHED),
+      status: Number(process.env.DONATION_STATUS_FINISHED),
     };
 
     const editedDonation = await updateDonationUseCase.execute(donationEdit);

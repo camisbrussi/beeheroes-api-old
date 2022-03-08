@@ -7,7 +7,6 @@ class VolunteersRepositoryInMemory implements IVolunteersRepository {
   volunteers: Volunteer[] = [];
 
   async create({
-    id,
     cpf,
     profession,
     description,
@@ -18,7 +17,6 @@ class VolunteersRepositoryInMemory implements IVolunteersRepository {
     const volunteers = new Volunteer();
 
     Object.assign(volunteers, {
-      id,
       cpf,
       profession,
       description,

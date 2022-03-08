@@ -117,14 +117,10 @@ describe('Update Volunteer Controller', () => {
       Authorization: `Bearer ${refresh_token}`,
     });
 
-    // console.log(edited);
-
     const response = await request(app)
       .get(`/volunteers/find/?id=${idVolunteers}`).send().set({
         Authorization: `Bearer ${refresh_token}`,
       });
-
-    //  console.log(response.body);
 
     expect(response.body.address).not.toBeNull();
     expect(response.body.address.street).toEqual('Street Example');
