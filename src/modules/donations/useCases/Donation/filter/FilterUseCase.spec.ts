@@ -1,6 +1,7 @@
 import { IDonationDTO } from '@modules/donations/dtos/IDonationDTO';
 import { DonationsRepositoryInMemory } from '@modules/donations/repositories/in-memory/DonationRepositoryInMemory';
 import { OrganizationsRepositoryInMemory } from '@modules/organizations/repositories/in-memory/OrganizationRepositoryInMemory';
+import { AppError } from '@shared/errors/AppError';
 
 import { FilterDonationUseCase } from './FilterUseCase';
 
@@ -76,5 +77,13 @@ describe('List Donation', () => {
       .execute({ name: 'Donation', organization_id: organization.id });
 
     expect(donation.length).toBe(2);
+  });
+
+  it('should not be able filter donation nonexistent', async () => {
+    await expect(
+      filterDonationUseCase.execute({
+        name: 'Name Donation nonexistent',
+      }),
+    ).rejects.toEqual(new AppError('Donation does not exist'));
   });
 });

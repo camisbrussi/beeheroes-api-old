@@ -3,10 +3,10 @@ import { inject, injectable } from 'tsyringe';
 
 import { User } from '@modules/accounts/infra/typeorm/entities/User';
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
+import { IUserTypesRepository } from '@modules/accounts/repositories/IUserTypesRepository';
 import { AppError } from '@shared/errors/AppError';
 
 interface IRequest {
-  id?: string;
   name: string;
   email: string;
   password: string;
@@ -19,10 +19,11 @@ class CreateUserUseCase {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
+    @inject('UserTypesRepository')
+    private userTypeRepository: IUserTypesRepository,
   ) {}
 
   async execute({
-    id,
     name,
     email,
     password,
@@ -30,15 +31,19 @@ class CreateUserUseCase {
     avatar,
   }: IRequest): Promise<User> {
     const userAlreadyExists = await this.usersRepository.findByEmail(email);
+    const userTypeExists = await this.userTypeRepository.findById(user_type_id);
 
     if (userAlreadyExists) {
       throw new AppError(`User ${email} already exists`);
     }
 
+    if (!userTypeExists) {
+      throw new AppError('User Types does not exist');
+    }
+
     const passwordHash = await hash(password, 8);
 
     const user = await this.usersRepository.create({
-      id,
       name,
       email,
       password: passwordHash,

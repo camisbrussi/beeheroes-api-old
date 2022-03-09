@@ -1,5 +1,6 @@
 import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory';
 import { UsersTokensRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersTokensRepositoryInMemory';
+import { UserTypeRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UserTypesRepositoryInMemory';
 import { DayjsDateProvider } from '@shared/container/providers/DateProvider/implementations/DayjsDateProvider';
 import { AppError } from '@shared/errors/AppError';
 
@@ -13,18 +14,23 @@ let usersRepositoryInMemory: UsersRepositoryInMemory;
 let usersTokensRepositoryInMemory: UsersTokensRepositoryInMemory;
 let createUserUseCase: CreateUserUseCase;
 let dateProvider: DayjsDateProvider;
+let userTypesRepositoryInMemory: UserTypeRepositoryInMemory;
 
 describe('Refresh Token', () => {
   beforeEach(() => {
     usersRepositoryInMemory = new UsersRepositoryInMemory();
     usersTokensRepositoryInMemory = new UsersTokensRepositoryInMemory();
+    userTypesRepositoryInMemory = new UserTypeRepositoryInMemory();
     dateProvider = new DayjsDateProvider();
     authenticationUseCase = new AuthenticationUseCase(
       usersRepositoryInMemory,
       usersTokensRepositoryInMemory,
       dateProvider,
     );
-    createUserUseCase = new CreateUserUseCase(usersRepositoryInMemory);
+    createUserUseCase = new CreateUserUseCase(
+      usersRepositoryInMemory,
+      userTypesRepositoryInMemory,
+    );
     refreshTokenUseCase = new RefreshTokenUseCase(
       usersTokensRepositoryInMemory,
       dateProvider,
@@ -32,6 +38,10 @@ describe('Refresh Token', () => {
   });
 
   it('should be able to refresh token', async () => {
+    await userTypesRepositoryInMemory.create({
+      id: 1,
+      name: 'UserType',
+    });
     const user = {
       name: 'Admin',
       email: 'admin@beeheroes.com',
@@ -54,11 +64,16 @@ describe('Refresh Token', () => {
   });
 
   it('should not be able to refresh token', async () => {
+    await userTypesRepositoryInMemory.create({
+      id: 2,
+      name: 'UserType',
+    });
+
     const user = {
       name: 'Admin',
       email: 'admin@beeheroes.com',
       password: '123456',
-      user_type_id: 1,
+      user_type_id: 2,
     };
 
     await createUserUseCase.execute(user);

@@ -53,25 +53,4 @@ describe('Create User Controller', () => {
 
     expect(response.status).toBe(201);
   });
-
-  it('should not be able to create a user with email exist', async () => {
-    const responseToken = await request(app).post('/sessions')
-      .send({
-        email: 'admin@beeheroes.com',
-        password: 'admin',
-      });
-
-    const token = responseToken.body.refresh_token;
-
-    const response = await request(app).post('/users').send({
-      name: 'Admin2',
-      email: 'supertest@beeheroes.com',
-      password: '123456',
-      user_type_id: '1',
-    }).set({
-      Authorization: `Bearer ${token}`,
-    });
-
-    expect(response.status).toBe(400);
-  });
 });

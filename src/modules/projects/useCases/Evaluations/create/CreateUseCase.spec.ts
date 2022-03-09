@@ -1,29 +1,36 @@
 import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory';
 import { OrganizationsRepositoryInMemory } from '@modules/organizations/repositories/in-memory/OrganizationRepositoryInMemory';
+import { EvaluationsRepositoryInMemory } from '@modules/projects/repositories/in-memory/EvaluationRepositoryInMemory';
 import { ProjectsRepositoryInMemory } from '@modules/projects/repositories/in-memory/ProjectRepositoryInMemory';
 import { SubscriptionsRepositoryInMemory } from '@modules/projects/repositories/in-memory/SubscriptionRepositoryInMemory';
 import { VolunteersRepositoryInMemory } from '@modules/volunteers/repositories/in-memory/VolunteersRepositoryInMemory';
+import { AppError } from '@shared/errors/AppError';
 
-import { FindSubscriptionUseCase } from './FindUseCase';
+import { CreateEvaluationUseCase } from './CreateUseCase';
 
-let findSubscriptionUseCase: FindSubscriptionUseCase;
-let subscriptionsRepositoryInMemory: SubscriptionsRepositoryInMemory;
+let createEvaluationUseCase: CreateEvaluationUseCase;
+let evaluationsRepositoryInMemory: EvaluationsRepositoryInMemory;
+let subscriptionRepositoryInMemory: SubscriptionsRepositoryInMemory;
 let projectsRepositoryInMemory: ProjectsRepositoryInMemory;
 let volunteersRepositoryInMemory: VolunteersRepositoryInMemory;
 let organizationsRepositoryInMemory: OrganizationsRepositoryInMemory;
 let usersRepositoryInMemory: UsersRepositoryInMemory;
 
-describe('Find Project', () => {
-  beforeEach(() => {
-    subscriptionsRepositoryInMemory = new SubscriptionsRepositoryInMemory();
-    projectsRepositoryInMemory = new ProjectsRepositoryInMemory();
-    volunteersRepositoryInMemory = new VolunteersRepositoryInMemory();
-    usersRepositoryInMemory = new UsersRepositoryInMemory();
-    organizationsRepositoryInMemory = new OrganizationsRepositoryInMemory();
-    findSubscriptionUseCase = new FindSubscriptionUseCase(subscriptionsRepositoryInMemory);
-  });
+beforeEach(() => {
+  evaluationsRepositoryInMemory = new EvaluationsRepositoryInMemory();
+  subscriptionRepositoryInMemory = new SubscriptionsRepositoryInMemory();
+  projectsRepositoryInMemory = new ProjectsRepositoryInMemory();
+  volunteersRepositoryInMemory = new VolunteersRepositoryInMemory();
+  usersRepositoryInMemory = new UsersRepositoryInMemory();
+  organizationsRepositoryInMemory = new OrganizationsRepositoryInMemory();
+  createEvaluationUseCase = new CreateEvaluationUseCase(
+    evaluationsRepositoryInMemory,
+    subscriptionRepositoryInMemory,
+  );
+});
 
-  it('should be abe to find a subscription', async () => {
+describe('Create Evaluation ', () => {
+  it('should be able to create a new evaluation ', async () => {
     const organization = await organizationsRepositoryInMemory.create({
       name: 'Organization Name',
       email: 'organization@beeheroes.com',
@@ -56,14 +63,29 @@ describe('Find Project', () => {
       user_id: user.id,
     });
 
-    const subscription = await subscriptionsRepositoryInMemory.create({
+    const subscription = await subscriptionRepositoryInMemory.create({
       registration_date: new Date(),
       project_id: project.id,
       volunteer_id: volunteer.id,
     });
 
-    const subscriptionCreate = await findSubscriptionUseCase.execute(subscription.id);
+    const evaluation = await createEvaluationUseCase.execute({
+      score: 5,
+      description: 'xxxx',
+      subscription_id: subscription.id,
+    });
 
-    expect(subscriptionCreate.id).toEqual(subscriptionCreate.id);
+    expect(evaluation).toHaveProperty('id');
+    expect(evaluation.score).toEqual(5);
+  });
+
+  it('should not be able to create a new evaluation case organization does not exists', async () => {
+    await expect(
+      createEvaluationUseCase.execute({
+        score: 5,
+        description: 'xxxx',
+        subscription_id: 'subscription.id',
+      }),
+    ).rejects.toEqual(new AppError('Subscription does not exists!'));
   });
 });

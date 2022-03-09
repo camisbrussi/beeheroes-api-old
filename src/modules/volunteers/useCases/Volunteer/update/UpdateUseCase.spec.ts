@@ -78,7 +78,7 @@ describe('Update Type Volunteer', () => {
     expect(userAddress.street).toEqual('Street Example');
   });
 
-  it('should be able to edit a user and edit address', async () => {
+  it('should be able to edit a volunteer and edit address', async () => {
     const volunteer = await createVolunteerUseCase.execute({
       cpf: '11111',
       profession: 'profession',
@@ -97,6 +97,7 @@ describe('Update Type Volunteer', () => {
 
     const userEdit = {
       id: volunteer.id,
+      address_id: volunteer.address_id,
       address: {
         street: 'Street Example Edited',
         number: '456',
@@ -106,6 +107,7 @@ describe('Update Type Volunteer', () => {
         city_id: 1,
       },
     };
+    const AddressId = volunteer.address_id;
 
     await updateUseCase.execute(userEdit);
 
@@ -115,6 +117,10 @@ describe('Update Type Volunteer', () => {
     const userAddress = await addressRepositoryInMemory
       .findById(userFind.address_id);
 
+    const userAddressDeleted = await addressRepositoryInMemory
+      .findById(AddressId);
+
     expect(userAddress.street).toEqual('Street Example Edited');
+    expect(userAddressDeleted).toBeUndefined();
   });
 });

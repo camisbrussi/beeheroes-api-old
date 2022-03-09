@@ -23,7 +23,7 @@ class FilterDonationUseCase {
       organization_id,
     });
 
-    if (!donation) {
+    if (donation.length === 0) {
       throw new AppError('Donation does not exist');
     }
 

@@ -36,18 +36,19 @@ class UpdateVolunteerUseCase {
       addressId = createdAddress.id;
     }
 
-    const volunteerType = await this.volunteersRepository.update({
+    const volunteer = await this.volunteersRepository.update({
       id,
       profession,
       description,
       occupation_area_id,
       address_id: addressId,
     });
+
     if (address && address_id) {
       await this.addressesRepository.delete(address_id);
     }
 
-    return volunteerType;
+    return volunteer;
   }
 }
 

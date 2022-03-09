@@ -2,6 +2,7 @@ import { Router } from 'express';
 
 import { authenticationRoutes } from './authentication.routes';
 import { donationsRoutes } from './donations.routes';
+import { evaluationsRoutes } from './evaluation.routes';
 import { occupationAreaRoutes } from './occupationArea.routes';
 import { organizationsRoutes } from './organizations.routes';
 import { organizationTypesRoutes } from './organizationTypes.routes';
@@ -23,5 +24,6 @@ router.use('/volunteers', volunteersRoutes);
 router.use('/projects', projectsRoutes);
 router.use('/donations', donationsRoutes);
 router.use('/subscriptions', subscriptionsRoutes);
+router.use('/evaluations', evaluationsRoutes);
 
 export { router };

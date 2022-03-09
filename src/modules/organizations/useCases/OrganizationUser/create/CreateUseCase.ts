@@ -15,7 +15,6 @@ class CreateOrganizationUserUseCase {
   constructor(
     @inject('OrganizationsRepository')
     private organizationsRepository: IOrganizationsRepository,
-
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
   ) {}
@@ -23,7 +22,9 @@ class CreateOrganizationUserUseCase {
   async execute({ users_id, organization_id }: IRequest): Promise<Organization> {
     const organizationExists = await this.organizationsRepository.findById(organization_id);
 
-    if (!organizationExists.organization) throw new AppError('Organization does not exist');
+    if (!organizationExists.organization) {
+      throw new AppError('Organization does not exist');
+    }
 
     const userExists = await this.usersRepository.findByIds(users_id);
 

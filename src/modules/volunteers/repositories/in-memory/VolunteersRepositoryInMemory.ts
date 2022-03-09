@@ -31,8 +31,8 @@ class VolunteersRepositoryInMemory implements IVolunteersRepository {
   }
 
   async findById(id: string): Promise<Volunteer> {
-    const volunteers = this.volunteers.find((volunteers) => volunteers.id === id);
-    return volunteers;
+    const volunteer = this.volunteers.find((volunteers) => volunteers.id === id);
+    return volunteer;
   }
 
   async findByCpf(cpf: string): Promise<Volunteer> {

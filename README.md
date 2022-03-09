@@ -62,12 +62,11 @@ Alimentação do banco com as citades do Brasil
  4. Você pode exportar o arquivo Insonia para fazer os testes das rotas
     
  ## TDD Desenvolvimento Orientado por Testes (Test Driven Development)
- 
- Execute o comando abaixo para executar os testes;
+
+ O desenvolvimento deste trabalho usou o método TDD, para rodar os testes, execute o comando abaixo para executar os testes;
   ```
   npm run test / yarn test
   ``` 
- 
-![image](https://user-images.githubusercontent.com/40186019/157345896-05193402-6e3d-44e9-8545-88b7a0bc755c.png)
+
   
 Criado por: [Camila Sbrussi](https://github.com/camisbrussi/)!

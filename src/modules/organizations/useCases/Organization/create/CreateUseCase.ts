@@ -7,6 +7,7 @@ import { IRequestAddress } from '@modules/addresses/useCases/address/create/Crea
 import { IRequestPhones } from '@modules/addresses/useCases/phones/create/CreateUseCase';
 import { Organization } from '@modules/organizations/infra/typeorm/entities/Organization';
 import { IOrganizationsRepository } from '@modules/organizations/repositories/IOrganizationsRepository';
+import { IOrganizationTypesRepository } from '@modules/organizations/repositories/IOrganizationTypesRepository';
 import { AppError } from '@shared/errors/AppError';
 
 interface IRequest {
@@ -29,6 +30,8 @@ class CreateOrganizationUseCase {
     private addressesRepository: IAddressesRepository,
     @inject('PhonesRepository')
     private phonesRepository: IPhonesRepository,
+    @inject('OrganizationTypesRepository')
+    private organizationTypeRepository: IOrganizationTypesRepository,
   ) {}
 
   async execute({
@@ -45,9 +48,15 @@ class CreateOrganizationUseCase {
     this.organizationsRepository.findByEmail(email);
     const organizationCnpjAlreadyExists = await
     this.organizationsRepository.findByCnpj(cnpj);
+    const organizationTypeExist = await
+    this.organizationTypeRepository.findById(organization_type_id);
 
     if (organizationEmailAlreadyExists || organizationCnpjAlreadyExists) {
       throw new AppError('Organization already exists!');
+    }
+
+    if (!organizationTypeExist) {
+      throw new AppError('Organization type does not exist!');
     }
 
     let addressId: string;

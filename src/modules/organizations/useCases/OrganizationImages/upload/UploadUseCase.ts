@@ -2,7 +2,9 @@ import { inject, injectable } from 'tsyringe';
 
 import { OrganizationImage } from '@modules/organizations/infra/typeorm/entities/OrganizationImages';
 import { IOrganizationImagesRepository } from '@modules/organizations/repositories/IOrganizationImagesRepository';
+import { IOrganizationsRepository } from '@modules/organizations/repositories/IOrganizationsRepository';
 import { IStorageProvider } from '@shared/container/providers/StorageProvider/IStorageProvider';
+import { AppError } from '@shared/errors/AppError';
 
 export interface IRequestOrganizationImages {
   id?: string;
@@ -16,12 +18,19 @@ class UploadOrganizationImageUseCase {
     private organizationImagesRepository: IOrganizationImagesRepository,
     @inject('StorageProvider')
     private storageProvider: IStorageProvider,
+   @inject('OrganizationsRepository')
+    private organizationsRepository: IOrganizationsRepository,
   ) {}
 
   async execute({
     images_name,
     organization_id,
   }: IRequestOrganizationImages): Promise<void> {
+    const organizationExists = await this.organizationsRepository.findById(organization_id);
+
+    if (!organizationExists.organization) {
+      throw new AppError('Organization does not exist');
+    }
     const images = await this.organizationImagesRepository.findByOrganizationId(organization_id);
 
     if (images && images.length > 0) {

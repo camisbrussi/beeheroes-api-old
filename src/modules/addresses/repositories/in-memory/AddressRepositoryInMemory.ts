@@ -34,8 +34,8 @@ class AddressesRepositoryInMemory implements IAddressesRepository {
   }
 
   async delete(id: string): Promise<void> {
-    const address = this.address.find((ut) => ut.id === id);
-    this.address.splice(this.address.indexOf(address));
+    const findIndex = this.address.findIndex((address) => address.id === id);
+    this.address.splice(findIndex, 1);
   }
 }
 

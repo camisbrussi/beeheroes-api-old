@@ -27,7 +27,7 @@ class FilterUserUseCase {
       status,
     });
 
-    if (!users) {
+    if (users.length === 0) {
       throw new AppError('User does not exist');
     }
 

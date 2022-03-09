@@ -20,8 +20,10 @@ import { OrganizationsRepository } from '@modules/organizations/infra/typeorm/re
 import { IOrganizationImagesRepository } from '@modules/organizations/repositories/IOrganizationImagesRepository';
 import { IOrganizationsRepository } from '@modules/organizations/repositories/IOrganizationsRepository';
 import { IOrganizationTypesRepository } from '@modules/organizations/repositories/IOrganizationTypesRepository';
+import { EvaluationsRepository } from '@modules/projects/infra/typeorm/repositories/EvaluationsRepository';
 import { ProjectsRepository } from '@modules/projects/infra/typeorm/repositories/ProjectsRepository';
 import { SubscriptionsRepository } from '@modules/projects/infra/typeorm/repositories/SubscriptionsRepository';
+import { IEvaluationsRepository } from '@modules/projects/repositories/IEvaluationRepository';
 import { IProjectsRepository } from '@modules/projects/repositories/IProjectsRepository';
 import { ISubscriptionsRepository } from '@modules/projects/repositories/ISubscriptiosRepository';
 import { OccupationsAreaRepository } from '@modules/volunteers/infra/typeorm/repositories/OccupationsAreaRepository';
@@ -92,4 +94,9 @@ container.registerSingleton<IOrganizationImagesRepository>(
 container.registerSingleton<ISubscriptionsRepository>(
   'SubscriptionsRepository',
   SubscriptionsRepository,
+);
+
+container.registerSingleton<IEvaluationsRepository>(
+  'EvaluationsRepository',
+  EvaluationsRepository,
 );

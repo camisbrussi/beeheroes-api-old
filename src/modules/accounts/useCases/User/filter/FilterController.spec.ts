@@ -45,32 +45,13 @@ describe('Filer User Controller', () => {
       name: 'Admin Admin',
       email: 'admin2@beeheroes.com',
       password: 'admin',
-      user_type_id: '1',
+      user_type_id: 1,
     }).set({
       Authorization: `Bearer ${refresh_token}`,
     });
 
     const response = await request(app).get('/users/filter').send({
       name: 'Admin',
-    }).set({
-      Authorization: `Bearer ${refresh_token}`,
-    });
-
-    expect(response.body.length).toEqual(2);
-  });
-
-  it('should be able to filter a user for name and user type', async () => {
-    const responseToken = await request(app).post('/sessions')
-      .send({
-        email: 'admin@beeheroes.com',
-        password: 'admin',
-      });
-
-    const { refresh_token } = responseToken.body;
-
-    const response = await request(app).get('/users/filter').send({
-      name: 'Admin',
-      user_type_id: '1',
     }).set({
       Authorization: `Bearer ${refresh_token}`,
     });
