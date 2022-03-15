@@ -1,20 +1,46 @@
+import { RolesRepositoryInMemory } from '@modules/accounts/repositories/in-memory/RolesRepositoryInMemory';
 import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory';
+import { CreateUserUseCase } from '@modules/accounts/useCases/User/create/CreateUseCase';
+import { AddressesRepositoryInMemory } from '@modules/addresses/repositories/in-memory/AddressRepositoryInMemory';
+import { PhonesRepositoryInMemory } from '@modules/addresses/repositories/in-memory/PhonesRepositoryInMemory';
 import { OrganizationsRepositoryInMemory } from '@modules/organizations/repositories/in-memory/OrganizationRepositoryInMemory';
+import { OrganizationTypeRepositoryInMemory } from '@modules/organizations/repositories/in-memory/OrganizationTypesRepositoryInMemory';
 import { AppError } from '@shared/errors/AppError';
 
+import { CreateOrganizationUseCase } from '../../Organization/create/CreateUseCase';
+import { CreateOrganizationTypeUseCase } from '../../OrganizationType/create/CreateUseCase';
 import { CreateOrganizationUserUseCase } from './CreateUseCase';
 
-let createOrganizationUserUseCase: CreateOrganizationUserUseCase;
+let createOrganizationUseCase: CreateOrganizationUseCase;
+let createOrganizationUserUseCase : CreateOrganizationUserUseCase;
+let createUserUseCase : CreateUserUseCase;
+let createOrganizationTypeUseCase : CreateOrganizationTypeUseCase;
+let userRepositoryInMemory: UsersRepositoryInMemory;
 let organizationRepositoryInMemory: OrganizationsRepositoryInMemory;
-let usersRepositoryInMemory: UsersRepositoryInMemory;
+let addressesRepositoryInMemory: AddressesRepositoryInMemory;
+let phonesRepositoryInMemory: PhonesRepositoryInMemory;
+let organizationTypeRepositoryInMemory: OrganizationTypeRepositoryInMemory;
 
-describe('Create Organization User', () => {
+describe('Create Organization Users', () => {
   beforeEach(() => {
+    userRepositoryInMemory = new UsersRepositoryInMemory();
     organizationRepositoryInMemory = new OrganizationsRepositoryInMemory();
-    usersRepositoryInMemory = new UsersRepositoryInMemory();
+    addressesRepositoryInMemory = new AddressesRepositoryInMemory();
+    phonesRepositoryInMemory = new PhonesRepositoryInMemory();
+    organizationTypeRepositoryInMemory = new OrganizationTypeRepositoryInMemory();
+    createOrganizationUseCase = new CreateOrganizationUseCase(
+      organizationRepositoryInMemory,
+      addressesRepositoryInMemory,
+      phonesRepositoryInMemory,
+      organizationTypeRepositoryInMemory,
+    );
     createOrganizationUserUseCase = new CreateOrganizationUserUseCase(
       organizationRepositoryInMemory,
-      usersRepositoryInMemory,
+      userRepositoryInMemory,
+    );
+    createUserUseCase = new CreateUserUseCase(userRepositoryInMemory);
+    createOrganizationTypeUseCase = new CreateOrganizationTypeUseCase(
+      organizationTypeRepositoryInMemory,
     );
   });
 
@@ -28,29 +54,30 @@ describe('Create Organization User', () => {
   });
 
   it('should be able to add a new user to the organization', async () => {
-    const organization = await organizationRepositoryInMemory.create({
-      name: 'Organization Name',
-      email: 'organization@beeheroes.com',
-      cnpj: '000000000000',
-      description: 'Description Organization',
-      organization_type_id: 'id',
+    const organizatgionType = await createOrganizationTypeUseCase.execute({
+      name: 'admin',
     });
-
-    const user = await usersRepositoryInMemory.create({
+    const user = await createUserUseCase.execute({
       name: 'Admin',
       email: 'supertest@beeheroes.com',
       password: '123456',
-      user_type_id: 1,
+    });
+
+    const organization = await createOrganizationUseCase.execute({
+      name: 'Admin',
+      cnpj: '123456',
+      description: 'xxxxx',
+      email: 'admin@teste.com',
+      organization_type_id: organizatgionType.id,
     });
 
     const users_id = [user.id];
 
-    const organizationsUsers = await createOrganizationUserUseCase.execute({
-      organization_id: organization.id,
+    const organizationUsers = await createOrganizationUserUseCase.execute({
       users_id,
+      organization_id: organization.id,
     });
 
-    expect(organizationsUsers).toHaveProperty('users');
-    expect(organizationsUsers.users.length).toBe(1);
+    expect(organizationUsers).toHaveProperty('id');
   });
 });
