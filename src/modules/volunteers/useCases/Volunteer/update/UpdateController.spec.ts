@@ -14,16 +14,11 @@ describe('Update Volunteer Controller', () => {
     connection = await createdConnection();
     await connection.runMigrations();
 
-    await connection.query(
-      `INSERT INTO USER_TYPES(name, description, created_at, updated_at) 
-      VALUES('User Type', 'xxxxxx', 'now()', 'now()')`,
-    );
-
     const password = await hash('admin', 8);
 
     await connection.query(
-      `INSERT INTO USERS(id, name, email, password, user_type_id, status, created_at, updated_at) 
-      VALUES('${id}', 'Admin', 'admin@beeheroes.com', '${password}', '1', '1' , 'now()', 'now()')`,
+      `INSERT INTO USERS(id, name, email, password, status, created_at, updated_at) 
+      VALUES('${id}', 'Admin', 'admin@beeheroes.com', '${password}', '1' , 'now()', 'now()')`,
     );
 
     await connection.query(
@@ -54,7 +49,7 @@ describe('Update Volunteer Controller', () => {
         password: 'admin',
       });
 
-    const { refresh_token } = responseToken.body;
+    const { token } = responseToken.body;
 
     const volunteer = await request(app).post('/volunteers').send({
       cpf: '11111',
@@ -63,7 +58,7 @@ describe('Update Volunteer Controller', () => {
       occupation_area_id: id,
       user_id: id,
     }).set({
-      Authorization: `Bearer ${refresh_token}`,
+      Authorization: `Bearer ${token}`,
     });
 
     const volunteerId = JSON.parse(volunteer.text).id;
@@ -72,11 +67,11 @@ describe('Update Volunteer Controller', () => {
       profession: 'Profession Edited',
       description: 'description edited',
     }).set({
-      Authorization: `Bearer ${refresh_token}`,
+      Authorization: `Bearer ${token}`,
     });
 
     const response = await request(app).get(`/volunteers/find/?id=${volunteerId}`).send().set({
-      Authorization: `Bearer ${refresh_token}`,
+      Authorization: `Bearer ${token}`,
     });
 
     expect(response.body.profession).toEqual('Profession Edited');
@@ -90,7 +85,7 @@ describe('Update Volunteer Controller', () => {
         password: 'admin',
       });
 
-    const { refresh_token } = responseToken.body;
+    const { token } = responseToken.body;
 
     const volunteer = await request(app).post('/volunteers').send({
       cpf: '1111111',
@@ -99,7 +94,7 @@ describe('Update Volunteer Controller', () => {
       occupation_area_id: id,
       user_id: id,
     }).set({
-      Authorization: `Bearer ${refresh_token}`,
+      Authorization: `Bearer ${token}`,
     });
 
     const idVolunteers = JSON.parse(volunteer.text).id;
@@ -114,12 +109,12 @@ describe('Update Volunteer Controller', () => {
         city_id: 1,
       },
     }).set({
-      Authorization: `Bearer ${refresh_token}`,
+      Authorization: `Bearer ${token}`,
     });
 
     const response = await request(app)
       .get(`/volunteers/find/?id=${idVolunteers}`).send().set({
-        Authorization: `Bearer ${refresh_token}`,
+        Authorization: `Bearer ${token}`,
       });
 
     expect(response.body.address).not.toBeNull();

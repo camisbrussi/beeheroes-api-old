@@ -16,14 +16,12 @@ class FilterUserUseCase {
     name,
     password,
     email,
-    user_type_id,
     status,
   }: IUserDTO): Promise<User[]> {
     const users = await this.usersRepository.filter({
       name,
       password,
       email,
-      user_type_id,
       status,
     });
 

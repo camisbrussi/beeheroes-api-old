@@ -13,17 +13,11 @@ describe('Update Project Controller', () => {
   beforeAll(async () => {
     connection = await createdConnection();
     await connection.runMigrations();
-
-    await connection.query(
-      `INSERT INTO USER_TYPES(name, description, created_at, updated_at) 
-      VALUES('User Type', 'xxxxxx', 'now()', 'now()')`,
-    );
-
     const password = await hash('admin', 8);
 
     await connection.query(
-      `INSERT INTO USERS(id, name, email, password, user_type_id, status, created_at, updated_at) 
-      VALUES('${id}', 'Admin', 'admin@beeheroes.com', '${password}', '1', '1' , 'now()', 'now()')`,
+      `INSERT INTO USERS(id, name, email, password, status, created_at, updated_at) 
+      VALUES('${id}', 'Admin', 'admin@beeheroes.com', '${password}', '1' , 'now()', 'now()')`,
     );
 
     await connection.query(
@@ -49,7 +43,7 @@ describe('Update Project Controller', () => {
         password: 'admin',
       });
 
-    const { refresh_token } = responseToken.body;
+    const { token } = responseToken.body;
 
     const project = await request(app).post('/projects').send({
       name: 'Project Name',
@@ -59,7 +53,7 @@ describe('Update Project Controller', () => {
       vacancies: 2,
       organization_id: id,
     }).set({
-      Authorization: `Bearer ${refresh_token}`,
+      Authorization: `Bearer ${token}`,
     });
 
     const projectId = JSON.parse(project.text).id;
@@ -68,11 +62,11 @@ describe('Update Project Controller', () => {
       name: 'Project Name Editado',
       status: Number(process.env.PROJECT_STATUS_FINISHED),
     }).set({
-      Authorization: `Bearer ${refresh_token}`,
+      Authorization: `Bearer ${token}`,
     });
 
     const response = await request(app).get(`/projects/find/?id=${projectId}`).send().set({
-      Authorization: `Bearer ${refresh_token}`,
+      Authorization: `Bearer ${token}`,
     });
 
     expect(response.body.name).toEqual('Project Name Editado');

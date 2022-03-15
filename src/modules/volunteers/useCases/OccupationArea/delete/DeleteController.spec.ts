@@ -13,17 +13,11 @@ describe('Delete Occupation Area Controller', () => {
   beforeAll(async () => {
     connection = await createdConnection();
     await connection.runMigrations();
-
-    await connection.query(
-      `INSERT INTO USER_TYPES(name, description, created_at, updated_at) 
-      VALUES('Occupation Area', 'xxxxxx', 'now()', 'now()')`,
-    );
-
     const password = await hash('admin', 8);
 
     await connection.query(
-      `INSERT INTO USERS(id, name, email, password, user_type_id, status, created_at, updated_at) 
-      VALUES('${id}', 'Admin', 'admin@beeheroes.com', '${password}', '1', '1', 'now()', 'now()')`,
+      `INSERT INTO USERS(id, name, email, password, status, created_at, updated_at) 
+      VALUES('${id}', 'Admin', 'admin@beeheroes.com', '${password}', '1', 'now()', 'now()')`,
     );
   });
 
@@ -39,18 +33,18 @@ describe('Delete Occupation Area Controller', () => {
         password: 'admin',
       });
 
-    const { refresh_token } = responseToken.body;
+    const { token } = responseToken.body;
 
     const occupationArea = await request(app).post('/occupationarea').send({
       name: 'Occupation Area test Delete',
     }).set({
-      Authorization: `Bearer ${refresh_token}`,
+      Authorization: `Bearer ${token}`,
     });
 
     const idOccupationArea = JSON.parse(occupationArea.text).id;
 
     const response = await request(app).delete(`/occupationarea?id=${idOccupationArea}`).send().set({
-      Authorization: `Bearer ${refresh_token}`,
+      Authorization: `Bearer ${token}`,
     });
 
     expect(response.status).toEqual(200);
@@ -63,12 +57,12 @@ describe('Delete Occupation Area Controller', () => {
         password: 'admin',
       });
 
-    const { refresh_token } = responseToken.body;
+    const { token } = responseToken.body;
 
     const occupationArea = await request(app).post('/occupationarea').send({
       name: 'Occupation Area test Delete',
     }).set({
-      Authorization: `Bearer ${refresh_token}`,
+      Authorization: `Bearer ${token}`,
     });
 
     const occupationAreaId = JSON.parse(occupationArea.text).id;
@@ -80,11 +74,11 @@ describe('Delete Occupation Area Controller', () => {
       occupation_area_id: occupationAreaId,
       user_id: id,
     }).set({
-      Authorization: `Bearer ${refresh_token}`,
+      Authorization: `Bearer ${token}`,
     });
 
     const response = await request(app).delete(`/occupationarea?id=${occupationAreaId}`).send().set({
-      Authorization: `Bearer ${refresh_token}`,
+      Authorization: `Bearer ${token}`,
     });
 
     expect(response.status).toEqual(400);

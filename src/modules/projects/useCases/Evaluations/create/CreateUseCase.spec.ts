@@ -52,7 +52,6 @@ describe('Create Evaluation ', () => {
       name: 'Name test',
       email: 'teste@beeheroes.com',
       password: '123456',
-      user_type_id: 1,
     });
 
     const volunteer = await volunteersRepositoryInMemory.create({

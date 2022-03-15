@@ -1,16 +1,13 @@
 import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory';
-import { UserTypeRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UserTypesRepositoryInMemory';
 import { AppError } from '@shared/errors/AppError';
 
 import { ProfileUserUseCase } from './ProfileUserUseCase';
 
 let profileUserUseCase: ProfileUserUseCase;
 let usersRepositoryInMemory: UsersRepositoryInMemory;
-let userTypesRepositoryInMemory: UserTypeRepositoryInMemory;
 
 beforeEach(() => {
   usersRepositoryInMemory = new UsersRepositoryInMemory();
-  userTypesRepositoryInMemory = new UserTypeRepositoryInMemory();
   profileUserUseCase = new ProfileUserUseCase(
     usersRepositoryInMemory,
   );
@@ -18,16 +15,11 @@ beforeEach(() => {
 
 describe('Profile User ', () => {
   it('should be able to find a profile', async () => {
-    await userTypesRepositoryInMemory.create({
-      id: 1,
-      name: 'UserType',
-    });
-
     const user = await usersRepositoryInMemory.create({
       name: 'Admin',
       email: 'admin@beeheroes.com',
       password: '123456',
-      user_type_id: 1,
+
     });
 
     const profile = await profileUserUseCase.execute(user.id);

@@ -14,16 +14,11 @@ describe('Find Project Controller', () => {
     connection = await createdConnection();
     await connection.runMigrations();
 
-    await connection.query(
-      `INSERT INTO USER_TYPES(name, description, created_at, updated_at) 
-      VALUES('User Type', 'xxxxxx', 'now()', 'now()')`,
-    );
-
     const password = await hash('admin', 8);
 
     await connection.query(
-      `INSERT INTO USERS(id, name, email, password, user_type_id, status, created_at, updated_at) 
-      VALUES('${id}', 'Admin', 'admin@beeheroes.com', '${password}', '1', '1' , 'now()', 'now()')`,
+      `INSERT INTO USERS(id, name, email, password, status, created_at, updated_at) 
+      VALUES('${id}', 'Admin', 'admin@beeheroes.com', '${password}', '1' , 'now()', 'now()')`,
     );
 
     await connection.query(
@@ -64,20 +59,20 @@ describe('Find Project Controller', () => {
         password: 'admin',
       });
 
-    const { refresh_token } = responseToken.body;
+    const { token } = responseToken.body;
 
     const responseSubscription = await request(app).post('/subscriptions').send({
       registration_date: new Date(),
       project_id: id,
       volunteer_id: id,
     }).set({
-      Authorization: `Bearer ${refresh_token}`,
+      Authorization: `Bearer ${token}`,
     });
 
     const subscriptionId = JSON.parse(responseSubscription.text).id;
 
     const response = await request(app).get(`/subscriptions/find?id=${subscriptionId}`).send().set({
-      Authorization: `Bearer ${refresh_token}`,
+      Authorization: `Bearer ${token}`,
     });
 
     expect(response.body.id).toEqual(subscriptionId);

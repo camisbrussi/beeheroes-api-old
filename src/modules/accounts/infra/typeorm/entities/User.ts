@@ -1,10 +1,10 @@
 import { Expose } from 'class-transformer';
 import {
-  Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, UpdateDateColumn,
+  Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryColumn, UpdateDateColumn,
 } from 'typeorm';
 import { v4 as uuidV4 } from 'uuid';
 
-import { UserType } from './UserTypes';
+import { Role } from './Role';
 
 @Entity('users')
 class User {
@@ -23,12 +23,14 @@ class User {
   @Column()
   avatar: string;
 
-  @ManyToOne(() => UserType)
-  @JoinColumn({ name: 'user_type_id' })
-  userType: UserType;
+  @ManyToMany(() => Role)
+  @JoinTable({
+    name: 'roles_users',
+    joinColumns: [{ name: 'user_id' }],
+    inverseJoinColumns: [{ name: 'role_id' }],
+  })
 
-  @Column()
-  user_type_id: number;
+  roles: Role[];
 
   @Column()
   status: number;

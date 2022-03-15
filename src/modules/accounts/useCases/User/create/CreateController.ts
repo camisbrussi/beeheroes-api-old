@@ -9,7 +9,6 @@ class CreateUserController {
       name,
       email,
       password,
-      user_type_id,
       avatar,
     } = request.body;
 
@@ -19,7 +18,6 @@ class CreateUserController {
       name,
       email,
       password,
-      user_type_id,
       avatar,
     });
 

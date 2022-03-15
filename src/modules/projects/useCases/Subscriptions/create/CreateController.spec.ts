@@ -15,16 +15,11 @@ describe('Create Project Controller', () => {
     connection = await createdConnection();
     await connection.runMigrations();
 
-    await connection.query(
-      `INSERT INTO USER_TYPES(name, description, created_at, updated_at) 
-      VALUES('user Type', 'xxxxxx', 'now()', 'now()')`,
-    );
-
     const password = await hash('admin', 8);
 
     await connection.query(
-      `INSERT INTO USERS(id, name, email, password, user_type_id, status, created_at, updated_at) 
-      VALUES('${id}', 'Admin', 'admin@beeheroes.com', '${password}', '1', '1' , 'now()', 'now()')`,
+      `INSERT INTO USERS(id, name, email, password, status, created_at, updated_at) 
+      VALUES('${id}', 'Admin', 'admin@beeheroes.com', '${password}', '1' , 'now()', 'now()')`,
     );
 
     await connection.query(
@@ -65,7 +60,7 @@ describe('Create Project Controller', () => {
         password: 'admin',
       });
 
-    const token = responseToken.body.refresh_token;
+    const { token } = responseToken.body;
 
     const response = await request(app).post('/subscriptions').send({
       registration_date: new Date(),

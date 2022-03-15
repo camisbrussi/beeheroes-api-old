@@ -14,16 +14,11 @@ describe('Create OccupationArea Controller', () => {
     connection = await createdConnection();
     await connection.runMigrations();
 
-    await connection.query(
-      `INSERT INTO USER_TYPES(name, description, created_at, updated_at) 
-      VALUES('User Type', 'xxxxxx', 'now()', 'now()')`,
-    );
-
     const password = await hash('admin', 8);
 
     await connection.query(
-      `INSERT INTO USERS(id, name, email, password, user_type_id, status, created_at, updated_at) 
-      VALUES('${id}', 'Admin', 'admin@beeheroes.com', '${password}', '1', '1' , 'now()', 'now()')`,
+      `INSERT INTO USERS(id, name, email, password, status, created_at, updated_at) 
+      VALUES('${id}', 'Admin', 'admin@beeheroes.com', '${password}', '1' , 'now()', 'now()')`,
     );
   });
 
@@ -39,12 +34,12 @@ describe('Create OccupationArea Controller', () => {
         password: 'admin',
       });
 
-    const { refresh_token } = responseToken.body;
+    const { token } = responseToken.body;
 
     const response = await request(app).post('/occupationarea').send({
       name: 'OccupationArea Supertest',
     }).set({
-      Authorization: `Bearer ${refresh_token}`,
+      Authorization: `Bearer ${token}`,
     });
 
     expect(response.status).toBe(201);
@@ -56,17 +51,17 @@ describe('Create OccupationArea Controller', () => {
         email: 'admin@beeheroes.com',
         password: 'admin',
       });
-    const { refresh_token } = responseToken.body;
+    const { token } = responseToken.body;
     await request(app).post('/occupationarea').send({
       name: 'OccupationArea Supertest',
     }).set({
-      Authorization: `Bearer ${refresh_token}`,
+      Authorization: `Bearer ${token}`,
     });
 
     const response = await request(app).post('/occupationarea').send({
       name: 'OccupationArea Supertest',
     }).set({
-      Authorization: `Bearer ${refresh_token}`,
+      Authorization: `Bearer ${token}`,
     });
 
     expect(response.status).toBe(400);

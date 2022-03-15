@@ -2,6 +2,7 @@ import { verify, sign } from 'jsonwebtoken';
 import { inject, injectable } from 'tsyringe';
 
 import auth from '@config/auth';
+import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
 import { IUsersTokensRepository } from '@modules/accounts/repositories/IUsersTokensRepository';
 import { IDateProvider } from '@shared/container/providers/DateProvider/IDateProvider';
 import { AppError } from '@shared/errors/AppError';
@@ -21,6 +22,8 @@ class RefreshTokenUseCase {
   constructor(
      @inject('UsersTokensRepository')
      private usersTokensRepository: IUsersTokensRepository,
+    @inject('UsersRepository')
+    private usersRepository: IUsersRepository,
      @inject('DayjsDateProvider')
      private dateProvider: IDateProvider,
   ) {}
@@ -50,7 +53,21 @@ class RefreshTokenUseCase {
         user_id,
       });
 
-      const newToken = sign({}, auth.secret_token, {
+      const user = await this.usersRepository.findByEmail(email);
+
+      const roles = user.roles?.map((role) => role.name);
+      const permissions = user.roles?.map(
+        (role) => role.permissions?.map((permission) => permission.name),
+      );
+
+      const payload = {
+        roles,
+        permissions: permissions ? permissions[0] : [],
+        name: user.name,
+        email: user.email,
+      };
+
+      const newToken = sign({ payload }, auth.secret_token, {
         subject: user_id,
         expiresIn: auth.expires_in_token,
       });

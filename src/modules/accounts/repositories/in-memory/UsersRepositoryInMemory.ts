@@ -10,7 +10,6 @@ class UsersRepositoryInMemory implements IUsersRepository {
     name,
     email,
     password,
-    user_type_id,
     avatar,
   }: IUserDTO): Promise<User> {
     const user = new User();
@@ -19,7 +18,6 @@ class UsersRepositoryInMemory implements IUsersRepository {
       name,
       email,
       password,
-      user_type_id,
       avatar,
     });
 
@@ -49,13 +47,11 @@ class UsersRepositoryInMemory implements IUsersRepository {
     name,
     email,
     status,
-    user_type_id,
   }: IUserDTO): Promise<User[]> {
     const users = this.users.filter((user) => {
       if ((email && email.includes(email))
         || (name && user.name.includes(name))
         || (status && user.status === status)
-        || (user_type_id && user.user_type_id === user_type_id)
       ) {
         return user;
       }
@@ -70,7 +66,6 @@ class UsersRepositoryInMemory implements IUsersRepository {
     name,
     email,
     password,
-    user_type_id,
     status,
   }: IUserDTO): Promise<User> {
     const findIndex = this.users.findIndex((user) => user.id === id);
@@ -79,7 +74,6 @@ class UsersRepositoryInMemory implements IUsersRepository {
     if (email) this.users[findIndex].email = email;
     if (password) this.users[findIndex].password = password;
     if (status) this.users[findIndex].status = status;
-    if (user_type_id) this.users[findIndex].user_type_id = user_type_id;
 
     return this.users[findIndex];
   }
@@ -87,16 +81,6 @@ class UsersRepositoryInMemory implements IUsersRepository {
   async list(): Promise<User[]> {
     const all = this.users;
     return all;
-  }
-
-  async listUsersByUserType(user_type_id: number): Promise<User[]> {
-    const users = this.users.filter((user) => {
-      if (user.user_type_id === user_type_id) {
-        return user;
-      }
-      return null;
-    });
-    return users;
   }
 }
 

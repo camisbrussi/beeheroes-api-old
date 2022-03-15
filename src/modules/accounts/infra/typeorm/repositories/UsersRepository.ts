@@ -17,17 +17,16 @@ class UsersRepository implements IUsersRepository {
     name,
     email,
     password,
-    user_type_id,
-
     avatar,
+    roles,
   }: IUserDTO): Promise<User> {
     const user = this.repository.create({
       id,
       name,
       email,
       password,
-      user_type_id,
       avatar,
+      roles,
     });
 
     await this.repository.save(user);
@@ -37,6 +36,8 @@ class UsersRepository implements IUsersRepository {
 
   async findByEmail(email: string): Promise<User> {
     const user = await this.repository.createQueryBuilder('user')
+      .leftJoinAndSelect('user.roles', 'roles')
+      .leftJoinAndSelect('roles.permissions', 'permissions')
       .where('user.email =:email', { email })
       .getOne();
 
@@ -46,6 +47,8 @@ class UsersRepository implements IUsersRepository {
   async findById(id: string): Promise<User> {
     const user = this.repository
       .createQueryBuilder('user')
+      .leftJoinAndSelect('user.roles', 'roles')
+      .leftJoinAndSelect('roles.permissions', 'permissions')
       .where('user.id =:id', { id })
       .getOne();
 
@@ -58,18 +61,18 @@ class UsersRepository implements IUsersRepository {
   }
 
   async list(): Promise<User[]> {
-    const user = await this.repository.find();
-    return user;
-  }
+    const statusActive = Number(process.env.USER_STATUS_ACTIVE);
+    const usersQuery = await this.repository
+      .createQueryBuilder('u')
+      .where('status = :status', { status: statusActive });
 
-  async listUsersByUserType(user_type_id: number): Promise<User[]> {
-    const users = await this.repository.find({ user_type_id });
+    const users = await usersQuery.getMany();
 
     return users;
   }
 
   async filter({
-    name, email, status, user_type_id,
+    name, email, status,
   }: IUserDTO): Promise<User[]> {
     const usersQuery = await this.repository
       .createQueryBuilder('u')
@@ -87,10 +90,6 @@ class UsersRepository implements IUsersRepository {
       usersQuery.andWhere('status = :status', { status });
     }
 
-    if (user_type_id) {
-      usersQuery.andWhere('user_type_id = :user_type_id', { user_type_id });
-    }
-
     const users = await usersQuery.getMany();
 
     return users;
@@ -101,9 +100,7 @@ class UsersRepository implements IUsersRepository {
     name,
     email,
     password,
-    user_type_id,
     status,
-
   }: IUserDTO): Promise<User> {
     const setUser: IUserDTO = { };
 
@@ -111,9 +108,8 @@ class UsersRepository implements IUsersRepository {
     if (email) setUser.email = email;
     if (password) setUser.password = password;
     if (status) setUser.status = status;
-    if (user_type_id) setUser.user_type_id = user_type_id;
 
-    const userTypeEdited = await this.repository
+    const userEdited = await this.repository
       .createQueryBuilder()
       .update()
       .set(setUser)
@@ -121,7 +117,7 @@ class UsersRepository implements IUsersRepository {
       .setParameters({ id })
       .execute();
 
-    return userTypeEdited.raw;
+    return userEdited.raw;
   }
 }
 

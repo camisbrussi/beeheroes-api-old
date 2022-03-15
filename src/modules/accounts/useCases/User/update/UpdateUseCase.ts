@@ -9,7 +9,6 @@ interface IRequest {
   name?:string,
   password?:string;
   email?:string;
-  user_type_id?: number;
   status?: number;
 }
 @injectable()
@@ -24,7 +23,6 @@ class UpdateUserUseCase {
     name,
     password,
     email,
-    user_type_id,
     status,
 
   }: IRequest): Promise<User> {
@@ -34,16 +32,15 @@ class UpdateUserUseCase {
       throw new AppError('User already exists!');
     }
 
-    const userType = await this.usersRepository.update({
+    const user = await this.usersRepository.update({
       id,
       name,
       password,
       email,
-      user_type_id,
       status,
     });
 
-    return userType;
+    return user;
   }
 }
 

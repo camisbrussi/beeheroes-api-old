@@ -14,16 +14,11 @@ describe('Filer Donation Controller', () => {
     connection = await createdConnection();
     await connection.runMigrations();
 
-    await connection.query(
-      `INSERT INTO USER_TYPES(name, description, created_at, updated_at) 
-      VALUES('User Type', 'xxxxxx', 'now()', 'now()')`,
-    );
-
     const password = await hash('admin', 8);
 
     await connection.query(
-      `INSERT INTO USERS(id, name, email, password, user_type_id, status, created_at, updated_at) 
-      VALUES('${id}', 'Admin', 'admin@beeheroes.com', '${password}', '1', '1' , 'now()', 'now()')`,
+      `INSERT INTO USERS(id, name, email, password, status, created_at, updated_at) 
+      VALUES('${id}', 'Admin', 'admin@beeheroes.com', '${password}', '1' , 'now()', 'now()')`,
     );
 
     await connection.query(
@@ -49,7 +44,7 @@ describe('Filer Donation Controller', () => {
         password: 'admin',
       });
 
-    const { refresh_token } = responseToken.body;
+    const { token } = responseToken.body;
 
     await request(app).post('/donations').send({
       name: 'Donation Name',
@@ -57,7 +52,7 @@ describe('Filer Donation Controller', () => {
       total_value: 123,
       organization_id: id,
     }).set({
-      Authorization: `Bearer ${refresh_token}`,
+      Authorization: `Bearer ${token}`,
     });
 
     await request(app).post('/donations').send({
@@ -66,16 +61,16 @@ describe('Filer Donation Controller', () => {
       total_value: 123,
       organization_id: id,
     }).set({
-      Authorization: `Bearer ${refresh_token}`,
+      Authorization: `Bearer ${token}`,
     });
     const response = await request(app).get('/donations/filter').send({
       name: 'Donation',
     }).set({
-      Authorization: `Bearer ${refresh_token}`,
+      Authorization: `Bearer ${token}`,
     });
 
     await request(app).get('/donations/').send().set({
-      Authorization: `Bearer ${refresh_token}`,
+      Authorization: `Bearer ${token}`,
     });
 
     expect(response.body.length).toEqual(2);
@@ -88,13 +83,13 @@ describe('Filer Donation Controller', () => {
         password: 'admin',
       });
 
-    const { refresh_token } = responseToken.body;
+    const { token } = responseToken.body;
 
     const response = await request(app).get('/donations/filter').send({
       name: 'Donation Name',
       organization_id: id,
     }).set({
-      Authorization: `Bearer ${refresh_token}`,
+      Authorization: `Bearer ${token}`,
     });
 
     expect(response.body.length).toEqual(2);

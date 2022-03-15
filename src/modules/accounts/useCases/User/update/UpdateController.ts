@@ -9,7 +9,7 @@ class UpdateUserController {
       name,
       password,
       email,
-      user_type_id,
+      status,
     } = request.body;
     const id = request.query.id as string;
 
@@ -20,7 +20,7 @@ class UpdateUserController {
       name,
       password,
       email,
-      user_type_id,
+      status,
     });
 
     return response.status(200).json(user);

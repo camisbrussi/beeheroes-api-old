@@ -2,12 +2,14 @@ import { container } from 'tsyringe';
 
 import '@shared/container/providers';
 
+import { PermissionsRepository } from '@modules/accounts/infra/typeorm/repositories/PermissionRepository';
+import { RolesRepository } from '@modules/accounts/infra/typeorm/repositories/RolesRepository';
 import { UsersRepository } from '@modules/accounts/infra/typeorm/repositories/UsersRepository';
 import { UsersTokensRepository } from '@modules/accounts/infra/typeorm/repositories/UsersTokensRepository';
-import { UserTypesRepository } from '@modules/accounts/infra/typeorm/repositories/UsersTypeRepository';
+import { IPermissionsRepository } from '@modules/accounts/repositories/IPermissionsRepository';
+import { IRolesRepository } from '@modules/accounts/repositories/IRolesRepository';
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
 import { IUsersTokensRepository } from '@modules/accounts/repositories/IUsersTokensRepository';
-import { IUserTypesRepository } from '@modules/accounts/repositories/IUserTypesRepository';
 import { AddressesRepository } from '@modules/addresses/infra/typeorm/repositories/AddressesRepository';
 import { PhonesRepository } from '@modules/addresses/infra/typeorm/repositories/PhonesRepository';
 import { IAddressesRepository } from '@modules/addresses/repositories/IAddressesRepository';
@@ -31,9 +33,14 @@ import { VolunteersRepository } from '@modules/volunteers/infra/typeorm/reposito
 import { IOccupationsAreaRepository } from '@modules/volunteers/repositories/IOccupationsAreaRepository';
 import { IVolunteersRepository } from '@modules/volunteers/repositories/IVolunteersRepository';
 
-container.registerSingleton<IUserTypesRepository>(
-  'UserTypesRepository',
-  UserTypesRepository,
+container.registerSingleton<IPermissionsRepository>(
+  'PermissionsRepository',
+  PermissionsRepository,
+);
+
+container.registerSingleton<IRolesRepository>(
+  'RolesRepository',
+  RolesRepository,
 );
 
 container.registerSingleton<IUsersRepository>(

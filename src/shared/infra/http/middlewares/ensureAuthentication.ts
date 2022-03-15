@@ -21,11 +21,10 @@ export async function ensureAuthentication(
   }
 
   const [, token] = authHeader.split(' ');
-
   try {
     const { sub: user_id } = verify(
       token,
-      auth.secret_refresh_token,
+      auth.secret_token,
     ) as IPayload;
 
     request.user = {

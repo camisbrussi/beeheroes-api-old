@@ -10,7 +10,6 @@ class UserMap {
     id,
     avatar,
     avatar_url,
-    user_type_id,
     status,
   }: User): IUserDTO {
     const user = instanceToInstance({
@@ -19,7 +18,6 @@ class UserMap {
       id,
       avatar,
       avatar_url,
-      user_type_id,
       status,
     });
     return user;
