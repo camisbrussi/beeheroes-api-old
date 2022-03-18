@@ -2,13 +2,13 @@ import { RolesRepositoryInMemory } from '@modules/accounts/repositories/in-memor
 
 import { FindRoleUseCase } from './FindUseCase';
 
-let findRoleUseCase: FindRoleUseCase;
+let findRolesUseCase: FindRoleUseCase;
 let rolesRepositoryInMemory: RolesRepositoryInMemory;
 
 describe('List Roles ', () => {
   beforeEach(() => {
     rolesRepositoryInMemory = new RolesRepositoryInMemory();
-    findRoleUseCase = new FindRoleUseCase(rolesRepositoryInMemory);
+    findRolesUseCase = new FindRoleUseCase(rolesRepositoryInMemory);
   });
 
   it('should be abe to find role for id', async () => {
@@ -18,7 +18,7 @@ describe('List Roles ', () => {
 
     const { id } = await rolesRepositoryInMemory.create(role);
 
-    const roles = await findRoleUseCase.execute(id);
+    const roles = await findRolesUseCase.execute(id);
 
     expect(roles.id).toEqual(id);
   });

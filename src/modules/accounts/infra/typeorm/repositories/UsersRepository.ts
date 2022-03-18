@@ -19,6 +19,8 @@ class UsersRepository implements IUsersRepository {
     password,
     avatar,
     roles,
+    address_id,
+    is_volunteer,
   }: IUserDTO): Promise<User> {
     const user = this.repository.create({
       id,
@@ -27,6 +29,8 @@ class UsersRepository implements IUsersRepository {
       password,
       avatar,
       roles,
+      address_id,
+      is_volunteer,
     });
 
     await this.repository.save(user);
@@ -36,6 +40,7 @@ class UsersRepository implements IUsersRepository {
 
   async findByEmail(email: string): Promise<User> {
     const user = await this.repository.createQueryBuilder('user')
+      .leftJoinAndSelect('user.address', 'addresses')
       .leftJoinAndSelect('user.roles', 'roles')
       .leftJoinAndSelect('roles.permissions', 'permissions')
       .where('user.email =:email', { email })
@@ -47,6 +52,7 @@ class UsersRepository implements IUsersRepository {
   async findById(id: string): Promise<User> {
     const user = this.repository
       .createQueryBuilder('user')
+      .leftJoinAndSelect('user.address', 'addresses')
       .leftJoinAndSelect('user.roles', 'roles')
       .leftJoinAndSelect('roles.permissions', 'permissions')
       .where('user.id =:id', { id })
@@ -60,34 +66,33 @@ class UsersRepository implements IUsersRepository {
     return users;
   }
 
-  async list(): Promise<User[]> {
-    const statusActive = Number(process.env.USER_STATUS_ACTIVE);
-    const usersQuery = await this.repository
-      .createQueryBuilder('u')
-      .where('status = :status', { status: statusActive });
-
-    const users = await usersQuery.getMany();
-
-    return users;
-  }
-
   async filter({
-    name, email, status,
+    is_volunteer,
+    name,
+    email,
+    status,
   }: IUserDTO): Promise<User[]> {
     const usersQuery = await this.repository
-      .createQueryBuilder('u')
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.address', 'addresses')
+      .leftJoinAndSelect('addresses.city', 'cities')
+      .leftJoinAndSelect('cities.state', 'states')
       .where('1 = 1');
 
     if (name) {
-      usersQuery.andWhere('name like :name', { name: `%${name}%` });
+      usersQuery.andWhere('user.name like :name', { name: `%${name}%` });
     }
 
     if (email) {
-      usersQuery.andWhere('email like :email', { email: `%${email}%` });
+      usersQuery.andWhere('user.email like :email', { email: `%${email}%` });
     }
 
     if (status) {
-      usersQuery.andWhere('status = :status', { status });
+      usersQuery.andWhere('user.status = :status', { status });
+    }
+
+    if (is_volunteer) {
+      usersQuery.andWhere('user.is_volunteer = :is_volunteer', { is_volunteer });
     }
 
     const users = await usersQuery.getMany();
@@ -101,6 +106,8 @@ class UsersRepository implements IUsersRepository {
     email,
     password,
     status,
+    address_id,
+    is_volunteer,
   }: IUserDTO): Promise<User> {
     const setUser: IUserDTO = { };
 
@@ -108,6 +115,8 @@ class UsersRepository implements IUsersRepository {
     if (email) setUser.email = email;
     if (password) setUser.password = password;
     if (status) setUser.status = status;
+    if (address_id) setUser.address_id = address_id;
+    if (is_volunteer) setUser.is_volunteer = is_volunteer;
 
     const userEdited = await this.repository
       .createQueryBuilder()

@@ -19,6 +19,7 @@ interface IRequest {
   users?: User[];
   address?: IRequestAddress;
   phones?: IRequestPhones[]
+  avatar?: string,
 }
 
 @injectable()
@@ -43,6 +44,7 @@ class CreateOrganizationUseCase {
     users,
     address,
     phones,
+    avatar,
   }: IRequest): Promise<Organization> {
     const organizationEmailAlreadyExists = await
     this.organizationsRepository.findByEmail(email);
@@ -73,6 +75,7 @@ class CreateOrganizationUseCase {
       organization_type_id,
       users,
       address_id: addressId,
+      avatar,
     });
 
     if (phones && phones.length > 0) {

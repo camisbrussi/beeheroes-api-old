@@ -1,5 +1,6 @@
 import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory';
 import { UsersTokensRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersTokensRepositoryInMemory';
+import { AddressesRepositoryInMemory } from '@modules/addresses/repositories/in-memory/AddressRepositoryInMemory';
 import { DayjsDateProvider } from '@shared/container/providers/DateProvider/implementations/DayjsDateProvider';
 import { AppError } from '@shared/errors/AppError';
 
@@ -8,6 +9,7 @@ import { AuthenticationUseCase } from './AuthenticationUseCase';
 
 let authenticationUseCase: AuthenticationUseCase;
 let usersRepositoryInMemory: UsersRepositoryInMemory;
+let addressesRepositoryInMemory: AddressesRepositoryInMemory;
 let createUserUseCase: CreateUserUseCase;
 let usersTokensRepositoryInMemory: UsersTokensRepositoryInMemory;
 let dateProvider: DayjsDateProvider;
@@ -16,7 +18,10 @@ describe('Authentication User', () => {
   beforeEach(() => {
     usersRepositoryInMemory = new UsersRepositoryInMemory();
     usersTokensRepositoryInMemory = new UsersTokensRepositoryInMemory();
-    createUserUseCase = new CreateUserUseCase(usersRepositoryInMemory);
+    createUserUseCase = new CreateUserUseCase(
+      usersRepositoryInMemory,
+      addressesRepositoryInMemory,
+    );
     dateProvider = new DayjsDateProvider();
     authenticationUseCase = new AuthenticationUseCase(
       usersRepositoryInMemory,
@@ -30,6 +35,7 @@ describe('Authentication User', () => {
       name: 'Admin',
       email: 'admin@beeheroes.com',
       password: '123456',
+      is_volunteer: false,
     };
     await createUserUseCase.execute(user);
 
@@ -46,6 +52,7 @@ describe('Authentication User', () => {
       email: 'userincorrect@test.com',
       password: '1234',
       name: 'User Test Error',
+      is_volunteer: false,
     };
 
     await createUserUseCase.execute(user);
@@ -61,6 +68,7 @@ describe('Authentication User', () => {
       email: 'passwordincorrect@test.com',
       password: '1234',
       name: 'User Test Error',
+      is_volunteer: false,
     };
 
     await createUserUseCase.execute(user);

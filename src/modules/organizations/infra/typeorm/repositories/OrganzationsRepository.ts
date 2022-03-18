@@ -26,6 +26,7 @@ class OrganizationsRepository implements IOrganizationsRepository {
     organization_type_id,
     users,
     address_id,
+    avatar,
   }: IOrganizationDTO): Promise<Organization> {
     const organization = this.organizationsRepository.create({
       id,
@@ -36,6 +37,7 @@ class OrganizationsRepository implements IOrganizationsRepository {
       organization_type_id,
       users,
       address_id,
+      avatar,
     });
 
     await this.organizationsRepository.save(organization);
@@ -79,11 +81,6 @@ class OrganizationsRepository implements IOrganizationsRepository {
     return organization;
   }
 
-  async list(): Promise<Organization[]> {
-    const organization = await this.organizationsRepository.find();
-    return organization;
-  }
-
   async listOrganizationsByOrganizationType(organization_type_id: string): Promise<Organization[]> {
     const organizations = await this.organizationsRepository.find({ organization_type_id });
 
@@ -98,27 +95,30 @@ class OrganizationsRepository implements IOrganizationsRepository {
     cnpj,
   }: IOrganizationDTO): Promise<Organization[]> {
     const organizationsQuery = await this.organizationsRepository
-      .createQueryBuilder('u')
+      .createQueryBuilder('organization')
+      .leftJoinAndSelect('organization.address', 'addresses')
+      .leftJoinAndSelect('addresses.city', 'cities')
+      .leftJoinAndSelect('cities.state', 'states')
       .where('1 = 1');
 
     if (name) {
-      organizationsQuery.andWhere('name like :name', { name: `%${name}%` });
+      organizationsQuery.andWhere('organization.name like :name', { name: `%${name}%` });
     }
 
     if (email) {
-      organizationsQuery.andWhere('email like :email', { email: `%${email}%` });
+      organizationsQuery.andWhere('organization.email like :email', { email: `%${email}%` });
     }
 
     if (status) {
-      organizationsQuery.andWhere('status = :status', { status });
+      organizationsQuery.andWhere('organization.status = :status', { status });
     }
 
     if (cnpj) {
-      organizationsQuery.andWhere('cnpj = :cnpj', { cnpj });
+      organizationsQuery.andWhere('organization.cnpj = :cnpj', { cnpj });
     }
 
     if (organization_type_id) {
-      organizationsQuery.andWhere('organization_type_id = :organization_type_id', { organization_type_id });
+      organizationsQuery.andWhere('organization.organization_type_id = :organization_type_id', { organization_type_id });
     }
 
     const organizations = await organizationsQuery.getMany();

@@ -33,6 +33,9 @@ class Organization {
   @Column()
   cnpj: string;
 
+  @Column()
+  avatar: string;
+
   @ManyToOne(() => OrganizationType)
   @JoinColumn({ name: 'organization_type_id' })
   organizationType: OrganizationType;

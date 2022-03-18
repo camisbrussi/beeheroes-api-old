@@ -10,8 +10,8 @@ async function create() {
   const password = await hash('admin', 8);
 
   await connection.query(
-    `INSERT INTO USERS(id, name, email, password, status, created_at, updated_at) 
-      VALUES('${id}', 'Admin', 'admin@beeheroes.com', '${password}', '1' , 'now()', 'now()')`,
+    `INSERT INTO USERS(id, name, email, password, status, is_volunteer, created_at, updated_at) 
+      VALUES('${id}', 'Admin', 'admin@beeheroes.com', '${password}', '1' , 'true', 'now()', 'now()')`,
   );
 }
 

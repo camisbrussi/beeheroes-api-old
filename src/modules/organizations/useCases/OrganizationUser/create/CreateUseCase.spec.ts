@@ -1,4 +1,3 @@
-import { RolesRepositoryInMemory } from '@modules/accounts/repositories/in-memory/RolesRepositoryInMemory';
 import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory';
 import { CreateUserUseCase } from '@modules/accounts/useCases/User/create/CreateUseCase';
 import { AddressesRepositoryInMemory } from '@modules/addresses/repositories/in-memory/AddressRepositoryInMemory';
@@ -38,7 +37,10 @@ describe('Create Organization Users', () => {
       organizationRepositoryInMemory,
       userRepositoryInMemory,
     );
-    createUserUseCase = new CreateUserUseCase(userRepositoryInMemory);
+    createUserUseCase = new CreateUserUseCase(
+      userRepositoryInMemory,
+      addressesRepositoryInMemory,
+    );
     createOrganizationTypeUseCase = new CreateOrganizationTypeUseCase(
       organizationTypeRepositoryInMemory,
     );
@@ -61,6 +63,7 @@ describe('Create Organization Users', () => {
       name: 'Admin',
       email: 'supertest@beeheroes.com',
       password: '123456',
+      is_volunteer: false,
     });
 
     const organization = await createOrganizationUseCase.execute({

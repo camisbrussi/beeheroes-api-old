@@ -11,6 +11,7 @@ class UsersRepositoryInMemory implements IUsersRepository {
     email,
     password,
     avatar,
+    address_id,
   }: IUserDTO): Promise<User> {
     const user = new User();
 
@@ -19,6 +20,7 @@ class UsersRepositoryInMemory implements IUsersRepository {
       email,
       password,
       avatar,
+      address_id,
     });
 
     this.users.push(user);
@@ -67,6 +69,7 @@ class UsersRepositoryInMemory implements IUsersRepository {
     email,
     password,
     status,
+    address_id,
   }: IUserDTO): Promise<User> {
     const findIndex = this.users.findIndex((user) => user.id === id);
 
@@ -74,13 +77,9 @@ class UsersRepositoryInMemory implements IUsersRepository {
     if (email) this.users[findIndex].email = email;
     if (password) this.users[findIndex].password = password;
     if (status) this.users[findIndex].status = status;
+    if (address_id) this.users[findIndex].address_id = address_id;
 
     return this.users[findIndex];
-  }
-
-  async list(): Promise<User[]> {
-    const all = this.users;
-    return all;
   }
 }
 

@@ -78,12 +78,4 @@ describe('List Donation', () => {
 
     expect(donation.length).toBe(2);
   });
-
-  it('should not be able filter donation nonexistent', async () => {
-    await expect(
-      filterDonationUseCase.execute({
-        name: 'Name Donation nonexistent',
-      }),
-    ).rejects.toEqual(new AppError('Donation does not exist'));
-  });
 });

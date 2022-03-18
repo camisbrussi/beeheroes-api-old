@@ -10,6 +10,9 @@ class UpdateUserController {
       password,
       email,
       status,
+      address_id,
+      address,
+      is_volunteer,
     } = request.body;
     const id = request.query.id as string;
 
@@ -21,6 +24,9 @@ class UpdateUserController {
       password,
       email,
       status,
+      address_id,
+      address,
+      is_volunteer,
     });
 
     return response.status(200).json(user);

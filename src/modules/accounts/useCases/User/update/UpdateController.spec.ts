@@ -17,8 +17,8 @@ describe('Update User Controller', () => {
     const password = await hash('admin', 8);
 
     await connection.query(
-      `INSERT INTO USERS(id, name, email, password, status, created_at, updated_at) 
-      VALUES('${id}', 'Admin', 'admin@beeheroes.com', '${password}', '1' , 'now()', 'now()')`,
+      `INSERT INTO USERS(id, name, email, password, status, is_volunteer, created_at, updated_at) 
+      VALUES('${id}', 'Admin', 'admin@beeheroes.com', '${password}', '1' , 'true', 'now()', 'now()')`,
     );
 
     await connection.query(
@@ -59,5 +59,47 @@ describe('Update User Controller', () => {
 
     expect(response.body.name).toEqual('Admin - editado');
     expect(response.body.email).toEqual('editado@beeheroes.com');
+  });
+
+  it('should be able to edit a user and add address', async () => {
+    const responseToken = await request(app).post('/sessions')
+      .send({
+        email: 'editado@beeheroes.com',
+        password: 'admin',
+      });
+
+    const { token } = responseToken.body;
+
+    const user = await request(app).post('/users').send({
+      name: 'Admin',
+      email: 'supertest@beeheroes.com',
+      password: '123456',
+      is_volunteer: false,
+    }).set({
+      Authorization: `Bearer ${token}`,
+    });
+
+    const idUsers = JSON.parse(user.text).id;
+
+    await request(app).put(`/users?id=${idUsers}`).send({
+      address: {
+        street: 'Street Example',
+        number: '123',
+        complement: '123',
+        district: 'District',
+        cep: 12345,
+        city_id: 1,
+      },
+    }).set({
+      Authorization: `Bearer ${token}`,
+    });
+
+    const response = await request(app)
+      .get(`/users/find/?id=${idUsers}`).send().set({
+        Authorization: `Bearer ${token}`,
+      });
+
+    expect(response.body.address).not.toBeNull();
+    expect(response.body.address.street).toEqual('Street Example');
   });
 });

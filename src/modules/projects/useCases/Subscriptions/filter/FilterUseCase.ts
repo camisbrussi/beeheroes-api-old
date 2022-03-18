@@ -3,7 +3,6 @@ import { inject, injectable } from 'tsyringe';
 import { ISubscriptionDTO } from '@modules/projects/dtos/ISubscriptionDTO';
 import { Subscription } from '@modules/projects/infra/typeorm/entities/Subscription';
 import { ISubscriptionsRepository } from '@modules/projects/repositories/ISubscriptiosRepository';
-import { AppError } from '@shared/errors/AppError';
 
 @injectable()
 class FilterSubscriptionUseCase {

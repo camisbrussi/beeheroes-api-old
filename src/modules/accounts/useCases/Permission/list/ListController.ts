@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
-import { ListPermissionsUseCase } from './LisUseCase';
+import { ListPermissionUseCase } from './LisUseCase';
 
 class ListPermissionController {
   async handle(request: Request, response: Response): Promise<Response> {
-    const listPermissionsUseCase = container.resolve(ListPermissionsUseCase);
+    const listPermissionsUseCase = container.resolve(ListPermissionUseCase);
 
     const all = await listPermissionsUseCase.execute();
 

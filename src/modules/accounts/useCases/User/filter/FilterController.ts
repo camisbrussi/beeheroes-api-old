@@ -9,6 +9,7 @@ class FilterUserController {
       name: request.body.name,
       email: request.body.email,
       status: request.body.status,
+      is_volunteer: request.body.is_volunteer,
     };
 
     const filterUserUseCase = container.resolve(FilterUserUseCase);

@@ -17,8 +17,8 @@ describe('Create Organization Type Controller', () => {
     const password = await hash('admin', 8);
 
     await connection.query(
-      `INSERT INTO USERS(id, name, email, password, status, created_at, updated_at) 
-      VALUES('${id}', 'Admin', 'admin@beeheroes.com', '${password}', '1' , 'now()', 'now()')`,
+      `INSERT INTO USERS(id, name, email, password, status, is_volunteer, created_at, updated_at) 
+      VALUES('${id}', 'Admin', 'admin@beeheroes.com', '${password}', '1' , 'true', 'now()', 'now()')`,
     );
   });
 
@@ -44,23 +44,5 @@ describe('Create Organization Type Controller', () => {
     });
 
     expect(response.status).toBe(201);
-  });
-
-  it('should not be able to create a organization type with name exist', async () => {
-    const responseToken = await request(app).post('/sessions')
-      .send({
-        email: 'admin@beeheroes.com',
-        password: 'admin',
-      });
-
-    const { token } = responseToken.body;
-    const response = await request(app).post('/organizationtypes').send({
-      name: 'Organization Type Supertest',
-      description: 'Organization Supertest',
-    }).set({
-      Authorization: `Bearer ${token}`,
-    });
-
-    expect(response.status).toBe(400);
   });
 });

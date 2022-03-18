@@ -16,7 +16,7 @@ const filterSubscriptionsController = new FilterSubscriptionController();
 
 subscriptionsRoutes.post('/', ensureAuthentication, createSubscriptionsController.handle);
 subscriptionsRoutes.get('/find', ensureAuthentication, findSubscriptionsController.handle);
-subscriptionsRoutes.get('/filter', ensureAuthentication, filterSubscriptionsController.handle);
+subscriptionsRoutes.get('/', ensureAuthentication, filterSubscriptionsController.handle);
 subscriptionsRoutes.put('/', ensureAuthentication, updateSubscriptionsController.handle);
 
 export { subscriptionsRoutes };

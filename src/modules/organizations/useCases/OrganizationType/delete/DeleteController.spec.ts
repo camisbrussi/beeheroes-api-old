@@ -17,8 +17,8 @@ describe('Delete Organization Type Controller', () => {
     const password = await hash('admin', 8);
 
     await connection.query(
-      `INSERT INTO USERS(id, name, email, password, status, created_at, updated_at) 
-      VALUES('${id}', 'Admin', 'admin@beeheroes.com', '${password}', '1', 'now()', 'now()')`,
+      `INSERT INTO USERS(id, name, email, password, status, is_volunteer, created_at, updated_at) 
+      VALUES('${id}', 'Admin', 'admin@beeheroes.com', '${password}', '1', 'true', 'now()', 'now()')`,
     );
 
     await connection.query(
@@ -55,31 +55,5 @@ describe('Delete Organization Type Controller', () => {
     });
 
     expect(response.status).toEqual(200);
-  });
-
-  it('should not be able to delete a organization type in use', async () => {
-    const responseToken = await request(app).post('/sessions')
-      .send({
-        email: 'admin@beeheroes.com',
-        password: 'admin',
-      });
-
-    const { token } = responseToken.body;
-
-    await request(app).post('/organizations').send({
-      name: 'Organization Name',
-      email: 'organization@beeheroes.com',
-      cnpj: '000000000000',
-      description: 'Description Organization',
-      organization_type_id: id,
-    }).set({
-      Authorization: `Bearer ${token}`,
-    });
-
-    const response = await request(app).delete(`/organizationtypes?id=${id}`).send().set({
-      Authorization: `Bearer ${token}`,
-    });
-
-    expect(response.status).toEqual(400);
   });
 });

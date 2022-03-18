@@ -1,9 +1,8 @@
 import { inject, injectable } from 'tsyringe';
 
 import { IOrganizationDTO } from '@modules/organizations/dtos/IOrganizationDTO';
-import { Organization } from '@modules/organizations/infra/typeorm/entities/Organization';
 import { IOrganizationsRepository } from '@modules/organizations/repositories/IOrganizationsRepository';
-import { AppError } from '@shared/errors/AppError';
+import { ItemListMap } from '@utils/mapper/ItemListMap';
 
 @injectable()
 class FilterOrganizationUseCase {
@@ -19,8 +18,8 @@ class FilterOrganizationUseCase {
     cnpj,
     status,
     organization_type_id,
-  }: IOrganizationDTO): Promise<Organization[]> {
-    const organization = await this.organizationsRepository.filter({
+  }: IOrganizationDTO): Promise<ItemListMap[]> {
+    const organizations = await this.organizationsRepository.filter({
       name,
       email,
       description,
@@ -29,11 +28,16 @@ class FilterOrganizationUseCase {
       organization_type_id,
     });
 
-    if (!organization) {
-      throw new AppError('Organization does not exist');
-    }
+    const listOrganizations = organizations
+      .map((organization) => (ItemListMap.toDTO({
+        id: organization.id,
+        name: organization.name,
+        image_url: `${process.env.APP_API_URL}/avatar/${organization.avatar}`,
+        city: organization.address?.city?.name,
+        uf: organization.address?.city?.state.uf,
+      })));
 
-    return organization;
+    return listOrganizations;
   }
 }
 

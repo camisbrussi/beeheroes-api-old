@@ -1,9 +1,8 @@
 import { inject, injectable } from 'tsyringe';
 
 import { IProjectDTO } from '@modules/projects/dtos/IProjectDTO';
-import { Project } from '@modules/projects/infra/typeorm/entities/Project';
 import { IProjectsRepository } from '@modules/projects/repositories/IProjectsRepository';
-import { AppError } from '@shared/errors/AppError';
+import { ItemListMap } from '@utils/mapper/ItemListMap';
 
 @injectable()
 class FilterProjectUseCase {
@@ -18,8 +17,8 @@ class FilterProjectUseCase {
     end,
     status,
     organization_id,
-  }: IProjectDTO): Promise<Project[]> {
-    const project = await this.projectsRepository.filter({
+  }: IProjectDTO): Promise<ItemListMap[]> {
+    const projects = await this.projectsRepository.filter({
       name,
       start,
       end,
@@ -27,11 +26,17 @@ class FilterProjectUseCase {
       organization_id,
     });
 
-    if (!project) {
-      throw new AppError('Project does not exist');
-    }
+    const listProject = projects
+      .map((project) => (ItemListMap.toDTO({
+        id: project.id,
+        name: project.name,
+        subtitle: project.organization?.name,
+        image_url: `${process.env.APP_API_URL}/avatar/${project.organization?.avatar}`,
+        city: project.organization?.address?.city?.name,
+        uf: project.organization?.address?.city?.state.uf,
+      })));
 
-    return project;
+    return listProject;
   }
 }
 

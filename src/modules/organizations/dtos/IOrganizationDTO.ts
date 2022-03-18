@@ -9,6 +9,7 @@ interface IOrganizationDTO {
   status?:number,
   organization_type_id?: string;
   address_id?: string;
+  avatar?: string;
   users?: User[]
 }
 

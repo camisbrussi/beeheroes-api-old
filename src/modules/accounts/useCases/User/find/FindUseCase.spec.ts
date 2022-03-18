@@ -17,6 +17,7 @@ describe('List Users', () => {
       name: 'User',
       email: 'teste@beeheroes',
       password: 'test',
+      is_volunteer: false,
     };
 
     const { id } = await usersRepositoryInMemory.create(newUser);
@@ -24,11 +25,5 @@ describe('List Users', () => {
     const user = await findUserUseCase.execute(id);
 
     expect(user.id).toEqual(id);
-  });
-
-  it('should not be able filter user nonexistent', async () => {
-    await expect(
-      findUserUseCase.execute('123'),
-    ).rejects.toEqual(new AppError('User does not exist'));
   });
 });

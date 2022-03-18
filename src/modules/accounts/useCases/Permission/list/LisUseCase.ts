@@ -4,7 +4,7 @@ import { Permission } from '@modules/accounts/infra/typeorm/entities/Permission'
 import { IPermissionsRepository } from '@modules/accounts/repositories/IPermissionsRepository';
 
 @injectable()
-class ListPermissionsUseCase {
+class ListPermissionUseCase {
   constructor(
     @inject('PermissionsRepository')
     private permissionsRepository: IPermissionsRepository,
@@ -17,4 +17,4 @@ class ListPermissionsUseCase {
   }
 }
 
-export { ListPermissionsUseCase };
+export { ListPermissionUseCase };

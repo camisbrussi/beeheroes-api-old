@@ -18,7 +18,7 @@ describe('List Users', () => {
       name: 'User',
       email: 'teste@beeheroes',
       password: 'test',
-
+      is_volunteer: false,
     };
 
     const newUser2: IUserDTO = {
@@ -33,13 +33,5 @@ describe('List Users', () => {
     const users = await filterUserUseCase.execute({ name: 'User' });
 
     expect(users.length).toBe(2);
-  });
-
-  it('should not be able filter user nonexistent', async () => {
-    await expect(
-      filterUserUseCase.execute({
-        name: 'Name User nonexistent',
-      }),
-    ).rejects.toEqual(new AppError('User does not exist'));
   });
 });

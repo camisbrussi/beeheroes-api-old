@@ -17,8 +17,18 @@ describe('Create User Controller', () => {
     const password = await hash('admin', 8);
 
     await connection.query(
-      `INSERT INTO USERS(id, name, email, password, status, created_at, updated_at) 
-      VALUES('${id}', 'Admin', 'admin@beeheroes.com', '${password}', '1' , 'now()', 'now()')`,
+      `INSERT INTO USERS(id, name, email, password, status, is_volunteer, created_at, updated_at) 
+      VALUES('${id}', 'Admin', 'admin@beeheroes.com', '${password}', '1' , 'true', 'now()', 'now()')`,
+    );
+
+    await connection.query(
+      `INSERT INTO states(id, name, uf, created_at, updated_at) 
+      VALUES('1', 'state', 'st', 'now()', 'now()')`,
+    );
+
+    await connection.query(
+      `INSERT INTO cities(id, name, state_id, created_at, updated_at) 
+      VALUES('1', 'city', '1', 'now()', 'now()')`,
     );
   });
 
@@ -40,6 +50,7 @@ describe('Create User Controller', () => {
       name: 'Admin',
       email: 'supertest@beeheroes.com',
       password: '123456',
+      is_volunteer: false,
     }).set({
       Authorization: `Bearer ${token}`,
     });

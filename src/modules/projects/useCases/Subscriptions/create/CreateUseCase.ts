@@ -1,9 +1,9 @@
 import { inject, injectable } from 'tsyringe';
 
+import { IVolunteersRepository } from '@modules/accounts/repositories/IVolunteersRepository';
 import { Subscription } from '@modules/projects/infra/typeorm/entities/Subscription';
 import { IProjectsRepository } from '@modules/projects/repositories/IProjectsRepository';
 import { ISubscriptionsRepository } from '@modules/projects/repositories/ISubscriptiosRepository';
-import { IVolunteersRepository } from '@modules/volunteers/repositories/IVolunteersRepository';
 import { AppError } from '@shared/errors/AppError';
 
 interface IRequest {

@@ -17,12 +17,14 @@ class FilterUserUseCase {
     password,
     email,
     status,
+    is_volunteer,
   }: IUserDTO): Promise<User[]> {
     const users = await this.usersRepository.filter({
       name,
       password,
       email,
       status,
+      is_volunteer,
     });
 
     if (users.length === 0) {

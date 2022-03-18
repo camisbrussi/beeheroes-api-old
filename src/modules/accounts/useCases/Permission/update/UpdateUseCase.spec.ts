@@ -1,15 +1,15 @@
-import { PermissionRepositoryInMemory } from '@modules/accounts/repositories/in-memory/PermissionsRepositoryInMemory';
+import { PermissionsRepositoryInMemory } from '@modules/accounts/repositories/in-memory/PermissionsRepositoryInMemory';
 import { AppError } from '@shared/errors/AppError';
 
 import { UpdatePermissionUseCase } from './UpdateUseCase';
 
-let updateTypeUseCase: UpdatePermissionUseCase;
-let permissionsRepositoryInMemory: PermissionRepositoryInMemory;
+let updatePermissionUseCase: UpdatePermissionUseCase;
+let permissionsRepositoryInMemory: PermissionsRepositoryInMemory;
 
-describe('Update Type User', () => {
+describe('Update Permission', () => {
   beforeEach(() => {
-    permissionsRepositoryInMemory = new PermissionRepositoryInMemory();
-    updateTypeUseCase = new UpdatePermissionUseCase(permissionsRepositoryInMemory);
+    permissionsRepositoryInMemory = new PermissionsRepositoryInMemory();
+    updatePermissionUseCase = new UpdatePermissionUseCase(permissionsRepositoryInMemory);
   });
 
   it('should be able to edit a permission name', async () => {
@@ -22,7 +22,7 @@ describe('Update Type User', () => {
       name: 'Permission name - edited',
     };
 
-    await updateTypeUseCase.execute(permissionEdit);
+    await updatePermissionUseCase.execute(permissionEdit);
 
     const permissionEdited = await permissionsRepositoryInMemory.findById(permission.id);
 
@@ -43,7 +43,7 @@ describe('Update Type User', () => {
         id: permission.id,
         name: 'Permission name2',
       };
-      await updateTypeUseCase.execute(permissionEdit);
+      await updatePermissionUseCase.execute(permissionEdit);
     }).rejects.toEqual(new AppError('Permission already exists!'));
   });
 });

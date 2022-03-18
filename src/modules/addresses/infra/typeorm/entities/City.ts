@@ -14,7 +14,7 @@ class City {
 
   @ManyToOne(() => State)
   @JoinColumn({ name: 'state_id' })
-  states: State;
+  state: State;
 
   @Column()
   state_id: number;

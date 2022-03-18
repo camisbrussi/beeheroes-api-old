@@ -12,7 +12,6 @@ interface IProjectsRepository{
   }: IProjectDTO): Promise<Project>;
   findByOrganizationId(organization_id: string): Promise<Project[]>;
   findById(id: string): Promise<Project>;
-  list(): Promise<Project[]>
   filter({
     name,
     start,

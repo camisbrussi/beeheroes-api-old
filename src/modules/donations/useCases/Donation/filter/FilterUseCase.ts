@@ -1,9 +1,8 @@
 import { inject, injectable } from 'tsyringe';
 
 import { IDonationDTO } from '@modules/donations/dtos/IDonationDTO';
-import { Donation } from '@modules/donations/infra/typeorm/entities/Donation';
 import { IDonationsRepository } from '@modules/donations/repositories/IDonationsRepository';
-import { AppError } from '@shared/errors/AppError';
+import { ItemListMap } from '@utils/mapper/ItemListMap';
 
 @injectable()
 class FilterDonationUseCase {
@@ -16,18 +15,24 @@ class FilterDonationUseCase {
     name,
     status,
     organization_id,
-  }: IDonationDTO): Promise<Donation[]> {
-    const donation = await this.donationsRepository.filter({
+  }: IDonationDTO): Promise<ItemListMap[]> {
+    const donations = await this.donationsRepository.filter({
       name,
       status,
       organization_id,
     });
 
-    if (donation.length === 0) {
-      throw new AppError('Donation does not exist');
-    }
+    const listDonations = donations
+      .map((donation) => (ItemListMap.toDTO({
+        id: donation.id,
+        name: donation.name,
+        subtitle: donation.organization?.name,
+        image_url: `${process.env.APP_API_URL}/avatar/${donation.organization?.avatar}`,
+        city: donation.organization?.address?.city?.name,
+        uf: donation.organization?.address?.city?.state.uf,
+      })));
 
-    return donation;
+    return listDonations;
   }
 }
 

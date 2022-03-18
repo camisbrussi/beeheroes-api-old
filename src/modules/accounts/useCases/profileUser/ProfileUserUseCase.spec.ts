@@ -19,7 +19,7 @@ describe('Profile User ', () => {
       name: 'Admin',
       email: 'admin@beeheroes.com',
       password: '123456',
-
+      is_volunteer: false,
     });
 
     const profile = await profileUserUseCase.execute(user.id);

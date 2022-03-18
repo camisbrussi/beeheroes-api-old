@@ -3,38 +3,35 @@ import { AppError } from '@shared/errors/AppError';
 
 import { CreateRoleUseCase } from './CreateUseCase';
 
-let createRoleUseCase: CreateRoleUseCase;
+let roleUserUseCase: CreateRoleUseCase;
 let rolesRepositoryInMemory: RolesRepositoryInMemory;
 
-describe('Create Roles', () => {
-  beforeEach(() => {
-    rolesRepositoryInMemory = new RolesRepositoryInMemory();
-    createRoleUseCase = new CreateRoleUseCase(rolesRepositoryInMemory);
+beforeEach(() => {
+  rolesRepositoryInMemory = new RolesRepositoryInMemory();
+  roleUserUseCase = new CreateRoleUseCase(
+    rolesRepositoryInMemory,
+  );
+});
+
+describe('Create Role ', () => {
+  it('should be able to create a new role ', async () => {
+    const role = await roleUserUseCase.execute({
+      name: 'Admin',
+    });
+
+    const userCreated = await rolesRepositoryInMemory.findById(role.id);
+    expect(userCreated).toHaveProperty('id');
   });
-  it('should be able to create a new role', async () => {
+
+  it('should not be able to create a new role with name exists', async () => {
     const role = {
-      name: 'Roles name',
-      description: 'Role description',
+      name: 'Name test',
     };
 
-    await createRoleUseCase.execute(role);
+    await roleUserUseCase.execute(role);
 
-    const roleCreated = await rolesRepositoryInMemory.findByName(role.name);
-
-    expect(roleCreated).toHaveProperty('id');
-  });
-
-  it('should not be able to create a role if exists name', async () => {
-    await expect(async () => {
-      await createRoleUseCase.execute({
-        name: 'Roles',
-        description: 'Role description',
-      });
-
-      await createRoleUseCase.execute({
-        name: 'Roles',
-        description: 'Role description',
-      });
-    }).rejects.toEqual(new AppError('Role already exists!'));
+    await expect(
+      roleUserUseCase.execute(role),
+    ).rejects.toEqual(new AppError('Role already exists!'));
   });
 });

@@ -11,7 +11,6 @@ interface IDonationsRepository{
   }: IDonationDTO): Promise<Donation>;
   findByOrganizationId(organization_id: string): Promise<Donation[]>;
   findById(id: string): Promise<Donation>;
-  list(): Promise<Donation[]>
   filter({
     name,
     status,

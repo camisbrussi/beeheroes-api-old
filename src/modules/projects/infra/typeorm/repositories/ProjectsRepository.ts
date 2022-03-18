@@ -46,11 +46,6 @@ class ProjectsRepository implements IProjectsRepository {
     return project;
   }
 
-  async list(): Promise<Project[]> {
-    const project = await this.projectsRepository.find();
-    return project;
-  }
-
   async filter({
     name,
     start,
@@ -59,27 +54,31 @@ class ProjectsRepository implements IProjectsRepository {
     organization_id,
   }: IProjectDTO): Promise<Project[]> {
     const projectsQuery = await this.projectsRepository
-      .createQueryBuilder('u')
+      .createQueryBuilder('project')
+      .leftJoinAndSelect('project.organization', 'organizations')
+      .leftJoinAndSelect('organizations.address', 'addresses')
+      .leftJoinAndSelect('addresses.city', 'cities')
+      .leftJoinAndSelect('cities.state', 'states')
       .where('1 = 1');
 
     if (name) {
-      projectsQuery.andWhere('name like :name', { name: `%${name}%` });
+      projectsQuery.andWhere('project.name like :name', { name: `%${name}%` });
     }
 
     if (start) {
-      projectsQuery.andWhere('start > :start', { start });
+      projectsQuery.andWhere('project.start > :start', { start });
     }
 
     if (end) {
-      projectsQuery.andWhere('end < :end', { end });
+      projectsQuery.andWhere('project.end < :end', { end });
     }
 
     if (status) {
-      projectsQuery.andWhere('status = :status', { status });
+      projectsQuery.andWhere('project.status = :status', { status });
     }
 
     if (organization_id) {
-      projectsQuery.andWhere('organization_id = :organization_id', { organization_id });
+      projectsQuery.andWhere('project.organization_id = :organization_id', { organization_id });
     }
 
     const projects = await projectsQuery.getMany();

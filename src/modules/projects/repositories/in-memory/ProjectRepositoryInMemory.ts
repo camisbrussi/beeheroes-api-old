@@ -85,11 +85,6 @@ class ProjectsRepositoryInMemory implements IProjectsRepository {
 
     return this.projects[findIndex];
   }
-
-  async list(): Promise<Project[]> {
-    const all = this.projects;
-    return all;
-  }
 }
 
 export { ProjectsRepositoryInMemory };

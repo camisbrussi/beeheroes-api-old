@@ -17,8 +17,8 @@ describe('Update Project Controller', () => {
     const password = await hash('admin', 8);
 
     await connection.query(
-      `INSERT INTO USERS(id, name, email, password, status, created_at, updated_at) 
-      VALUES('${id}', 'Admin', 'admin@beeheroes.com', '${password}', '1' , 'now()', 'now()')`,
+      `INSERT INTO USERS(id, name, email, password, status, is_volunteer, created_at, updated_at) 
+      VALUES('${id}', 'Admin', 'admin@beeheroes.com', '${password}', '1' , 'true', 'now()', 'now()')`,
     );
 
     await connection.query(
@@ -27,8 +27,23 @@ describe('Update Project Controller', () => {
     );
 
     await connection.query(
-      `INSERT INTO ORGANIZATIONS(id, name, description, cnpj, email, status, organization_type_id, created_at, updated_at) 
-      VALUES('${id}', 'Project Type', 'xxxxxx', '123456', 'organization@beeheroes.com', '1', '${id}', 'now()', 'now()')`,
+      `INSERT INTO states(id, name, uf, created_at, updated_at) 
+      VALUES('1', 'state', 'st', 'now()', 'now()')`,
+    );
+
+    await connection.query(
+      `INSERT INTO cities(id, name, state_id, created_at, updated_at) 
+      VALUES('1', 'city', '1', 'now()', 'now()')`,
+    );
+
+    await connection.query(
+      `INSERT INTO ADDRESSES(id, city_id, created_at, updated_at) 
+      VALUES('${id}', '1', 'now()', 'now()')`,
+    );
+
+    await connection.query(
+      `INSERT INTO ORGANIZATIONS(id, name, description, cnpj, email, status, organization_type_id, address_id, created_at, updated_at) 
+      VALUES('${id}', 'Donation Type', 'xxxxxx', '123456', 'organization@beeheroes.com', '1', '${id}', '${id}', 'now()', 'now()')`,
     );
 
     await connection.query(
@@ -42,8 +57,8 @@ describe('Update Project Controller', () => {
     );
 
     await connection.query(
-      `INSERT INTO VOLUNTEERS(id, cpf, profession, user_id, occupation_area_id, created_at, updated_at) 
-      VALUES('${id}', '123456', 'xxxxxx', '${id}', '${id}', 'now()', 'now()')`,
+      `INSERT INTO VOLUNTEERS(id, profession, user_id, occupation_area_id, created_at, updated_at) 
+      VALUES('${id}', 'xxxxxx', '${id}', '${id}', 'now()', 'now()')`,
     );
 
     await connection.query(

@@ -44,30 +44,29 @@ class DonationsRepository implements IDonationsRepository {
     return donation;
   }
 
-  async list(): Promise<Donation[]> {
-    const donation = await this.donationsRepository.find();
-    return donation;
-  }
-
   async filter({
     name,
     status,
     organization_id,
   }: IDonationDTO): Promise<Donation[]> {
     const donationsQuery = await this.donationsRepository
-      .createQueryBuilder('u')
+      .createQueryBuilder('donation')
+      .leftJoinAndSelect('donation.organization', 'organizations')
+      .leftJoinAndSelect('organizations.address', 'addresses')
+      .leftJoinAndSelect('addresses.city', 'cities')
+      .leftJoinAndSelect('cities.state', 'states')
       .where('1 = 1');
 
     if (name) {
-      donationsQuery.andWhere('name like :name', { name: `%${name}%` });
+      donationsQuery.andWhere('donation.name like :name', { name: `%${name}%` });
     }
 
     if (status) {
-      donationsQuery.andWhere('status = :status', { status });
+      donationsQuery.andWhere('donation.status = :status', { status });
     }
 
     if (organization_id) {
-      donationsQuery.andWhere('organization_id = :organization_id', { organization_id });
+      donationsQuery.andWhere('donation.organization_id = :organization_id', { organization_id });
     }
 
     const donations = await donationsQuery.getMany();

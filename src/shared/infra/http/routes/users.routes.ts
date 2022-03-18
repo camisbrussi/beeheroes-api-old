@@ -6,7 +6,6 @@ import { UpdateUserAvatarController } from '@modules/accounts/useCases/updateUse
 import { CreateUserController } from '@modules/accounts/useCases/User/create/CreateController';
 import { FilterUserController } from '@modules/accounts/useCases/User/filter/FilterController';
 import { FindUserController } from '@modules/accounts/useCases/User/find/FindController';
-import { ListUserController } from '@modules/accounts/useCases/User/list/ListUserController';
 import { UpdateUserController } from '@modules/accounts/useCases/User/update/UpdateController';
 import { CreateUserRoleController } from '@modules/accounts/useCases/UserRole/create/CreateController';
 
@@ -20,7 +19,6 @@ const uploadAvatar = multer(uploadConfig);
 const createUserController = new CreateUserController();
 const findUserController = new FindUserController();
 const updateUserController = new UpdateUserController();
-const listUserController = new ListUserController();
 const filterUserController = new FilterUserController();
 const updateUserAvatarController = new UpdateUserAvatarController();
 const profileUserController = new ProfileUserController();
@@ -28,8 +26,7 @@ const createUserRoleController = new CreateUserRoleController();
 
 usersRoutes.post('/', createUserController.handle);
 usersRoutes.get('/find', ensureAuthentication, findUserController.handle);
-usersRoutes.get('/filter', ensureAuthentication, filterUserController.handle);
-usersRoutes.get('/', ensureAuthentication, listUserController.handle);
+usersRoutes.get('/', ensureAuthentication, filterUserController.handle);
 usersRoutes.put('/', ensureAuthentication, updateUserController.handle);
 usersRoutes.get('/profile', ensureAuthentication, profileUserController.handle);
 usersRoutes.post('/roles', ensureAuthentication, createUserRoleController.handle);

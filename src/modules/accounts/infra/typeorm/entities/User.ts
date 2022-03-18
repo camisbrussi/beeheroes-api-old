@@ -1,8 +1,14 @@
 import { Expose } from 'class-transformer';
 import {
-  Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryColumn, UpdateDateColumn,
+  Column,
+  CreateDateColumn,
+  Entity, JoinColumn,
+  JoinTable,
+  ManyToMany, ManyToOne, PrimaryColumn, UpdateDateColumn,
 } from 'typeorm';
 import { v4 as uuidV4 } from 'uuid';
+
+import { Address } from '@modules/addresses/infra/typeorm/entities/Address';
 
 import { Role } from './Role';
 
@@ -34,6 +40,16 @@ class User {
 
   @Column()
   status: number;
+
+  @Column()
+  is_volunteer: boolean;
+
+  @ManyToOne(() => Address)
+  @JoinColumn({ name: 'address_id' })
+  address: Address;
+
+  @Column()
+  address_id: string;
 
   @CreateDateColumn()
   created_at: Date;

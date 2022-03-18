@@ -1,10 +1,10 @@
 import { Router } from 'express';
 
-import { CreateOccupationAreaController } from '@modules/volunteers/useCases/OccupationArea/create/CreateController';
-import { DeleteOccupationAreaController } from '@modules/volunteers/useCases/OccupationArea/delete/DeleteController';
-import { FindOccupationAreaController } from '@modules/volunteers/useCases/OccupationArea/find/FindController';
-import { ListOccupationAreaController } from '@modules/volunteers/useCases/OccupationArea/list/ListController';
-import { UpdateOccupationAreaController } from '@modules/volunteers/useCases/OccupationArea/update/UpdateController';
+import { CreateOccupationAreaController } from '@modules/accounts/useCases/OccupationArea/create/CreateController';
+import { DeleteOccupationAreaController } from '@modules/accounts/useCases/OccupationArea/delete/DeleteController';
+import { FindOccupationAreaController } from '@modules/accounts/useCases/OccupationArea/find/FindController';
+import { ListOccupationAreaController } from '@modules/accounts/useCases/OccupationArea/list/ListController';
+import { UpdateOccupationAreaController } from '@modules/accounts/useCases/OccupationArea/update/UpdateController';
 
 import { ensureAuthentication } from '../middlewares/ensureAuthentication';
 

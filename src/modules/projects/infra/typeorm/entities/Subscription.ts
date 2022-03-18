@@ -9,7 +9,8 @@ import {
 } from 'typeorm';
 import { v4 as uuidV4 } from 'uuid';
 
-import { Volunteer } from '../../../../volunteers/infra/typeorm/entities/Volunteer';
+import { Volunteer } from '@modules/accounts/infra/typeorm/entities/Volunteer';
+
 import { Project } from './Project';
 
 @Entity('subscriptions')

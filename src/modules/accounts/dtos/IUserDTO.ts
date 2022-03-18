@@ -7,7 +7,9 @@ interface IUserDTO {
   id?:string,
   status?:number,
   avatar?: string,
-  roles?: Role[]
+  roles?: Role[],
+  is_volunteer?: boolean;
+  address_id?: string;
 }
 
 export { IUserDTO };

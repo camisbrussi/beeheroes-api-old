@@ -6,11 +6,11 @@ interface IUsersRepository{
   findByEmail(email: string): Promise<User>;
   findById(id: string): Promise<User>;
   findByIds(ids: string[]): Promise<User[]>
-  list(): Promise<User[]>
   filter({
     name,
     email,
     status,
+    is_volunteer,
   }: IUserDTO): Promise<User[]>;
   update({
     id,
