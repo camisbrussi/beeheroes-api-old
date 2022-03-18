@@ -1,9 +1,9 @@
 import { container } from 'tsyringe';
 
-import { LocalStorageProvider } from './Implementatios/LocalStorageProvider';
+import { S3StorageProvider } from './Implementatios/S3StorageProvider';
 import { IStorageProvider } from './IStorageProvider';
 
 container.registerSingleton<IStorageProvider>(
   'StorageProvider',
-  LocalStorageProvider,
+  S3StorageProvider,
 );
