@@ -9,6 +9,7 @@ import createdConnection from '@shared/infra/typeorm';
 let connection: Connection;
 
 describe('Update Project Controller', () => {
+  jest.setTimeout(2000000000);
   const id = uuidV4();
   beforeAll(async () => {
     connection = await createdConnection();

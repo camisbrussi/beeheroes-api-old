@@ -8,8 +8,7 @@ import {
 } from 'typeorm';
 import { v4 as uuidV4 } from 'uuid';
 
-import { Address } from '@modules/addresses/infra/typeorm/entities/Address';
-
+import { Address } from '../../../../addresses/infra/typeorm/entities/Address';
 import { Role } from './Role';
 
 @Entity('users')
