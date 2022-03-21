@@ -1,6 +1,5 @@
 import { getRepository, Repository } from 'typeorm';
 
-import { IOrganizationImageDTO } from '@modules/organizations/dtos/IOrganizationImageDTO';
 import { IOrganizationImagesRepository } from '@modules/organizations/repositories/IOrganizationImagesRepository';
 
 import { OrganizationImage } from '../entities/OrganizationImages';

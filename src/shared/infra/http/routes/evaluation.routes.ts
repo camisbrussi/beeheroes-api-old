@@ -13,7 +13,6 @@ const findEvaluationsController = new FindEvaluationController();
 const updateEvaluationsController = new UpdateEvaluationController();
 
 evaluationsRoutes.post('/', ensureAuthentication, createEvaluationsController.handle);
-evaluationsRoutes.get('/find', ensureAuthentication, findEvaluationsController.handle);
 evaluationsRoutes.put('/', ensureAuthentication, updateEvaluationsController.handle);
 
 export { evaluationsRoutes };

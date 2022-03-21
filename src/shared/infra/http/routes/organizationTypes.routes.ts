@@ -17,8 +17,8 @@ const findOrganizationTypeController = new FindOrganizationTypeController();
 const deleteOrganizationTypeController = new DeleteOrganizationTypeController();
 
 organizationTypesRoutes.post('/', ensureAuthentication, createOrganizationTypeController.handle);
-organizationTypesRoutes.get('/', ensureAuthentication, listOrganizationTypeController.handle);
-organizationTypesRoutes.get('/find', ensureAuthentication, findOrganizationTypeController.handle);
+organizationTypesRoutes.get('/', listOrganizationTypeController.handle);
+organizationTypesRoutes.get('/find', findOrganizationTypeController.handle);
 organizationTypesRoutes.put('/', ensureAuthentication, updateOrganizationTypeController.handle);
 organizationTypesRoutes.delete('/', ensureAuthentication, deleteOrganizationTypeController.handle);
 

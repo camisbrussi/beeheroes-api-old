@@ -16,8 +16,8 @@ const filterDonationsController = new FilterDonationController();
 
 donationsRoutes.post('/', ensureAuthentication, createDonationsController.handle);
 
-donationsRoutes.get('/find', ensureAuthentication, findDonationsController.handle);
-donationsRoutes.get('/', ensureAuthentication, filterDonationsController.handle);
+donationsRoutes.get('/find', findDonationsController.handle);
+donationsRoutes.get('/', filterDonationsController.handle);
 donationsRoutes.put('/', ensureAuthentication, updateDonationsController.handle);
 
 export { donationsRoutes };

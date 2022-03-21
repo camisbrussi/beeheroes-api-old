@@ -15,8 +15,8 @@ const updateSubscriptionsController = new UpdateSubscriptionController();
 const filterSubscriptionsController = new FilterSubscriptionController();
 
 subscriptionsRoutes.post('/', ensureAuthentication, createSubscriptionsController.handle);
-subscriptionsRoutes.get('/find', ensureAuthentication, findSubscriptionsController.handle);
-subscriptionsRoutes.get('/', ensureAuthentication, filterSubscriptionsController.handle);
+subscriptionsRoutes.get('/find', findSubscriptionsController.handle);
+subscriptionsRoutes.get('/', filterSubscriptionsController.handle);
 subscriptionsRoutes.put('/', ensureAuthentication, updateSubscriptionsController.handle);
 
 export { subscriptionsRoutes };

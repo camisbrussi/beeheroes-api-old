@@ -25,7 +25,7 @@ class FindOrganizationUseCase {
       description: data.organization.description,
       email: data.organization.email,
       cnpj: data.organization.cnpj,
-      avatar_url: data.organization.avatar_url,
+      avatar_url: data.organization.avatar ? `${process.env.APP_API_URL}/avatar/${data.organization.avatar}` : null,
       organization_type: {
         name: data.organization.organizationType?.name,
         description: data.organization.organizationType?.description,

@@ -17,8 +17,8 @@ const findOccupationAreaController = new FindOccupationAreaController();
 const deleteOccupationAreaController = new DeleteOccupationAreaController();
 
 occupationAreaRoutes.post('/', ensureAuthentication, createOccupationAreaController.handle);
-occupationAreaRoutes.get('/', ensureAuthentication, listOccupationAreaController.handle);
-occupationAreaRoutes.get('/find', ensureAuthentication, findOccupationAreaController.handle);
+occupationAreaRoutes.get('/', listOccupationAreaController.handle);
+occupationAreaRoutes.get('/find', findOccupationAreaController.handle);
 occupationAreaRoutes.put('/', ensureAuthentication, updateOccupationAreaController.handle);
 occupationAreaRoutes.delete('/', ensureAuthentication, deleteOccupationAreaController.handle);
 

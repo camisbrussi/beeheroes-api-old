@@ -15,7 +15,7 @@ const updateVolunteersController = new UpdateVolunteerController();
 const filterVolunteersController = new FilterVolunteerController();
 
 volunteersRoutes.post('/', ensureAuthentication, createVolunteersController.handle);
-volunteersRoutes.get('/find', ensureAuthentication, findVolunteersController.handle);
+volunteersRoutes.get('/find', findVolunteersController.handle);
 volunteersRoutes.get('/', filterVolunteersController.handle);
 volunteersRoutes.put('/', ensureAuthentication, updateVolunteersController.handle);
 
