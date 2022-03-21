@@ -1,7 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 
-import { Phone } from '@modules/addresses/infra/typeorm/entities/Phone';
-import { Organization } from '@modules/organizations/infra/typeorm/entities/Organization';
+import { OrganizationMap } from '@modules/organizations/mapper/OrganizationMap';
 import { IOrganizationsRepository } from '@modules/organizations/repositories/IOrganizationsRepository';
 import { AppError } from '@shared/errors/AppError';
 
@@ -12,20 +11,36 @@ class FindOrganizationUseCase {
     private organizationsRepository: IOrganizationsRepository,
   ) { }
 
-  async execute(id: string): Promise<{
-    organization: Organization,
-    phones: Phone[]
-  }> {
+  async execute(id: string): Promise<OrganizationMap> {
     const data = await this.organizationsRepository.findById(id);
 
     if (!data.organization) {
       throw new AppError('Organization does not exist');
     }
 
-    return {
-      organization: data.organization,
-      phones: data.phones,
-    };
+    return OrganizationMap.toDTO({
+      id: data.organization.id,
+      status: data.organization.status,
+      name: data.organization.name,
+      description: data.organization.description,
+      email: data.organization.email,
+      cnpj: data.organization.cnpj,
+      avatar_url: data.organization.avatar_url,
+      organization_type: {
+        name: data.organization.organizationType?.name,
+        description: data.organization.organizationType?.description,
+      },
+      address: {
+        street: data.organization.address?.street,
+        number: data.organization.address?.number,
+        complement: data.organization.address?.complement,
+        district: data.organization.address?.district,
+        cep: data.organization.address?.cep,
+        city: data.organization.address?.city?.name,
+        uf: data.organization.address?.city?.state?.uf,
+      },
+
+    });
   }
 }
 

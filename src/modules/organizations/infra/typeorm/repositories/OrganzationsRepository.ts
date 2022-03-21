@@ -57,7 +57,10 @@ class OrganizationsRepository implements IOrganizationsRepository {
     }> {
     const organization = await this.organizationsRepository
       .createQueryBuilder('organization')
+      .leftJoinAndSelect('organization.organizationType', 'organizationType')
       .leftJoinAndSelect('organization.address', 'address')
+      .leftJoinAndSelect('address.city', 'cities')
+      .leftJoinAndSelect('cities.state', 'state')
       .where('organization.id = :id', { id })
       .getOne();
 
