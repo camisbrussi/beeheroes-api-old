@@ -18,6 +18,8 @@ class FindOrganizationUseCase {
       throw new AppError('Organization does not exist');
     }
 
+    const images = data.images?.map((image) => `${process.env.APP_API_URL}/avatar/${image.image_name}`);
+
     return OrganizationMap.toDTO({
       id: data.organization.id,
       status: data.organization.status,
@@ -39,7 +41,8 @@ class FindOrganizationUseCase {
         city: data.organization.address?.city?.name,
         uf: data.organization.address?.city?.state?.uf,
       },
-
+      images_url: images,
+      phones: data.phones,
     });
   }
 }

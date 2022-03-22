@@ -20,11 +20,6 @@ class OrganizationImagesRepository implements IOrganizationImagesRepository {
     return organizationImage;
   }
 
-  async findById(id: string): Promise<OrganizationImage> {
-    const organizationImage = await this.repository.findOne({ id });
-    return organizationImage;
-  }
-
   async findByOrganizationId(organization_id: string): Promise<OrganizationImage[]> {
     const organizationImages = await this.repository.find({ organization_id });
 

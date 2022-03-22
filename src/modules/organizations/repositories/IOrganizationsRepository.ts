@@ -2,6 +2,7 @@ import { Phone } from '@modules/addresses/infra/typeorm/entities/Phone';
 
 import { IOrganizationDTO } from '../dtos/IOrganizationDTO';
 import { Organization } from '../infra/typeorm/entities/Organization';
+import { OrganizationImage } from '../infra/typeorm/entities/OrganizationImages';
 
 interface IOrganizationsRepository{
   create({
@@ -16,7 +17,8 @@ interface IOrganizationsRepository{
   findById(id: string): Promise<
     {
       organization: Organization,
-      phones: Phone[]
+      phones: Phone[],
+      images: OrganizationImage[],
     }>;
   findByCnpj(cnpj: string): Promise<Organization>;
   listOrganizationsByOrganizationType(organization_type_id: string): Promise<Organization[]>;

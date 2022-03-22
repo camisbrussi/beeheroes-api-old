@@ -80,7 +80,7 @@ class UsersRepository implements IUsersRepository {
       .where('1 = 1');
 
     if (name) {
-      usersQuery.andWhere('user.name like :name', { name: `%${name}%` });
+      usersQuery.andWhere('user.name ilike :name', { name: `%${name}%` });
     }
 
     if (email) {

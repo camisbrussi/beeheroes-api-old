@@ -19,12 +19,6 @@ class OrganizationImagesRepositoryInMemory implements IOrganizationImagesReposit
     return organizationImages;
   }
 
-  async findById(id: string): Promise<OrganizationImage> {
-    const organizationImages = this.organizationImages
-      .find((organizationImages) => organizationImages.id === id);
-    return organizationImages;
-  }
-
   async findByOrganizationId(organization_id: string): Promise<OrganizationImage[]> {
     const organizationImages = this.organizationImages
       .filter((organizationImage) => organization_id.includes(organizationImage.organization_id));

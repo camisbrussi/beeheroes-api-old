@@ -15,6 +15,7 @@ class OrganizationsRepository implements IOrganizationsRepository {
   constructor() {
     this.organizationsRepository = getRepository(Organization);
     this.phonesRepository = getRepository(Phone);
+    this.organizationImageRepository = getRepository(OrganizationImage);
   }
 
   async create({
@@ -54,6 +55,7 @@ class OrganizationsRepository implements IOrganizationsRepository {
   async findById(id: string): Promise<{
     organization: Organization,
     phones: Phone[],
+    images: OrganizationImage[]
     }> {
     const organization = await this.organizationsRepository
       .createQueryBuilder('organization')
@@ -69,9 +71,15 @@ class OrganizationsRepository implements IOrganizationsRepository {
       .where('phone.organization_id = :organization_id', { organization_id: id })
       .getMany();
 
+    const images = await this.organizationImageRepository
+      .createQueryBuilder('image')
+      .where('image.organization_id = :organization_id', { organization_id: id })
+      .getMany();
+
     return {
       organization,
       phones,
+      images,
     };
   }
 
@@ -105,7 +113,7 @@ class OrganizationsRepository implements IOrganizationsRepository {
       .where('1 = 1');
 
     if (name) {
-      organizationsQuery.andWhere('organization.name like :name', { name: `%${name}%` });
+      organizationsQuery.andWhere('organization.name ilike :name', { name: `%${name}%` });
     }
 
     if (email) {

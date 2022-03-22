@@ -58,7 +58,7 @@ class DonationsRepository implements IDonationsRepository {
       .where('1 = 1');
 
     if (name) {
-      donationsQuery.andWhere('donation.name like :name', { name: `%${name}%` });
+      donationsQuery.andWhere('donation.name ilike :name', { name: `%${name}%` });
     }
 
     if (status) {

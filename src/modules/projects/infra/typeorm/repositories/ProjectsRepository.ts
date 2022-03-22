@@ -62,7 +62,7 @@ class ProjectsRepository implements IProjectsRepository {
       .where('1 = 1');
 
     if (name) {
-      projectsQuery.andWhere('project.name like :name', { name: `%${name}%` });
+      projectsQuery.andWhere('project.name ilike :name', { name: `%${name}%` });
     }
 
     if (start) {

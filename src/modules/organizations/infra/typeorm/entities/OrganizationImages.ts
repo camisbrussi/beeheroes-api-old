@@ -27,9 +27,16 @@ class OrganizationImage {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @Expose({ name: 'image_url' })
-  image_url(): string {
-    return `local/organization_images/${this.image_name}`;
+  @Expose({ name: 'avatar_url' })
+  avatar_url(): string {
+    switch (process.env.disk) {
+      case 'local':
+        return `${process.env.APP_API_URL}/avatar/${this.image_name}`;
+      case 'S3':
+        return `${process.env.AWS_BUCKET_URL}/avatar/${this.image_name}`;
+      default:
+        return null;
+    }
   }
 
   constructor() {
