@@ -27,9 +27,9 @@ const updateOrganizationAvatarController = new UpdateOrganizationAvatarControlle
 const upload = multer(uploadConfig);
 
 organizationsRoutes.post('/', ensureAuthentication, createOrganizationsController.handle);
+organizationsRoutes.post('/filter', filterOrganizationsController.handle);
 organizationsRoutes.post('/users', ensureAuthentication, createOrganizationUserController.handle);
 organizationsRoutes.get('/find', findOrganizationsController.handle);
-organizationsRoutes.get('/', filterOrganizationsController.handle);
 organizationsRoutes.get('/images', findOrganizationImagesController.handle);
 organizationsRoutes.put('/', ensureAuthentication, updateOrganizationsController.handle);
 
