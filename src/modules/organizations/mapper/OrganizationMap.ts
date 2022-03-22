@@ -1,6 +1,8 @@
 import { instanceToInstance } from 'class-transformer';
 
 import { Phone } from '@modules/addresses/infra/typeorm/entities/Phone';
+import { Donation } from '@modules/donations/infra/typeorm/entities/Donation';
+import { Project } from '@modules/projects/infra/typeorm/entities/Project';
 
 import { IOrganizationDTO } from '../dtos/IOrganizationDTO';
 
@@ -26,7 +28,9 @@ type Organization = {
     uf: string;
   }
   images_url: string[],
-  phones: Phone[]
+  phones: Phone[],
+  projects: Project[],
+  donations: Donation[],
 }
 
 class OrganizationMap {
@@ -42,6 +46,8 @@ class OrganizationMap {
     address,
     images_url,
     phones,
+    projects,
+    donations,
   }: Organization): IOrganizationDTO {
     const user = instanceToInstance({
       id,
@@ -55,6 +61,8 @@ class OrganizationMap {
       address,
       images_url,
       phones,
+      projects,
+      donations,
     });
     return user;
   }

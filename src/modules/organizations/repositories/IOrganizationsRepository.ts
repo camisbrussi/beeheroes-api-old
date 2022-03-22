@@ -1,4 +1,6 @@
 import { Phone } from '@modules/addresses/infra/typeorm/entities/Phone';
+import { Donation } from '@modules/donations/infra/typeorm/entities/Donation';
+import { Project } from '@modules/projects/infra/typeorm/entities/Project';
 
 import { IOrganizationDTO } from '../dtos/IOrganizationDTO';
 import { Organization } from '../infra/typeorm/entities/Organization';
@@ -19,6 +21,8 @@ interface IOrganizationsRepository{
       organization: Organization,
       phones: Phone[],
       images: OrganizationImage[],
+      projects: Project[],
+      donations: Donation[],
     }>;
   findByCnpj(cnpj: string): Promise<Organization>;
   listOrganizationsByOrganizationType(organization_type_id: string): Promise<Organization[]>;

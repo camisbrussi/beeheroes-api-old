@@ -43,6 +43,8 @@ class FindOrganizationUseCase {
       },
       images_url: images,
       phones: data.phones,
+      projects: data.projects,
+      donations: data.donations,
     });
   }
 }

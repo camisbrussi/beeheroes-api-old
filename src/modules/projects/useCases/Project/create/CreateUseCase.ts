@@ -47,6 +47,8 @@ class CreateProjectUseCase {
       organization_id,
     });
 
+    console.log(project);
+
     return project;
   }
 }

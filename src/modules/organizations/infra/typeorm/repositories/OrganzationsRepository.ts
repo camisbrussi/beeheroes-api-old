@@ -1,8 +1,10 @@
 import { getRepository, Repository } from 'typeorm';
 
 import { Phone } from '@modules/addresses/infra/typeorm/entities/Phone';
+import { Donation } from '@modules/donations/infra/typeorm/entities/Donation';
 import { IOrganizationDTO } from '@modules/organizations/dtos/IOrganizationDTO';
 import { IOrganizationsRepository } from '@modules/organizations/repositories/IOrganizationsRepository';
+import { Project } from '@modules/projects/infra/typeorm/entities/Project';
 
 import { Organization } from '../entities/Organization';
 import { OrganizationImage } from '../entities/OrganizationImages';
@@ -11,11 +13,15 @@ class OrganizationsRepository implements IOrganizationsRepository {
   private organizationsRepository: Repository<Organization>
   private phonesRepository: Repository<Phone>
   private organizationImageRepository: Repository<OrganizationImage>
+  private projectRepository: Repository<Project>
+  private donationRepository: Repository<Donation>
 
   constructor() {
     this.organizationsRepository = getRepository(Organization);
-    this.phonesRepository = getRepository(Phone);
     this.organizationImageRepository = getRepository(OrganizationImage);
+    this.phonesRepository = getRepository(Phone);
+    this.projectRepository = getRepository(Project);
+    this.donationRepository = getRepository(Donation);
   }
 
   async create({
@@ -55,8 +61,11 @@ class OrganizationsRepository implements IOrganizationsRepository {
   async findById(id: string): Promise<{
     organization: Organization,
     phones: Phone[],
-    images: OrganizationImage[]
+    images: OrganizationImage[],
+    projects: Project[],
+    donations: Donation[],
     }> {
+    console.log(id);
     const organization = await this.organizationsRepository
       .createQueryBuilder('organization')
       .leftJoinAndSelect('organization.organizationType', 'organizationType')
@@ -76,10 +85,22 @@ class OrganizationsRepository implements IOrganizationsRepository {
       .where('image.organization_id = :organization_id', { organization_id: id })
       .getMany();
 
+    const projects = await this.projectRepository
+      .createQueryBuilder('project')
+      .where('project.organization_id = :organization_id', { organization_id: id })
+      .getMany();
+
+    const donations = await this.donationRepository
+      .createQueryBuilder('donation')
+      .where('donation.organization_id = :organization_id', { organization_id: id })
+      .getMany();
+
     return {
       organization,
       phones,
       images,
+      projects,
+      donations,
     };
   }
 
