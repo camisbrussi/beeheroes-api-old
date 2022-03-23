@@ -54,9 +54,11 @@ class ProjectsRepository implements IProjectsRepository {
       .where('project.id = :id', { id })
       .getOne();
 
-    const totalSubscription = await this.subscriptionsRepository.count({ project_id: id });
+    if (project) {
+      const totalSubscription = await this.subscriptionsRepository.count({ project_id: id });
 
-    project.total_subscription = totalSubscription;
+      project.total_subscription = totalSubscription;
+    }
 
     return project;
   }
