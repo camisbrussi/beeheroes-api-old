@@ -14,10 +14,6 @@ class FindSubscriptionsByProjectUseCase {
   async execute(id: string): Promise<SubscriptionsProjectMap[]> {
     const subscriptions = await this.subscriptionsRepository.findByProjectId(id);
 
-    if (!subscriptions.length) {
-      throw new AppError('Subscription does not exist');
-    }
-
     const listSubscriptions = subscriptions
       .map((subscription) => (SubscriptionsProjectMap.toDTO({
         id: subscription.id,
