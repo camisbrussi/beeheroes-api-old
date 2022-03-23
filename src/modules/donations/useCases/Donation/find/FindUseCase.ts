@@ -28,10 +28,12 @@ class FindDonationUseCase {
       organization: {
         id: donation.organization?.id,
         name: donation.organization?.name,
-        avatar_url: donation.organization?.avatar ? `${process.env.APP_API_URL}/avatar/${donation.organization.avatar}` : null,
-        address: {
-          city: donation.organization?.address?.city?.name,
-          uf: donation.organization?.address?.city?.state?.uf,
+        description: donation.organization?.description,
+        email: donation.organization?.email,
+        cnpj: donation.organization?.cnpj,
+        avatar_url: donation.organization.avatar ? `${process.env.APP_API_URL}/avatar/${donation.organization.avatar}` : null,
+        organization_type: {
+          name: donation.organization?.organizationType?.name,
         },
       },
     });

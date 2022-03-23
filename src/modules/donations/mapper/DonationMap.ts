@@ -12,11 +12,13 @@ type Donation = {
   organization: {
     id: string;
     name: string;
+    description: string;
+    email: string;
+    cnpj: string;
     avatar_url: string;
-    address: {
-      city: string;
-      uf: string;
-    }
+    organization_type: {
+      name: string;
+    };
   };
 }
 

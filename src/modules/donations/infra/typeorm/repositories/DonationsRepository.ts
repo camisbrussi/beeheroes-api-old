@@ -42,6 +42,7 @@ class DonationsRepository implements IDonationsRepository {
     const donation = await this.donationsRepository
       .createQueryBuilder('donation')
       .leftJoinAndSelect('donation.organization', 'organizations')
+      .leftJoinAndSelect('organizations.organizationType', 'organizationType')
       .leftJoinAndSelect('organizations.address', 'address')
       .leftJoinAndSelect('address.city', 'cities')
       .leftJoinAndSelect('cities.state', 'state')

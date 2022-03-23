@@ -30,10 +30,12 @@ class FindProjectUseCase {
       organization: {
         id: project.organization?.id,
         name: project.organization?.name,
+        description: project.organization?.description,
+        email: project.organization?.email,
+        cnpj: project.organization?.cnpj,
         avatar_url: project.organization.avatar ? `${process.env.APP_API_URL}/avatar/${project.organization.avatar}` : null,
-        address: {
-          city: project.organization?.address?.city?.name,
-          uf: project.organization?.address?.city?.state?.uf,
+        organization_type: {
+          name: project.organization?.organizationType?.name,
         },
       },
     });

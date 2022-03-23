@@ -47,6 +47,7 @@ class ProjectsRepository implements IProjectsRepository {
     const project = await this.projectsRepository
       .createQueryBuilder('project')
       .leftJoinAndSelect('project.organization', 'organizations')
+      .leftJoinAndSelect('organizations.organizationType', 'organizationType')
       .leftJoinAndSelect('organizations.address', 'address')
       .leftJoinAndSelect('address.city', 'cities')
       .leftJoinAndSelect('cities.state', 'state')
