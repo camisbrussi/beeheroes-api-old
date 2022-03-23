@@ -26,7 +26,7 @@ class FindProjectUseCase {
       end: project.end,
       status: project.status,
       vacancies: project.vacancies,
-      total_subscription: project.total_subscription,
+      total_subscription: project.total_subscription ? project.total_subscription : 0,
       organization: {
         id: project.organization?.id,
         name: project.organization?.name,
