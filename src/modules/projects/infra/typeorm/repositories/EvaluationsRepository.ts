@@ -47,7 +47,7 @@ class EvaluationsRepository implements IEvaluationsRepository {
   }: IEvaluationDTO): Promise<Evaluation> {
     const setEvaluation: IEvaluationDTO = { };
 
-    if (score) setEvaluation.score = score;
+    if (score !== null) setEvaluation.score = score;
     if (description) setEvaluation.description = description;
 
     const evaluation = await this.evaluationsRepository

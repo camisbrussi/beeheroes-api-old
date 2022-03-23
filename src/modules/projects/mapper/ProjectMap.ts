@@ -21,6 +21,10 @@ type Project = {
     organization_type: {
       name: string;
     };
+     address: {
+      city: string;
+      uf: string;
+    }
   };
 }
 

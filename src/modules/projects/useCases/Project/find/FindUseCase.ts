@@ -37,6 +37,10 @@ class FindProjectUseCase {
         organization_type: {
           name: project.organization?.organizationType?.name,
         },
+        address: {
+          city: project.organization?.address.city.name,
+          uf: project.organization?.address.city.state.uf,
+        },
       },
     });
   }

@@ -19,6 +19,10 @@ type Donation = {
     organization_type: {
       name: string;
     };
+    address: {
+      city: string;
+      uf: string;
+    }
   };
 }
 

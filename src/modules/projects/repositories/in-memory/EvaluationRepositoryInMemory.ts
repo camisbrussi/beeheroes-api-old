@@ -45,7 +45,7 @@ class EvaluationsRepositoryInMemory implements IEvaluationsRepository {
   }: IEvaluationDTO): Promise<Evaluation> {
     const findIndex = this.evaluations.findIndex((evaluation) => evaluation.id === id);
 
-    if (score) this.evaluations[findIndex].score = score;
+    if (score !== null) this.evaluations[findIndex].score = score;
     if (subscription_id) this.evaluations[findIndex].subscription_id = subscription_id;
     if (description) this.evaluations[findIndex].description = description;
 

@@ -37,7 +37,6 @@ class VolunteersRepositoryInMemory implements IVolunteersRepository {
     profession,
     description,
     occupation_area_id,
-
   }: IVolunteerDTO): Promise<Volunteer> {
     const findIndex = this.volunteers.findIndex((volunteers) => volunteers.id === id);
 

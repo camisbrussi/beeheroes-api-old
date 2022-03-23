@@ -94,8 +94,8 @@ class DonationsRepository implements IDonationsRepository {
 
     if (name) setDonation.name = name;
     if (total_value) setDonation.total_value = total_value;
-    if (description) setDonation.description = description;
-    if (total_collected) setDonation.total_collected = total_collected;
+    if (total_collected !== null) setDonation.description = description;
+    if (total_collected !== null) setDonation.total_collected = total_collected;
     if (status) setDonation.status = status;
 
     const donationTypeEdited = await this.donationsRepository

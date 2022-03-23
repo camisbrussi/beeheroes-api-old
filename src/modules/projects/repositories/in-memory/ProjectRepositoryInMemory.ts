@@ -81,7 +81,7 @@ class ProjectsRepositoryInMemory implements IProjectsRepository {
     if (description) this.projects[findIndex].description = description;
     if (end) this.projects[findIndex].end = end;
     if (status) this.projects[findIndex].status = status;
-    if (vacancies) this.projects[findIndex].vacancies = vacancies;
+    if (vacancies !== null) this.projects[findIndex].vacancies = vacancies;
 
     return this.projects[findIndex];
   }

@@ -117,7 +117,7 @@ class ProjectsRepository implements IProjectsRepository {
     if (description) setProject.description = description;
     if (end) setProject.end = end;
     if (status) setProject.status = status;
-    if (vacancies) setProject.vacancies = vacancies;
+    if (vacancies !== null) setProject.vacancies = vacancies;
 
     const projectTypeEdited = await this.projectsRepository
       .createQueryBuilder()

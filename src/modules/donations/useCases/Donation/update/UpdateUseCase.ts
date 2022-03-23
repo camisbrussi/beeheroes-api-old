@@ -27,6 +27,7 @@ class UpdateDonationUseCase {
     total_collected,
     status,
   }: IRequest): Promise<Donation> {
+    console.log('total_collecte', total_collected);
     const donation = await this.donationsRepository.update({
       id,
       name,

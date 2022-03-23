@@ -35,6 +35,10 @@ class FindDonationUseCase {
         organization_type: {
           name: donation.organization?.organizationType?.name,
         },
+        address: {
+          city: donation.organization?.address.city.name,
+          uf: donation.organization?.address.city.state.uf,
+        },
       },
     });
   }
