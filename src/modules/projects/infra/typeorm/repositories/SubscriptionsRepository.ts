@@ -28,8 +28,14 @@ class SubscriptionsRepository implements ISubscriptionsRepository {
     return subscription;
   }
 
-  async findByProjectId(project_id: string): Promise<Subscription[]> {
-    const subscriptions = await this.subscriptionsRepository.find({ project_id });
+  async findByProjectId(id: string): Promise<Subscription[]> {
+    const subscriptions = await this.subscriptionsRepository
+      .createQueryBuilder('subscription')
+      .leftJoinAndSelect('subscription.volunteer', 'volunteer')
+      .leftJoinAndSelect('volunteer.user', 'user')
+      .where('subscription.project_id = :project_id', { project_id: id })
+      .where('subscription.status =:status', { status: Number(process.env.PROJECT_STATUS_ACTIVE) })
+      .getMany();
 
     return subscriptions;
   }

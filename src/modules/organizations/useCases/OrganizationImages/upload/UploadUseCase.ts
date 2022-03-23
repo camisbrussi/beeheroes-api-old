@@ -1,6 +1,5 @@
 import { inject, injectable } from 'tsyringe';
 
-import { OrganizationImage } from '@modules/organizations/infra/typeorm/entities/OrganizationImages';
 import { IOrganizationImagesRepository } from '@modules/organizations/repositories/IOrganizationImagesRepository';
 import { IOrganizationsRepository } from '@modules/organizations/repositories/IOrganizationsRepository';
 import { IStorageProvider } from '@shared/container/providers/StorageProvider/IStorageProvider';

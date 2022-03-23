@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 
-import { Subscription } from '@modules/projects/infra/typeorm/entities/Subscription';
+import { SubscriptionsProjectMap } from '@modules/projects/mapper/SubscriptionsProjectMap';
 import { ISubscriptionsRepository } from '@modules/projects/repositories/ISubscriptiosRepository';
 import { AppError } from '@shared/errors/AppError';
 
@@ -11,14 +11,24 @@ class FindSubscriptionsByProjectUseCase {
     private subscriptionsRepository: ISubscriptionsRepository,
   ) { }
 
-  async execute(id: string): Promise<Subscription[]> {
+  async execute(id: string): Promise<SubscriptionsProjectMap[]> {
     const subscriptions = await this.subscriptionsRepository.findByProjectId(id);
 
     if (!subscriptions.length) {
       throw new AppError('Subscription does not exist');
     }
 
-    return subscriptions;
+    const listSubscriptions = subscriptions
+      .map((subscription) => (SubscriptionsProjectMap.toDTO({
+        id: subscription.id,
+        volunteer: {
+          id: subscription.volunteer.id,
+          name: subscription.volunteer.user.name,
+          avatar_url: subscription.volunteer.user.avatar ? `${process.env.APP_API_URL}/avatar/${subscription.volunteer.user.avatar_url}` : null,
+        },
+      })));
+
+    return listSubscriptions;
   }
 }
 
