@@ -10,6 +10,7 @@ interface ISubscriptionsRepository{
   findByProjectId(project_id: string): Promise<Subscription[]>;
   findByVolunteerId(volunteer_id: string): Promise<Subscription[]>;
   findById(id: string): Promise<Subscription>;
+  countByProject(id: string): Promise<number>;
   filter({
     registration_date,
     participation_date,

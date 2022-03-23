@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 
-import { Donation } from '@modules/donations/infra/typeorm/entities/Donation';
+import { DonationMap } from '@modules/donations/mapper/DonationMap';
 import { IDonationsRepository } from '@modules/donations/repositories/IDonationsRepository';
 import { AppError } from '@shared/errors/AppError';
 
@@ -11,14 +11,30 @@ class FindDonationUseCase {
     private donationsRepository: IDonationsRepository,
   ) { }
 
-  async execute(id: string): Promise<Donation> {
+  async execute(id: string): Promise<DonationMap> {
     const donation = await this.donationsRepository.findById(id);
 
     if (!donation) {
       throw new AppError('Donation does not exist');
     }
 
-    return donation;
+    return DonationMap.toDTO({
+      id: donation.id,
+      name: donation.name,
+      description: donation.name,
+      total_value: donation.total_value,
+      total_collected: donation.total_collected,
+      status: donation.status,
+      organization: {
+        id: donation.organization?.id,
+        name: donation.organization?.name,
+        avatar_url: donation.organization?.avatar ? `${process.env.APP_API_URL}/avatar/${donation.organization.avatar}` : null,
+        address: {
+          city: donation.organization?.address?.city?.name,
+          uf: donation.organization?.address?.city?.state?.uf,
+        },
+      },
+    });
   }
 }
 

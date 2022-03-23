@@ -49,7 +49,7 @@ class OrganizationMap {
     projects,
     donations,
   }: Organization): IOrganizationDTO {
-    const user = instanceToInstance({
+    const organization = instanceToInstance({
       id,
       status,
       name,
@@ -64,7 +64,7 @@ class OrganizationMap {
       projects,
       donations,
     });
-    return user;
+    return organization;
   }
 }
 

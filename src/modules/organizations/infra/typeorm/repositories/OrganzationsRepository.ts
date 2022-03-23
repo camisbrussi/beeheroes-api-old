@@ -65,7 +65,6 @@ class OrganizationsRepository implements IOrganizationsRepository {
     projects: Project[],
     donations: Donation[],
     }> {
-    console.log(id);
     const organization = await this.organizationsRepository
       .createQueryBuilder('organization')
       .leftJoinAndSelect('organization.organizationType', 'organizationType')
@@ -88,6 +87,7 @@ class OrganizationsRepository implements IOrganizationsRepository {
     const projects = await this.projectRepository
       .createQueryBuilder('project')
       .where('project.organization_id = :organization_id', { organization_id: id })
+      .where('project.status =:status', { status: Number(process.env.PROJECT_STATUS_ACTIVE) })
       .getMany();
 
     const donations = await this.donationRepository

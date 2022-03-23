@@ -1,3 +1,4 @@
+import { Expose } from 'class-transformer';
 import {
   Column,
   CreateDateColumn,
@@ -46,6 +47,9 @@ class Project {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @Expose({ name: 'total_subscription' })
+  total_subscription: number;
 
   constructor() {
     if (!this.id) {

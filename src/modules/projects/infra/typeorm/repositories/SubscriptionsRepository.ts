@@ -46,6 +46,12 @@ class SubscriptionsRepository implements ISubscriptionsRepository {
     return subscription;
   }
 
+  async countByProject(id: string): Promise<number> {
+    const totalSubscription = await this.subscriptionsRepository.count({ project_id: id });
+
+    return totalSubscription;
+  }
+
   async filter({
     registration_date,
     participation_date,

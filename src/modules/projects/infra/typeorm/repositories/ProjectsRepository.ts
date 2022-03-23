@@ -4,12 +4,15 @@ import { IProjectDTO } from '@modules/projects/dtos/IProjectDTO';
 import { IProjectsRepository } from '@modules/projects/repositories/IProjectsRepository';
 
 import { Project } from '../entities/Project';
+import { Subscription } from '../entities/Subscription';
 
 class ProjectsRepository implements IProjectsRepository {
   private projectsRepository: Repository<Project>
+  private subscriptionsRepository: Repository<Subscription>
 
   constructor() {
     this.projectsRepository = getRepository(Project);
+    this.subscriptionsRepository = getRepository(Subscription);
   }
 
   async create({
@@ -41,7 +44,18 @@ class ProjectsRepository implements IProjectsRepository {
   }
 
   async findById(id: string): Promise<Project> {
-    const project = await this.projectsRepository.findOne({ id });
+    const project = await this.projectsRepository
+      .createQueryBuilder('project')
+      .leftJoinAndSelect('project.organization', 'organizations')
+      .leftJoinAndSelect('organizations.address', 'address')
+      .leftJoinAndSelect('address.city', 'cities')
+      .leftJoinAndSelect('cities.state', 'state')
+      .where('project.id = :id', { id })
+      .getOne();
+
+    const totalSubscription = await this.subscriptionsRepository.count({ project_id: id });
+
+    project.total_subscription = totalSubscription;
 
     return project;
   }

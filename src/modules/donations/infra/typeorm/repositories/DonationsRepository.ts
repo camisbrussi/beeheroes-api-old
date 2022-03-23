@@ -39,7 +39,14 @@ class DonationsRepository implements IDonationsRepository {
   }
 
   async findById(id: string): Promise<Donation> {
-    const donation = await this.donationsRepository.findOne({ id });
+    const donation = await this.donationsRepository
+      .createQueryBuilder('donation')
+      .leftJoinAndSelect('donation.organization', 'organizations')
+      .leftJoinAndSelect('organizations.address', 'address')
+      .leftJoinAndSelect('address.city', 'cities')
+      .leftJoinAndSelect('cities.state', 'state')
+      .where('donation.id = :id', { id })
+      .getOne();
 
     return donation;
   }
