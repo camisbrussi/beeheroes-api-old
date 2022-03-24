@@ -25,8 +25,8 @@ const profileUserController = new ProfileUserController();
 const createUserRoleController = new CreateUserRoleController();
 
 usersRoutes.post('/', createUserController.handle);
-usersRoutes.get('/find', ensureAuthentication, findUserController.handle);
-usersRoutes.get('/', ensureAuthentication, filterUserController.handle);
+usersRoutes.get('/find', findUserController.handle);
+usersRoutes.get('/', filterUserController.handle);
 usersRoutes.put('/', ensureAuthentication, updateUserController.handle);
 usersRoutes.get('/profile', ensureAuthentication, profileUserController.handle);
 usersRoutes.post('/roles', ensureAuthentication, createUserRoleController.handle);

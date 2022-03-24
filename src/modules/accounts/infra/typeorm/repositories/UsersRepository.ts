@@ -53,6 +53,8 @@ class UsersRepository implements IUsersRepository {
     const user = this.repository
       .createQueryBuilder('user')
       .leftJoinAndSelect('user.address', 'addresses')
+      .leftJoinAndSelect('addresses.city', 'cities')
+      .leftJoinAndSelect('cities.state', 'states')
       .leftJoinAndSelect('user.roles', 'roles')
       .leftJoinAndSelect('roles.permissions', 'permissions')
       .where('user.id =:id', { id })

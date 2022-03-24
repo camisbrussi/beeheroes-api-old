@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 
-import { User } from '@modules/accounts/infra/typeorm/entities/User';
+import { UserMap } from '@modules/accounts/mapper/UserMap';
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
 import { AppError } from '@shared/errors/AppError';
 
@@ -11,14 +11,25 @@ class FindUserUseCase {
     private usersRepository: IUsersRepository,
   ) { }
 
-  async execute(id: string): Promise<User> {
+  async execute(id: string): Promise<UserMap> {
     const user = await this.usersRepository.findById(id);
 
     if (!user) {
       throw new AppError('User does not exist');
     }
 
-    return user;
+    return UserMap.toDTO({
+      id: user.id,
+      status: user.status,
+      name: user.name,
+      email: user.email,
+      is_volunteer: user.is_volunteer,
+      avatar_url: user.avatar ? `${process.env.APP_API_URL}/avatar/${user.avatar}` : null,
+      address: {
+        city: user.address?.city?.name,
+        uf: user.address?.city?.state?.uf,
+      },
+    });
   }
 }
 
