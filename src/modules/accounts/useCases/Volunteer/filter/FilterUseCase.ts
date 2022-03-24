@@ -28,7 +28,7 @@ class FilterVolunteerUseCase {
 
     const listVolunteers = volunteers
       .map((volunteer) => (ItemListMap.toDTO({
-        id: volunteer.id,
+        id: volunteer.user.id,
         name: volunteer.user.name,
         image_url: `${process.env.APP_API_URL}/avatar/${volunteer.user.avatar}`,
         city: volunteer.user.address?.city?.name,

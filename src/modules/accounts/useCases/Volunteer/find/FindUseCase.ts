@@ -1,6 +1,4 @@
 import { inject, injectable } from 'tsyringe';
-
-import { Volunteer } from '@modules/accounts/infra/typeorm/entities/Volunteer';
 import { VolunteerMap } from '@modules/accounts/mapper/VolunteerMap';
 import { IVolunteersRepository } from '@modules/accounts/repositories/IVolunteersRepository';
 import { AppError } from '@shared/errors/AppError';
@@ -21,6 +19,7 @@ class FindVolunteerUseCase {
 
     return VolunteerMap.toDTO({
       id: volunteer.id,
+      user_id: volunteer.user_id,
       description: volunteer.description,
       profession: volunteer.description,
       occupation_area: {
