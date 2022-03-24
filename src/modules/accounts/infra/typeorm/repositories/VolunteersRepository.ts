@@ -36,7 +36,9 @@ class VolunteersRepository implements IVolunteersRepository {
   }
 
   async findById(id: string): Promise<Volunteer> {
-    const volunteer = await this.repository.createQueryBuilder('volunteer')
+    const volunteer = this.repository
+      .createQueryBuilder('volunteer')
+      .leftJoinAndSelect('volunteer.occupationArea', 'occupationArea')
       .where('volunteer.id =:id', { id })
       .getOne();
     return volunteer;

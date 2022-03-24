@@ -1,6 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 
 import { Volunteer } from '@modules/accounts/infra/typeorm/entities/Volunteer';
+import { VolunteerMap } from '@modules/accounts/mapper/VolunteerMap';
 import { IVolunteersRepository } from '@modules/accounts/repositories/IVolunteersRepository';
 import { AppError } from '@shared/errors/AppError';
 
@@ -11,14 +12,21 @@ class FindVolunteerUseCase {
     private volunteersRepository: IVolunteersRepository,
   ) { }
 
-  async execute(id: string): Promise<Volunteer> {
+  async execute(id: string): Promise<VolunteerMap> {
     const volunteer = await this.volunteersRepository.findById(id);
 
     if (!volunteer) {
       throw new AppError('Volunteer does not exist');
     }
 
-    return volunteer;
+    return VolunteerMap.toDTO({
+      id: volunteer.id,
+      description: volunteer.description,
+      profession: volunteer.description,
+      occupation_area: {
+        name: volunteer.occupationArea?.name,
+      },
+    });
   }
 }
 
