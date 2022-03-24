@@ -21,7 +21,7 @@ class FindVolunteerUseCase {
       id: volunteer.id,
       user_id: volunteer.user_id,
       description: volunteer.description,
-      profession: volunteer.description,
+      profession: volunteer.profession,
       occupation_area: {
         name: volunteer.occupationArea?.name,
       },
