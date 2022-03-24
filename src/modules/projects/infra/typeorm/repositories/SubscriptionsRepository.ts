@@ -41,7 +41,11 @@ class SubscriptionsRepository implements ISubscriptionsRepository {
   }
 
   async findByVolunteerId(volunteer_id: string): Promise<Subscription[]> {
-    const subscriptions = await this.subscriptionsRepository.find({ volunteer_id });
+    const subscriptions = await this.subscriptionsRepository
+      .createQueryBuilder('subscription')
+      .leftJoinAndSelect('subscription.project', 'project')
+      .where('subscription.volunteer_id = :volunteer_id', { volunteer_id })
+      .getMany();
 
     return subscriptions;
   }

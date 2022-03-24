@@ -1,8 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 
-import { SubscriptionsProjectMap } from '@modules/projects/mapper/SubscriptionsProjectMap';
+import { SubscriptionsProjectMap } from '@modules/projects/mapper/SubscriptionsProjectMap copy';
 import { ISubscriptionsRepository } from '@modules/projects/repositories/ISubscriptiosRepository';
-import { AppError } from '@shared/errors/AppError';
 
 @injectable()
 class FindSubscriptionsByProjectUseCase {
