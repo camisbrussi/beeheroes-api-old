@@ -18,6 +18,7 @@ donationsRoutes.post('/', ensureAuthentication, createDonationsController.handle
 
 donationsRoutes.get('/find', findDonationsController.handle);
 donationsRoutes.get('/', filterDonationsController.handle);
+donationsRoutes.post('/filter', filterDonationsController.handle);
 donationsRoutes.put('/', ensureAuthentication, updateDonationsController.handle);
 
 export { donationsRoutes };

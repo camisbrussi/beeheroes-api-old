@@ -1,10 +1,6 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
-import { AppError } from '@shared/errors/AppError';
-import { userPermissions } from '@utils/userPermissions';
-import { validateUserPermissions } from '@utils/validateUserPermissions';
-
 import { FilterDonationUseCase } from './FilterUseCase';
 
 class FilterDonationController {

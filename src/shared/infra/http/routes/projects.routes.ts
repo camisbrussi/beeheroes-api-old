@@ -15,8 +15,8 @@ const updateProjectsController = new UpdateProjectController();
 const filterProjectsController = new FilterProjectController();
 
 projectsRoutes.post('/', ensureAuthentication, createProjectsController.handle);
+projectsRoutes.post('/filter', filterProjectsController.handle);
 projectsRoutes.get('/find', findProjectsController.handle);
-projectsRoutes.get('/', filterProjectsController.handle);
 projectsRoutes.put('/', ensureAuthentication, updateProjectsController.handle);
 
 export { projectsRoutes };
