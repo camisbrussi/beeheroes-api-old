@@ -45,6 +45,7 @@ class FindOrganizationUseCase {
       phones: data.phones,
       projects: data.projects,
       donations: data.donations,
+      responsibles: data.organization.users,
     });
   }
 }

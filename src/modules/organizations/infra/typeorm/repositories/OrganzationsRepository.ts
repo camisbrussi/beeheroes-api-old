@@ -1,5 +1,6 @@
 import { getRepository, Repository } from 'typeorm';
 
+import { User } from '@modules/accounts/infra/typeorm/entities/User';
 import { Phone } from '@modules/addresses/infra/typeorm/entities/Phone';
 import { Donation } from '@modules/donations/infra/typeorm/entities/Donation';
 import { IOrganizationDTO } from '@modules/organizations/dtos/IOrganizationDTO';
@@ -71,6 +72,7 @@ class OrganizationsRepository implements IOrganizationsRepository {
       .leftJoinAndSelect('organization.address', 'address')
       .leftJoinAndSelect('address.city', 'cities')
       .leftJoinAndSelect('cities.state', 'state')
+      .leftJoinAndSelect('organization.users', 'user')
       .where('organization.id = :id', { id })
       .getOne();
 
