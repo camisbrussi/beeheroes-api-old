@@ -20,6 +20,12 @@ class FindOrganizationUseCase {
 
     const images = data.images?.map((image) => `${process.env.APP_API_URL}/organization_images/${image.image_name}`);
 
+    const responsibles = data.organization.users?.map((user) => ({
+      user_id: user.id,
+      name: user.name,
+      avatar_url: user.avatar ? `${process.env.APP_API_URL}/avatar/${user.avatar}` : null,
+    }));
+
     return OrganizationMap.toDTO({
       id: data.organization.id,
       status: data.organization.status,
@@ -45,7 +51,7 @@ class FindOrganizationUseCase {
       phones: data.phones,
       projects: data.projects,
       donations: data.donations,
-      responsibles: data.organization.users,
+      responsibles,
     });
   }
 }

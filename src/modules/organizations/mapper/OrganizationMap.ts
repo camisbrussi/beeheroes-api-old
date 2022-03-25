@@ -7,6 +7,12 @@ import { Project } from '@modules/projects/infra/typeorm/entities/Project';
 
 import { IOrganizationDTO } from '../dtos/IOrganizationDTO';
 
+type Responsible = {
+    user_id: string;
+    name: string;
+    avatar_url: string;
+}
+
 type Organization = {
   id: string;
   status: number;
@@ -32,7 +38,7 @@ type Organization = {
   phones: Phone[],
   projects: Project[],
   donations: Donation[],
-  responsibles: User[],
+  responsibles: Responsible[],
 }
 
 class OrganizationMap {

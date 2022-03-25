@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 
-import { SubscriptionsProjectMap } from '@modules/projects/mapper/SubscriptionsProjectMap copy';
+import { SubscriptionsProjectMap } from '@modules/projects/mapper/SubscriptionsProjectMap';
 import { ISubscriptionsRepository } from '@modules/projects/repositories/ISubscriptiosRepository';
 
 @injectable()
