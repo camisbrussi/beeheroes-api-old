@@ -115,6 +115,15 @@ class OrganizationsRepository implements IOrganizationsRepository {
     return organization;
   }
 
+  async findByUser(user_id: string): Promise<Organization> {
+    const organization = await this.organizationsRepository.createQueryBuilder('organization')
+      .leftJoinAndSelect('organization.users', 'users')
+      .where('users.id = :id', { id: user_id })
+      .getOne();
+
+    return organization;
+  }
+
   async listOrganizationsByOrganizationType(organization_type_id: string): Promise<Organization[]> {
     const organizations = await this.organizationsRepository.find({ organization_type_id });
 

@@ -34,11 +34,11 @@ type Organization = {
     city: string;
     uf: string;
   }
-  images_url: string[],
-  phones: Phone[],
-  projects: Project[],
-  donations: Donation[],
-  responsibles: Responsible[],
+  images_url?: string[],
+  phones?: Phone[],
+  projects?: Project[],
+  donations?: Donation[],
+  responsibles?: Responsible[],
 }
 
 class OrganizationMap {
