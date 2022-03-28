@@ -1,6 +1,7 @@
 import { Router } from 'express';
 
 import { authenticationRoutes } from './authentication.routes';
+import { citiesRoutes } from './cities.routes';
 import { donationsRoutes } from './donations.routes';
 import { evaluationsRoutes } from './evaluation.routes';
 import { occupationAreaRoutes } from './occupationArea.routes';
@@ -27,5 +28,6 @@ router.use('/projects', projectsRoutes);
 router.use('/donations', donationsRoutes);
 router.use('/subscriptions', subscriptionsRoutes);
 router.use('/evaluations', evaluationsRoutes);
+router.use('/cities', citiesRoutes);
 
 export { router };

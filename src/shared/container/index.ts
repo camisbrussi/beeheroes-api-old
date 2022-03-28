@@ -15,8 +15,10 @@ import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepositor
 import { IUsersTokensRepository } from '@modules/accounts/repositories/IUsersTokensRepository';
 import { IVolunteersRepository } from '@modules/accounts/repositories/IVolunteersRepository';
 import { AddressesRepository } from '@modules/addresses/infra/typeorm/repositories/AddressesRepository';
+import { CitiesRepository } from '@modules/addresses/infra/typeorm/repositories/CitiesRepository';
 import { PhonesRepository } from '@modules/addresses/infra/typeorm/repositories/PhonesRepository';
 import { IAddressesRepository } from '@modules/addresses/repositories/IAddressesRepository';
+import { ICitiesRepository } from '@modules/addresses/repositories/ICitiesRepository';
 import { IPhonesRepository } from '@modules/addresses/repositories/IPhonesRepository';
 import { DonationsRepository } from '@modules/donations/infra/typeorm/repositories/DonationsRepository';
 import { IDonationsRepository } from '@modules/donations/repositories/IDonationsRepository';
@@ -106,4 +108,9 @@ container.registerSingleton<ISubscriptionsRepository>(
 container.registerSingleton<IEvaluationsRepository>(
   'EvaluationsRepository',
   EvaluationsRepository,
+);
+
+container.registerSingleton<ICitiesRepository>(
+  'CitiesRepository',
+  CitiesRepository,
 );
