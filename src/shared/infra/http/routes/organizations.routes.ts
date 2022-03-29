@@ -26,9 +26,9 @@ const findOrganizationUserController = new FindOrganizationUserController();
 
 const upload = multer(uploadConfig);
 
-organizationsRoutes.post('/', ensureAuthentication, createOrganizationsController.handle);
+organizationsRoutes.post('/', createOrganizationsController.handle);
 organizationsRoutes.post('/filter', filterOrganizationsController.handle);
-organizationsRoutes.post('/users', ensureAuthentication, createOrganizationUserController.handle);
+organizationsRoutes.post('/users', createOrganizationUserController.handle);
 organizationsRoutes.get('/find', findOrganizationsController.handle);
 organizationsRoutes.get('/user', findOrganizationUserController.handle);
 organizationsRoutes.put('/', ensureAuthentication, updateOrganizationsController.handle);
