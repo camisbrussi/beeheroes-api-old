@@ -14,6 +14,7 @@ interface IRequest {
 }
 interface IResponse {
   user: {
+    id: string;
     name: string;
     email: string,
   },
@@ -66,6 +67,7 @@ class AuthenticationUseCase {
     const payload = {
       roles,
       permissions: permissions ? permissions[0] : [],
+      id: user.id,
       name: user.name,
       email: user.email,
     };
@@ -93,6 +95,7 @@ class AuthenticationUseCase {
     const tokenReturn: IResponse = {
       token,
       user: {
+        id: user.id,
         name: user.name,
         email: user.email,
       },
