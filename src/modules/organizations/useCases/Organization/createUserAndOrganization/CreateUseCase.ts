@@ -9,6 +9,7 @@ import { IRequestAddress } from '@modules/addresses/useCases/address/create/Crea
 import { IRequestPhones } from '@modules/addresses/useCases/phones/create/CreateUseCase';
 import { Organization } from '@modules/organizations/infra/typeorm/entities/Organization';
 import { IOrganizationsRepository } from '@modules/organizations/repositories/IOrganizationsRepository';
+import { IOrganizationTypesRepository } from '@modules/organizations/repositories/IOrganizationTypesRepository';
 import { AppError } from '@shared/errors/AppError';
 
 type UserRequest = {
@@ -47,6 +48,8 @@ class CreateUserAndOrganizationUseCase {
     private phonesRepository: IPhonesRepository,
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
+    @inject('OrganizationTypesRepository')
+    private organizationTypeRepository: IOrganizationTypesRepository,
   ) {}
 
   async execute({
@@ -58,6 +61,8 @@ class CreateUserAndOrganizationUseCase {
     const organizationCnpjAlreadyExists = await
     this.organizationsRepository.findByCnpj(organization.cnpj);
     const userAlreadyExists = await this.usersRepository.findByEmail(user.email);
+    const organizationTypeAlreadyExists = await this
+      .organizationTypeRepository.findById(organization.organization_type_id);
 
     if (organizationEmailAlreadyExists) {
       throw new AppError('Organization email is already registered!');
@@ -69,6 +74,10 @@ class CreateUserAndOrganizationUseCase {
 
     if (userAlreadyExists) {
       throw new AppError('User email is already registered!');
+    }
+
+    if (!organizationTypeAlreadyExists) {
+      throw new AppError('Organization type does not exist!');
     }
 
     let addressId: string;
