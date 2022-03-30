@@ -2,6 +2,7 @@ import { Router } from 'express';
 import multer from 'multer';
 
 import { CreateOrganizationController } from '@modules/organizations/useCases/Organization/create/CreateController';
+import { CreateUserAndOrganizationController } from '@modules/organizations/useCases/Organization/createUserAndOrganization/CreateController';
 import { FilterOrganizationController } from '@modules/organizations/useCases/Organization/filter/FilterController';
 import { FindOrganizationController } from '@modules/organizations/useCases/Organization/find/FindController';
 import { FindOrganizationUserController } from '@modules/organizations/useCases/Organization/findbyUser/FindController';
@@ -17,6 +18,7 @@ const organizationsRoutes = Router();
 
 const createOrganizationsController = new CreateOrganizationController();
 const createOrganizationUserController = new CreateOrganizationUserController();
+const createUserOrganizationUserController = new CreateUserAndOrganizationController();
 const findOrganizationsController = new FindOrganizationController();
 const updateOrganizationsController = new UpdateOrganizationController();
 const filterOrganizationsController = new FilterOrganizationController();
@@ -29,6 +31,7 @@ const upload = multer(uploadConfig);
 organizationsRoutes.post('/', createOrganizationsController.handle);
 organizationsRoutes.post('/filter', filterOrganizationsController.handle);
 organizationsRoutes.post('/users', createOrganizationUserController.handle);
+organizationsRoutes.post('/user', createUserOrganizationUserController.handle);
 organizationsRoutes.get('/find', findOrganizationsController.handle);
 organizationsRoutes.get('/user', findOrganizationUserController.handle);
 organizationsRoutes.put('/', ensureAuthentication, updateOrganizationsController.handle);
