@@ -1,7 +1,9 @@
 import { City } from '../infra/typeorm/entities/City';
+import { State } from '../infra/typeorm/entities/State';
 
 interface ICitiesRepository {
-  list(): Promise<City[]>;
+  listByState(id: number): Promise<City[]>;
+  list(): Promise<State[]>;
 }
 
 export { ICitiesRepository };

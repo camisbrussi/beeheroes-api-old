@@ -1,20 +1,20 @@
 import { inject, injectable } from 'tsyringe';
 
-import { City } from '@modules/addresses/infra/typeorm/entities/City';
+import { State } from '@modules/addresses/infra/typeorm/entities/State';
 import { ICitiesRepository } from '@modules/addresses/repositories/ICitiesRepository';
 
 @injectable()
-class ListCitiesUseCase {
+class ListStatesUseCase {
   constructor(
     @inject('CitiesRepository')
     private citiesRepository: ICitiesRepository,
   ) {}
 
-  async execute(id: number): Promise<City[]> {
-    const cities = await this.citiesRepository.listByState(id);
+  async execute(): Promise<State[]> {
+    const states = await this.citiesRepository.list();
 
-    return cities;
+    return states;
   }
 }
 
-export { ListCitiesUseCase };
+export { ListStatesUseCase };
