@@ -120,6 +120,8 @@ class OrganizationsRepository implements IOrganizationsRepository {
       .leftJoinAndSelect('organization.organizationType', 'organizationType')
       .leftJoinAndSelect('organization.users', 'users')
       .leftJoinAndSelect('organization.address', 'address')
+      .leftJoinAndSelect('address.city', 'cities')
+      .leftJoinAndSelect('cities.state', 'state')
       .where('users.id = :id', { id: user_id })
       .getOne();
 
