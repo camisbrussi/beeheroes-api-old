@@ -1,7 +1,7 @@
+import { hash } from 'bcrypt';
 import { inject, injectable } from 'tsyringe';
 
 import { User } from '@modules/accounts/infra/typeorm/entities/User';
-import { Volunteer } from '@modules/accounts/infra/typeorm/entities/Volunteer';
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
 import { IVolunteersRepository } from '@modules/accounts/repositories/IVolunteersRepository';
 import { IAddressesRepository } from '@modules/addresses/repositories/IAddressesRepository';
@@ -57,10 +57,12 @@ class CreateUserAndVolunteerUseCase {
       addressId = createdAddress.id;
     }
 
+    const passwordHash = await hash(user.password, 8);
+
     const newUser = await this.usersRepository.create({
       name: user.name,
       email: user.email,
-      password: user.password,
+      password: passwordHash,
       is_volunteer: false,
       address_id: addressId,
     });

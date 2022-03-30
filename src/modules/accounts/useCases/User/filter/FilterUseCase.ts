@@ -1,9 +1,24 @@
 import { inject, injectable } from 'tsyringe';
 
 import { IUserDTO } from '@modules/accounts/dtos/IUserDTO';
-import { User } from '@modules/accounts/infra/typeorm/entities/User';
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
-import { AppError } from '@shared/errors/AppError';
+
+interface IResponse {
+  id: string;
+  name: string;
+  email: string;
+  avatar_url: string | null;
+  status: number;
+  is_volunteer: boolean;
+  address: {
+    district: string;
+    street: string;
+    number: string;
+    complement: string;
+    city: string;
+    uf: string;
+  }
+}
 
 @injectable()
 class FilterUserUseCase {
@@ -14,24 +29,35 @@ class FilterUserUseCase {
 
   async execute({
     name,
-    password,
     email,
     status,
     is_volunteer,
-  }: IUserDTO): Promise<User[]> {
-    const users = await this.usersRepository.filter({
+  }: IUserDTO): Promise<IResponse[]> {
+    const usersFiltered = await this.usersRepository.filter({
       name,
-      password,
       email,
       status,
       is_volunteer,
     });
 
-    if (users.length === 0) {
-      throw new AppError('User does not exist');
-    }
+    const filterUsers = usersFiltered.map((user) => ({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      avatar_url: user.avatar ? `${process.env.APP_API_URL}/avatar/${user.avatar}` : null,
+      status: user.status,
+      is_volunteer: user.is_volunteer,
+      address: {
+        district: user.address?.district,
+        street: user.address?.street,
+        number: user.address?.number,
+        complement: user.address?.complement,
+        city: user.address?.city?.name,
+        uf: user.address?.city?.state.uf,
+      },
+    }));
 
-    return users;
+    return filterUsers;
   }
 }
 

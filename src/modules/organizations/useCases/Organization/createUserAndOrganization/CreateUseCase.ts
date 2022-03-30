@@ -1,3 +1,4 @@
+import { hash } from 'bcrypt';
 import { inject, injectable } from 'tsyringe';
 
 import { User } from '@modules/accounts/infra/typeorm/entities/User';
@@ -8,7 +9,6 @@ import { IRequestAddress } from '@modules/addresses/useCases/address/create/Crea
 import { IRequestPhones } from '@modules/addresses/useCases/phones/create/CreateUseCase';
 import { Organization } from '@modules/organizations/infra/typeorm/entities/Organization';
 import { IOrganizationsRepository } from '@modules/organizations/repositories/IOrganizationsRepository';
-import { IOrganizationTypesRepository } from '@modules/organizations/repositories/IOrganizationTypesRepository';
 import { AppError } from '@shared/errors/AppError';
 
 type UserRequest = {
@@ -45,8 +45,6 @@ class CreateUserAndOrganizationUseCase {
     private addressesRepository: IAddressesRepository,
     @inject('PhonesRepository')
     private phonesRepository: IPhonesRepository,
-    @inject('OrganizationTypesRepository')
-    private organizationTypeRepository: IOrganizationTypesRepository,
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
   ) {}
@@ -79,10 +77,12 @@ class CreateUserAndOrganizationUseCase {
       addressId = createdAddress.id;
     }
 
+    const passwordHash = await hash(user.password, 8);
+
     const newUser = await this.usersRepository.create({
       name: user.name,
       email: user.email,
-      password: user.password,
+      password: passwordHash,
       is_volunteer: false,
     });
 
