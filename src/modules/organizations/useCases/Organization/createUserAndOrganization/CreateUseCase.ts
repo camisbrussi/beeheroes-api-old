@@ -59,20 +59,18 @@ class CreateUserAndOrganizationUseCase {
     this.organizationsRepository.findByEmail(organization.email);
     const organizationCnpjAlreadyExists = await
     this.organizationsRepository.findByCnpj(organization.cnpj);
-    const organizationTypeExist = await
-    this.organizationTypeRepository.findById(organization.organization_type_id);
     const userAlreadyExists = await this.usersRepository.findByEmail(user.email);
 
     if (organizationEmailAlreadyExists || organizationCnpjAlreadyExists) {
-      throw new AppError('Organization already exists!');
+      throw new AppError('Organization email is already registered!');
     }
 
-    if (!organizationTypeExist) {
-      throw new AppError('Organization type does not exist!');
+    if (!organizationCnpjAlreadyExists) {
+      throw new AppError('Organization cnpj is already registered!');
     }
 
     if (userAlreadyExists) {
-      throw new AppError('User already exists');
+      throw new AppError('User email is already registered!');
     }
 
     let addressId: string;

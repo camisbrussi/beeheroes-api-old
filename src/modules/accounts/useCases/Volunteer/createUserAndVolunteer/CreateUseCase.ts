@@ -48,7 +48,7 @@ class CreateUserAndVolunteerUseCase {
     const userAlreadyExists = await this.usersRepository.findByEmail(user.email);
 
     if (userAlreadyExists) {
-      throw new AppError('User already exists');
+      throw new AppError('User email is already registered!');
     }
 
     let addressId: string;
@@ -62,6 +62,7 @@ class CreateUserAndVolunteerUseCase {
       email: user.email,
       password: user.password,
       is_volunteer: false,
+      address_id: addressId,
     });
 
     await this.volunteersRepository.create({
@@ -70,7 +71,6 @@ class CreateUserAndVolunteerUseCase {
       description: volunteer.description,
       occupation_area_id: volunteer.occupation_area_id,
       user_id: newUser.id,
-
     });
 
     return newUser;
