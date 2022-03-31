@@ -65,6 +65,7 @@ class CreateUserAndVolunteerUseCase {
       password: passwordHash,
       is_volunteer: true,
       address_id: addressId,
+      avatar: user.avatar,
     });
 
     await this.volunteersRepository.create({
