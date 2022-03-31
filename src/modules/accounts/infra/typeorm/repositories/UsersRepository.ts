@@ -118,7 +118,7 @@ class UsersRepository implements IUsersRepository {
     if (password) setUser.password = password;
     if (status) setUser.status = status;
     if (address_id) setUser.address_id = address_id;
-    if (is_volunteer) setUser.is_volunteer = is_volunteer;
+    if (is_volunteer != null) setUser.is_volunteer = is_volunteer;
 
     const userEdited = await this.repository
       .createQueryBuilder()

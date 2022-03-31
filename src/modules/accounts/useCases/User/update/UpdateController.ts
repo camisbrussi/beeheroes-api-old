@@ -14,7 +14,7 @@ class UpdateUserController {
       address,
       is_volunteer,
     } = request.body;
-    const id = request.query.id as string;
+    const { id } = request.user;
 
     const updateUserUseCase = container.resolve(UpdateUserUseCase);
 
