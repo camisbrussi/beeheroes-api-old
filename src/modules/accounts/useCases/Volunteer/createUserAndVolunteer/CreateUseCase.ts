@@ -63,7 +63,7 @@ class CreateUserAndVolunteerUseCase {
       name: user.name,
       email: user.email,
       password: passwordHash,
-      is_volunteer: false,
+      is_volunteer: true,
       address_id: addressId,
     });
 
