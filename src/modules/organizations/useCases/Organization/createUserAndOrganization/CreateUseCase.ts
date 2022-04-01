@@ -93,6 +93,7 @@ class CreateUserAndOrganizationUseCase {
       email: user.email,
       password: passwordHash,
       is_volunteer: false,
+      avatar: user.avatar,
     });
 
     const newOrganization = await this.organizationsRepository.create({
