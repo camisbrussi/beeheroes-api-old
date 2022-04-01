@@ -1,5 +1,9 @@
 import { Router } from 'express';
+import multer from 'multer';
 
+import { UpdateNewUserAvatarController } from '@modules/accounts/useCases/updateNewUserAvatar/UpdateNewUserAvatarController';
+
+import uploadConfig from '../../../../config/upload';
 import { authenticationRoutes } from './authentication.routes';
 import { citiesRoutes } from './cities.routes';
 import { donationsRoutes } from './donations.routes';
@@ -14,7 +18,11 @@ import { subscriptionsRoutes } from './subscriptions.routes';
 import { usersRoutes } from './users.routes';
 import { volunteersRoutes } from './volunteers.routes';
 
+const updateNewUserAvatarController = new UpdateNewUserAvatarController();
+
 const router = Router();
+
+const uploadAvatar = multer(uploadConfig);
 
 router.use(authenticationRoutes);
 router.use('/permissions', permissionsRoutes);
@@ -29,5 +37,11 @@ router.use('/donations', donationsRoutes);
 router.use('/subscriptions', subscriptionsRoutes);
 router.use('/evaluations', evaluationsRoutes);
 router.use('/cities', citiesRoutes);
+
+router.post(
+  '/avatar',
+  uploadAvatar.single('avatar'),
+  updateNewUserAvatarController.handle,
+);
 
 export { router };

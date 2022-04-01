@@ -2,7 +2,6 @@ import { Router } from 'express';
 import multer from 'multer';
 
 import { ProfileUserController } from '@modules/accounts/useCases/profileUser/ProfileUserController';
-import { UpdateNewUserAvatarController } from '@modules/accounts/useCases/updateNewUserAvatar/UpdateNewUserAvatarController';
 import { UpdateUserAvatarController } from '@modules/accounts/useCases/updateUserAvatar/UpdateUserAvatarController';
 import { CreateUserController } from '@modules/accounts/useCases/User/create/CreateController';
 import { FilterUserController } from '@modules/accounts/useCases/User/filter/FilterController';
@@ -24,7 +23,6 @@ const filterUserController = new FilterUserController();
 const updateUserAvatarController = new UpdateUserAvatarController();
 const profileUserController = new ProfileUserController();
 const createUserRoleController = new CreateUserRoleController();
-const updateNewUserAvatarController = new UpdateNewUserAvatarController();
 
 usersRoutes.post('/', createUserController.handle);
 usersRoutes.get('/find', findUserController.handle);
@@ -37,12 +35,6 @@ usersRoutes.patch(
   ensureAuthentication,
   uploadAvatar.single('avatar'),
   updateUserAvatarController.handle,
-);
-
-usersRoutes.post(
-  '/avatar',
-  uploadAvatar.single('avatar'),
-  updateNewUserAvatarController.handle,
 );
 
 export { usersRoutes };
