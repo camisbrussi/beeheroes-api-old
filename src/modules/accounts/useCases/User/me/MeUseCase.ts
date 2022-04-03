@@ -12,10 +12,10 @@ interface IPayload {
 }
 
 interface ITokenResponse {
-   user: {
-    name: string;
-    email: string,
-  },
+  id: string,
+  name: string;
+  email: string,
+  avatar_url: string
   roles: string[];
   permissions: string[];
 }
@@ -42,10 +42,10 @@ class MeUseCase {
       );
 
       return {
-        user: {
-          name: user.name,
-          email: user.email,
-        },
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        avatar_url: user.avatar ? `${process.env.APP_API_URL}/avatar/${user.avatar}` : null,
         roles,
         permissions: permissions ? permissions[0] : [],
       };
