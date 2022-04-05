@@ -1,3 +1,4 @@
+import { hash } from 'bcrypt';
 import { inject, injectable } from 'tsyringe';
 
 import { User } from '@modules/accounts/infra/typeorm/entities/User';
@@ -47,10 +48,12 @@ class UpdateUserUseCase {
       addressId = createdAddress.id;
     }
 
+    const passwordHash = await hash(password, 8);
+
     const user = await this.usersRepository.update({
       id,
       name,
-      password,
+      password: passwordHash,
       email,
       status,
       address_id: addressId,
