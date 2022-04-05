@@ -45,7 +45,7 @@ class MeUseCase {
         id: user.id,
         name: user.name,
         email: user.email,
-        avatar_url: user.avatar ? `${process.env.APP_API_URL}/avatar/${user.avatar}` : null,
+        avatar_url: user.avatar,
         roles,
         permissions: permissions ? permissions[0] : [],
       };

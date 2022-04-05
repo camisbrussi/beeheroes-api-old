@@ -97,7 +97,7 @@ class AuthenticationUseCase {
       id: user.id,
       name: user.name,
       email: user.email,
-      avatar_url: user.avatar ? `${process.env.APP_API_URL}/avatar/${user.avatar}` : null,
+      avatar_url: user.avatar,
 
       refresh_token,
       roles,

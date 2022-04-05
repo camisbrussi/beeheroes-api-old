@@ -25,7 +25,7 @@ class ProfileUserUseCase {
       name: user.name,
       email: user.email,
       is_volunteer: user.is_volunteer,
-      avatar_url: user.avatar ? `${process.env.APP_API_URL}/avatar/${user.avatar}` : null,
+      avatar_url: user.avatar,
       address: user.address,
     });
   }

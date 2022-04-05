@@ -20,7 +20,7 @@ class FindSubscriptionsByProjectUseCase {
           id: subscription.volunteer.id,
           user_id: subscription.volunteer.user_id,
           name: subscription.volunteer.user.name,
-          avatar_url: subscription.volunteer.user.avatar ? `${process.env.APP_API_URL}/avatar/${subscription.volunteer.user.avatar}` : null,
+          avatar_url: subscription.volunteer.user.avatar,
         },
       })));
 
