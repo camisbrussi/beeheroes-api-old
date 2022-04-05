@@ -26,10 +26,7 @@ class ProfileUserUseCase {
       email: user.email,
       is_volunteer: user.is_volunteer,
       avatar_url: user.avatar ? `${process.env.APP_API_URL}/avatar/${user.avatar}` : null,
-      address: {
-        city: user.address?.city?.name,
-        uf: user.address?.city?.state?.uf,
-      },
+      address: user.address,
     });
   }
 }
