@@ -16,6 +16,7 @@ interface IRequest {
   address_id?:string;
   address?: IRequestAddress;
   is_volunteer?: boolean,
+  avatar?: string;
 }
 @injectable()
 class UpdateUserUseCase {
@@ -35,6 +36,7 @@ class UpdateUserUseCase {
     address_id,
     address,
     is_volunteer,
+    avatar,
   }: IRequest): Promise<User> {
     const userExist = await this.usersRepository.findByEmail(email);
 
@@ -48,7 +50,10 @@ class UpdateUserUseCase {
       addressId = createdAddress.id;
     }
 
-    const passwordHash = await hash(password, 8);
+    let passwordHash;
+    if (password) {
+      passwordHash = await hash(password, 8);
+    }
 
     const user = await this.usersRepository.update({
       id,
@@ -58,6 +63,7 @@ class UpdateUserUseCase {
       status,
       address_id: addressId,
       is_volunteer,
+      avatar,
     });
 
     if (address && address_id) {
