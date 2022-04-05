@@ -1,15 +1,14 @@
 import { instanceToInstance } from 'class-transformer';
 
 import { IVolunteerDTO } from '../dtos/IVolunteerDTO';
+import { OccupationArea } from '../infra/typeorm/entities/OccupationArea';
 
 type Volunteer = {
   id: string;
   user_id: string;
   description: string;
   profession: string;
-  occupation_area: {
-    name: string,
-  }
+  occupation_area: OccupationArea
 }
 
 class VolunteerMap {

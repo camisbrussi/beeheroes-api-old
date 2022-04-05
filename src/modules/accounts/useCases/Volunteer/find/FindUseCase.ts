@@ -1,4 +1,5 @@
 import { inject, injectable } from 'tsyringe';
+
 import { VolunteerMap } from '@modules/accounts/mapper/VolunteerMap';
 import { IVolunteersRepository } from '@modules/accounts/repositories/IVolunteersRepository';
 import { AppError } from '@shared/errors/AppError';
@@ -22,9 +23,7 @@ class FindVolunteerUseCase {
       user_id: volunteer.user_id,
       description: volunteer.description,
       profession: volunteer.profession,
-      occupation_area: {
-        name: volunteer.occupationArea?.name,
-      },
+      occupation_area: volunteer.occupationArea,
     });
   }
 }
