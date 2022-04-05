@@ -7,6 +7,7 @@ class UpdateUserController {
   async handle(request: Request, response: Response): Promise<Response> {
     const {
       name,
+      avatar,
       password,
       email,
       status,
@@ -20,6 +21,7 @@ class UpdateUserController {
 
     const user = await updateUserUseCase.execute({
       id,
+      avatar,
       name,
       password,
       email,
