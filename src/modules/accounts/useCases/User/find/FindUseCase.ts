@@ -24,7 +24,7 @@ class FindUserUseCase {
       name: user.name,
       email: user.email,
       is_volunteer: user.is_volunteer,
-      avatar_url: user.avatar,
+      avatar: user.avatar,
       address: user.address,
     });
   }

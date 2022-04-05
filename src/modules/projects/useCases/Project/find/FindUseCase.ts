@@ -33,7 +33,7 @@ class FindProjectUseCase {
         description: project.organization?.description,
         email: project.organization?.email,
         cnpj: project.organization?.cnpj,
-        avatar_url: project.organization.avatar,
+        avatar: project.organization.avatar,
         organization_type: {
           name: project.organization?.organizationType?.name,
         },

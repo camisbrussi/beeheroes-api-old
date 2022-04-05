@@ -11,7 +11,7 @@ import { IOrganizationDTO } from '../dtos/IOrganizationDTO';
 type Responsible = {
     user_id: string;
     name: string;
-    avatar_url: string;
+    avatar: string;
 }
 
 type Organization = {
@@ -21,7 +21,7 @@ type Organization = {
   description: string;
   email: string;
   cnpj: string;
-  avatar_url: string;
+  avatar: string;
   organization_type: {
     name: string;
     description: string;
@@ -42,7 +42,7 @@ class OrganizationMap {
     description,
     email,
     cnpj,
-    avatar_url,
+    avatar,
     organization_type,
     address,
     images_url,
@@ -58,7 +58,7 @@ class OrganizationMap {
       description,
       email,
       cnpj,
-      avatar_url,
+      avatar,
       organization_type,
       address,
       images_url,

@@ -7,7 +7,7 @@ interface IResponse {
   id: string;
   name: string;
   email: string;
-  avatar_url: string | null;
+  avatar: string | null;
   status: number;
   is_volunteer: boolean;
   address: {
@@ -44,7 +44,7 @@ class FilterUserUseCase {
       id: user.id,
       name: user.name,
       email: user.email,
-      avatar_url: user.avatar,
+      avatar: user.avatar,
       status: user.status,
       is_volunteer: user.is_volunteer,
       address: {

@@ -9,7 +9,7 @@ type User = {
   status: number;
   name: string;
   email: string;
-  avatar_url: string;
+  avatar: string;
   is_volunteer: boolean;
   address: Address;
 }
@@ -20,7 +20,7 @@ class UserMap {
     status,
     name,
     email,
-    avatar_url,
+    avatar,
     is_volunteer,
     address,
   }: User): IUserDTO {
@@ -29,7 +29,7 @@ class UserMap {
       status,
       name,
       email,
-      avatar_url,
+      avatar,
       address,
       is_volunteer,
     });

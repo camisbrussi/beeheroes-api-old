@@ -16,7 +16,7 @@ interface IResponse {
   id: string;
   name: string;
   email: string,
-  avatar_url: string;
+  avatar: string;
   token: string;
   refresh_token: string;
   roles: string[];
@@ -97,7 +97,7 @@ class AuthenticationUseCase {
       id: user.id,
       name: user.name,
       email: user.email,
-      avatar_url: user.avatar,
+      avatar: user.avatar,
 
       refresh_token,
       roles,

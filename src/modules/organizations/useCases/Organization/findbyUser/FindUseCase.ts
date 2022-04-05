@@ -25,7 +25,7 @@ class FindOrganizationUserUseCase {
       description: organization.description,
       email: organization.email,
       cnpj: organization.cnpj,
-      avatar_url: organization.avatar,
+      avatar: organization.avatar,
       organization_type: {
         name: organization.organizationType?.name,
         description: organization.organizationType?.description,

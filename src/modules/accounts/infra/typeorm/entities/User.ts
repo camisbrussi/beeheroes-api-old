@@ -56,24 +56,12 @@ class User {
   @UpdateDateColumn()
   updated_at: Date;
 
- @Expose({ name: 'avatar_url' })
-  avatar_url(): string {
-    switch (process.env.disk) {
-      case 'local':
-        return `${process.env.APP_API_URL}/avatar/${this.avatar}`;
-      case 'S3':
-        return `${process.env.AWS_BUCKET_URL}/avatar/${this.avatar}`;
-      default:
-        return null;
+  constructor() {
+    if (!this.id) {
+      this.id = uuidV4();
+      this.status = Number(process.env.USER_STATUS_ACTIVE);
     }
   }
-
- constructor() {
-   if (!this.id) {
-     this.id = uuidV4();
-     this.status = Number(process.env.USER_STATUS_ACTIVE);
-   }
- }
 }
 
 export { User };

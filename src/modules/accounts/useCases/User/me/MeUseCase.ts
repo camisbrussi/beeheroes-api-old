@@ -15,7 +15,7 @@ interface ITokenResponse {
   id: string,
   name: string;
   email: string,
-  avatar_url: string
+  avatar: string
   roles: string[];
   permissions: string[];
 }
@@ -45,7 +45,7 @@ class MeUseCase {
         id: user.id,
         name: user.name,
         email: user.email,
-        avatar_url: user.avatar,
+        avatar: user.avatar,
         roles,
         permissions: permissions ? permissions[0] : [],
       };

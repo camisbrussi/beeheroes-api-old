@@ -17,7 +17,7 @@ type Project = {
     description: string;
     email: string;
     cnpj: string;
-    avatar_url: string;
+    avatar: string;
     organization_type: {
       name: string;
     };

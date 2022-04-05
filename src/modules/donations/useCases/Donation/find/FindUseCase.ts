@@ -31,7 +31,7 @@ class FindDonationUseCase {
         description: donation.organization?.description,
         email: donation.organization?.email,
         cnpj: donation.organization?.cnpj,
-        avatar_url: donation.organization.avatar,
+        avatar: donation.organization.avatar,
         organization_type: {
           name: donation.organization?.organizationType?.name,
         },
