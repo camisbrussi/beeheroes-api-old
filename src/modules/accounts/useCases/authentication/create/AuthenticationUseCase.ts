@@ -13,11 +13,10 @@ interface IRequest {
   password:string
 }
 interface IResponse {
-  user: {
-    id: string;
-    name: string;
-    email: string,
-  },
+  id: string;
+  name: string;
+  email: string,
+  avatar_url: string;
   token: string;
   refresh_token: string;
   roles: string[];
@@ -94,11 +93,12 @@ class AuthenticationUseCase {
 
     const tokenReturn: IResponse = {
       token,
-      user: {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-      },
+
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      avatar_url: user.avatar ? `${process.env.APP_API_URL}/avatar/${user.avatar}` : null,
+
       refresh_token,
       roles,
       permissions: permissions ? permissions[0] : [],

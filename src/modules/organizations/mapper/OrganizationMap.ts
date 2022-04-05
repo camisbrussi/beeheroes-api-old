@@ -1,6 +1,7 @@
 import { instanceToInstance } from 'class-transformer';
 
 import { User } from '@modules/accounts/infra/typeorm/entities/User';
+import { Address } from '@modules/addresses/infra/typeorm/entities/Address';
 import { Phone } from '@modules/addresses/infra/typeorm/entities/Phone';
 import { Donation } from '@modules/donations/infra/typeorm/entities/Donation';
 import { Project } from '@modules/projects/infra/typeorm/entities/Project';
@@ -25,15 +26,7 @@ type Organization = {
     name: string;
     description: string;
   };
-  address: {
-    street: string;
-    number: string;
-    complement: string;
-    district: string;
-    cep: number;
-    city: string;
-    uf: string;
-  }
+  address: Address;
   images_url?: string[],
   phones?: Phone[],
   projects?: Project[],

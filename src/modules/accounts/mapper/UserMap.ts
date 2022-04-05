@@ -1,5 +1,7 @@
 import { instanceToInstance } from 'class-transformer';
 
+import { Address } from '@modules/addresses/infra/typeorm/entities/Address';
+
 import { IUserDTO } from '../dtos/IUserDTO';
 
 type User = {
@@ -9,10 +11,7 @@ type User = {
   email: string;
   avatar_url: string;
   is_volunteer: boolean;
-  address: {
-    city: string;
-    uf: string;
-  }
+  address: Address;
 }
 
 class UserMap {
