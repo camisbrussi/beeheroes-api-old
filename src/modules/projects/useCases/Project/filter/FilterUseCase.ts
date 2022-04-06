@@ -31,7 +31,7 @@ class FilterProjectUseCase {
         id: project.id,
         name: project.name,
         subtitle: project.organization?.name,
-        image_url: `${process.env.APP_API_URL}/avatar/${project.organization?.avatar}`,
+        avatar: project.organization?.avatar,
         city: project.organization?.address?.city?.name,
         uf: project.organization?.address?.city?.state.uf,
       })));

@@ -30,7 +30,7 @@ class FilterVolunteerUseCase {
       .map((volunteer) => (ItemListMap.toDTO({
         id: volunteer.user.id,
         name: volunteer.user.name,
-        image_url: `${process.env.APP_API_URL}/avatar/${volunteer.user.avatar}`,
+        avatar: volunteer.user.avatar,
         city: volunteer.user.address?.city?.name,
         uf: volunteer.user.address?.city?.state.uf,
       })));

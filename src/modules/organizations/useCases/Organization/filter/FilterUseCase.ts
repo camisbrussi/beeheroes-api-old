@@ -32,7 +32,7 @@ class FilterOrganizationUseCase {
       .map((organization) => (ItemListMap.toDTO({
         id: organization.id,
         name: organization.name,
-        image_url: organization.avatar ? `${process.env.APP_API_URL}/avatar/${organization.avatar}` : null,
+        avatar: organization.avatar,
         city: organization.address?.city?.name,
         uf: organization.address?.city?.state.uf,
       })));

@@ -27,7 +27,7 @@ class FilterDonationUseCase {
         id: donation.id,
         name: donation.name,
         subtitle: donation.organization?.name,
-        image_url: `${process.env.APP_API_URL}/avatar/${donation.organization?.avatar}`,
+        avatar: donation.organization?.avatar,
         city: donation.organization?.address?.city?.name,
         uf: donation.organization?.address?.city?.state.uf,
       })));

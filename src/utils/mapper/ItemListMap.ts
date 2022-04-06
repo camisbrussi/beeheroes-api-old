@@ -4,7 +4,7 @@ interface ItemList {
   id: string;
   name: string;
   subtitle?: string;
-  image_url: string,
+  avatar: string,
   city: string
   uf: string
 }
@@ -14,7 +14,7 @@ class ItemListMap {
     id,
     name,
     subtitle,
-    image_url,
+    avatar,
     city,
     uf,
   }: ItemList): ItemList {
@@ -22,7 +22,7 @@ class ItemListMap {
       id,
       name,
       subtitle,
-      image_url,
+      avatar,
       city,
       uf,
     });
