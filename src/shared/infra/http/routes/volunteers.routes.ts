@@ -19,7 +19,7 @@ const createUserAndVolunteerController = new CreateUserAndVolunteerController();
 volunteersRoutes.post('/', ensureAuthentication, createVolunteersController.handle);
 volunteersRoutes.get('/find', findVolunteersController.handle);
 volunteersRoutes.post('/user', createUserAndVolunteerController.handle);
-volunteersRoutes.get('/', filterVolunteersController.handle);
+volunteersRoutes.get('/filter', filterVolunteersController.handle);
 volunteersRoutes.put('/', ensureAuthentication, updateVolunteersController.handle);
 
 export { volunteersRoutes };
