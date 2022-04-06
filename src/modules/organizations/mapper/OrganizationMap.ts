@@ -1,8 +1,6 @@
 import { instanceToInstance } from 'class-transformer';
 
-import { User } from '@modules/accounts/infra/typeorm/entities/User';
 import { Address } from '@modules/addresses/infra/typeorm/entities/Address';
-import { Phone } from '@modules/addresses/infra/typeorm/entities/Phone';
 import { Donation } from '@modules/donations/infra/typeorm/entities/Donation';
 import { Project } from '@modules/projects/infra/typeorm/entities/Project';
 
@@ -23,12 +21,28 @@ type Organization = {
   cnpj: string;
   avatar: string;
   organization_type: {
+    id: string;
     name: string;
     description: string;
   };
-  address: Address;
+  address: {
+    id: string;
+    street: string;
+    number: number;
+    complement: string;
+    district: string;
+    cep: string;
+    city: {
+      id: number;
+      name: string;
+      state: {
+        id: number;
+        name: string;
+        uf: string;
+      }
+    }
+  };
   images_url?: string[],
-  phones?: Phone[],
   projects?: Project[],
   donations?: Donation[],
   responsibles?: Responsible[],
@@ -46,7 +60,6 @@ class OrganizationMap {
     organization_type,
     address,
     images_url,
-    phones,
     projects,
     donations,
     responsibles,
@@ -62,7 +75,6 @@ class OrganizationMap {
       organization_type,
       address,
       images_url,
-      phones,
       projects,
       donations,
       responsibles,

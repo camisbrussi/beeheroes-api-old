@@ -14,7 +14,7 @@ class UpdateUserController {
       address_id,
       address,
       is_volunteer,
-    } = request.body;
+    } = request.body.data;
     const { id } = request.user;
 
     const updateUserUseCase = container.resolve(UpdateUserUseCase);

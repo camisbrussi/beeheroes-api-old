@@ -26,6 +26,8 @@ class FindOrganizationUseCase {
       avatar: user.avatar,
     }));
 
+    console.log(data.organization);
+
     return OrganizationMap.toDTO({
       id: data.organization.id,
       status: data.organization.status,
@@ -35,12 +37,28 @@ class FindOrganizationUseCase {
       cnpj: data.organization.cnpj,
       avatar: data.organization.avatar,
       organization_type: {
+        id: data.organization.organizationType?.id,
         name: data.organization.organizationType?.name,
         description: data.organization.organizationType?.description,
       },
-      address: data.organization.address,
+      address: {
+        id: data.organization.address?.id,
+        street: data.organization.address?.street,
+        number: data.organization.address?.number,
+        complement: data.organization.address?.complement,
+        district: data.organization.address?.district,
+        cep: data.organization.address?.cep,
+        city: {
+          id: data.organization.address?.city?.id,
+          name: data.organization.address?.city?.name,
+          state: {
+            id: data.organization.address?.city?.state?.id,
+            name: data.organization.address?.city?.state?.name,
+            uf: data.organization.address?.city?.state?.uf,
+          },
+        },
+      },
       images_url: images,
-      phones: data.phones,
       projects: data.projects,
       donations: data.donations,
       responsibles,

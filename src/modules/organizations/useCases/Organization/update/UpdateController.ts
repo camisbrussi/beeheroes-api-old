@@ -14,8 +14,7 @@ class UpdateOrganizationController {
       status,
       address_id,
       address,
-      phones,
-    } = request.body;
+    } = request.body.data;
     const id = request.query.id as string;
 
     const updateOrganizationUseCase = container.resolve(UpdateOrganizationUseCase);
@@ -30,7 +29,6 @@ class UpdateOrganizationController {
       status,
       address_id,
       address,
-      phones,
     });
 
     return response.status(200).json(organization);

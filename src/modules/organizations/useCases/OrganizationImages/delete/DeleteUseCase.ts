@@ -6,11 +6,11 @@ import { IOrganizationImagesRepository } from '@modules/organizations/repositori
 class DeleteOrganizationImageUseCase {
   constructor(
     @inject('OrganizationImagesRepository')
-    private phonesRepository: IOrganizationImagesRepository,
+    private organizationImagesRepository: IOrganizationImagesRepository,
   ) {}
 
   async execute(organization_id: string): Promise<void> {
-    await this.phonesRepository.deleteByIdOrOrganization(organization_id);
+    await this.organizationImagesRepository.deleteByIdOrOrganization(organization_id);
   }
 }
 

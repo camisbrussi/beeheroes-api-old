@@ -12,7 +12,11 @@ class FindOrganizationUserUseCase {
   ) { }
 
   async execute(id: string): Promise<OrganizationMap> {
+    console.log('organization', id);
+
     const organization = await this.organizationsRepository.findByUser(id);
+
+    console.log('organization', organization);
 
     if (!organization) {
       throw new AppError('Organization does not exist');
@@ -31,13 +35,21 @@ class FindOrganizationUserUseCase {
         description: organization.organizationType?.description,
       },
       address: {
+        id: organization.address?.id,
         street: organization.address?.street,
         number: organization.address?.number,
         complement: organization.address?.complement,
         district: organization.address?.district,
         cep: organization.address?.cep,
-        city: organization.address?.city?.name,
-        uf: organization.address?.city?.state?.uf,
+        city: {
+          id: organization.address?.city?.id,
+          name: organization.address?.city?.name,
+          state: {
+            id: organization.address?.city?.state?.id,
+            name: organization.address?.city?.state?.name,
+            uf: organization.address?.city?.state?.uf,
+          },
+        },
       },
     });
   }

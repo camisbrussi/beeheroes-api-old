@@ -9,8 +9,7 @@ class UpdateVolunteerController {
       profession,
       description,
       occupation_area_id,
-
-    } = request.body;
+    } = request.body.data;
     const id = request.query.id as string;
 
     const updateVolunteerUseCase = container.resolve(UpdateVolunteerUseCase);

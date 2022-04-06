@@ -1,7 +1,6 @@
 import { getRepository, Repository } from 'typeorm';
 
 import { User } from '@modules/accounts/infra/typeorm/entities/User';
-import { Phone } from '@modules/addresses/infra/typeorm/entities/Phone';
 import { Donation } from '@modules/donations/infra/typeorm/entities/Donation';
 import { IOrganizationDTO } from '@modules/organizations/dtos/IOrganizationDTO';
 import { IOrganizationsRepository } from '@modules/organizations/repositories/IOrganizationsRepository';
@@ -12,7 +11,6 @@ import { OrganizationImage } from '../entities/OrganizationImages';
 
 class OrganizationsRepository implements IOrganizationsRepository {
   private organizationsRepository: Repository<Organization>
-  private phonesRepository: Repository<Phone>
   private organizationImageRepository: Repository<OrganizationImage>
   private projectRepository: Repository<Project>
   private donationRepository: Repository<Donation>
@@ -20,7 +18,6 @@ class OrganizationsRepository implements IOrganizationsRepository {
   constructor() {
     this.organizationsRepository = getRepository(Organization);
     this.organizationImageRepository = getRepository(OrganizationImage);
-    this.phonesRepository = getRepository(Phone);
     this.projectRepository = getRepository(Project);
     this.donationRepository = getRepository(Donation);
   }
@@ -61,7 +58,6 @@ class OrganizationsRepository implements IOrganizationsRepository {
 
   async findById(id: string): Promise<{
     organization: Organization,
-    phones: Phone[],
     images: OrganizationImage[],
     projects: Project[],
     donations: Donation[],
@@ -75,11 +71,6 @@ class OrganizationsRepository implements IOrganizationsRepository {
       .leftJoinAndSelect('organization.users', 'user')
       .where('organization.id = :id', { id })
       .getOne();
-
-    const phones = await this.phonesRepository
-      .createQueryBuilder('phone')
-      .where('phone.organization_id = :organization_id', { organization_id: id })
-      .getMany();
 
     const images = await this.organizationImageRepository
       .createQueryBuilder('image')
@@ -99,7 +90,6 @@ class OrganizationsRepository implements IOrganizationsRepository {
 
     return {
       organization,
-      phones,
       images,
       projects,
       donations,

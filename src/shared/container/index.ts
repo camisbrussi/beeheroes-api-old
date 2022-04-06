@@ -16,10 +16,8 @@ import { IUsersTokensRepository } from '@modules/accounts/repositories/IUsersTok
 import { IVolunteersRepository } from '@modules/accounts/repositories/IVolunteersRepository';
 import { AddressesRepository } from '@modules/addresses/infra/typeorm/repositories/AddressesRepository';
 import { CitiesRepository } from '@modules/addresses/infra/typeorm/repositories/CitiesRepository';
-import { PhonesRepository } from '@modules/addresses/infra/typeorm/repositories/PhonesRepository';
 import { IAddressesRepository } from '@modules/addresses/repositories/IAddressesRepository';
 import { ICitiesRepository } from '@modules/addresses/repositories/ICitiesRepository';
-import { IPhonesRepository } from '@modules/addresses/repositories/IPhonesRepository';
 import { DonationsRepository } from '@modules/donations/infra/typeorm/repositories/DonationsRepository';
 import { IDonationsRepository } from '@modules/donations/repositories/IDonationsRepository';
 import { OrganizationImagesRepository } from '@modules/organizations/infra/typeorm/repositories/OrganizationImagesRepository';
@@ -78,11 +76,6 @@ container.registerSingleton<IVolunteersRepository>(
 container.registerSingleton<IAddressesRepository>(
   'AddressesRepository',
   AddressesRepository,
-);
-
-container.registerSingleton<IPhonesRepository>(
-  'PhonesRepository',
-  PhonesRepository,
 );
 
 container.registerSingleton<IProjectsRepository>(

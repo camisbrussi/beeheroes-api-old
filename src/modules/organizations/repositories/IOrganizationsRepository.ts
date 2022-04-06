@@ -1,5 +1,4 @@
 import { User } from '@modules/accounts/infra/typeorm/entities/User';
-import { Phone } from '@modules/addresses/infra/typeorm/entities/Phone';
 import { Donation } from '@modules/donations/infra/typeorm/entities/Donation';
 import { Project } from '@modules/projects/infra/typeorm/entities/Project';
 
@@ -20,7 +19,6 @@ interface IOrganizationsRepository{
   findById(id: string): Promise<
     {
       organization: Organization,
-      phones: Phone[],
       images: OrganizationImage[],
       projects: Project[],
       donations: Donation[],
