@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 import { v4 as uuidV4 } from 'uuid';
 
-import { Volunteer } from '../../../../accounts/infra/typeorm/entities/Volunteer';
+import { User } from '../../../../accounts/infra/typeorm/entities/User';
 import { Project } from './Project';
 
 @Entity('subscriptions')
@@ -30,12 +30,12 @@ class Subscription {
   @Column()
   project_id: string;
 
-  @ManyToOne(() => Volunteer)
-  @JoinColumn({ name: 'volunteer_id' })
-  volunteer: Volunteer;
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'user_id' })
+  user: User;
 
   @Column()
-  volunteer_id: string;
+  user_id: string;
 
   @Column()
   status: number;
@@ -49,7 +49,7 @@ class Subscription {
   constructor() {
     if (!this.id) {
       this.id = uuidV4();
-      this.status = Number(process.env.SUBSCRIPTION_STATUS_ACTIVE);
+      this.status = Number(process.env.SUBSCRIPTION_STATUS_AWAIT_AUTHORIZATION);
     }
   }
 }

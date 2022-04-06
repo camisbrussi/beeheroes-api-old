@@ -15,12 +15,12 @@ class SubscriptionsRepository implements ISubscriptionsRepository {
   async create({
     registration_date,
     project_id,
-    volunteer_id,
+    user_id,
   }: ISubscriptionDTO): Promise<Subscription> {
     const subscription = this.subscriptionsRepository.create({
       registration_date,
       project_id,
-      volunteer_id,
+      user_id,
     });
 
     await this.subscriptionsRepository.save(subscription);
@@ -31,8 +31,7 @@ class SubscriptionsRepository implements ISubscriptionsRepository {
   async findByProjectId(id: string): Promise<Subscription[]> {
     const subscriptions = await this.subscriptionsRepository
       .createQueryBuilder('subscription')
-      .leftJoinAndSelect('subscription.volunteer', 'volunteer')
-      .leftJoinAndSelect('volunteer.user', 'user')
+      .leftJoinAndSelect('subscription.user', 'user')
       .where('subscription.project_id = :project_id', { project_id: id })
       .andWhere('subscription.status =:status', { status: Number(process.env.PROJECT_STATUS_ACTIVE) })
       .getMany();
@@ -40,11 +39,11 @@ class SubscriptionsRepository implements ISubscriptionsRepository {
     return subscriptions;
   }
 
-  async findByVolunteerId(volunteer_id: string): Promise<Subscription[]> {
+  async findByUserId(user_id: string): Promise<Subscription[]> {
     const subscriptions = await this.subscriptionsRepository
       .createQueryBuilder('subscription')
       .leftJoinAndSelect('subscription.project', 'project')
-      .where('subscription.volunteer_id = :volunteer_id', { volunteer_id })
+      .where('subscription.user_id = :user_id', { user_id })
       .getMany();
 
     return subscriptions;
@@ -66,7 +65,7 @@ class SubscriptionsRepository implements ISubscriptionsRepository {
     registration_date,
     participation_date,
     project_id,
-    volunteer_id,
+    user_id,
     status,
   }: ISubscriptionDTO): Promise<Subscription[]> {
     const subscriptionsQuery = await this.subscriptionsRepository
@@ -88,8 +87,8 @@ class SubscriptionsRepository implements ISubscriptionsRepository {
       subscriptionsQuery.andWhere('project_id = :project_id', { project_id });
     }
 
-    if (volunteer_id) {
-      subscriptionsQuery.andWhere('volunteer_id = :volunteer_id', { volunteer_id });
+    if (user_id) {
+      subscriptionsQuery.andWhere('user_id = :user_id', { user_id });
     }
 
     const subscriptions = await subscriptionsQuery.getMany();
@@ -102,7 +101,7 @@ class SubscriptionsRepository implements ISubscriptionsRepository {
     registration_date,
     participation_date,
     project_id,
-    volunteer_id,
+    user_id,
     status,
   }: ISubscriptionDTO): Promise<Subscription> {
     const setSubscription: ISubscriptionDTO = { };
@@ -110,7 +109,7 @@ class SubscriptionsRepository implements ISubscriptionsRepository {
     if (registration_date) setSubscription.registration_date = registration_date;
     if (participation_date) setSubscription.participation_date = participation_date;
     if (project_id) setSubscription.project_id = project_id;
-    if (volunteer_id) setSubscription.volunteer_id = volunteer_id;
+    if (user_id) setSubscription.user_id = user_id;
     if (status) setSubscription.status = status;
 
     const subscriptionTypeEdited = await this.subscriptionsRepository

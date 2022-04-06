@@ -1,11 +1,11 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateSubscriptions1647448013478 implements MigrationInterface {
+export class CreateEvaluations1649264828463 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table(
         {
-          name: 'subscriptions',
+          name: 'evaluations',
           columns: [
             {
               name: 'id',
@@ -13,24 +13,16 @@ export class CreateSubscriptions1647448013478 implements MigrationInterface {
               isPrimary: true,
             },
             {
-              name: 'registration_date',
-              type: 'timestamp',
-            },
-            {
-              name: 'participation_date',
-              type: 'timestamp',
-              isNullable: true,
-            },
-            {
-              name: 'status',
+              name: 'score',
               type: 'int',
             },
             {
-              name: 'project_id',
-              type: 'uuid',
+              name: 'description',
+              type: 'varchar',
+              isNullable: true,
             },
             {
-              name: 'volunteer_id',
+              name: 'subscription_id',
               type: 'uuid',
             },
             {
@@ -47,17 +39,9 @@ export class CreateSubscriptions1647448013478 implements MigrationInterface {
           foreignKeys: [
             {
               name: 'FKProjectSubscription',
-              referencedTableName: 'projects',
+              referencedTableName: 'subscriptions',
               referencedColumnNames: ['id'],
-              columnNames: ['project_id'],
-              onDelete: 'SET NULL',
-              onUpdate: 'SET NULL',
-            },
-            {
-              name: 'FKProjectVolunteer',
-              referencedTableName: 'volunteers',
-              referencedColumnNames: ['id'],
-              columnNames: ['volunteer_id'],
+              columnNames: ['subscription_id'],
               onDelete: 'SET NULL',
               onUpdate: 'SET NULL',
             },
@@ -68,6 +52,6 @@ export class CreateSubscriptions1647448013478 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('subscriptions');
+    await queryRunner.dropTable('evaluations');
   }
 }

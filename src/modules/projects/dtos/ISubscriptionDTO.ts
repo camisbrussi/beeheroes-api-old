@@ -4,7 +4,7 @@ interface ISubscriptionDTO {
   participation_date?: Date,
   status?:number,
   project_id?: string;
-  volunteer_id?:string;
+  user_id?:string;
 }
 
 export { ISubscriptionDTO };

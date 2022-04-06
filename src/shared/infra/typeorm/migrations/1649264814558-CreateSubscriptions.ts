@@ -1,11 +1,11 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateEvaluations1647448021013 implements MigrationInterface {
+export class CreateSubscriptions1649264814558 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table(
         {
-          name: 'evaluations',
+          name: 'subscriptions',
           columns: [
             {
               name: 'id',
@@ -13,16 +13,24 @@ export class CreateEvaluations1647448021013 implements MigrationInterface {
               isPrimary: true,
             },
             {
-              name: 'score',
-              type: 'int',
+              name: 'registration_date',
+              type: 'timestamp',
             },
             {
-              name: 'description',
-              type: 'varchar',
+              name: 'participation_date',
+              type: 'timestamp',
               isNullable: true,
             },
             {
-              name: 'subscription_id',
+              name: 'status',
+              type: 'int',
+            },
+            {
+              name: 'project_id',
+              type: 'uuid',
+            },
+            {
+              name: 'user_id',
               type: 'uuid',
             },
             {
@@ -39,9 +47,17 @@ export class CreateEvaluations1647448021013 implements MigrationInterface {
           foreignKeys: [
             {
               name: 'FKProjectSubscription',
-              referencedTableName: 'subscriptions',
+              referencedTableName: 'projects',
               referencedColumnNames: ['id'],
-              columnNames: ['subscription_id'],
+              columnNames: ['project_id'],
+              onDelete: 'SET NULL',
+              onUpdate: 'SET NULL',
+            },
+            {
+              name: 'FKProjectUser',
+              referencedTableName: 'users',
+              referencedColumnNames: ['id'],
+              columnNames: ['user_id'],
               onDelete: 'SET NULL',
               onUpdate: 'SET NULL',
             },
@@ -52,6 +68,6 @@ export class CreateEvaluations1647448021013 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('evaluations');
+    await queryRunner.dropTable('subscriptions');
   }
 }

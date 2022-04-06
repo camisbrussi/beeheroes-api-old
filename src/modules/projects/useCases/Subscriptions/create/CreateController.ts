@@ -6,17 +6,15 @@ import { CreateSubscriptionUseCase } from './CreateUseCase';
 class CreateSubscriptionController {
   async handle(request: Request, response: Response): Promise<Response> {
     const {
-      registration_date,
       project_id,
-      volunteer_id,
+      user_id,
     } = request.body;
 
     const createSubscriptionUseCase = container.resolve(CreateSubscriptionUseCase);
 
     const subscription = await createSubscriptionUseCase.execute({
-      registration_date,
       project_id,
-      volunteer_id,
+      user_id,
     });
 
     return response.status(201).send(JSON.stringify(subscription));

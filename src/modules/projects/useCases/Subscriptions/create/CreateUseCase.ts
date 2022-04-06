@@ -1,15 +1,14 @@
 import { inject, injectable } from 'tsyringe';
 
-import { IVolunteersRepository } from '@modules/accounts/repositories/IVolunteersRepository';
+import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
 import { Subscription } from '@modules/projects/infra/typeorm/entities/Subscription';
 import { IProjectsRepository } from '@modules/projects/repositories/IProjectsRepository';
 import { ISubscriptionsRepository } from '@modules/projects/repositories/ISubscriptiosRepository';
 import { AppError } from '@shared/errors/AppError';
 
 interface IRequest {
-  registration_date: Date;
   project_id: string;
-  volunteer_id: string;
+  user_id: string;
 }
 
 @injectable()
@@ -19,14 +18,13 @@ class CreateSubscriptionUseCase {
     private subscriptionsRepository: ISubscriptionsRepository,
     @inject('ProjectsRepository')
     private projectsRepository: IProjectsRepository,
-    @inject('VolunteersRepository')
-    private volunteersRepository: IVolunteersRepository,
+    @inject('UsersRepository')
+    private usersRepository: IUsersRepository,
   ) {}
 
   async execute({
-    registration_date,
     project_id,
-    volunteer_id,
+    user_id,
   }: IRequest): Promise<Subscription> {
     const projectExists = await
     this.projectsRepository.findById(project_id);
@@ -35,26 +33,26 @@ class CreateSubscriptionUseCase {
       throw new AppError('Project does not exists!');
     }
 
-    const volunteerExists = await
-    this.volunteersRepository.findById(volunteer_id);
+    const userExists = await
+    this.usersRepository.findById(user_id);
 
-    if (!volunteerExists) {
-      throw new AppError('Volunteer does not exists!');
+    if (!userExists) {
+      throw new AppError('User does not exists!');
     }
 
     const subscriptionProjectExists = await this
       .subscriptionsRepository.findByProjectId(project_id);
-    const subscriptionVolunteerExists = await this
-      .subscriptionsRepository.findByVolunteerId(volunteer_id);
+    const subscriptionUserExists = await this
+      .subscriptionsRepository.findByUserId(user_id);
 
-    if (subscriptionProjectExists.length > 0 && subscriptionVolunteerExists.length > 0) {
+    if (subscriptionProjectExists.length > 0 && subscriptionUserExists.length > 0) {
       throw new AppError('Subscription already exists!');
     }
 
     const subscriptions = await this.subscriptionsRepository.create({
-      registration_date,
+      registration_date: new Date(),
       project_id,
-      volunteer_id,
+      user_id,
     });
 
     return subscriptions;
