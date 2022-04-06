@@ -35,11 +35,26 @@ class FindProjectUseCase {
         cnpj: project.organization?.cnpj,
         avatar: project.organization.avatar,
         organization_type: {
-          name: project.organization?.organizationType?.name,
+          id: project.organization.organizationType?.id,
+          name: project.organization.organizationType?.name,
+          description: project.organization.organizationType?.description,
         },
         address: {
-          city: project.organization?.address.city.name,
-          uf: project.organization?.address.city.state.uf,
+          id: project.organization.address?.id,
+          street: project.organization.address?.street,
+          number: project.organization.address?.number,
+          complement: project.organization.address?.complement,
+          district: project.organization.address?.district,
+          cep: project.organization.address?.cep,
+          city: {
+            id: project.organization.address?.city?.id,
+            name: project.organization.address?.city?.name,
+            state: {
+              id: project.organization.address?.city?.state?.id,
+              name: project.organization.address?.city?.state?.name,
+              uf: project.organization.address?.city?.state?.uf,
+            },
+          },
         },
       },
     });

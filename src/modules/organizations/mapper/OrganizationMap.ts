@@ -28,10 +28,10 @@ type Organization = {
   address: {
     id: string;
     street: string;
-    number: number;
+    number: string;
     complement: string;
     district: string;
-    cep: string;
+    cep: number;
     city: {
       id: number;
       name: string;

@@ -7,7 +7,7 @@ import { State } from './State';
 @Entity('cities')
 class City {
   @PrimaryColumn()
-  id: string;
+  id: number;
 
   @Column()
   name: string;

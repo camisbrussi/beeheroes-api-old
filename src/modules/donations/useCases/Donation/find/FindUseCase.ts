@@ -33,11 +33,27 @@ class FindDonationUseCase {
         cnpj: donation.organization?.cnpj,
         avatar: donation.organization.avatar,
         organization_type: {
-          name: donation.organization?.organizationType?.name,
+          id: donation.organization.organizationType?.id,
+          name: donation.organization.organizationType?.name,
+          description: donation.organization.organizationType?.description,
+
         },
         address: {
-          city: donation.organization?.address.city.name,
-          uf: donation.organization?.address.city.state.uf,
+          id: donation.organization.address?.id,
+          street: donation.organization.address?.street,
+          number: donation.organization.address?.number,
+          complement: donation.organization.address?.complement,
+          district: donation.organization.address?.district,
+          cep: donation.organization.address?.cep,
+          city: {
+            id: donation.organization.address?.city?.id,
+            name: donation.organization.address?.city?.name,
+            state: {
+              id: donation.organization.address?.city?.state?.id,
+              name: donation.organization.address?.city?.state?.name,
+              uf: donation.organization.address?.city?.state?.uf,
+            },
+          },
         },
       },
     });

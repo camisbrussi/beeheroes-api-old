@@ -18,13 +18,28 @@ type Project = {
     email: string;
     cnpj: string;
     avatar: string;
-    organization_type: {
+  organization_type: {
+    id: string;
+    name: string;
+    description: string;
+  };
+  address: {
+    id: string;
+    street: string;
+    number: string;
+    complement: string;
+    district: string;
+    cep: number;
+    city: {
+      id: number;
       name: string;
-    };
-     address: {
-      city: string;
-      uf: string;
+      state: {
+        id: number;
+        name: string;
+        uf: string;
+      }
     }
+  };
   };
 }
 
