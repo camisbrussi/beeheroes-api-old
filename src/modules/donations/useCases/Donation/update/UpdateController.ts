@@ -27,7 +27,7 @@ class UpdateDonationController {
       total_value,
       total_collected,
       status,
-    } = request.body;
+    } = request.body.data;
     const id = request.query.id as string;
 
     const updateDonationUseCase = container.resolve(UpdateDonationUseCase);
