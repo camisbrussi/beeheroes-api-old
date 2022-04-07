@@ -12,7 +12,7 @@ class UpdateProjectController {
       end,
       vacancies,
       status,
-    } = request.body;
+    } = request.body.data;
     const id = request.query.id as string;
 
     const updateProjectUseCase = container.resolve(UpdateProjectUseCase);

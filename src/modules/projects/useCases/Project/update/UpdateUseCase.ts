@@ -2,7 +2,6 @@ import { inject, injectable } from 'tsyringe';
 
 import { Project } from '@modules/projects/infra/typeorm/entities/Project';
 import { IProjectsRepository } from '@modules/projects/repositories/IProjectsRepository';
-import { AppError } from '@shared/errors/AppError';
 
 interface IRequest {
   id: string,

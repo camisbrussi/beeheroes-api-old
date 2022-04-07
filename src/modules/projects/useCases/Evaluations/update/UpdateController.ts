@@ -8,7 +8,7 @@ class UpdateEvaluationController {
     const {
       score,
       description,
-    } = request.body;
+    } = request.body.data;
     const id = request.query.id as string;
 
     const updateEvaluationUseCase = container.resolve(UpdateEvaluationUseCase);
