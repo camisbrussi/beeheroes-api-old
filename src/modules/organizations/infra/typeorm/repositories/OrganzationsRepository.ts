@@ -81,11 +81,13 @@ class OrganizationsRepository implements IOrganizationsRepository {
       .createQueryBuilder('project')
       .where('project.organization_id = :organization_id', { organization_id: id })
       .where('project.status =:status', { status: Number(process.env.PROJECT_STATUS_ACTIVE) })
+      .limit(4)
       .getMany();
 
     const donations = await this.donationRepository
       .createQueryBuilder('donation')
       .where('donation.organization_id = :organization_id', { organization_id: id })
+      .limit(4)
       .getMany();
 
     return {
