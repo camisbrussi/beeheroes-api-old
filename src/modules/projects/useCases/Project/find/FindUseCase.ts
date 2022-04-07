@@ -21,7 +21,7 @@ class FindProjectUseCase {
     return ProjectMap.toDTO({
       id: project.id,
       name: project.name,
-      description: project.name,
+      description: project.description,
       start: project.start,
       end: project.end,
       status: project.status,
