@@ -27,36 +27,7 @@ class FindProjectUseCase {
       status: project.status,
       vacancies: project.vacancies,
       total_subscription: project.total_subscription ? project.total_subscription : 0,
-      organization: {
-        id: project.organization?.id,
-        name: project.organization?.name,
-        description: project.organization?.description,
-        email: project.organization?.email,
-        cnpj: project.organization?.cnpj,
-        avatar: project.organization.avatar,
-        organization_type: {
-          id: project.organization.organizationType?.id,
-          name: project.organization.organizationType?.name,
-          description: project.organization.organizationType?.description,
-        },
-        address: {
-          id: project.organization.address?.id,
-          street: project.organization.address?.street,
-          number: project.organization.address?.number,
-          complement: project.organization.address?.complement,
-          district: project.organization.address?.district,
-          cep: project.organization.address?.cep,
-          city: {
-            id: project.organization.address?.city?.id,
-            name: project.organization.address?.city?.name,
-            state: {
-              id: project.organization.address?.city?.state?.id,
-              name: project.organization.address?.city?.state?.name,
-              uf: project.organization.address?.city?.state?.uf,
-            },
-          },
-        },
-      },
+      organization_id: project.organization_id,
     });
   }
 }

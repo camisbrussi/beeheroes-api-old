@@ -25,37 +25,7 @@ class FindDonationUseCase {
       total_value: donation.total_value,
       total_collected: donation.total_collected,
       status: donation.status,
-      organization: {
-        id: donation.organization?.id,
-        name: donation.organization?.name,
-        description: donation.organization?.description,
-        email: donation.organization?.email,
-        cnpj: donation.organization?.cnpj,
-        avatar: donation.organization.avatar,
-        organization_type: {
-          id: donation.organization.organizationType?.id,
-          name: donation.organization.organizationType?.name,
-          description: donation.organization.organizationType?.description,
-
-        },
-        address: {
-          id: donation.organization.address?.id,
-          street: donation.organization.address?.street,
-          number: donation.organization.address?.number,
-          complement: donation.organization.address?.complement,
-          district: donation.organization.address?.district,
-          cep: donation.organization.address?.cep,
-          city: {
-            id: donation.organization.address?.city?.id,
-            name: donation.organization.address?.city?.name,
-            state: {
-              id: donation.organization.address?.city?.state?.id,
-              name: donation.organization.address?.city?.state?.name,
-              uf: donation.organization.address?.city?.state?.uf,
-            },
-          },
-        },
-      },
+      organization_id: donation.organization_id,
     });
   }
 }

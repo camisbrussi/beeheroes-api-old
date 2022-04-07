@@ -46,11 +46,6 @@ class ProjectsRepository implements IProjectsRepository {
   async findById(id: string): Promise<Project> {
     const project = await this.projectsRepository
       .createQueryBuilder('project')
-      .leftJoinAndSelect('project.organization', 'organizations')
-      .leftJoinAndSelect('organizations.organizationType', 'organizationType')
-      .leftJoinAndSelect('organizations.address', 'address')
-      .leftJoinAndSelect('address.city', 'cities')
-      .leftJoinAndSelect('cities.state', 'state')
       .where('project.id = :id', { id })
       .getOne();
 

@@ -9,36 +9,7 @@ type Donation = {
   total_value: number;
   total_collected: number;
   status: number;
-  organization: {
-    id: string;
-    name: string;
-    description: string;
-    email: string;
-    cnpj: string;
-    avatar: string;
-  organization_type: {
-    id: string;
-    name: string;
-    description: string;
-  };
-  address: {
-    id: string;
-    street: string;
-    number: string;
-    complement: string;
-    district: string;
-    cep: number;
-    city: {
-      id: number;
-      name: string;
-      state: {
-        id: number;
-        name: string;
-        uf: string;
-      }
-    }
-  };
-  };
+  organization_id: string;
 }
 
 class DonationMap {
@@ -49,7 +20,7 @@ class DonationMap {
     total_value,
     total_collected,
     status,
-    organization,
+    organization_id,
   }: Donation): IDonationDTO {
     const project = instanceToInstance({
       id,
@@ -58,7 +29,7 @@ class DonationMap {
       total_value,
       total_collected,
       status,
-      organization,
+      organization_id,
     });
     return project;
   }

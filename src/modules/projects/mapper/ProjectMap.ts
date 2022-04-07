@@ -11,36 +11,7 @@ type Project = {
   status: number;
   vacancies: number;
   total_subscription: number;
-  organization: {
-    id: string;
-    name: string;
-    description: string;
-    email: string;
-    cnpj: string;
-    avatar: string;
-  organization_type: {
-    id: string;
-    name: string;
-    description: string;
-  };
-  address: {
-    id: string;
-    street: string;
-    number: string;
-    complement: string;
-    district: string;
-    cep: number;
-    city: {
-      id: number;
-      name: string;
-      state: {
-        id: number;
-        name: string;
-        uf: string;
-      }
-    }
-  };
-  };
+  organization_id: string;
 }
 
 class ProjectMap {
@@ -53,7 +24,7 @@ class ProjectMap {
     status,
     vacancies,
     total_subscription,
-    organization,
+    organization_id,
   }: Project): IProjectDTO {
     const project = instanceToInstance({
       id,
@@ -64,7 +35,7 @@ class ProjectMap {
       status,
       vacancies,
       total_subscription,
-      organization,
+      organization_id,
     });
     return project;
   }
