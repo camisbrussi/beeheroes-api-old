@@ -11,7 +11,7 @@ class FindSubscriptionsByUserUseCase {
   ) { }
 
   async execute(id: string): Promise<ProjectListMap[]> {
-    const subscriptions = await this.subscriptionsRepository.findByVolunteerId(id);
+    const subscriptions = await this.subscriptionsRepository.findByUserId(id);
 
     const listSubscriptions = subscriptions
       .map((subscription) => (ProjectListMap.toDTO({
