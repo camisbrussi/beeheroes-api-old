@@ -21,9 +21,9 @@ class FilterDonationController {
       name: request.body.name,
       start: request.body.status,
       organization_id: request.body.organization_id,
-      status: request.body.status,
-      city_id: request.body.city_id,
-      state_id: request.body.state_id,
+      status: Number(request.body.status),
+      city_id: Number(request.body.city_id),
+      state_id: Number(request.body.state_id),
     };
 
     const filterDonationUseCase = container.resolve(FilterDonationUseCase);

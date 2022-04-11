@@ -7,9 +7,9 @@ class FilterUserController {
   async handle(request: Request, response: Response): Promise<Response> {
     const filter = {
       name: request.body.name,
-      city_id: request.body.city_id,
-      state_id: request.body.state_id,
-      status: request.body.status,
+      city_id: Number(request.body.city_id),
+      state_id: Number(request.body.state_id),
+      status: Number(request.body.status),
       is_volunteer: request.body.is_volunteer,
     };
 
