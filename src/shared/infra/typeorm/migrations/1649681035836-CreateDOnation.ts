@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateDonations1647448041834 implements MigrationInterface {
+export class CreateDOnation1649681035836 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table(
@@ -23,12 +23,12 @@ export class CreateDonations1647448041834 implements MigrationInterface {
             },
             {
               name: 'total_value',
-              type: 'int',
+              type: 'decimal',
               isNullable: true,
             },
             {
               name: 'total_collected',
-              type: 'int',
+              type: 'decimal',
               isNullable: true,
             },
             {
