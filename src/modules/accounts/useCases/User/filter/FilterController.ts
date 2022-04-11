@@ -5,12 +5,13 @@ import { FilterUserUseCase } from './FilterUseCase';
 
 class FilterUserController {
   async handle(request: Request, response: Response): Promise<Response> {
+    const { query } = request.body;
     const filter = {
-      name: request.body.name,
-      city_id: Number(request.body.city_id),
-      state_id: Number(request.body.state_id),
-      status: Number(request.body.status),
-      is_volunteer: request.body.is_volunteer,
+      name: query.name,
+      city_id: Number(query.city_id),
+      state_id: Number(query.state_id),
+      status: Number(query.status),
+      is_volunteer: query.is_volunteer,
     };
 
     const filterUserUseCase = container.resolve(FilterUserUseCase);

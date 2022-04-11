@@ -17,13 +17,15 @@ class FilterDonationController {
     //   throw new AppError('User without permission!', 401);
     // }
 
+    const { query } = request.body;
+
     const filter = {
-      name: request.body.name,
-      start: request.body.status,
-      organization_id: request.body.organization_id,
-      status: Number(request.body.status),
-      city_id: Number(request.body.city_id),
-      state_id: Number(request.body.state_id),
+      name: query.name,
+      start: query.status,
+      organization_id: query.organization_id,
+      status: Number(query.status),
+      city_id: Number(query.city_id),
+      state_id: Number(query.state_id),
     };
 
     const filterDonationUseCase = container.resolve(FilterDonationUseCase);

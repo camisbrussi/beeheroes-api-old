@@ -5,14 +5,15 @@ import { FilterProjectUseCase } from './FilterUseCase';
 
 class FilterProjectController {
   async handle(request: Request, response: Response): Promise<Response> {
+    const { query } = request.body;
     const filter = {
-      name: request.body.name,
-      start: request.body.start,
-      end: request.body.end,
-      organization_id: request.body.organization_id,
-      status: Number(request.body.status),
-      city_id: Number(request.body.city_id),
-      state_id: Number(request.body.state_id),
+      name: query.name,
+      start: query.start,
+      end: query.end,
+      organization_id: query.organization_id,
+      status: Number(query.status),
+      city_id: Number(query.city_id),
+      state_id: Number(query.state_id),
     };
 
     const filterProjectUseCase = container.resolve(FilterProjectUseCase);
