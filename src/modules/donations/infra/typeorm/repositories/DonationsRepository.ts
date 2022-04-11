@@ -18,6 +18,7 @@ class DonationsRepository implements IDonationsRepository {
     total_value,
     total_collected,
     organization_id,
+    status,
   }: IDonationDTO): Promise<Donation> {
     const donation = this.donationsRepository.create({
       name,
@@ -25,6 +26,7 @@ class DonationsRepository implements IDonationsRepository {
       total_value,
       total_collected,
       organization_id,
+      status,
     });
 
     await this.donationsRepository.save(donation);
@@ -92,10 +94,13 @@ class DonationsRepository implements IDonationsRepository {
   }: IDonationDTO): Promise<Donation> {
     const setDonation: IDonationDTO = { };
 
+    console.log(total_collected);
+
     if (name) setDonation.name = name;
     if (total_value) setDonation.total_value = total_value;
-    if (total_collected !== null) setDonation.description = description;
-    if (total_collected !== null) setDonation.total_collected = total_collected;
+    if (description) setDonation.description = description;
+    if (total_collected !== null
+      && total_collected !== undefined) setDonation.total_collected = total_collected;
     if (status) setDonation.status = status;
 
     const donationTypeEdited = await this.donationsRepository

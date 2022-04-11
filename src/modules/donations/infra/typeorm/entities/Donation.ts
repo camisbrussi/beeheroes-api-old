@@ -47,7 +47,6 @@ class Donation {
   constructor() {
     if (!this.id) {
       this.id = uuidV4();
-      this.status = Number(process.env.DONATION_STATUS_ACTIVE);
       this.total_collected = 0;
     }
   }

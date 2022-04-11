@@ -12,6 +12,7 @@ interface IRequest {
   total_value?: number,
   total_collected?: number,
   organization_id: string;
+  status: number;
 }
 
 @injectable()
@@ -30,6 +31,7 @@ class CreateDonationUseCase {
     total_value,
     total_collected,
     organization_id,
+    status,
   }: IRequest): Promise<Donation> {
     const organizationExists = await
     this.organizationRepository.findById(organization_id);
@@ -45,6 +47,7 @@ class CreateDonationUseCase {
       total_value,
       total_collected,
       organization_id,
+      status,
     });
 
     return donation;

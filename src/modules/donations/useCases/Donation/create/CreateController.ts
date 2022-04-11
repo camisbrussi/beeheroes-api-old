@@ -28,6 +28,7 @@ class CreateDonationController {
       total_value,
       total_collected,
       organization_id,
+      status,
     } = request.body;
 
     const createDonationUseCase = container.resolve(CreateDonationUseCase);
@@ -39,6 +40,7 @@ class CreateDonationController {
       total_value,
       total_collected,
       organization_id,
+      status,
     });
 
     return response.status(201).send(JSON.stringify(donation));
