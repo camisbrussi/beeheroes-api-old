@@ -8,10 +8,11 @@ interface IUsersRepository{
   findByIds(ids: string[]): Promise<User[]>
   filter({
     name,
-    email,
     status,
     is_volunteer,
-  }: IUserDTO): Promise<User[]>;
+    state_id,
+    city_id,
+  }): Promise<User[]>;
   update({
     id,
     name,

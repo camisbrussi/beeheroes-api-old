@@ -29,15 +29,17 @@ class FilterUserUseCase {
 
   async execute({
     name,
-    email,
     status,
     is_volunteer,
-  }: IUserDTO): Promise<IResponse[]> {
+    state_id,
+    city_id,
+  }): Promise<IResponse[]> {
     const usersFiltered = await this.usersRepository.filter({
       name,
-      email,
       status,
       is_volunteer,
+      state_id,
+      city_id,
     });
 
     const filterUsers = usersFiltered.map((user) => ({

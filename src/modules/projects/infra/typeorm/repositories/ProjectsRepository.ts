@@ -64,7 +64,9 @@ class ProjectsRepository implements IProjectsRepository {
     end,
     status,
     organization_id,
-  }: IProjectDTO): Promise<Project[]> {
+    city_id,
+    state_id,
+  }): Promise<Project[]> {
     const projectsQuery = await this.projectsRepository
       .createQueryBuilder('project')
       .leftJoinAndSelect('project.organization', 'organizations')
@@ -91,6 +93,14 @@ class ProjectsRepository implements IProjectsRepository {
 
     if (organization_id) {
       projectsQuery.andWhere('project.organization_id = :organization_id', { organization_id });
+    }
+
+    if (city_id) {
+      projectsQuery.andWhere('cities.id = :city_id', { city_id });
+    }
+
+    if (state_id) {
+      projectsQuery.andWhere('states.id = :state_id', { state_id });
     }
 
     const projects = await projectsQuery.getMany();

@@ -1,6 +1,5 @@
 import { inject, injectable } from 'tsyringe';
 
-import { IDonationDTO } from '@modules/donations/dtos/IDonationDTO';
 import { IDonationsRepository } from '@modules/donations/repositories/IDonationsRepository';
 import { ItemListMap } from '@utils/mapper/ItemListMap';
 
@@ -15,11 +14,15 @@ class FilterDonationUseCase {
     name,
     status,
     organization_id,
-  }: IDonationDTO): Promise<ItemListMap[]> {
+    city_id,
+    state_id,
+  }): Promise<ItemListMap[]> {
     const donations = await this.donationsRepository.filter({
       name,
       status,
       organization_id,
+      city_id,
+      state_id,
     });
 
     const listDonations = donations

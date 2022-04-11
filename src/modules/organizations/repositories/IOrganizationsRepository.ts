@@ -28,11 +28,11 @@ interface IOrganizationsRepository{
   listOrganizationsByOrganizationType(organization_type_id: string): Promise<Organization[]>;
   filter({
     name,
-    email,
-    description,
-    cnpj,
+    status,
     organization_type_id,
-  }: IOrganizationDTO): Promise<Organization[]>;
+    state_id,
+    city_id,
+  }): Promise<Organization[]>;
   update({
     id,
     name,

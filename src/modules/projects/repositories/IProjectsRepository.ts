@@ -18,7 +18,9 @@ interface IProjectsRepository{
     end,
     status,
     organization_id,
-  }: IProjectDTO): Promise<Project[]>;
+    state_id,
+    city_id,
+  }): Promise<Project[]>;
   update({
     id,
     name,

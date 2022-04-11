@@ -58,7 +58,9 @@ class DonationsRepository implements IDonationsRepository {
     name,
     status,
     organization_id,
-  }: IDonationDTO): Promise<Donation[]> {
+    state_id,
+    city_id,
+  }): Promise<Donation[]> {
     const donationsQuery = await this.donationsRepository
       .createQueryBuilder('donation')
       .leftJoinAndSelect('donation.organization', 'organizations')
@@ -75,6 +77,13 @@ class DonationsRepository implements IDonationsRepository {
       donationsQuery.andWhere('donation.status = :status', { status });
     }
 
+    if (city_id) {
+      donationsQuery.andWhere('cities.id = :city_id', { city_id });
+    }
+
+    if (state_id) {
+      donationsQuery.andWhere('states.id = :state_id', { state_id });
+    }
     if (organization_id) {
       donationsQuery.andWhere('donation.organization_id = :organization_id', { organization_id });
     }

@@ -128,11 +128,11 @@ class OrganizationsRepository implements IOrganizationsRepository {
 
   async filter({
     name,
-    email,
-    status,
+    city_id,
+    state_id,
     organization_type_id,
-    cnpj,
-  }: IOrganizationDTO): Promise<Organization[]> {
+    status,
+  }): Promise<Organization[]> {
     const organizationsQuery = await this.organizationsRepository
       .createQueryBuilder('organization')
       .leftJoinAndSelect('organization.address', 'addresses')
@@ -144,16 +144,16 @@ class OrganizationsRepository implements IOrganizationsRepository {
       organizationsQuery.andWhere('organization.name ilike :name', { name: `%${name}%` });
     }
 
-    if (email) {
-      organizationsQuery.andWhere('organization.email like :email', { email: `%${email}%` });
-    }
-
     if (status) {
       organizationsQuery.andWhere('organization.status = :status', { status });
     }
 
-    if (cnpj) {
-      organizationsQuery.andWhere('organization.cnpj = :cnpj', { cnpj });
+    if (city_id) {
+      organizationsQuery.andWhere('cities.id = :city_id', { city_id });
+    }
+
+    if (state_id) {
+      organizationsQuery.andWhere('states.id = :state_id', { state_id });
     }
 
     if (organization_type_id) {

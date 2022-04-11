@@ -10,6 +10,9 @@ class FilterProjectController {
       start: request.body.start,
       end: request.body.end,
       organization_id: request.body.organization_id,
+      status: request.body.status,
+      city_id: request.body.city_id,
+      state_id: request.body.state_id,
     };
 
     const filterProjectUseCase = container.resolve(FilterProjectUseCase);

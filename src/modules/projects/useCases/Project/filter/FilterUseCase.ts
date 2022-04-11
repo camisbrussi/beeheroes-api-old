@@ -17,13 +17,17 @@ class FilterProjectUseCase {
     end,
     status,
     organization_id,
-  }: IProjectDTO): Promise<ItemListMap[]> {
+    city_id,
+    state_id,
+  }): Promise<ItemListMap[]> {
     const projects = await this.projectsRepository.filter({
       name,
       start,
       end,
       status,
       organization_id,
+      city_id,
+      state_id,
     });
 
     const listProject = projects

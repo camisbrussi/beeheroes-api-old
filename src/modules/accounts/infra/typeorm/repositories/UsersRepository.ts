@@ -69,11 +69,12 @@ class UsersRepository implements IUsersRepository {
   }
 
   async filter({
-    is_volunteer,
     name,
-    email,
     status,
-  }: IUserDTO): Promise<User[]> {
+    is_volunteer,
+    state_id,
+    city_id,
+  }): Promise<User[]> {
     const usersQuery = await this.repository
       .createQueryBuilder('user')
       .leftJoinAndSelect('user.address', 'addresses')
@@ -85,8 +86,12 @@ class UsersRepository implements IUsersRepository {
       usersQuery.andWhere('user.name ilike :name', { name: `%${name}%` });
     }
 
-    if (email) {
-      usersQuery.andWhere('user.email like :email', { email: `%${email}%` });
+    if (city_id) {
+      usersQuery.andWhere('cities.id = :city_id', { city_id });
+    }
+
+    if (state_id) {
+      usersQuery.andWhere('states.id = :state_id', { state_id });
     }
 
     if (status) {
