@@ -1,4 +1,3 @@
-import { IUserDTO } from '../dtos/IUserDTO';
 import { IVolunteerDTO } from '../dtos/IVolunteerDTO';
 import { Volunteer } from '../infra/typeorm/entities/Volunteer';
 
@@ -14,10 +13,11 @@ interface IVolunteersRepository{
   listVolunteersByOccupationArea(occupation_area_id: string): Promise<Volunteer[]>;
     filter({
       name,
-      email,
       status,
       is_volunteer,
-    }: IUserDTO): Promise<Volunteer[]>;
+      state_id,
+      city_id,
+    }): Promise<Volunteer[]>;
   update({
     id,
     profession,

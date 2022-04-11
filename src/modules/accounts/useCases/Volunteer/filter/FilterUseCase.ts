@@ -13,17 +13,17 @@ class FilterVolunteerUseCase {
 
   async execute({
     name,
-    password,
-    email,
     status,
     is_volunteer = true,
-  }: IUserDTO): Promise<ItemListMap[]> {
+    state_id,
+    city_id,
+  }): Promise<ItemListMap[]> {
     const volunteers = await this.volunteersRepository.filter({
       name,
-      password,
-      email,
       status,
       is_volunteer,
+      state_id,
+      city_id,
     });
 
     const listVolunteers = volunteers

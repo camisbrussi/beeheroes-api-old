@@ -5,11 +5,14 @@ import { FilterVolunteerUseCase } from './FilterUseCase';
 
 class FilterVolunteerController {
   async handle(request: Request, response: Response): Promise<Response> {
+    const { query } = request.body;
+
     const filter = {
       name: request.body.name,
-      email: request.body.email,
       status: request.body.status,
       is_volunteer: request.body.is_volunteer,
+      city_id: Number(query.city_id),
+      state_id: Number(query.state_id),
     };
 
     const filterVolunteerUseCase = container.resolve(FilterVolunteerUseCase);
