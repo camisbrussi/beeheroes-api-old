@@ -16,6 +16,7 @@ class FilterDonationUseCase {
     organization_id,
     city_id,
     state_id,
+    organization_type_id,
   }): Promise<ItemListMap[]> {
     const donations = await this.donationsRepository.filter({
       name,
@@ -23,6 +24,7 @@ class FilterDonationUseCase {
       organization_id,
       city_id,
       state_id,
+      organization_type_id,
     });
 
     const listDonations = donations

@@ -17,9 +17,10 @@ interface IProjectsRepository{
     start,
     end,
     status,
-    organization_id,
     state_id,
     city_id,
+    organization_type_id,
+    organization_id,
   }): Promise<Project[]>;
   update({
     id,

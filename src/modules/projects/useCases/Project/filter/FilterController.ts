@@ -10,10 +10,11 @@ class FilterProjectController {
       name: query.name,
       start: query.start,
       end: query.end,
-      organization_id: query.organization_id,
+      organization_type_id: query.organization_type_id,
       status: Number(query.status),
       city_id: Number(query.city_id),
       state_id: Number(query.state_id),
+      organization_id: query.organization_id,
     };
 
     const filterProjectUseCase = container.resolve(FilterProjectUseCase);

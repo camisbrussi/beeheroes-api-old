@@ -17,6 +17,7 @@ interface IDonationsRepository{
     organization_id,
     state_id,
     city_id,
+    organization_type_id,
   }): Promise<Donation[]>;
   update({
     id,

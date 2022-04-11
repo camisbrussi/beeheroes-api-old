@@ -63,9 +63,10 @@ class ProjectsRepository implements IProjectsRepository {
     start,
     end,
     status,
-    organization_id,
+    organization_type_id,
     city_id,
     state_id,
+    organization_id,
   }): Promise<Project[]> {
     const projectsQuery = await this.projectsRepository
       .createQueryBuilder('project')
@@ -89,6 +90,10 @@ class ProjectsRepository implements IProjectsRepository {
 
     if (status) {
       projectsQuery.andWhere('project.status = :status', { status });
+    }
+
+    if (organization_type_id) {
+      projectsQuery.andWhere('organizations.organization_type_id = :organization_type_id', { organization_type_id });
     }
 
     if (organization_id) {

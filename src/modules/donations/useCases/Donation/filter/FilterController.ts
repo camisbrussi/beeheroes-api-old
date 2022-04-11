@@ -21,11 +21,11 @@ class FilterDonationController {
 
     const filter = {
       name: query.name,
-      start: query.status,
       organization_id: query.organization_id,
       status: Number(query.status),
       city_id: Number(query.city_id),
       state_id: Number(query.state_id),
+      organization_type_id: query.organization_type_id,
     };
 
     const filterDonationUseCase = container.resolve(FilterDonationUseCase);

@@ -16,18 +16,20 @@ class FilterProjectUseCase {
     start,
     end,
     status,
-    organization_id,
+    organization_type_id,
     city_id,
     state_id,
+    organization_id,
   }): Promise<ItemListMap[]> {
     const projects = await this.projectsRepository.filter({
       name,
       start,
       end,
       status,
-      organization_id,
+      organization_type_id,
       city_id,
       state_id,
+      organization_id,
     });
 
     const listProject = projects
