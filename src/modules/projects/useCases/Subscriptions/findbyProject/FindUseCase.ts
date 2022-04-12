@@ -17,10 +17,9 @@ class FindSubscriptionsByProjectUseCase {
       .map((subscription) => (SubscriptionsProjectMap.toDTO({
         id: subscription.id,
         volunteer: {
-          id: subscription.volunteer.id,
-          user_id: subscription.volunteer.user_id,
-          name: subscription.volunteer.user.name,
-          avatar: subscription.volunteer.user.avatar,
+          id: subscription.user.id,
+          name: subscription.user.name,
+          avatar: subscription.user.avatar,
         },
       })));
 
