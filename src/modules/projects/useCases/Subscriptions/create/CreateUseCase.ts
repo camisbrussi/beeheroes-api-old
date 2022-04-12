@@ -45,6 +45,9 @@ class CreateSubscriptionUseCase {
     const subscriptionUserExists = await this
       .subscriptionsRepository.findByUserId(user_id);
 
+    console.log(subscriptionProjectExists);
+    console.log(subscriptionUserExists);
+
     if (subscriptionProjectExists.length > 0 && subscriptionUserExists.length > 0) {
       throw new AppError('Subscription already exists!');
     }
