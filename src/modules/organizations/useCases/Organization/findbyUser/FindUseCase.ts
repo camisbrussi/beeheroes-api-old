@@ -12,11 +12,7 @@ class FindOrganizationUserUseCase {
   ) { }
 
   async execute(id: string): Promise<OrganizationMap> {
-    console.log('organization', id);
-
     const organization = await this.organizationsRepository.findByUser(id);
-
-    console.log('organization', organization);
 
     if (!organization) {
       throw new AppError('Organization does not exist');

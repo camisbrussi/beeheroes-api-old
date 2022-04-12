@@ -44,8 +44,6 @@ class UpdateUserUseCase {
       throw new AppError('User already exists!');
     }
 
-    console.log(name);
-
     let addressId: string;
     if (address) {
       const createdAddress = await this.addressesRepository.create(address);

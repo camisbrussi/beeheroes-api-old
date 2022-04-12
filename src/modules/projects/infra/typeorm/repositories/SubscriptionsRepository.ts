@@ -33,7 +33,6 @@ class SubscriptionsRepository implements ISubscriptionsRepository {
       .createQueryBuilder('subscription')
       .leftJoinAndSelect('subscription.user', 'user')
       .where('subscription.project_id = :project_id', { project_id: id })
-      .andWhere('subscription.status =:status', { status: Number(process.env.PROJECT_STATUS_ACTIVE) })
       .getMany();
 
     return subscriptions;

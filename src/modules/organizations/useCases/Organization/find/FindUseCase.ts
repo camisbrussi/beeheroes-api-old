@@ -26,8 +26,6 @@ class FindOrganizationUseCase {
       avatar: user.avatar,
     }));
 
-    console.log(data.organization);
-
     return OrganizationMap.toDTO({
       id: data.organization.id,
       status: data.organization.status,

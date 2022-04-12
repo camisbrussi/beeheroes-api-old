@@ -109,8 +109,6 @@ class DonationsRepository implements IDonationsRepository {
   }: IDonationDTO): Promise<Donation> {
     const setDonation: IDonationDTO = { };
 
-    console.log(total_collected);
-
     if (name) setDonation.name = name;
     if (total_value) setDonation.total_value = total_value;
     if (description) setDonation.description = description;
