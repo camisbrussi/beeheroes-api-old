@@ -7,7 +7,7 @@ type Project = {
   name: string;
   start: Date;
   end: Date;
-  status_project: number;
+  status_subscription: number;
   status: number;
 }
 
@@ -17,7 +17,7 @@ class ProjectListMap {
     name,
     start,
     end,
-    status_project,
+    status_subscription,
     status,
   }: Project): IProjectDTO {
     const project = instanceToInstance({
@@ -25,7 +25,7 @@ class ProjectListMap {
       name,
       start,
       end,
-      status_project,
+      status_subscription,
       status,
     });
     return project;
