@@ -15,10 +15,12 @@ type SubscriptionsProject = {
 class SubscriptionsProjectMap {
   static toDTO({
     id,
+    status,
     volunteer,
   }: SubscriptionsProject): ISubscriptionDTO {
     const subscriptions = instanceToInstance({
       id,
+      status,
       volunteer,
     });
     return subscriptions;
