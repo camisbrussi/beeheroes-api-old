@@ -7,7 +7,7 @@ type Project = {
   name: string;
   start: Date;
   end: Date;
-  status_subscription: number;
+  status_subscription?: number;
   status: number;
 }
 

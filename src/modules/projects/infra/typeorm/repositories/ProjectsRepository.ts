@@ -68,12 +68,8 @@ class ProjectsRepository implements IProjectsRepository {
     state_id,
     organization_id,
   }): Promise<Project[]> {
-    const projectsQuery = await this.projectsRepository
+    const projectsQuery = this.projectsRepository
       .createQueryBuilder('project')
-      .leftJoinAndSelect('project.organization', 'organizations')
-      .leftJoinAndSelect('organizations.address', 'addresses')
-      .leftJoinAndSelect('addresses.city', 'cities')
-      .leftJoinAndSelect('cities.state', 'states')
       .where('1 = 1');
 
     if (name) {
@@ -109,6 +105,14 @@ class ProjectsRepository implements IProjectsRepository {
     }
 
     const projects = await projectsQuery.getMany();
+
+    await Promise.all(projects.map(async (project, index) => {
+      const totalSubscription = await this.subscriptionsRepository
+        .count({ project_id: project.id });
+
+      projects[index].total_subscription = totalSubscription;
+      console.log(projects[index]);
+    }));
 
     return projects;
   }

@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 
-import { IProjectDTO } from '@modules/projects/dtos/IProjectDTO';
+import { ProjectListMap } from '@modules/projects/mapper/ProjectListMap';
 import { IProjectsRepository } from '@modules/projects/repositories/IProjectsRepository';
 import { ItemListMap } from '@utils/mapper/ItemListMap';
 
@@ -32,17 +32,7 @@ class FilterProjectUseCase {
       organization_id,
     });
 
-    const listProject = projects
-      .map((project) => (ItemListMap.toDTO({
-        id: project.id,
-        name: project.name,
-        subtitle: project.organization?.name,
-        avatar: project.organization?.avatar,
-        city: project.organization?.address?.city?.name,
-        uf: project.organization?.address?.city?.state.uf,
-      })));
-
-    return listProject;
+    return projects;
   }
 }
 
