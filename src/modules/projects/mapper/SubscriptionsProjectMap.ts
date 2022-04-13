@@ -4,6 +4,7 @@ import { ISubscriptionDTO } from '../dtos/ISubscriptionDTO';
 
 type SubscriptionsProject = {
   id: string;
+  status: number;
   volunteer: {
     id: string;
     name: string;

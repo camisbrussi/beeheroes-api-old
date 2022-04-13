@@ -16,6 +16,7 @@ class FindSubscriptionsByProjectUseCase {
     const listSubscriptions = subscriptions
       .map((subscription) => (SubscriptionsProjectMap.toDTO({
         id: subscription.id,
+        status: subscription.status,
         volunteer: {
           id: subscription.user.id,
           name: subscription.user.name,
