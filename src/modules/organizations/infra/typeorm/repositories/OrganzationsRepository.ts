@@ -5,6 +5,7 @@ import { Donation } from '@modules/donations/infra/typeorm/entities/Donation';
 import { IOrganizationDTO } from '@modules/organizations/dtos/IOrganizationDTO';
 import { IOrganizationsRepository } from '@modules/organizations/repositories/IOrganizationsRepository';
 import { Project } from '@modules/projects/infra/typeorm/entities/Project';
+import { Subscription } from '@modules/projects/infra/typeorm/entities/Subscription';
 
 import { Organization } from '../entities/Organization';
 import { OrganizationImage } from '../entities/OrganizationImages';
@@ -14,12 +15,14 @@ class OrganizationsRepository implements IOrganizationsRepository {
   private organizationImageRepository: Repository<OrganizationImage>
   private projectRepository: Repository<Project>
   private donationRepository: Repository<Donation>
+  private subscriptionsRepository: Repository<Subscription>
 
   constructor() {
     this.organizationsRepository = getRepository(Organization);
     this.organizationImageRepository = getRepository(OrganizationImage);
     this.projectRepository = getRepository(Project);
     this.donationRepository = getRepository(Donation);
+    this.subscriptionsRepository = getRepository(Subscription);
   }
 
   async create({
@@ -81,13 +84,20 @@ class OrganizationsRepository implements IOrganizationsRepository {
       .createQueryBuilder('project')
       .where('project.organization_id = :organization_id', { organization_id: id })
       .where('project.status =:status', { status: Number(process.env.PROJECT_STATUS_ACTIVE) })
-      .limit(4)
+      .limit(3)
       .getMany();
+
+    projects.map(async (project, index) => {
+      const totalSubscription = await this.subscriptionsRepository
+        .count({ project_id: project.id });
+
+      projects[index].total_subscription = totalSubscription;
+    });
 
     const donations = await this.donationRepository
       .createQueryBuilder('donation')
       .where('donation.organization_id = :organization_id', { organization_id: id })
-      .limit(4)
+      .limit(3)
       .getMany();
 
     return {
