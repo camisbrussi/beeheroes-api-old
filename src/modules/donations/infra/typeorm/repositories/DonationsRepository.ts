@@ -64,10 +64,6 @@ class DonationsRepository implements IDonationsRepository {
   }): Promise<Donation[]> {
     const donationsQuery = await this.donationsRepository
       .createQueryBuilder('donation')
-      .leftJoinAndSelect('donation.organization', 'organizations')
-      .leftJoinAndSelect('organizations.address', 'addresses')
-      .leftJoinAndSelect('addresses.city', 'cities')
-      .leftJoinAndSelect('cities.state', 'states')
       .where('1 = 1');
 
     if (name) {
@@ -79,15 +75,15 @@ class DonationsRepository implements IDonationsRepository {
     }
 
     if (city_id) {
-      donationsQuery.andWhere('cities.id = :city_id', { city_id });
+      donationsQuery.andWhere('donation.cities.id = :city_id', { city_id });
     }
 
     if (state_id) {
-      donationsQuery.andWhere('states.id = :state_id', { state_id });
+      donationsQuery.andWhere('donation.states.id = :state_id', { state_id });
     }
 
     if (organization_type_id) {
-      donationsQuery.andWhere('organizations.organization_type_id = :organization_type_id', { organization_type_id });
+      donationsQuery.andWhere('donation.organizations.organization_type_id = :organization_type_id', { organization_type_id });
     }
 
     if (organization_id) {

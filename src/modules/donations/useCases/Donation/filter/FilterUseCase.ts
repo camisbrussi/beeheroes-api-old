@@ -26,18 +26,7 @@ class FilterDonationUseCase {
       state_id,
       organization_type_id,
     });
-
-    const listDonations = donations
-      .map((donation) => (ItemListMap.toDTO({
-        id: donation.id,
-        name: donation.name,
-        subtitle: donation.organization?.name,
-        avatar: donation.organization?.avatar,
-        city: donation.organization?.address?.city?.name,
-        uf: donation.organization?.address?.city?.state.uf,
-      })));
-
-    return listDonations;
+    return donations;
   }
 }
 
