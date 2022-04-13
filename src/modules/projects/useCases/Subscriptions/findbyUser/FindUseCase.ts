@@ -19,7 +19,8 @@ class FindSubscriptionsByUserUseCase {
         name: subscription.project.name,
         start: subscription.project.start,
         end: subscription.project.end,
-        status: subscription.project.status,
+        status_project: subscription.project.status,
+        status: subscription.status,
       })));
 
     return listSubscriptions;
