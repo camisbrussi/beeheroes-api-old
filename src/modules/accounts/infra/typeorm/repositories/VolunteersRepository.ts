@@ -61,7 +61,7 @@ class VolunteersRepository implements IVolunteersRepository {
     const volunteersQuery = await this.repository
       .createQueryBuilder('volunteer')
       .leftJoinAndSelect('volunteer.user', 'user')
-      .leftJoinAndSelect('volunteer.occupationArea', 'occupationArea')
+      .leftJoinAndSelect('volunteer.occupationArea', 'occupation_area')
       .leftJoinAndSelect('user.address', 'addresses')
       .leftJoinAndSelect('addresses.city', 'cities')
       .leftJoinAndSelect('cities.state', 'states')
@@ -91,8 +91,6 @@ class VolunteersRepository implements IVolunteersRepository {
     }
 
     const volunteers = await volunteersQuery.getMany();
-
-    console.log(volunteers);
 
     return volunteers;
   }

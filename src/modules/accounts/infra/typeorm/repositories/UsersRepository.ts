@@ -115,6 +115,7 @@ class UsersRepository implements IUsersRepository {
     status,
     address_id,
     is_volunteer,
+    avatar,
   }: IUserDTO): Promise<User> {
     const setUser: IUserDTO = { };
 
@@ -124,6 +125,7 @@ class UsersRepository implements IUsersRepository {
     if (status) setUser.status = status;
     if (address_id) setUser.address_id = address_id;
     if (is_volunteer != null) setUser.is_volunteer = is_volunteer;
+    if (avatar) setUser.avatar = avatar;
 
     const userEdited = await this.repository
       .createQueryBuilder()
