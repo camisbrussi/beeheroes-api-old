@@ -17,6 +17,7 @@ interface IVolunteersRepository{
       is_volunteer,
       state_id,
       city_id,
+      occupation_area_id,
     }): Promise<Volunteer[]>;
   update({
     id,

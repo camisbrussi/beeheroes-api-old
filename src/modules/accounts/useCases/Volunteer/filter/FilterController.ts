@@ -13,13 +13,14 @@ class FilterVolunteerController {
       is_volunteer: request.body.is_volunteer,
       city_id: Number(query.city_id),
       state_id: Number(query.state_id),
+      occupation_area_id: query.occupation_area_id,
     };
 
     const filterVolunteerUseCase = container.resolve(FilterVolunteerUseCase);
 
-    const user = await filterVolunteerUseCase.execute(filter);
+    const volunteer = await filterVolunteerUseCase.execute(filter);
 
-    return response.status(200).json(user);
+    return response.status(200).json(volunteer);
   }
 }
 

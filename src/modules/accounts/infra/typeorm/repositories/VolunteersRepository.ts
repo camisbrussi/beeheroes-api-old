@@ -56,10 +56,12 @@ class VolunteersRepository implements IVolunteersRepository {
     status,
     state_id,
     city_id,
+    occupation_area_id,
   }): Promise<Volunteer[]> {
     const volunteersQuery = await this.repository
       .createQueryBuilder('volunteer')
       .leftJoinAndSelect('volunteer.user', 'user')
+      .leftJoinAndSelect('volunteer.occupationArea', 'occupationArea')
       .leftJoinAndSelect('user.address', 'addresses')
       .leftJoinAndSelect('addresses.city', 'cities')
       .leftJoinAndSelect('cities.state', 'states')
@@ -84,7 +86,13 @@ class VolunteersRepository implements IVolunteersRepository {
       volunteersQuery.andWhere('user.is_volunteer = :is_volunteer', { is_volunteer });
     }
 
+    if (occupation_area_id) {
+      volunteersQuery.andWhere('occupationArea.id = :occupation_area_id', { occupation_area_id });
+    }
+
     const volunteers = await volunteersQuery.getMany();
+
+    console.log(volunteers);
 
     return volunteers;
   }
