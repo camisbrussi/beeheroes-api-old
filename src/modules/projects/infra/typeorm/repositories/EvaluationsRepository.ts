@@ -35,7 +35,13 @@ class EvaluationsRepository implements IEvaluationsRepository {
   }
 
   async findById(id: string): Promise<Evaluation> {
-    const evaluation = await this.evaluationsRepository.findOne({ id });
+    const evaluation = await this.evaluationsRepository
+      .createQueryBuilder('evaluation')
+      .leftJoinAndSelect('evaluation.subscription', 'subscription')
+      .leftJoinAndSelect('subscription.project', 'project')
+      .leftJoinAndSelect('project.organization', 'organization')
+      .where('evaluation.id = :id', { id })
+      .getOne();
 
     return evaluation;
   }

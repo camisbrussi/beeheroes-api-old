@@ -99,17 +99,18 @@ class SubscriptionsRepository implements ISubscriptionsRepository {
     id,
     registration_date,
     participation_date,
-    project_id,
-    user_id,
     status,
   }: ISubscriptionDTO): Promise<Subscription> {
     const setSubscription: ISubscriptionDTO = { };
 
+    console.log(participation_date, status);
+
     if (registration_date) setSubscription.registration_date = registration_date;
     if (participation_date) setSubscription.participation_date = participation_date;
-    if (project_id) setSubscription.project_id = project_id;
-    if (user_id) setSubscription.user_id = user_id;
     if (status) setSubscription.status = status;
+
+    console.log(status);
+    console.log(id);
 
     const subscriptionTypeEdited = await this.subscriptionsRepository
       .createQueryBuilder()
@@ -118,6 +119,8 @@ class SubscriptionsRepository implements ISubscriptionsRepository {
       .where('id = :id')
       .setParameters({ id })
       .execute();
+
+    console.log(subscriptionTypeEdited);
 
     return subscriptionTypeEdited.raw;
   }

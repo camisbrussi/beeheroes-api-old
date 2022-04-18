@@ -14,5 +14,6 @@ const updateEvaluationsController = new UpdateEvaluationController();
 
 evaluationsRoutes.post('/', ensureAuthentication, createEvaluationsController.handle);
 evaluationsRoutes.put('/', ensureAuthentication, updateEvaluationsController.handle);
+evaluationsRoutes.get('/find', findEvaluationsController.handle);
 
 export { evaluationsRoutes };
