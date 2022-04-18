@@ -9,6 +9,7 @@ interface IEvaluationsRepository{
   }: IEvaluationDTO): Promise<Evaluation>;
   findBySubscriptionId(subscription_id: string): Promise<Evaluation[]>;
   findById(id: string): Promise<Evaluation>;
+  findByUserId(user_id: string): Promise<Evaluation[]>;
   update({
     id,
     score,

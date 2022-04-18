@@ -46,6 +46,18 @@ class EvaluationsRepository implements IEvaluationsRepository {
     return evaluation;
   }
 
+  async findByUserId(user_id: string): Promise<Evaluation[]> {
+    const evaluations = await this.evaluationsRepository
+      .createQueryBuilder('evaluation')
+      .leftJoinAndSelect('evaluation.subscription', 'subscription')
+      .leftJoinAndSelect('subscription.project', 'project')
+      .leftJoinAndSelect('project.organization', 'organization')
+      .where('subscription.user_id = :user_id', { user_id })
+      .getMany();
+
+    return evaluations;
+  }
+
   async update({
     id,
     score,

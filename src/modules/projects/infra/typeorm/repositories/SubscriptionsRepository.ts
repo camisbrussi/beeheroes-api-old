@@ -103,8 +103,6 @@ class SubscriptionsRepository implements ISubscriptionsRepository {
   }: ISubscriptionDTO): Promise<Subscription> {
     const setSubscription: ISubscriptionDTO = { };
 
-    console.log(participation_date, status);
-
     if (registration_date) setSubscription.registration_date = registration_date;
     if (participation_date) setSubscription.participation_date = participation_date;
     if (status) setSubscription.status = status;
