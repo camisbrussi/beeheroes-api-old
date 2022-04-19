@@ -19,7 +19,12 @@ class FindEvaluationsByUserUseCase {
         id: evaluation.id,
         score: evaluation.score,
         description: evaluation.description,
+        project: {
+          id: evaluation.subscription.project.id,
+          name: evaluation.subscription.project.name,
+        },
         organization: {
+          id: evaluation.subscription.project.organization.id,
           name: evaluation.subscription.project.organization.name,
           avatar: evaluation.subscription.project.organization.avatar,
         },
