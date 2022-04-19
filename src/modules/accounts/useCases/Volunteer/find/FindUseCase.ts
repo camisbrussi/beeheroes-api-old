@@ -20,10 +20,12 @@ class FindVolunteerUseCase {
 
     return VolunteerMap.toDTO({
       id: volunteer.id,
-      user_id: volunteer.user_id,
       description: volunteer.description,
       profession: volunteer.profession,
       occupation_area: volunteer.occupationArea,
+      user: {
+        id: volunteer.user.id,
+      },
     });
   }
 }

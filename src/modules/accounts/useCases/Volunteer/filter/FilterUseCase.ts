@@ -30,12 +30,19 @@ class FilterVolunteerUseCase {
 
     const filterVolunteers = volunteersFiltered.map((volunteer) => ({
       id: volunteer.id,
-      user_id: volunteer.user_id,
       occupation_area: volunteer.occupationArea.name,
-      avatar: volunteer.user.avatar,
-      address: {
-        city: volunteer.user.address?.city?.name,
-        uf: volunteer.user.address?.city?.state.uf,
+      user: {
+        id: volunteer.user.id,
+        avatar: volunteer.user.avatar,
+        name: volunteer.user.name,
+        address: {
+          city: {
+            name: volunteer.user.address.city.name,
+            state: {
+              uf: volunteer.user.address.city.state.uf,
+            },
+          },
+        },
       },
     }));
 
