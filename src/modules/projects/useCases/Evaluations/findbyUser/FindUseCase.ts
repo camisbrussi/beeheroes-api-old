@@ -30,6 +30,8 @@ class FindEvaluationsByUserUseCase {
         },
       })));
 
+    console.log(listEvaluations);
+
     return listEvaluations;
   }
 }
