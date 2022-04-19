@@ -1,5 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 
+import { VolunteerMap } from '@modules/accounts/mapper/VolunteerMap';
 import { IVolunteersRepository } from '@modules/accounts/repositories/IVolunteersRepository';
 import { ItemListMap } from '@utils/mapper/ItemListMap';
 
@@ -17,8 +18,8 @@ class FilterVolunteerUseCase {
     state_id,
     city_id,
     occupation_area_id,
-  }): Promise<ItemListMap[]> {
-    const volunteers = await this.volunteersRepository.filter({
+  }): Promise<VolunteerMap[]> {
+    const volunteersFiltered = await this.volunteersRepository.filter({
       name,
       status,
       is_volunteer,
@@ -27,7 +28,18 @@ class FilterVolunteerUseCase {
       occupation_area_id,
     });
 
-    return volunteers;
+    const filterVolunteers = volunteersFiltered.map((volunteer) => ({
+      id: volunteer.id,
+      user_id: volunteer.user_id,
+      occupation_area: volunteer.occupationArea.name,
+      avatar: volunteer.user.avatar,
+      address: {
+        city: volunteer.user.address?.city?.name,
+        uf: volunteer.user.address?.city?.state.uf,
+      },
+    }));
+
+    return filterVolunteers;
   }
 }
 
