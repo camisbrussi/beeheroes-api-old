@@ -39,6 +39,7 @@ class VolunteersRepository implements IVolunteersRepository {
     const volunteer = this.repository
       .createQueryBuilder('volunteer')
       .leftJoinAndSelect('volunteer.occupationArea', 'occupationArea')
+      .leftJoinAndSelect('volunteer.user', 'user')
       .where('volunteer.user_id =:id', { id })
       .getOne();
     return volunteer;
