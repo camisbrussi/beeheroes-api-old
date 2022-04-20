@@ -1,6 +1,7 @@
 import { getRepository, Repository } from 'typeorm';
 
 import { User } from '@modules/accounts/infra/typeorm/entities/User';
+import { Phone } from '@modules/addresses/infra/typeorm/entities/Phone';
 import { Donation } from '@modules/donations/infra/typeorm/entities/Donation';
 import { IOrganizationDTO } from '@modules/organizations/dtos/IOrganizationDTO';
 import { IOrganizationsRepository } from '@modules/organizations/repositories/IOrganizationsRepository';
@@ -16,6 +17,7 @@ class OrganizationsRepository implements IOrganizationsRepository {
   private projectRepository: Repository<Project>
   private donationRepository: Repository<Donation>
   private subscriptionsRepository: Repository<Subscription>
+  private phonesRepository: Repository<Phone>
 
   constructor() {
     this.organizationsRepository = getRepository(Organization);
@@ -23,6 +25,7 @@ class OrganizationsRepository implements IOrganizationsRepository {
     this.projectRepository = getRepository(Project);
     this.donationRepository = getRepository(Donation);
     this.subscriptionsRepository = getRepository(Subscription);
+    this.phonesRepository = getRepository(Phone);
   }
 
   async create({
@@ -64,6 +67,7 @@ class OrganizationsRepository implements IOrganizationsRepository {
     images: OrganizationImage[],
     projects: Project[],
     donations: Donation[],
+    phones: Phone[],
     }> {
     const organization = await this.organizationsRepository
       .createQueryBuilder('organization')
@@ -100,11 +104,18 @@ class OrganizationsRepository implements IOrganizationsRepository {
       .limit(3)
       .getMany();
 
+    const phones = await this.phonesRepository
+      .createQueryBuilder('phone')
+      .where('phone.organization_id = :organization_id', { organization_id: id })
+      .limit(3)
+      .getMany();
+
     return {
       organization,
       images,
       projects,
       donations,
+      phones,
     };
   }
 

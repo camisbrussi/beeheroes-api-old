@@ -1,5 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 
+import { Phone } from '@modules/addresses/infra/typeorm/entities/Phone';
 import { OrganizationMap } from '@modules/organizations/mapper/OrganizationMap';
 import { IOrganizationsRepository } from '@modules/organizations/repositories/IOrganizationsRepository';
 import { AppError } from '@shared/errors/AppError';
@@ -60,6 +61,7 @@ class FindOrganizationUseCase {
       projects: data.projects,
       donations: data.donations,
       responsibles,
+      phones: data.phones,
     });
   }
 }

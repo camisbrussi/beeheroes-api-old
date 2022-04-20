@@ -1,7 +1,9 @@
 import { inject, injectable } from 'tsyringe';
 
 import { IAddressesRepository } from '@modules/addresses/repositories/IAddressesRepository';
+import { IPhonesRepository } from '@modules/addresses/repositories/IPhonesRepository';
 import { IRequestAddress } from '@modules/addresses/useCases/address/create/CreateUseCase';
+import { IRequestPhones } from '@modules/addresses/useCases/phones/create/CreateUseCase';
 import { Organization } from '@modules/organizations/infra/typeorm/entities/Organization';
 import { IOrganizationsRepository } from '@modules/organizations/repositories/IOrganizationsRepository';
 import { AppError } from '@shared/errors/AppError';
@@ -16,6 +18,7 @@ interface IRequest {
   status?: number;
   address_id?:string;
   address?: IRequestAddress;
+  phones?: IRequestPhones[];
 }
 @injectable()
 class UpdateOrganizationUseCase {
@@ -24,6 +27,8 @@ class UpdateOrganizationUseCase {
     private organizationsRepository: IOrganizationsRepository,
     @inject('AddressesRepository')
     private addressesRepository: IAddressesRepository,
+     @inject('PhonesRepository')
+    private phonesRepository: IPhonesRepository,
   ) {}
 
   async execute({
@@ -36,6 +41,7 @@ class UpdateOrganizationUseCase {
     status,
     address_id,
     address,
+    phones,
   }: IRequest): Promise<Organization> {
     const organizationEmailExist = await this.organizationsRepository.findByEmail(email);
     const organizationCnpjExist = await this.organizationsRepository.findByCnpj(cnpj);
@@ -65,6 +71,21 @@ class UpdateOrganizationUseCase {
     if (address && address_id) {
       await this.addressesRepository.delete(address_id);
     }
+
+    if (phones) {
+      await this.phonesRepository.deleteByIdOrOrganization(organization.id);
+    }
+
+    if (phones && phones.length > 0) {
+      phones.map(async (phone) => {
+        await this.phonesRepository.create({
+          number: phone.number,
+          is_whatsapp: phone.is_whatsapp,
+          organization_id: organization.id,
+        });
+      });
+    }
+
     return organization;
   }
 }

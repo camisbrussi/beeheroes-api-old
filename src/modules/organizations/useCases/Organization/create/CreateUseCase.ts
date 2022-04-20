@@ -2,7 +2,9 @@ import { inject, injectable } from 'tsyringe';
 
 import { User } from '@modules/accounts/infra/typeorm/entities/User';
 import { IAddressesRepository } from '@modules/addresses/repositories/IAddressesRepository';
+import { IPhonesRepository } from '@modules/addresses/repositories/IPhonesRepository';
 import { IRequestAddress } from '@modules/addresses/useCases/address/create/CreateUseCase';
+import { IRequestPhones } from '@modules/addresses/useCases/phones/create/CreateUseCase';
 import { Organization } from '@modules/organizations/infra/typeorm/entities/Organization';
 import { IOrganizationsRepository } from '@modules/organizations/repositories/IOrganizationsRepository';
 import { IOrganizationTypesRepository } from '@modules/organizations/repositories/IOrganizationTypesRepository';
@@ -16,6 +18,7 @@ interface IRequest {
   organization_type_id: string;
   users?: User[];
   address?: IRequestAddress;
+  phones?: IRequestPhones[];
   avatar?: string,
 }
 
@@ -28,6 +31,8 @@ class CreateOrganizationUseCase {
     private addressesRepository: IAddressesRepository,
     @inject('OrganizationTypesRepository')
     private organizationTypeRepository: IOrganizationTypesRepository,
+    @inject('PhonesRepository')
+    private phonesRepository: IPhonesRepository,
   ) {}
 
   async execute({
@@ -39,6 +44,7 @@ class CreateOrganizationUseCase {
     users,
     address,
     avatar,
+    phones,
   }: IRequest): Promise<Organization> {
     const organizationEmailAlreadyExists = await
     this.organizationsRepository.findByEmail(email);
@@ -71,6 +77,16 @@ class CreateOrganizationUseCase {
       address_id: addressId,
       avatar,
     });
+
+    if (phones && phones.length > 0) {
+      phones.map(async (phone) => {
+        await this.phonesRepository.create({
+          number: phone.number,
+          is_whatsapp: phone.is_whatsapp,
+          organization_id: organization.id,
+        });
+      });
+    }
 
     return organization;
   }
