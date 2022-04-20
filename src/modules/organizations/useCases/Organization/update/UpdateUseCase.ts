@@ -81,7 +81,7 @@ class UpdateOrganizationUseCase {
         await this.phonesRepository.create({
           number: phone.number,
           is_whatsapp: phone.is_whatsapp,
-          organization_id: organization.id,
+          organization_id: id,
         });
       });
     }

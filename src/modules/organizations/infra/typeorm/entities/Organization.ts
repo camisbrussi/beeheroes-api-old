@@ -71,7 +71,7 @@ class Organization {
   constructor() {
     if (!this.id) {
       this.id = uuidV4();
-      this.status = Number(process.env.ORGANIZATION_STATUS_AWAIT);
+      this.status = Number(process.env.ORGANIZATION_STATUS_AWAIT_AUTHORIZATION);
     }
   }
 }
