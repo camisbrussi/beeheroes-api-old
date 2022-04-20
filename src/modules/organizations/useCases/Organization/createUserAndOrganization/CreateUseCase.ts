@@ -4,7 +4,9 @@ import { inject, injectable } from 'tsyringe';
 import { User } from '@modules/accounts/infra/typeorm/entities/User';
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
 import { IAddressesRepository } from '@modules/addresses/repositories/IAddressesRepository';
+import { IPhonesRepository } from '@modules/addresses/repositories/IPhonesRepository';
 import { IRequestAddress } from '@modules/addresses/useCases/address/create/CreateUseCase';
+import { IRequestPhones } from '@modules/addresses/useCases/phones/create/CreateUseCase';
 import { Organization } from '@modules/organizations/infra/typeorm/entities/Organization';
 import { IOrganizationsRepository } from '@modules/organizations/repositories/IOrganizationsRepository';
 import { IOrganizationTypesRepository } from '@modules/organizations/repositories/IOrganizationTypesRepository';
@@ -32,6 +34,7 @@ type OrganizationRequest = {
 interface IRequest {
   user: UserRequest;
   organization: OrganizationRequest;
+  phones?: IRequestPhones[];
 }
 
 @injectable()
@@ -45,11 +48,14 @@ class CreateUserAndOrganizationUseCase {
     private usersRepository: IUsersRepository,
     @inject('OrganizationTypesRepository')
     private organizationTypeRepository: IOrganizationTypesRepository,
+    @inject('PhonesRepository')
+    private phonesRepository: IPhonesRepository,
   ) {}
 
   async execute({
     user,
     organization,
+    phones,
   }: IRequest): Promise<Organization> {
     const organizationEmailAlreadyExists = await
     this.organizationsRepository.findByEmail(organization.email);
@@ -101,6 +107,16 @@ class CreateUserAndOrganizationUseCase {
       address_id: addressId,
       avatar: organization.avatar,
     });
+
+    if (phones && phones.length > 0) {
+      phones.map(async (phone) => {
+        await this.phonesRepository.create({
+          number: phone.number,
+          is_whatsapp: phone.is_whatsapp,
+          organization_id: newOrganization.id,
+        });
+      });
+    }
 
     return newOrganization;
   }
