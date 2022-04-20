@@ -87,7 +87,7 @@ class OrganizationsRepository implements IOrganizationsRepository {
     const projects = await this.projectRepository
       .createQueryBuilder('project')
       .where('project.organization_id = :organization_id', { organization_id: id })
-      .where('project.status =:status', { status: Number(process.env.PROJECT_STATUS_ACTIVE) })
+      .andWhere('project.status =:status', { status: Number(process.env.PROJECT_STATUS_ACTIVE) })
       .limit(3)
       .getMany();
 
