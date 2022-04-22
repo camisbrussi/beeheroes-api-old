@@ -13,7 +13,6 @@ describe('List Volunteer', () => {
 
   it('should be abe to find volunteer', async () => {
     const newVolunteer = {
-      profession: 'profession',
       description: 'xxxx',
       occupation_area_id: 'occupationArea',
       user_id: 'volunteer',

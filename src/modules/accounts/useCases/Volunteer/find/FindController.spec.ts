@@ -42,7 +42,6 @@ describe('Find Volunteer Controller', () => {
     const { token } = responseToken.body;
 
     const responseVolunteer = await request(app).post('/volunteers').send({
-      profession: 'profession',
       description: 'xxxx',
       occupation_area_id: id,
       user_id: id,

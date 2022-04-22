@@ -15,7 +15,6 @@ beforeEach(() => {
 describe('Create Volunteer ', () => {
   it('should be able to create a new volunteer ', async () => {
     const volunteer = await createVolunteerUseCase.execute({
-      profession: 'profession',
       description: 'xxxx',
       occupation_area_id: 'occupationArea',
       user_id: 'volunteer',

@@ -52,7 +52,6 @@ describe('Update Volunteer Controller', () => {
     const { token } = responseToken.body;
 
     const volunteer = await request(app).post('/volunteers').send({
-      profession: 'profession',
       description: 'xxxx',
       occupation_area_id: id,
       user_id: id,
@@ -63,7 +62,6 @@ describe('Update Volunteer Controller', () => {
     const volunteerId = JSON.parse(volunteer.text).id;
 
     await request(app).put(`/volunteers?id=${volunteerId}`).send({
-      profession: 'Profession Edited',
       description: 'description edited',
     }).set({
       Authorization: `Bearer ${token}`,
@@ -73,7 +71,6 @@ describe('Update Volunteer Controller', () => {
       Authorization: `Bearer ${token}`,
     });
 
-    expect(response.body.profession).toEqual('Profession Edited');
     expect(response.body.description).toEqual('description edited');
   });
 });

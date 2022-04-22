@@ -7,7 +7,6 @@ class CreateVolunteerController {
   async handle(request: Request, response: Response): Promise<Response> {
     const {
       id,
-      profession,
       description,
       occupation_area_id,
       user_id,
@@ -17,7 +16,6 @@ class CreateVolunteerController {
 
     const volunteer = await createVolunteerUseCase.execute({
       id,
-      profession,
       description,
       occupation_area_id,
       user_id,

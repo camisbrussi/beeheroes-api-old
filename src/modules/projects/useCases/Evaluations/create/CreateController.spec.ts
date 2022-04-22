@@ -58,11 +58,6 @@ describe('Create Project Controller', () => {
     );
 
     await connection.query(
-      `INSERT INTO VOLUNTEERS(id, profession, user_id, occupation_area_id, created_at, updated_at) 
-      VALUES('${id}', 'xxxxxx', '${id}', '${id}', 'now()', 'now()')`,
-    );
-
-    await connection.query(
       `INSERT INTO SUBSCRIPTIONS(id, registration_date, status, volunteer_id, project_id, created_at, updated_at) 
       VALUES('${id}', 'now()', '1', '${id}', '${id}', 'now()', 'now()')`,
     );

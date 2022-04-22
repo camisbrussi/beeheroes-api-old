@@ -7,7 +7,7 @@ class VolunteersRepositoryInMemory implements IVolunteersRepository {
   volunteers: Volunteer[] = [];
 
   async create({
-    profession,
+
     description,
     occupation_area_id,
     user_id,
@@ -15,7 +15,6 @@ class VolunteersRepositoryInMemory implements IVolunteersRepository {
     const volunteers = new Volunteer();
 
     Object.assign(volunteers, {
-      profession,
       description,
       occupation_area_id,
       user_id,
@@ -34,13 +33,11 @@ class VolunteersRepositoryInMemory implements IVolunteersRepository {
 
   async update({
     id,
-    profession,
     description,
     occupation_area_id,
   }: IVolunteerDTO): Promise<Volunteer> {
     const findIndex = this.volunteers.findIndex((volunteers) => volunteers.id === id);
 
-    if (profession) this.volunteers[findIndex].profession = profession;
     if (description) this.volunteers[findIndex].description = description;
     if (occupation_area_id) this.volunteers[findIndex].occupation_area_id = occupation_area_id;
 
@@ -52,7 +49,7 @@ class VolunteersRepositoryInMemory implements IVolunteersRepository {
     return all;
   }
 
-  async listVolunteersByOccupationArea(occupation_area_id: string): Promise<Volunteer[]> {
+  async listVolunteersByOccupationArea(occupation_area_id: number): Promise<Volunteer[]> {
     const volunteers = this.volunteers.filter((volunteers) => {
       if (volunteers.occupation_area_id === occupation_area_id) {
         return volunteers;

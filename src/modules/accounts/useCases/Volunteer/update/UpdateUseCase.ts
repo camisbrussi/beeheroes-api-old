@@ -5,7 +5,6 @@ import { IVolunteersRepository } from '@modules/accounts/repositories/IVolunteer
 
 interface IRequest {
     id?: string;
-    profession?: string;
     description?: string,
     occupation_area_id?: number,
 }
@@ -18,14 +17,12 @@ class UpdateVolunteerUseCase {
 
   async execute({
     id,
-    profession,
     description,
     occupation_area_id,
 
   }: IRequest): Promise<Volunteer> {
     const volunteer = await this.volunteersRepository.update({
       id,
-      profession,
       description,
       occupation_area_id,
     });

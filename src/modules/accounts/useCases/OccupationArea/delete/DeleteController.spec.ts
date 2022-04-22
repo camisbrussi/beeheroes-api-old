@@ -68,7 +68,6 @@ describe('Delete Occupation Area Controller', () => {
     const occupationAreaId = JSON.parse(occupationArea.text).id;
 
     await request(app).post('/volunteers').send({
-      profession: 'profession',
       description: 'xxxx',
       occupation_area_id: occupationAreaId,
       user_id: id,

@@ -19,7 +19,6 @@ type UserRequest = {
 
 type VolunteerRequest = {
   id?: string
-  profession: string;
   description?: string,
   occupation_area_id: string,
   user_id: string,
@@ -70,7 +69,6 @@ class CreateUserAndVolunteerUseCase {
 
     await this.volunteersRepository.create({
       id: newUser.id,
-      profession: volunteer.profession,
       description: volunteer.description,
       occupation_area_id: volunteer.occupation_area_id,
       user_id: newUser.id,

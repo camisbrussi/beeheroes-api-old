@@ -45,7 +45,6 @@ describe('Update Occupation Area', () => {
     });
 
     await volunteersRepositoryInMemory.create({
-      profession: 'profession',
       description: 'xxxx',
       occupation_area_id: occupationArea.id,
       user_id: 'volunteer',

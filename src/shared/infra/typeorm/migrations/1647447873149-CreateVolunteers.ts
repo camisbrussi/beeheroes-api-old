@@ -18,10 +18,6 @@ export class CreateVolunteers1647447873149 implements MigrationInterface {
               isNullable: true,
             },
             {
-              name: 'profession',
-              type: 'varchar',
-            },
-            {
               name: 'user_id',
               type: 'uuid',
             },

@@ -6,7 +6,6 @@ import { UpdateVolunteerUseCase } from './UpdateUseCase';
 class UpdateVolunteerController {
   async handle(request: Request, response: Response): Promise<Response> {
     const {
-      profession,
       description,
       occupation_area_id,
     } = request.body.data;
@@ -16,7 +15,6 @@ class UpdateVolunteerController {
 
     const volunteer = await updateVolunteerUseCase.execute({
       id,
-      profession,
       description,
       occupation_area_id,
     });

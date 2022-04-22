@@ -21,7 +21,6 @@ describe('Update Type Volunteer', () => {
 
   it('should be able to edit a volunteer', async () => {
     const volunteer = await createVolunteerUseCase.execute({
-      profession: 'profession',
       description: 'xxxx',
       occupation_area_id: 'occupationArea',
       user_id: 'volunteer',
@@ -29,14 +28,11 @@ describe('Update Type Volunteer', () => {
 
     const volunteerEdit = {
       id: volunteer.id,
-      profession: 'Profession Edited',
     };
 
     await updateUseCase.execute(volunteerEdit);
 
     const volunteerEdited = await volunteersRepositoryInMemory
       .findById(volunteer.id);
-
-    expect(volunteerEdited.profession).toEqual(volunteerEdit.profession);
   });
 });

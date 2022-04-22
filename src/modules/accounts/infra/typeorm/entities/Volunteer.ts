@@ -20,9 +20,6 @@ class Volunteer {
   @Column()
   description: string;
 
-  @Column()
-  profession: string;
-
   @ManyToOne(() => OccupationArea)
   @JoinColumn({ name: 'occupation_area_id' })
   occupationArea: OccupationArea;

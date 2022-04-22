@@ -6,7 +6,6 @@ import { OccupationArea } from '../infra/typeorm/entities/OccupationArea';
 type Volunteer = {
   id: string;
   description?: string;
-  profession: string;
   occupation_area: OccupationArea
   user: {
     id: string;
@@ -28,14 +27,12 @@ class VolunteerMap {
     id,
     user,
     description,
-    profession,
     occupation_area,
   }: Volunteer): IVolunteerDTO {
     const volunteer = instanceToInstance({
       id,
       user,
       description,
-      profession,
       occupation_area,
     });
     return volunteer;

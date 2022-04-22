@@ -6,7 +6,6 @@ import { AppError } from '@shared/errors/AppError';
 
 interface IRequest {
     id?: string;
-    profession: string;
     description?: string,
     occupation_area_id: number,
     user_id: string,
@@ -22,7 +21,6 @@ class CreateVolunteerUseCase {
 
   async execute({
     id,
-    profession,
     description,
     occupation_area_id,
     user_id,
@@ -36,7 +34,6 @@ class CreateVolunteerUseCase {
 
     const volunteer = await this.volunteersRepository.create({
       id,
-      profession,
       description,
       occupation_area_id,
       user_id,

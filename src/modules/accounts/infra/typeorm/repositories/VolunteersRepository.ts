@@ -15,7 +15,6 @@ class VolunteersRepository implements IVolunteersRepository {
 
   async create({
     id,
-    profession,
     description,
     occupation_area_id,
     user_id,
@@ -23,7 +22,6 @@ class VolunteersRepository implements IVolunteersRepository {
   }: IVolunteerDTO): Promise<Volunteer> {
     const volunteer = this.repository.create({
       id,
-      profession,
       description,
       occupation_area_id,
       user_id,
@@ -98,13 +96,11 @@ class VolunteersRepository implements IVolunteersRepository {
 
   async update({
     id,
-    profession,
     description,
     occupation_area_id,
   }: IVolunteerDTO): Promise<Volunteer> {
     const setVolunteer: IVolunteerDTO = { };
 
-    if (profession) setVolunteer.profession = profession;
     if (description) setVolunteer.description = description;
     if (occupation_area_id) setVolunteer.occupation_area_id = occupation_area_id;
 
