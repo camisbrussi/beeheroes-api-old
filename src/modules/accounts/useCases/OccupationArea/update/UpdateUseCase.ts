@@ -5,7 +5,7 @@ import { IOccupationsAreaRepository } from '@modules/accounts/repositories/IOccu
 import { AppError } from '@shared/errors/AppError';
 
 interface IRequest {
-  id: string,
+  id: number,
   name?:string,
 }
 @injectable()

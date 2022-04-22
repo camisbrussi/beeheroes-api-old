@@ -13,7 +13,7 @@ class DeleteOrganizationTypeUseCase {
     private organizationTypeRepository: IOrganizationTypesRepository,
   ) {}
 
-  async execute(id: string): Promise<void> {
+  async execute(id: number): Promise<void> {
     const organizationTypeUsed = await this.organizationsRepository
       .listOrganizationsByOrganizationType(id);
 

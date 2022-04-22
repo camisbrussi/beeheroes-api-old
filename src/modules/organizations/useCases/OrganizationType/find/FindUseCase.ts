@@ -10,7 +10,7 @@ class FindOrganizationTypeUseCase {
     private organizationTypesRepository: IOrganizationTypesRepository,
   ) { }
 
-  async execute(id: string): Promise<OrganizationType> {
+  async execute(id: number): Promise<OrganizationType> {
     const organizationsType = await this.organizationTypesRepository.findById(id);
 
     return organizationsType;

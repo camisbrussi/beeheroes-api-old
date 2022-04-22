@@ -14,7 +14,7 @@ interface IRequest {
   description?:string;
   email?:string;
   cnpj?:string;
-  organization_type_id?: string;
+  organization_type_id?: number;
   status?: number;
   address_id?:string;
   address?: IRequestAddress;

@@ -10,7 +10,7 @@ class FindOccupationAreaUseCase {
     private occupationAreaRepository: IOccupationsAreaRepository,
   ) { }
 
-  async execute(id: string): Promise<OccupationArea> {
+  async execute(id: number): Promise<OccupationArea> {
     const occupationArea = await this.occupationAreaRepository.findById(id);
 
     return occupationArea;

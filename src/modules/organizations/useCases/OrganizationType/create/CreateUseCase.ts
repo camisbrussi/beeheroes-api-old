@@ -6,7 +6,6 @@ import { AppError } from '@shared/errors/AppError';
 
 interface IRequest{
   name: string,
-  description?: string,
 }
 
 @injectable()
@@ -16,7 +15,7 @@ class CreateOrganizationTypeUseCase {
     private organizationTypeRepository: IOrganizationTypesRepository,
   ) {}
 
-  async execute({ name, description }: IRequest): Promise<OrganizationType> {
+  async execute({ name }: IRequest): Promise<OrganizationType> {
     const organizationTypeExist = await this.organizationTypeRepository.findByName(name);
 
     if (organizationTypeExist) {
@@ -25,7 +24,6 @@ class CreateOrganizationTypeUseCase {
 
     const organizationType = await this.organizationTypeRepository.create({
       name,
-      description,
     });
 
     return organizationType;

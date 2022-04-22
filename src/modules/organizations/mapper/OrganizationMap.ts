@@ -22,9 +22,8 @@ type Organization = {
   cnpj: string;
   avatar: string;
   organization_type: {
-    id: string;
+    id: number;
     name: string;
-    description: string;
   };
   address: {
     id: string;

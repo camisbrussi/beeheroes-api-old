@@ -1,6 +1,5 @@
 import { getRepository, Repository } from 'typeorm';
 
-import { IUserDTO } from '@modules/accounts/dtos/IUserDTO';
 import { IVolunteerDTO } from '@modules/accounts/dtos/IVolunteerDTO';
 import { IVolunteersRepository } from '@modules/accounts/repositories/IVolunteersRepository';
 
@@ -43,7 +42,7 @@ class VolunteersRepository implements IVolunteersRepository {
     return volunteer;
   }
 
-  async listVolunteersByOccupationArea(occupation_area_id: string): Promise<Volunteer[]> {
+  async listVolunteersByOccupationArea(occupation_area_id: number): Promise<Volunteer[]> {
     const volunteers = await this.repository.find({ occupation_area_id });
 
     return volunteers;

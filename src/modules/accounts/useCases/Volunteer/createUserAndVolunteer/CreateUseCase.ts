@@ -20,7 +20,7 @@ type UserRequest = {
 type VolunteerRequest = {
   id?: string
   description?: string,
-  occupation_area_id: string,
+  occupation_area_id: number,
   user_id: string,
 }
 

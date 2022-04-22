@@ -5,7 +5,7 @@ import { DeleteOrganizationTypeUseCase } from './DeleteUseCase';
 
 class DeleteOrganizationTypeController {
   async handle(request: Request, response: Response): Promise<Response> {
-    const id = request.query.id as string;
+    const id = Number(request.query.id);
 
     const deleteOrganizationTypeUseCase = container.resolve(DeleteOrganizationTypeUseCase);
 

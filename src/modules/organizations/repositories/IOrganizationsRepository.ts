@@ -26,7 +26,7 @@ interface IOrganizationsRepository{
     }>;
   findByCnpj(cnpj: string): Promise<Organization>;
   findByUser(id: string): Promise<Organization>;
-  listOrganizationsByOrganizationType(organization_type_id: string): Promise<Organization[]>;
+  listOrganizationsByOrganizationType(organization_type_id: number): Promise<Organization[]>;
   filter({
     name,
     status,

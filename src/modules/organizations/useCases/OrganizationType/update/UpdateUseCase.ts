@@ -5,9 +5,8 @@ import { IOrganizationTypesRepository } from '@modules/organizations/repositorie
 import { AppError } from '@shared/errors/AppError';
 
 interface IRequest {
-  id: string,
+  id: number,
   name?:string,
-  description?:string;
 }
 @injectable()
 class UpdateOrganizationTypeUseCase {
@@ -16,7 +15,7 @@ class UpdateOrganizationTypeUseCase {
     private organizationTypeRepository: IOrganizationTypesRepository,
   ) {}
 
-  async execute({ id, name, description }: IRequest): Promise<OrganizationType> {
+  async execute({ id, name }: IRequest): Promise<OrganizationType> {
     const organizationTypeExist = await this.organizationTypeRepository.findByName(name);
 
     if (organizationTypeExist) {
@@ -26,7 +25,6 @@ class UpdateOrganizationTypeUseCase {
     const organizationType = await this.organizationTypeRepository.update({
       id,
       name,
-      description,
     });
 
     return organizationType;

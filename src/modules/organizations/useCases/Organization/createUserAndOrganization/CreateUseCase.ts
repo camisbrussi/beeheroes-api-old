@@ -25,7 +25,7 @@ type OrganizationRequest = {
   email: string;
   cnpj: string;
   description: string;
-  organization_type_id: string;
+  organization_type_id: number;
   users?: User[];
   address?: IRequestAddress;
   avatar?: string,

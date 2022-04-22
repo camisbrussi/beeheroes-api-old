@@ -12,10 +12,9 @@ class OrganizationTypesRepository implements IOrganizationTypesRepository {
     this.repository = getRepository(OrganizationType);
   }
 
-  async create({ name, description }: IOrganizationTypeDTO): Promise<OrganizationType> {
+  async create({ name }: IOrganizationTypeDTO): Promise<OrganizationType> {
     const organizationType = this.repository.create({
       name,
-      description,
     });
     await this.repository.save(organizationType);
 
@@ -32,16 +31,15 @@ class OrganizationTypesRepository implements IOrganizationTypesRepository {
     return organizationType;
   }
 
-  async findById(id: string): Promise<OrganizationType> {
+  async findById(id: number): Promise<OrganizationType> {
     const organizationType = await this.repository.findOne({ id });
     return organizationType;
   }
 
-  async update({ id, name, description }: IOrganizationTypeDTO): Promise<OrganizationType> {
+  async update({ id, name }: IOrganizationTypeDTO): Promise<OrganizationType> {
     const setOrganizationType: IOrganizationTypeDTO = {};
 
     if (name) setOrganizationType.name = name;
-    if (description) setOrganizationType.description = description;
 
     const organizationTypeEdited = await this.repository
       .createQueryBuilder()
@@ -54,7 +52,7 @@ class OrganizationTypesRepository implements IOrganizationTypesRepository {
     return organizationTypeEdited.raw;
   }
 
-  async delete(id: string): Promise<void> {
+  async delete(id: number): Promise<void> {
     await this.repository.delete(id);
   }
 }

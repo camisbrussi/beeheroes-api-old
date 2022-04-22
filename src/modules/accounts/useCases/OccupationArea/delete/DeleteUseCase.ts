@@ -13,7 +13,7 @@ class DeleteOccupationAreaUseCase {
     private occupationAreaRepository: IOccupationsAreaRepository,
   ) {}
 
-  async execute(id: string): Promise<void> {
+  async execute(id: number): Promise<void> {
     const occupationAreaUsed = await this.volunteersRepository
       .listVolunteersByOccupationArea(id);
 

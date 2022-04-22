@@ -41,7 +41,7 @@ class Organization {
   organizationType: OrganizationType;
 
   @Column()
-  organization_type_id: string;
+  organization_type_id: number;
 
   @ManyToOne(() => Address)
   @JoinColumn({ name: 'address_id' })

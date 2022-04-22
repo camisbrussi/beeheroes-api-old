@@ -5,7 +5,7 @@ import { DeleteOccupationAreaUseCase } from './DeleteUseCase';
 
 class DeleteOccupationAreaController {
   async handle(request: Request, response: Response): Promise<Response> {
-    const id = request.query.id as string;
+    const id = Number(request.query.id);
 
     const deleteOccupationAreaUseCase = container.resolve(DeleteOccupationAreaUseCase);
 

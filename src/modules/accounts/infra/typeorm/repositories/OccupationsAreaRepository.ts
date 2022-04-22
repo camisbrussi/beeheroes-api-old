@@ -31,7 +31,7 @@ class OccupationsAreaRepository implements IOccupationsAreaRepository {
     return occupationArea;
   }
 
-  async findById(id: string): Promise<OccupationArea> {
+  async findById(id: number): Promise<OccupationArea> {
     const occupationArea = await this.repository.findOne({ id });
     return occupationArea;
   }
@@ -52,7 +52,7 @@ class OccupationsAreaRepository implements IOccupationsAreaRepository {
     return occupationAreaEdited.raw;
   }
 
-  async delete(id: string): Promise<void> {
+  async delete(id: number): Promise<void> {
     await this.repository.delete(id);
   }
 }

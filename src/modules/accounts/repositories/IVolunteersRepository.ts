@@ -10,6 +10,14 @@ interface IVolunteersRepository{
   }: IVolunteerDTO): Promise<Volunteer>;
   findById(id: string): Promise<Volunteer>;
   listVolunteersByOccupationArea(occupation_area_id: number): Promise<Volunteer[]>;
+    filter({
+      name,
+      status,
+      is_volunteer,
+      state_id,
+      city_id,
+      occupation_area_id,
+    }): Promise<Volunteer[]>;
   update({
     id,
     description,

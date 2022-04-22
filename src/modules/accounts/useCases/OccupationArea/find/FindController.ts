@@ -5,7 +5,7 @@ import { FindOccupationAreaUseCase } from './FindUseCase';
 
 class FindOccupationAreaController {
   async handle(request: Request, response: Response): Promise<Response> {
-    const id = request.query.id as string;
+    const id = Number(request.query.id);
 
     const findOccupationAreaUseCase = container.resolve(FindOccupationAreaUseCase);
 

@@ -5,8 +5,8 @@ import { UpdateOccupationAreaUseCase } from './UpdateUseCase';
 
 class UpdateOccupationAreaController {
   async handle(request: Request, response: Response): Promise<Response> {
-    const { name, description } = request.body;
-    const id = request.query.id as string;
+    const { name } = request.body;
+    const id = Number(request.query.id);
 
     const updateOccupationAreaUseCase = container.resolve(UpdateOccupationAreaUseCase);
 

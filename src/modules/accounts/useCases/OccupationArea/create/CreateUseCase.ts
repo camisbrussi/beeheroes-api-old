@@ -6,7 +6,6 @@ import { AppError } from '@shared/errors/AppError';
 
 interface IRequest{
   name: string,
-  description?: string,
 }
 
 @injectable()

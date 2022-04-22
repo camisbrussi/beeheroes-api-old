@@ -29,7 +29,6 @@ class FindOrganizationUserUseCase {
       organization_type: {
         id: organization.organizationType?.id,
         name: organization.organizationType?.name,
-        description: organization.organizationType?.description,
       },
       address: {
         id: organization.address?.id,

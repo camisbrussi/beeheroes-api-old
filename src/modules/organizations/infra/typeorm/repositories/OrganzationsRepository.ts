@@ -1,6 +1,5 @@
 import { getRepository, Repository } from 'typeorm';
 
-import { User } from '@modules/accounts/infra/typeorm/entities/User';
 import { Phone } from '@modules/addresses/infra/typeorm/entities/Phone';
 import { Donation } from '@modules/donations/infra/typeorm/entities/Donation';
 import { IOrganizationDTO } from '@modules/organizations/dtos/IOrganizationDTO';
@@ -141,7 +140,7 @@ class OrganizationsRepository implements IOrganizationsRepository {
     return organization;
   }
 
-  async listOrganizationsByOrganizationType(organization_type_id: string): Promise<Organization[]> {
+  async listOrganizationsByOrganizationType(organization_type_id: number): Promise<Organization[]> {
     const organizations = await this.organizationsRepository.find({ organization_type_id });
 
     return organizations;

@@ -2,7 +2,6 @@ import { inject, injectable } from 'tsyringe';
 
 import { VolunteerMap } from '@modules/accounts/mapper/VolunteerMap';
 import { IVolunteersRepository } from '@modules/accounts/repositories/IVolunteersRepository';
-import { ItemListMap } from '@utils/mapper/ItemListMap';
 
 @injectable()
 class FilterVolunteerUseCase {
