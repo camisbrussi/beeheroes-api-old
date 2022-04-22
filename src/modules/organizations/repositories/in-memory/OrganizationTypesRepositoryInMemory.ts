@@ -8,13 +8,11 @@ class OrganizationTypeRepositoryInMemory implements IOrganizationTypesRepository
 
   async create({
     name,
-    description,
   }: IOrganizationTypeDTO): Promise<OrganizationType> {
     const organizationTypes = new OrganizationType();
 
     const organizationType = Object.assign(organizationTypes, {
       name,
-      description,
     });
 
     this.organizationTypes.push(organizationTypes);
@@ -28,7 +26,7 @@ class OrganizationTypeRepositoryInMemory implements IOrganizationTypesRepository
     return organizationType;
   }
 
-  async findById(id: string): Promise<OrganizationType> {
+  async findById(id: number): Promise<OrganizationType> {
     const organizationType = this.organizationTypes
       .find((organizationType) => organizationType.id === id);
     return organizationType;
@@ -39,17 +37,16 @@ class OrganizationTypeRepositoryInMemory implements IOrganizationTypesRepository
     return all;
   }
 
-  async update({ id, name, description }: IOrganizationTypeDTO): Promise<OrganizationType> {
+  async update({ id, name }: IOrganizationTypeDTO): Promise<OrganizationType> {
     const findIndex = this.organizationTypes
       .findIndex((organizationType) => organizationType.id === id);
 
-    if (description) this.organizationTypes[findIndex].description = description;
     if (name) this.organizationTypes[findIndex].name = name;
 
     return this.organizationTypes[findIndex];
   }
 
-  async delete(id: string): Promise<void> {
+  async delete(id: number): Promise<void> {
     const organizationType = this.organizationTypes.find((ut) => ut.id === id);
     this.organizationTypes.splice(this.organizationTypes.indexOf(organizationType));
   }

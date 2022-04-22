@@ -55,13 +55,11 @@ describe('Update Type Organization', () => {
       .findByName(organizationTypeEdit.name);
 
     expect(organizationTypeEdited.name).toEqual(organizationTypeEdit.name);
-    expect(organizationTypeEdited.description).toEqual(organizationType.description);
   });
 
   it('should be able to edit a organization type description', async () => {
     const organizationType = await createOrganizationTypeUseCase.execute({
       name: 'Organization Type name',
-      description: 'Organization type description',
     });
 
     const organizationTypeEdit = {
@@ -81,8 +79,7 @@ describe('Update Type Organization', () => {
   it('should not be able to edit a organization type with exists name', async () => {
     await expect(async () => {
       const organizationType = await createOrganizationTypeUseCase.execute({
-        name: 'Organization Type name',
-        description: 'Organization type description',
+        name: 'Organization Type name', s,
       });
 
       await createOrganizationTypeUseCase.execute({
@@ -92,7 +89,6 @@ describe('Update Type Organization', () => {
       const organizationTypeEdit = {
         id: organizationType.id,
         name: 'Organization Type name',
-        description: 'Organization Type name2',
       };
       await updateTypeUseCase.execute(organizationTypeEdit);
     }).rejects.toEqual(new AppError('Organization type already exists!'));

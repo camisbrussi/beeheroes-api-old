@@ -101,7 +101,7 @@ class OrganizationsRepositoryInMemory implements IOrganizationsRepository {
     return this.organizations[findIndex];
   }
 
-  async listOrganizationsByOrganizationType(organization_type_id: string): Promise<Organization[]> {
+  async listOrganizationsByOrganizationType(organization_type_id: number): Promise<Organization[]> {
     const organizations = this.organizations.filter((organization) => {
       if (organization.organization_type_id === organization_type_id) {
         return organization;
