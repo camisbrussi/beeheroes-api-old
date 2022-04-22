@@ -8,7 +8,6 @@ class CreateUserAndOrganizationController {
     const {
       user,
       organization,
-      phones,
     } = request.body;
 
     const createUserAndOrganizationUseCase = container.resolve(CreateUserAndOrganizationUseCase);
@@ -16,7 +15,6 @@ class CreateUserAndOrganizationController {
     const newOrganization = await createUserAndOrganizationUseCase.execute({
       user,
       organization,
-      phones,
     });
 
     return response.status(201).send(JSON.stringify(newOrganization));

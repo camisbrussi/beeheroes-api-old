@@ -29,12 +29,12 @@ type OrganizationRequest = {
   users?: User[];
   address?: IRequestAddress;
   avatar?: string,
+  phones?: IRequestPhones[]
 }
 
 interface IRequest {
   user: UserRequest;
   organization: OrganizationRequest;
-  phones?: IRequestPhones[];
 }
 
 @injectable()
@@ -55,7 +55,6 @@ class CreateUserAndOrganizationUseCase {
   async execute({
     user,
     organization,
-    phones,
   }: IRequest): Promise<Organization> {
     const organizationEmailAlreadyExists = await
     this.organizationsRepository.findByEmail(organization.email);
@@ -108,8 +107,8 @@ class CreateUserAndOrganizationUseCase {
       avatar: organization.avatar,
     });
 
-    if (phones && phones.length > 0) {
-      phones.map(async (phone) => {
+    if (organization.phones && organization.phones.length > 0) {
+      organization.phones.map(async (phone) => {
         await this.phonesRepository.create({
           number: phone.number,
           is_whatsapp: phone.is_whatsapp,
