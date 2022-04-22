@@ -9,8 +9,10 @@ export class CreateOccupationArea1647447863754 implements MigrationInterface {
           columns: [
             {
               name: 'id',
-              type: 'uuid',
+              type: 'int',
               isPrimary: true,
+              isGenerated: true,
+              generationStrategy: 'increment',
             },
             {
               name: 'name',

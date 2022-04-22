@@ -43,18 +43,29 @@ Criando as tabelas do banco de dados
 
 Criação de um usário Admin, com a senha admin, para acesso ao sistema
 ```
-  npm run seed:admin / yarn admin 
+  npm run seed:admin / yarn seed:admin 
 ```
 
 Alimentação do banco com os estados do Brasil
 ```
-  npm run seed:states / yarn states 
+  npm run seed:states / yarn seed:states 
 ```
 
-Alimentação do banco com as citades do Brasil
+Alimentação do banco com as cidades do Brasil
 ```
-  npm run seed:cities / yarn cities
+  npm run seed:cities / yarn seed:cities
 ```
+
+Alimentação do banco com as áreas profissionais
+```
+  npm run seed:occupation / yarn seed:occupation
+```
+
+Alimentação do banco com os tipos de entidades
+```
+  npm run seed:organizationType / yarn seed:organizationType
+```
+
 
 
   

@@ -8,7 +8,7 @@ interface IRequest {
     id?: string;
     profession: string;
     description?: string,
-    occupation_area_id: string,
+    occupation_area_id: number,
     user_id: string,
 }
 

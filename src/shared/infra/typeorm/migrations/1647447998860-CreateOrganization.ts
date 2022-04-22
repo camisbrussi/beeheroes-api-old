@@ -40,7 +40,7 @@ export class CreateOrganization1647447998860 implements MigrationInterface {
             },
             {
               name: 'organization_type_id',
-              type: 'uuid',
+              type: 'int',
             },
             {
               name: 'address_id',

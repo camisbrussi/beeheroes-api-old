@@ -1,5 +1,5 @@
 interface IOccupationAreaDTO {
-  id?: string;
+  id?: number;
   name?: string;
 }
 

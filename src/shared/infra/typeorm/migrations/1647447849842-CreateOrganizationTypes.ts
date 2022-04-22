@@ -9,17 +9,14 @@ export class CreateOrganizationTypes1647447849842 implements MigrationInterface 
           columns: [
             {
               name: 'id',
-              type: 'uuid',
+              type: 'int',
               isPrimary: true,
+              isGenerated: true,
+              generationStrategy: 'increment',
             },
             {
               name: 'name',
               type: 'varchar',
-            },
-            {
-              name: 'description',
-              type: 'varchar',
-              isNullable: true,
             },
             {
               name: 'created_at',

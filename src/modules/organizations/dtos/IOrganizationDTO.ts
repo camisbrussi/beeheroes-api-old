@@ -7,7 +7,7 @@ interface IOrganizationDTO {
   cnpj?: string,
   email?: string,
   status?:number,
-  organization_type_id?: string;
+  organization_type_id?: number;
   address_id?: string;
   avatar?: string;
   users?: User[]

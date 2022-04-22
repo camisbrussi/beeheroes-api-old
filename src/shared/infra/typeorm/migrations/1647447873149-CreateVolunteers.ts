@@ -27,7 +27,7 @@ export class CreateVolunteers1647447873149 implements MigrationInterface {
             },
             {
               name: 'occupation_area_id',
-              type: 'uuid',
+              type: 'int',
             },
             {
               name: 'created_at',

@@ -28,7 +28,7 @@ class Volunteer {
   occupationArea: OccupationArea;
 
   @Column()
-  occupation_area_id: string;
+  occupation_area_id: number;
 
   @ManyToOne(() => User)
   @JoinColumn({ name: 'user_id' })
