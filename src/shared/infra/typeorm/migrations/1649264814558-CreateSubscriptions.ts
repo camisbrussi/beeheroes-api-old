@@ -54,7 +54,7 @@ export class CreateSubscriptions1649264814558 implements MigrationInterface {
               onUpdate: 'SET NULL',
             },
             {
-              name: 'FKProjectUser',
+              name: 'FKUserSubscription',
               referencedTableName: 'users',
               referencedColumnNames: ['id'],
               columnNames: ['user_id'],

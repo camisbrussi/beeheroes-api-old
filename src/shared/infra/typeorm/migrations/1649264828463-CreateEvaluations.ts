@@ -38,7 +38,7 @@ export class CreateEvaluations1649264828463 implements MigrationInterface {
           ],
           foreignKeys: [
             {
-              name: 'FKProjectSubscription',
+              name: 'FKEvaluationSubscription',
               referencedTableName: 'subscriptions',
               referencedColumnNames: ['id'],
               columnNames: ['subscription_id'],
