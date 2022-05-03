@@ -48,6 +48,7 @@ class Donation {
     if (!this.id) {
       this.id = uuidV4();
       this.total_collected = 0;
+      this.status = Number(process.env.DONATION_STATUS_ACTIVE);
     }
   }
 }
