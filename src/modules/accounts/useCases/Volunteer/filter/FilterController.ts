@@ -8,9 +8,9 @@ class FilterVolunteerController {
     const { query } = request.body;
 
     const filter = {
-      name: request.body.name,
-      status: request.body.status,
-      is_volunteer: request.body.is_volunteer,
+      name: query.name,
+      status: query.status,
+      is_volunteer: query.is_volunteer,
       city_id: Number(query.city_id),
       state_id: Number(query.state_id),
       occupation_area_id: query.occupation_area_id,
