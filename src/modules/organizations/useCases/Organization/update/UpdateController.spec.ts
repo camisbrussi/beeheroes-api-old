@@ -71,7 +71,7 @@ describe('Update Organization Controller', () => {
 
     const organizationId = JSON.parse(organization.text).id;
 
-    const edit = await request(app).put(`/organizations?id=${organizationId}`).send({
+    await request(app).put(`/organizations?id=${organizationId}`).send({
       data: {
         name: 'Organization Name Editado',
         email: 'editado@beeheroes.com',

@@ -5,6 +5,7 @@ import { IOrganizationTypesRepository } from '@modules/organizations/repositorie
 import { AppError } from '@shared/errors/AppError';
 
 interface IRequest{
+  id?: number,
   name: string,
 }
 
@@ -15,7 +16,7 @@ class CreateOrganizationTypeUseCase {
     private organizationTypeRepository: IOrganizationTypesRepository,
   ) {}
 
-  async execute({ name }: IRequest): Promise<OrganizationType> {
+  async execute({ id, name }: IRequest): Promise<OrganizationType> {
     const organizationTypeExist = await this.organizationTypeRepository.findByName(name);
 
     if (organizationTypeExist) {
@@ -23,6 +24,7 @@ class CreateOrganizationTypeUseCase {
     }
 
     const organizationType = await this.organizationTypeRepository.create({
+      id,
       name,
     });
 

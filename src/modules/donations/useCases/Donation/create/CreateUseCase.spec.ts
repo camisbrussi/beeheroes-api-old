@@ -24,7 +24,7 @@ describe('Create Donation ', () => {
       email: 'organization@beeheroes.com',
       cnpj: '000000000000',
       description: 'Description Organization',
-      organization_type_id: 'id',
+      organization_type_id: 1,
     });
 
     const donation = {
@@ -32,6 +32,7 @@ describe('Create Donation ', () => {
       description: 'Test Donation',
       total_value: 123,
       organization_id: organization.id,
+      status: 1,
     };
 
     const createDonation = await createDonationUseCase.execute(donation);
@@ -45,7 +46,7 @@ describe('Create Donation ', () => {
       email: 'organization1@beeheroes.com',
       cnpj: '000000000001',
       description: 'Description Organization',
-      organization_type_id: 'id',
+      organization_type_id: 1,
     });
 
     const donation = await createDonationUseCase.execute({
@@ -53,6 +54,7 @@ describe('Create Donation ', () => {
       description: 'Test Donation',
       total_value: 123,
       organization_id: organization.id,
+      status: 1,
     });
 
     expect(donation.status).toEqual(Number(process.env.DONATION_STATUS_ACTIVE));
@@ -65,6 +67,7 @@ describe('Create Donation ', () => {
         description: 'Test Donation',
         total_value: 123,
         organization_id: 'idtest',
+        status: 1,
       }),
     ).rejects.toEqual(new AppError('Organization does not exists!'));
   });

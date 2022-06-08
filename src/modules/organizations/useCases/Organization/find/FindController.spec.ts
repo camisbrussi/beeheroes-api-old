@@ -23,7 +23,7 @@ describe('Find Organization Controller', () => {
 
     await connection.query(
       `INSERT INTO ORGANIZATION_TYPES(id, name, created_at, updated_at) 
-      VALUES('1', 'Organization Type', 'xxxxxx', 'now()', 'now()')`,
+      VALUES('1', 'Organization Type', 'now()', 'now()')`,
     );
 
     await connection.query(
@@ -56,7 +56,7 @@ describe('Find Organization Controller', () => {
       email: 'organization@beeheroes.com',
       cnpj: '000000000000',
       description: 'Description Organization',
-      organization_type_id: id,
+      organization_type_id: 1,
       address: {
         street: 'Street Example',
         number: '123',
@@ -75,8 +75,8 @@ describe('Find Organization Controller', () => {
       Authorization: `Bearer ${token}`,
     });
 
-    expect(response.body.organization.id).toEqual(organizationId);
-    expect(response.body.organization).toHaveProperty('id');
-    expect(response.body.organization.name).toEqual('Organization Name');
+    expect(response.body.id).toEqual(organizationId);
+    expect(response.body).toHaveProperty('id');
+    expect(response.body.name).toEqual('Organization Name');
   });
 });

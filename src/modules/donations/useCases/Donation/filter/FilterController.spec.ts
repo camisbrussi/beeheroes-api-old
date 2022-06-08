@@ -79,12 +79,10 @@ describe('Filer Donation Controller', () => {
       Authorization: `Bearer ${token}`,
     });
     const response = await request(app).get('/donations').send({
-      name: 'Donation',
+      query: {
+        name: 'Donation',
+      },
     }).set({
-      Authorization: `Bearer ${token}`,
-    });
-
-    await request(app).get('/donations/').send().set({
       Authorization: `Bearer ${token}`,
     });
 

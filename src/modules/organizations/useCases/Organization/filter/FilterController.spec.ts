@@ -11,6 +11,7 @@ let connection: Connection;
 describe('Filer Organization Controller', () => {
   const id = uuidV4();
   beforeAll(async () => {
+    jest.setTimeout(100000);
     connection = await createdConnection();
     await connection.runMigrations();
 
@@ -23,7 +24,7 @@ describe('Filer Organization Controller', () => {
 
     await connection.query(
       `INSERT INTO ORGANIZATION_TYPES(id, name, created_at, updated_at) 
-      VALUES('1', 'Organization Type', 'xxxxxx', 'now()', 'now()')`,
+      VALUES('1', 'Organization Type', 'now()', 'now()')`,
     );
 
     await connection.query(
@@ -56,7 +57,7 @@ describe('Filer Organization Controller', () => {
       email: 'organization@beeheroes.com',
       cnpj: '000000000000',
       description: 'Description Organization',
-      organization_type_id: id,
+      organization_type_id: 1,
       address: {
         street: 'Street Example',
         number: '123',
@@ -74,7 +75,7 @@ describe('Filer Organization Controller', () => {
       email: 'organization2@beeheroes.com',
       cnpj: '1111111111',
       description: 'Description Organization',
-      organization_type_id: id,
+      organization_type_id: 1,
       address: {
         street: 'Street Example',
         number: '123',
@@ -86,8 +87,10 @@ describe('Filer Organization Controller', () => {
     }).set({
       Authorization: `Bearer ${token}`,
     });
-    const response = await request(app).get('/organizations').send({
-      name: 'Organization',
+    const response = await request(app).post('/organizations/filter').send({
+      query: {
+        name: 'Organization',
+      },
     }).set({
       Authorization: `Bearer ${token}`,
     });

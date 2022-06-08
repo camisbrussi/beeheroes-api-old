@@ -1,6 +1,5 @@
 import { inject, injectable } from 'tsyringe';
 
-import { IUserDTO } from '@modules/accounts/dtos/IUserDTO';
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
 
 interface IResponse {

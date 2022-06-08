@@ -6,7 +6,7 @@ import 'express-async-errors';
 
 import '@shared/container';
 import { AppError } from '@shared/errors/AppError';
-import rateLimiter from '@shared/infra/http/middlewares/rateLimiter';
+// import rateLimiter from '@shared/infra/http/middlewares/rateLimiter';
 import createConnection from '@shared/infra/typeorm';
 
 import { router } from './routes';
@@ -15,7 +15,7 @@ createConnection();
 const app = express();
 app.use(cors());
 
-app.use(rateLimiter);
+// app.use(rateLimiter);
 
 app.use(express.json());
 

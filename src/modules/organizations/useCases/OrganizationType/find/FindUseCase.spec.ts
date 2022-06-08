@@ -16,13 +16,13 @@ describe('List Organizations ', () => {
       name: 'Organization',
       email: 'admin@beeheroes.com',
       password: '123',
-      organization_type_id: 'admin',
+      organization_type_id: 1,
     };
 
     const { id } = await organizationsRepositoryInMemory.create(organization);
 
     const organizations = await findOrganizationsUseCase.execute(id);
 
-    expect(organizations.organization.id).toEqual(id);
+    expect(organizations).toHaveProperty('id');
   });
 });

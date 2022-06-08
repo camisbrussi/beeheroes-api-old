@@ -2,7 +2,7 @@ import { IOrganizationTypeDTO } from '../dtos/IOrganizationTypeDTO';
 import { OrganizationType } from '../infra/typeorm/entities/OrganizationType';
 
 interface IOrganizationTypesRepository {
-  create({ name }: IOrganizationTypeDTO): Promise<OrganizationType>;
+  create({ id, name }: IOrganizationTypeDTO): Promise<OrganizationType>;
   findByName(name: string): Promise<OrganizationType>;
   findById(id: number): Promise<OrganizationType>;
   list(): Promise<OrganizationType[]>;

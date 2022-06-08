@@ -43,13 +43,11 @@ describe('Find Organization Type Controller', () => {
       Authorization: `Bearer ${token}`,
     });
 
-    const typeId = JSON.parse(responseType.text).id;
-
-    const response = await request(app).get(`/organizationtypes/find?id=${typeId}`).send().set({
+    const response = await request(app).get('/organizationtypes/find?id=1').send().set({
       Authorization: `Bearer ${token}`,
     });
 
-    expect(response.body.id).toEqual(typeId);
+    expect(response.body.id).toEqual(1);
     expect(response.body).toHaveProperty('id');
     expect(response.body.name).toEqual('Organization Type Supertest');
   });

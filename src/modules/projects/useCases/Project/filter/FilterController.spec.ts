@@ -81,13 +81,11 @@ describe('Filer Project Controller', () => {
     }).set({
       Authorization: `Bearer ${token}`,
     });
-    const response = await request(app).get('/projects').send({
-      name: 'Project',
+    const response = await request(app).post('/projects/filter').send({
+      query: {
+        name: 'Project',
+      },
     }).set({
-      Authorization: `Bearer ${token}`,
-    });
-
-    await request(app).get('/projects/').send().set({
       Authorization: `Bearer ${token}`,
     });
 

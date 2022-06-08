@@ -57,7 +57,7 @@ describe('Create Organization Controller', () => {
       email: 'organization@beeheroes.com',
       cnpj: '000000000000',
       description: 'Description Organization',
-      organization_type_id: id,
+      organization_type_id: 1,
       address: {
         street: 'Street Example',
         number: '123',

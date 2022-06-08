@@ -24,7 +24,7 @@ describe('Create Project ', () => {
       email: 'organization@beeheroes.com',
       cnpj: '000000000000',
       description: 'Description Organization',
-      organization_type_id: 'id',
+      organization_type_id: 1,
     });
 
     const project = {
@@ -47,7 +47,7 @@ describe('Create Project ', () => {
       email: 'organization1@beeheroes.com',
       cnpj: '000000000001',
       description: 'Description Organization',
-      organization_type_id: 'id',
+      organization_type_id: 1,
     });
 
     const project = await createProjectUseCase.execute({

@@ -8,10 +8,12 @@ class OrganizationTypeRepositoryInMemory implements IOrganizationTypesRepository
 
   async create({
     name,
+    id,
   }: IOrganizationTypeDTO): Promise<OrganizationType> {
     const organizationTypes = new OrganizationType();
 
     const organizationType = Object.assign(organizationTypes, {
+      id,
       name,
     });
 

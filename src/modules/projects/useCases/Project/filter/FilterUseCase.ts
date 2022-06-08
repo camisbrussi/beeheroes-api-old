@@ -1,8 +1,18 @@
 import { inject, injectable } from 'tsyringe';
 
-import { ProjectListMap } from '@modules/projects/mapper/ProjectListMap';
 import { IProjectsRepository } from '@modules/projects/repositories/IProjectsRepository';
 import { ItemListMap } from '@utils/mapper/ItemListMap';
+
+interface IRequest {
+  name?: string;
+  start?: Date;
+  end?: Date;
+  status?: number;
+  state_id?: number,
+  city_id?: number;
+  organization_id?: string;
+  organization_type_id?: number;
+}
 
 @injectable()
 class FilterProjectUseCase {
@@ -20,7 +30,7 @@ class FilterProjectUseCase {
     city_id,
     state_id,
     organization_id,
-  }): Promise<ItemListMap[]> {
+  }: IRequest): Promise<ItemListMap[]> {
     const projects = await this.projectsRepository.filter({
       name,
       start,

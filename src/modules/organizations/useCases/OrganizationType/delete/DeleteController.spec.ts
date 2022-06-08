@@ -41,16 +41,13 @@ describe('Delete Organization Type Controller', () => {
 
     const { token } = responseToken.body;
 
-    const organizationType = await request(app).post('/organizationtypes').send({
+    await request(app).post('/organizationtypes').send({
       name: 'Organization Type test Delete',
-      description: 'Organization Type description',
     }).set({
       Authorization: `Bearer ${token}`,
     });
 
-    const idOrganizationType = JSON.parse(organizationType.text).id;
-
-    const response = await request(app).delete(`/organizationtypes?id=${idOrganizationType}`).send().set({
+    const response = await request(app).delete('/organizationtypes?id=2').send().set({
       Authorization: `Bearer ${token}`,
     });
 

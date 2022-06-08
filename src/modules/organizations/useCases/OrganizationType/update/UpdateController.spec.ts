@@ -36,27 +36,22 @@ describe('Update Organization Type Controller', () => {
 
     const { token } = responseToken.body;
 
-    const responseType = await request(app).post('/organizationtypes').send({
+    await request(app).post('/organizationtypes').send({
       name: 'Organization Type Supertest',
-      description: 'Organization Supertest',
     }).set({
       Authorization: `Bearer ${token}`,
     });
 
-    const typeId = JSON.parse(responseType.text).id;
-
-    await request(app).put(`/organizationtypes?id=${typeId}`).send({
+    await request(app).put('/organizationtypes?id=1').send({
       name: 'Organization Type Edit test 1',
-      description: 'Organization Type description Edit test 1',
     }).set({
       Authorization: `Bearer ${token}`,
     });
 
-    const response = await request(app).get(`/organizationtypes?id=${typeId}`).send().set({
+    const response = await request(app).get('/organizationtypes?id=1').send().set({
       Authorization: `Bearer ${token}`,
     });
 
     expect(response.body[0].name).toEqual('Organization Type Edit test 1');
-    expect(response.body[0].description).toEqual('Organization Type description Edit test 1');
   });
 });

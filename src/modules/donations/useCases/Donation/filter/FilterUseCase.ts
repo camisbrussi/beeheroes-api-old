@@ -3,6 +3,15 @@ import { inject, injectable } from 'tsyringe';
 import { IDonationsRepository } from '@modules/donations/repositories/IDonationsRepository';
 import { ItemListMap } from '@utils/mapper/ItemListMap';
 
+interface IRequest {
+  name?: string;
+  status?: number;
+  organization_id?: string;
+  state_id?: number,
+  city_id?: number;
+  organization_type_id?: number;
+}
+
 @injectable()
 class FilterDonationUseCase {
   constructor(
@@ -17,7 +26,7 @@ class FilterDonationUseCase {
     city_id,
     state_id,
     organization_type_id,
-  }): Promise<ItemListMap[]> {
+  }: IRequest): Promise<ItemListMap[]> {
     const donations = await this.donationsRepository.filter({
       name,
       status,

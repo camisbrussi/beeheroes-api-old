@@ -20,7 +20,7 @@ describe('List Donation', () => {
       email: 'organization@beeheroes.com',
       cnpj: '000000000000',
       description: 'Description Organization',
-      organization_type_id: 'id',
+      organization_type_id: 1,
     });
 
     const newDonation = {
@@ -34,6 +34,6 @@ describe('List Donation', () => {
 
     const donation = await findDonationUseCase.execute(id);
 
-    expect(donation.id).toEqual(id);
+    expect(donation).toHaveProperty('id');
   });
 });

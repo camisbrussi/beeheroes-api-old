@@ -1,7 +1,6 @@
 import { IDonationDTO } from '@modules/donations/dtos/IDonationDTO';
 import { DonationsRepositoryInMemory } from '@modules/donations/repositories/in-memory/DonationRepositoryInMemory';
 import { OrganizationsRepositoryInMemory } from '@modules/organizations/repositories/in-memory/OrganizationRepositoryInMemory';
-import { AppError } from '@shared/errors/AppError';
 
 import { FilterDonationUseCase } from './FilterUseCase';
 
@@ -22,7 +21,7 @@ describe('List Donation', () => {
       email: 'organization@beeheroes.com',
       cnpj: '000000000000',
       description: 'Description Organization',
-      organization_type_id: 'id',
+      organization_type_id: 1,
     });
 
     const newDonation1 = {
@@ -53,7 +52,7 @@ describe('List Donation', () => {
       email: 'organization1@beeheroes.com',
       cnpj: '000000000001',
       description: 'Description Organization',
-      organization_type_id: 'id',
+      organization_type_id: 1,
     });
 
     const newDonation1: IDonationDTO = {

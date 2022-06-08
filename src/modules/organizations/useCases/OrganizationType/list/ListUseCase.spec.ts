@@ -16,7 +16,6 @@ describe('List Organizations Type', () => {
   it('should be abe to list all organization typess', async () => {
     const organizationType = await organizationTypesRepositoryInMemory.create({
       name: 'Organization Types',
-      description: 'Organization Types Description',
     });
 
     const organizationTypes = await listOrganizationsTypeUseCase.execute();

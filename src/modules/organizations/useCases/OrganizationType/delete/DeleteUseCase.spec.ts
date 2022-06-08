@@ -13,6 +13,8 @@ let organizationTypesRepositoryInMemory: OrganizationTypeRepositoryInMemory;
 let organizationsRepositoryInMemory: OrganizationsRepositoryInMemory;
 
 describe('Update Type organization', () => {
+  jest.setTimeout(100000);
+
   beforeEach(() => {
     organizationTypesRepositoryInMemory = new OrganizationTypeRepositoryInMemory();
     organizationsRepositoryInMemory = new OrganizationsRepositoryInMemory();
@@ -31,7 +33,6 @@ describe('Update Type organization', () => {
   it('should be able to delete a organization type', async () => {
     const organizationType = await createOrganizationTypeUseCase.execute({
       name: 'Organization Type name',
-      description: 'Organization type description',
     });
 
     await deleteTypeUseCase.execute(organizationType.id);
@@ -43,7 +44,6 @@ describe('Update Type organization', () => {
   it('should not be able to delete a organization type in use', async () => {
     const organizationType = await createOrganizationTypeUseCase.execute({
       name: 'Organization Type name',
-      description: 'Organization type description',
     });
 
     await organizationsRepositoryInMemory.create({

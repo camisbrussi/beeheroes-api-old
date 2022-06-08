@@ -22,7 +22,7 @@ describe('Update Project Controller', () => {
 
     await connection.query(
       `INSERT INTO ORGANIZATION_TYPES(id, name, created_at, updated_at) 
-      VALUES('1', 'Project Type', 'xxxxxx', 'now()', 'now()')`,
+      VALUES('1', 'Project Type', 'now()', 'now()')`,
     );
 
     await connection.query(
@@ -74,8 +74,10 @@ describe('Update Project Controller', () => {
     const projectId = JSON.parse(project.text).id;
 
     await request(app).put(`/projects?id=${projectId}`).send({
-      name: 'Project Name Editado',
-      status: Number(process.env.PROJECT_STATUS_FINISHED),
+      data: {
+        name: 'Project Name Editado',
+        status: Number(process.env.PROJECT_STATUS_FINISHED),
+      },
     }).set({
       Authorization: `Bearer ${token}`,
     });

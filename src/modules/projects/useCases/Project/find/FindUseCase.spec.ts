@@ -25,6 +25,6 @@ describe('List Project', () => {
 
     const project = await findProjectUseCase.execute(id);
 
-    expect(project.id).toEqual(id);
+    expect(project).toHaveProperty('id');
   });
 });

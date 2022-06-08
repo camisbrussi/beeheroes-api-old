@@ -18,7 +18,7 @@ describe('List Organization', () => {
       email: 'organization@beeheroes.com',
       cnpj: '000000000000',
       description: 'Description Organization',
-      organization_type_id: 'test',
+      organization_type_id: 1,
     };
 
     const newOrganization2: IOrganizationDTO = {
@@ -26,7 +26,7 @@ describe('List Organization', () => {
       email: 'organization2@beeheroes.com',
       cnpj: '000000000000',
       description: 'Description Organization',
-      organization_type_id: 'test',
+      organization_type_id: 1,
     };
 
     await organizationsRepositoryInMemory.create(newOrganization1);
@@ -43,7 +43,7 @@ describe('List Organization', () => {
       email: 'organization@beeheroes.com',
       cnpj: '000000000000',
       description: 'Description Organization',
-      organization_type_id: 'test',
+      organization_type_id: 1,
     };
 
     const newOrganization2: IOrganizationDTO = {
@@ -51,13 +51,13 @@ describe('List Organization', () => {
       email: 'organization@beeheroes.com',
       cnpj: '000000000000',
       description: 'Description Organization',
-      organization_type_id: 'id',
+      organization_type_id: 1,
     };
 
     await organizationsRepositoryInMemory.create(newOrganization1);
     await organizationsRepositoryInMemory.create(newOrganization2);
 
-    const organization = await filterOrganizationUseCase.execute({ name: 'Organization', organization_type_id: 'test' });
+    const organization = await filterOrganizationUseCase.execute({ name: 'Organization', organization_type_id: 1 });
 
     expect(organization.length).toBe(2);
   });

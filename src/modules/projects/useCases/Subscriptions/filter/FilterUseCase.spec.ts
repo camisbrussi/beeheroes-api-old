@@ -17,7 +17,6 @@ describe('List Project', () => {
   beforeEach(() => {
     subscriptionsRepositoryInMemory = new SubscriptionsRepositoryInMemory();
     projectsRepositoryInMemory = new ProjectsRepositoryInMemory();
-    volunteersRepositoryInMemory = new VolunteersRepositoryInMemory();
     usersRepositoryInMemory = new UsersRepositoryInMemory();
     organizationsRepositoryInMemory = new OrganizationsRepositoryInMemory();
     filterSubscriptionUseCase = new FilterSubscriptionUseCase(subscriptionsRepositoryInMemory);
@@ -29,7 +28,7 @@ describe('List Project', () => {
       email: 'organization@beeheroes.com',
       cnpj: '000000000000',
       description: 'Description Organization',
-      organization_type_id: 'id',
+      organization_type_id: 1,
     });
 
     const project = await projectsRepositoryInMemory.create({

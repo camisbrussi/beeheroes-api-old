@@ -73,8 +73,10 @@ describe('Update Donation Controller', () => {
     const donationId = JSON.parse(donation.text).id;
 
     await request(app).put(`/donations?id=${donationId}`).send({
-      name: 'Donation Name Editado',
-      status: Number(process.env.DONATION_STATUS_FINISHED),
+      data: {
+        name: 'Donation Name Editado',
+        status: Number(process.env.DONATION_STATUS_FINISHED),
+      },
     }).set({
       Authorization: `Bearer ${token}`,
     });

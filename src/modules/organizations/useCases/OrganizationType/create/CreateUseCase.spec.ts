@@ -15,8 +15,8 @@ describe('Create Organization Type', () => {
   });
   it('should be able to create a new organization type', async () => {
     const organizationType = {
+      id: 1,
       name: 'Organization Type name',
-      description: 'Organization type description',
     };
 
     await createOrganizationTypeUseCase.execute(organizationType);
@@ -30,13 +30,13 @@ describe('Create Organization Type', () => {
   it('should not be able to create a organization type if exists name', async () => {
     await expect(async () => {
       await createOrganizationTypeUseCase.execute({
+        id: 2,
         name: 'Organization Type',
-        description: 'Organization type description',
       });
 
       await createOrganizationTypeUseCase.execute({
+        id: 3,
         name: 'Organization Type',
-        description: 'Organization type description',
       });
     }).rejects.toEqual(new AppError('Organization type already exists!'));
   });
