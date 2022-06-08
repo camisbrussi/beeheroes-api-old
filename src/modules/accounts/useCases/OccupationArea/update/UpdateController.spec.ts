@@ -36,21 +36,18 @@ describe('Update Occupation Area Controller', () => {
 
     const { token } = responseToken.body;
 
-    const responseType = await request(app).post('/occupationarea').send({
+    await request(app).post('/occupationarea').send({
       name: 'Occupation Area Supertest',
     }).set({
       Authorization: `Bearer ${token}`,
     });
 
-    const typeId = JSON.parse(responseType.text).id;
-
-    await request(app).put(`/occupationarea?id=${typeId}`).send({
+    await request(app).put('/occupationarea?id=1').send({
       name: 'Occupation Area Edit test 1',
     }).set({
       Authorization: `Bearer ${token}`,
     });
-
-    const response = await request(app).get(`/occupationarea?id=${typeId}`).send().set({
+    const response = await request(app).get('/occupationarea?id=1').send().set({
       Authorization: `Bearer ${token}`,
     });
 

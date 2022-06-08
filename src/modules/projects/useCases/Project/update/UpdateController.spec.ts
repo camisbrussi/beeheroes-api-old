@@ -21,8 +21,8 @@ describe('Update Project Controller', () => {
     );
 
     await connection.query(
-      `INSERT INTO ORGANIZATION_TYPES(id, name, description, created_at, updated_at) 
-      VALUES('${id}', 'Project Type', 'xxxxxx', 'now()', 'now()')`,
+      `INSERT INTO ORGANIZATION_TYPES(id, name, created_at, updated_at) 
+      VALUES('1', 'Project Type', 'xxxxxx', 'now()', 'now()')`,
     );
 
     await connection.query(
@@ -42,7 +42,7 @@ describe('Update Project Controller', () => {
 
     await connection.query(
       `INSERT INTO ORGANIZATIONS(id, name, description, cnpj, email, status, organization_type_id, address_id, created_at, updated_at) 
-      VALUES('${id}', 'Donation Type', 'xxxxxx', '123456', 'organization@beeheroes.com', '1', '${id}', '${id}', 'now()', 'now()')`,
+      VALUES('${id}', 'Donation Type', 'xxxxxx', '123456', 'organization@beeheroes.com', '1', '1', '${id}', 'now()', 'now()')`,
     );
   });
 

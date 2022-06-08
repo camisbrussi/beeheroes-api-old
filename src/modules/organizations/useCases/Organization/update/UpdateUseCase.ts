@@ -72,10 +72,7 @@ class UpdateOrganizationUseCase {
       await this.addressesRepository.delete(address_id);
     }
 
-    console.log(phones);
-
     if (phones) {
-      console.log('acessou');
       await this.phonesRepository.deleteByIdOrOrganization(organization.id);
     }
 

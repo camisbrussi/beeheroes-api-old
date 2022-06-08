@@ -51,7 +51,7 @@ class UsersRepositoryInMemory implements IUsersRepository {
     status,
   }: IUserDTO): Promise<User[]> {
     const users = this.users.filter((user) => {
-      if ((email && email.includes(email))
+      if ((email && user.email.includes(email))
         || (name && user.name.includes(name))
         || (status && user.status === status)
       ) {

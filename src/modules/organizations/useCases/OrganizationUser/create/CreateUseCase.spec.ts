@@ -1,6 +1,7 @@
 import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory';
 import { CreateUserUseCase } from '@modules/accounts/useCases/User/create/CreateUseCase';
 import { AddressesRepositoryInMemory } from '@modules/addresses/repositories/in-memory/AddressRepositoryInMemory';
+import { PhonesRepositoryInMemory } from '@modules/addresses/repositories/in-memory/PhonesRepositoryInMemory';
 import { OrganizationsRepositoryInMemory } from '@modules/organizations/repositories/in-memory/OrganizationRepositoryInMemory';
 import { OrganizationTypeRepositoryInMemory } from '@modules/organizations/repositories/in-memory/OrganizationTypesRepositoryInMemory';
 import { AppError } from '@shared/errors/AppError';
@@ -17,6 +18,7 @@ let userRepositoryInMemory: UsersRepositoryInMemory;
 let organizationRepositoryInMemory: OrganizationsRepositoryInMemory;
 let addressesRepositoryInMemory: AddressesRepositoryInMemory;
 let organizationTypeRepositoryInMemory: OrganizationTypeRepositoryInMemory;
+let phonesRepositoryInMemory: PhonesRepositoryInMemory;
 
 describe('Create Organization Users', () => {
   beforeEach(() => {
@@ -24,10 +26,12 @@ describe('Create Organization Users', () => {
     organizationRepositoryInMemory = new OrganizationsRepositoryInMemory();
     addressesRepositoryInMemory = new AddressesRepositoryInMemory();
     organizationTypeRepositoryInMemory = new OrganizationTypeRepositoryInMemory();
+    phonesRepositoryInMemory = new PhonesRepositoryInMemory();
     createOrganizationUseCase = new CreateOrganizationUseCase(
       organizationRepositoryInMemory,
       addressesRepositoryInMemory,
       organizationTypeRepositoryInMemory,
+      phonesRepositoryInMemory,
     );
     createOrganizationUserUseCase = new CreateOrganizationUserUseCase(
       organizationRepositoryInMemory,

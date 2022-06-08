@@ -23,8 +23,8 @@ describe('Create Project Controller', () => {
     );
 
     await connection.query(
-      `INSERT INTO ORGANIZATION_TYPES(id, name, description, created_at, updated_at) 
-      VALUES('${id}', 'Project Type', 'xxxxxx', 'now()', 'now()')`,
+      `INSERT INTO ORGANIZATION_TYPES(id, name, created_at, updated_at) 
+      VALUES('1', 'Project Type', 'now()', 'now()')`,
     );
 
     await connection.query(
@@ -44,22 +44,12 @@ describe('Create Project Controller', () => {
 
     await connection.query(
       `INSERT INTO ORGANIZATIONS(id, name, description, cnpj, email, status, organization_type_id, address_id, created_at, updated_at) 
-      VALUES('${id}', 'Donation Type', 'xxxxxx', '123456', 'organization@beeheroes.com', '1', '${id}', '${id}', 'now()', 'now()')`,
+      VALUES('${id}', 'Donation Type', 'xxxxxx', '123456', 'organization@beeheroes.com', '1', '1', '${id}', 'now()', 'now()')`,
     );
 
     await connection.query(
       `INSERT INTO PROJECTS(id, name, start, status, organization_id, created_at, updated_at) 
       VALUES('${id}', 'Project', 'now()', '1', '${id}', 'now()', 'now()')`,
-    );
-
-    await connection.query(
-      `INSERT INTO OCCUPATIONS_AREA(id, name, created_at, updated_at) 
-      VALUES('${id}', 'Occupation Area', 'now()', 'now()')`,
-    );
-
-    await connection.query(
-      `INSERT INTO VOLUNTEERS(id, profession, user_id, occupation_area_id, created_at, updated_at) 
-      VALUES('${id}', 'xxxxxx', '${id}', '${id}', 'now()', 'now()')`,
     );
   });
 
@@ -80,7 +70,7 @@ describe('Create Project Controller', () => {
     const response = await request(app).post('/subscriptions').send({
       registration_date: new Date(),
       project_id: id,
-      volunteer_id: id,
+      user_id: id,
     }).set({
       Authorization: `Bearer ${token}`,
     });

@@ -20,6 +20,14 @@ interface IResponse {
   }
 }
 
+interface IRequest {
+  name?: string;
+  status?: number;
+  is_volunteer?: boolean;
+  state_id?: number,
+  city_id?: number;
+}
+
 @injectable()
 class FilterUserUseCase {
   constructor(
@@ -33,7 +41,7 @@ class FilterUserUseCase {
     is_volunteer,
     state_id,
     city_id,
-  }): Promise<IResponse[]> {
+  }: IRequest): Promise<IResponse[]> {
     const usersFiltered = await this.usersRepository.filter({
       name,
       status,

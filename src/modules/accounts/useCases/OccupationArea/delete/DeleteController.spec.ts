@@ -35,15 +35,14 @@ describe('Delete Occupation Area Controller', () => {
 
     const { token } = responseToken.body;
 
-    const occupationArea = await request(app).post('/occupationarea').send({
+    await request(app).post('/occupationarea').send({
+      id: 1,
       name: 'Occupation Area test Delete',
     }).set({
       Authorization: `Bearer ${token}`,
     });
 
-    const idOccupationArea = JSON.parse(occupationArea.text).id;
-
-    const response = await request(app).delete(`/occupationarea?id=${idOccupationArea}`).send().set({
+    const response = await request(app).delete('/occupationarea?id=1').send().set({
       Authorization: `Bearer ${token}`,
     });
 
@@ -59,23 +58,22 @@ describe('Delete Occupation Area Controller', () => {
 
     const { token } = responseToken.body;
 
-    const occupationArea = await request(app).post('/occupationarea').send({
+    await request(app).post('/occupationarea').send({
+      id: 2,
       name: 'Occupation Area test Delete',
     }).set({
       Authorization: `Bearer ${token}`,
     });
 
-    const occupationAreaId = JSON.parse(occupationArea.text).id;
-
     await request(app).post('/volunteers').send({
       description: 'xxxx',
-      occupation_area_id: occupationAreaId,
+      occupation_area_id: 2,
       user_id: id,
     }).set({
       Authorization: `Bearer ${token}`,
     });
 
-    const response = await request(app).delete(`/occupationarea?id=${occupationAreaId}`).send().set({
+    const response = await request(app).delete('/occupationarea?id=2').send().set({
       Authorization: `Bearer ${token}`,
     });
 

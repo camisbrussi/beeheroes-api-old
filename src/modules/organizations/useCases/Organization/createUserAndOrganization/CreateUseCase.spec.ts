@@ -1,22 +1,26 @@
 import { AddressesRepositoryInMemory } from '@modules/addresses/repositories/in-memory/AddressRepositoryInMemory';
+import { PhonesRepositoryInMemory } from '@modules/addresses/repositories/in-memory/PhonesRepositoryInMemory';
 import { OrganizationsRepositoryInMemory } from '@modules/organizations/repositories/in-memory/OrganizationRepositoryInMemory';
 import { OrganizationTypeRepositoryInMemory } from '@modules/organizations/repositories/in-memory/OrganizationTypesRepositoryInMemory';
 import { AppError } from '@shared/errors/AppError';
 
-import { CreateOrganizationUseCase } from './CreateUseCase';
+import { CreateOrganizationUseCase } from '../create/CreateUseCase';
 
 let createOrganizationUseCase: CreateOrganizationUseCase;
 let organizationsRepositoryInMemory: OrganizationsRepositoryInMemory;
 let addressesRepositoryInMemory: AddressesRepositoryInMemory;
 let organizationTypesRepositoryInMemory: OrganizationTypeRepositoryInMemory;
+let phonesRepositoryInMemory: PhonesRepositoryInMemory;
 
 beforeEach(() => {
   organizationsRepositoryInMemory = new OrganizationsRepositoryInMemory();
   addressesRepositoryInMemory = new AddressesRepositoryInMemory();
   organizationTypesRepositoryInMemory = new OrganizationTypeRepositoryInMemory();
+  phonesRepositoryInMemory = new PhonesRepositoryInMemory();
   createOrganizationUseCase = new CreateOrganizationUseCase(organizationsRepositoryInMemory,
     addressesRepositoryInMemory,
-    organizationTypesRepositoryInMemory);
+    organizationTypesRepositoryInMemory,
+    phonesRepositoryInMemory);
 });
 
 describe('Create Organization ', () => {

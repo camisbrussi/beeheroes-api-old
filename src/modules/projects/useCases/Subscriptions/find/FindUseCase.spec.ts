@@ -9,7 +9,6 @@ import { FindSubscriptionUseCase } from './FindUseCase';
 let findSubscriptionUseCase: FindSubscriptionUseCase;
 let subscriptionsRepositoryInMemory: SubscriptionsRepositoryInMemory;
 let projectsRepositoryInMemory: ProjectsRepositoryInMemory;
-let volunteersRepositoryInMemory: VolunteersRepositoryInMemory;
 let organizationsRepositoryInMemory: OrganizationsRepositoryInMemory;
 let usersRepositoryInMemory: UsersRepositoryInMemory;
 
@@ -17,7 +16,6 @@ describe('Find Project', () => {
   beforeEach(() => {
     subscriptionsRepositoryInMemory = new SubscriptionsRepositoryInMemory();
     projectsRepositoryInMemory = new ProjectsRepositoryInMemory();
-    volunteersRepositoryInMemory = new VolunteersRepositoryInMemory();
     usersRepositoryInMemory = new UsersRepositoryInMemory();
     organizationsRepositoryInMemory = new OrganizationsRepositoryInMemory();
     findSubscriptionUseCase = new FindSubscriptionUseCase(subscriptionsRepositoryInMemory);
@@ -29,7 +27,7 @@ describe('Find Project', () => {
       email: 'organization@beeheroes.com',
       cnpj: '000000000000',
       description: 'Description Organization',
-      organization_type_id: 'id',
+      organization_type_id: 1,
     });
 
     const project = await projectsRepositoryInMemory.create({
@@ -47,17 +45,10 @@ describe('Find Project', () => {
       password: '123456',
     });
 
-    const volunteer = await volunteersRepositoryInMemory.create({
-      profession: 'profession',
-      description: 'xxxx',
-      occupation_area_id: 'occupationArea',
-      user_id: user.id,
-    });
-
     const subscription = await subscriptionsRepositoryInMemory.create({
       registration_date: new Date(),
       project_id: project.id,
-      volunteer_id: volunteer.id,
+      user_id: user.id,
     });
 
     const subscriptionCreate = await findSubscriptionUseCase.execute(subscription.id);

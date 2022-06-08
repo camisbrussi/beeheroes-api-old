@@ -1,4 +1,5 @@
 import { AddressesRepositoryInMemory } from '@modules/addresses/repositories/in-memory/AddressRepositoryInMemory';
+import { PhonesRepositoryInMemory } from '@modules/addresses/repositories/in-memory/PhonesRepositoryInMemory';
 import { OrganizationsRepositoryInMemory } from '@modules/organizations/repositories/in-memory/OrganizationRepositoryInMemory';
 import { OrganizationTypeRepositoryInMemory } from '@modules/organizations/repositories/in-memory/OrganizationTypesRepositoryInMemory';
 import { AppError } from '@shared/errors/AppError';
@@ -11,9 +12,11 @@ let updateUseCase: UpdateOrganizationUseCase;
 let organizationsRepositoryInMemory: OrganizationsRepositoryInMemory;
 let addressesRepositoryInMemory: AddressesRepositoryInMemory;
 let organizationTypesRepositoryInMemory: OrganizationTypeRepositoryInMemory;
+let phonesRepositoryInMemory: PhonesRepositoryInMemory;
 
 describe('Update Type Organization', () => {
   beforeEach(() => {
+    phonesRepositoryInMemory = new PhonesRepositoryInMemory();
     organizationsRepositoryInMemory = new OrganizationsRepositoryInMemory();
     addressesRepositoryInMemory = new AddressesRepositoryInMemory();
     organizationTypesRepositoryInMemory = new OrganizationTypeRepositoryInMemory();
@@ -21,10 +24,12 @@ describe('Update Type Organization', () => {
       organizationsRepositoryInMemory,
       addressesRepositoryInMemory,
       organizationTypesRepositoryInMemory,
+      phonesRepositoryInMemory,
     );
     updateUseCase = new UpdateOrganizationUseCase(
       organizationsRepositoryInMemory,
       addressesRepositoryInMemory,
+      phonesRepositoryInMemory,
     );
   });
 

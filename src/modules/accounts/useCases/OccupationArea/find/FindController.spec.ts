@@ -36,19 +36,18 @@ describe('Find Occupation Area Controller', () => {
 
     const { token } = responseToken.body;
 
-    const responseOccupation = await request(app).post('/occupationarea').send({
+    await request(app).post('/occupationarea').send({
+      id: 1,
       name: 'Occupation Area Supertest',
     }).set({
       Authorization: `Bearer ${token}`,
     });
 
-    const occupationId = JSON.parse(responseOccupation.text).id;
-
-    const response = await request(app).get(`/occupationarea/find?id=${occupationId}`).send().set({
+    const response = await request(app).get('/occupationarea/find?id=1').send().set({
       Authorization: `Bearer ${token}`,
     });
 
-    expect(response.body.id).toEqual(occupationId);
+    expect(response.body.id).toEqual(1);
     expect(response.body).toHaveProperty('id');
     expect(response.body.name).toEqual('Occupation Area Supertest');
   });

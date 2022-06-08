@@ -22,7 +22,7 @@ describe('Update Type Volunteer', () => {
   it('should be able to edit a volunteer', async () => {
     const volunteer = await createVolunteerUseCase.execute({
       description: 'xxxx',
-      occupation_area_id: 'occupationArea',
+      occupation_area_id: 1,
       user_id: 'volunteer',
     });
 

@@ -22,8 +22,8 @@ describe('Delete Role Controller', () => {
     );
 
     await connection.query(
-      `INSERT INTO ORGANIZATION_TYPES(id, name, description, created_at, updated_at) 
-      VALUES('${id}', 'Role', 'xxxxxx', 'now()', 'now()')`,
+      `INSERT INTO ORGANIZATION_TYPES(id, name, created_at, updated_at) 
+      VALUES('1', 'Role', 'now()', 'now()')`,
     );
   });
 

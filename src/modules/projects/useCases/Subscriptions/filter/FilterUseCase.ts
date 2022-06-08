@@ -15,14 +15,14 @@ class FilterSubscriptionUseCase {
     registration_date,
     participation_date,
     project_id,
-    volunteer_id,
+    user_id,
     status,
   }: ISubscriptionDTO): Promise<Subscription[]> {
     const subscription = await this.subscriptionsRepository.filter({
       registration_date,
       participation_date,
       project_id,
-      volunteer_id,
+      user_id,
       status,
     });
 

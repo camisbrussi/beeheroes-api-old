@@ -6,17 +6,31 @@ import { ISubscriptionsRepository } from '../ISubscriptiosRepository';
 class SubscriptionsRepositoryInMemory implements ISubscriptionsRepository {
   subscriptions: Subscription[] = [];
 
+  async findByUserId(user_id: string): Promise<Subscription[]> {
+    const users = this.subscriptions
+      .filter((subscription) => user_id.includes(subscription.user_id));
+
+    return users;
+  }
+
+  async countByProject(id: string): Promise<number> {
+    const subscriptions = this.subscriptions
+      .filter((subscription) => id.includes(subscription.project_id));
+
+    return subscriptions.length;
+  }
+
   async create({
     registration_date,
     project_id,
-    volunteer_id,
+    user_id,
   }: ISubscriptionDTO): Promise<Subscription> {
     const subscription = new Subscription();
 
     Object.assign(subscription, {
       registration_date,
       project_id,
-      volunteer_id,
+      user_id,
     });
 
     this.subscriptions.push(subscription);
@@ -33,7 +47,7 @@ class SubscriptionsRepositoryInMemory implements ISubscriptionsRepository {
 
   async findByVolunteerId(volunteer_id: string): Promise<Subscription[]> {
     const subscriptions = this.subscriptions
-      .filter((subscription) => volunteer_id.includes(subscription.volunteer_id));
+      .filter((subscription) => volunteer_id.includes(subscription.user_id));
 
     return subscriptions;
   }
@@ -48,7 +62,7 @@ class SubscriptionsRepositoryInMemory implements ISubscriptionsRepository {
     registration_date,
     participation_date,
     project_id,
-    volunteer_id,
+    user_id,
     status,
   }: ISubscriptionDTO): Promise<Subscription[]> {
     const subscriptions = this.subscriptions.filter((subscription) => {
@@ -56,7 +70,7 @@ class SubscriptionsRepositoryInMemory implements ISubscriptionsRepository {
         || (status && subscription.status === status)
         || (participation_date && subscription.participation_date < participation_date)
         || (project_id && subscription.project_id === project_id)
-        || (volunteer_id && subscription.volunteer_id === volunteer_id)
+        || (user_id && subscription.user_id === user_id)
       ) {
         return subscription;
       }
@@ -71,7 +85,7 @@ class SubscriptionsRepositoryInMemory implements ISubscriptionsRepository {
     registration_date,
     participation_date,
     project_id,
-    volunteer_id,
+    user_id,
     status,
   }: ISubscriptionDTO): Promise<Subscription> {
     const findIndex = this.subscriptions.findIndex((subscription) => subscription.id === id);
@@ -79,7 +93,7 @@ class SubscriptionsRepositoryInMemory implements ISubscriptionsRepository {
     if (registration_date) this.subscriptions[findIndex].registration_date = registration_date;
     if (participation_date) this.subscriptions[findIndex].participation_date = participation_date;
     if (project_id) this.subscriptions[findIndex].project_id = project_id;
-    if (volunteer_id) this.subscriptions[findIndex].volunteer_id = volunteer_id;
+    if (user_id) this.subscriptions[findIndex].user_id = user_id;
     if (status) this.subscriptions[findIndex].status = status;
 
     return this.subscriptions[findIndex];

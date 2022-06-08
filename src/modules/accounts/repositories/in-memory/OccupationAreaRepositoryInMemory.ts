@@ -7,11 +7,13 @@ class OccupationsAreaRepositoryInMemory implements IOccupationsAreaRepository {
   occupationArea: OccupationArea[] = [];
 
   async create({
+    id,
     name,
   }: IOccupationAreaDTO): Promise<OccupationArea> {
     const occupationAreas = new OccupationArea();
 
     const occupationArea = Object.assign(occupationAreas, {
+      id,
       name,
     });
 
@@ -26,7 +28,7 @@ class OccupationsAreaRepositoryInMemory implements IOccupationsAreaRepository {
     return occupationArea;
   }
 
-  async findById(id: string): Promise<OccupationArea> {
+  async findById(id: number): Promise<OccupationArea> {
     const occupationArea = this.occupationArea
       .find((occupationArea) => occupationArea.id === id);
     return occupationArea;
@@ -46,7 +48,7 @@ class OccupationsAreaRepositoryInMemory implements IOccupationsAreaRepository {
     return this.occupationArea[findIndex];
   }
 
-  async delete(id: string): Promise<void> {
+  async delete(id: number): Promise<void> {
     const occupationArea = this.occupationArea.find((ut) => ut.id === id);
     this.occupationArea.splice(this.occupationArea.indexOf(occupationArea));
   }

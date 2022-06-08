@@ -1,6 +1,5 @@
 import { IUserDTO } from '@modules/accounts/dtos/IUserDTO';
 import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory';
-import { AppError } from '@shared/errors/AppError';
 
 import { FilterUserUseCase } from './FilterUseCase';
 

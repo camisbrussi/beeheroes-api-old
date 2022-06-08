@@ -24,6 +24,6 @@ describe('List Users', () => {
 
     const user = await findUserUseCase.execute(id);
 
-    expect(user.id).toEqual(id);
+    expect(user).toHaveProperty('id');
   });
 });

@@ -18,12 +18,13 @@ describe('Update Occupation Area', () => {
   });
 
   it('should be able to edit a occupation area', async () => {
-    const occupationArea = await createOccupationAreaUseCase.execute({
+    await createOccupationAreaUseCase.execute({
+      id: 1,
       name: 'Occupation Area name',
     });
 
     const occupationAreaEdit = {
-      id: occupationArea.id,
+      id: 1,
       name: 'Occupation Area name editado',
     };
 
@@ -37,16 +38,18 @@ describe('Update Occupation Area', () => {
 
   it('should not be able to edit a occupation area with exists name', async () => {
     await expect(async () => {
-      const occupationArea = await createOccupationAreaUseCase.execute({
+      await createOccupationAreaUseCase.execute({
+        id: 2,
         name: 'Occupation Area name',
       });
 
       await createOccupationAreaUseCase.execute({
+        id: 3,
         name: 'Occupation Area name2',
       });
 
       const occupationAreaEdit = {
-        id: occupationArea.id,
+        id: 2,
         name: 'Occupation Area name',
         description: 'Occupation Area name2',
       };

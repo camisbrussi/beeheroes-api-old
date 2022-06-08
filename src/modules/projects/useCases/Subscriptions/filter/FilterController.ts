@@ -9,7 +9,7 @@ class FilterSubscriptionController {
       registration_date,
       participation_date,
       project_id,
-      volunteer_id,
+      user_id,
       status,
     } = request.body;
 
@@ -19,7 +19,7 @@ class FilterSubscriptionController {
       registration_date,
       participation_date,
       project_id,
-      volunteer_id,
+      user_id,
       status,
     });
 

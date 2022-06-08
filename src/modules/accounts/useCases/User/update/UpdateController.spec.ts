@@ -46,9 +46,11 @@ describe('Update User Controller', () => {
 
     const { token } = responseToken.body;
 
-    await request(app).put(`/users?id=${id}`).send({
-      name: 'Admin - editado',
-      email: 'editado@beeheroes.com',
+    await request(app).put('/users').send({
+      data: {
+        name: 'Admin - editado',
+        email: 'editado@beeheroes.com',
+      },
     }).set({
       Authorization: `Bearer ${token}`,
     });
@@ -70,32 +72,23 @@ describe('Update User Controller', () => {
 
     const { token } = responseToken.body;
 
-    const user = await request(app).post('/users').send({
-      name: 'Admin',
-      email: 'supertest@beeheroes.com',
-      password: '123456',
-      is_volunteer: false,
-    }).set({
-      Authorization: `Bearer ${token}`,
-    });
-
-    const idUsers = JSON.parse(user.text).id;
-
-    await request(app).put(`/users?id=${idUsers}`).send({
-      address: {
-        street: 'Street Example',
-        number: '123',
-        complement: '123',
-        district: 'District',
-        cep: 12345,
-        city_id: 1,
+    await request(app).put('/users').send({
+      data: {
+        address: {
+          street: 'Street Example',
+          number: '123',
+          complement: '123',
+          district: 'District',
+          cep: 12345,
+          city_id: 1,
+        },
       },
     }).set({
       Authorization: `Bearer ${token}`,
     });
 
     const response = await request(app)
-      .get(`/users/find/?id=${idUsers}`).send().set({
+      .get(`/users/find/?id=${id}`).send().set({
         Authorization: `Bearer ${token}`,
       });
 

@@ -9,12 +9,11 @@ let occupationAreaRepositoryInMemory: OccupationsAreaRepositoryInMemory;
 describe('Create OccupationArea', () => {
   beforeEach(() => {
     occupationAreaRepositoryInMemory = new OccupationsAreaRepositoryInMemory();
-    createOccupationAreaUseCase = new CreateOccupationAreaUseCase(
-      occupationAreaRepositoryInMemory,
-    );
+    createOccupationAreaUseCase = new CreateOccupationAreaUseCase(occupationAreaRepositoryInMemory);
   });
   it('should be able to create a new occupation area', async () => {
     const occupationArea = {
+      id: 1,
       name: 'OccupationArea name',
     };
 
@@ -23,16 +22,18 @@ describe('Create OccupationArea', () => {
     const occupationAreaCreated = await occupationAreaRepositoryInMemory
       .findByName(occupationArea.name);
 
-    expect(occupationAreaCreated).toHaveProperty('id');
+    expect(occupationAreaCreated.name).toEqual('OccupationArea name');
   });
 
   it('should not be able to create a occupation area if exists name', async () => {
     await expect(async () => {
       await createOccupationAreaUseCase.execute({
+        id: 2,
         name: 'Occupation Area',
       });
 
       await createOccupationAreaUseCase.execute({
+        id: 3,
         name: 'Occupation Area',
       });
     }).rejects.toEqual(new AppError('Occupation Area already exists!'));

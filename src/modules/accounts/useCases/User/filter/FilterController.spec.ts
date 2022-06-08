@@ -46,7 +46,9 @@ describe('Filer User Controller', () => {
     });
 
     const response = await request(app).get('/users').send({
-      name: 'Admin',
+      query: {
+        name: 'Admin',
+      },
     }).set({
       Authorization: `Bearer ${token}`,
     });

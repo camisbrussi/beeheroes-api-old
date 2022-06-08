@@ -45,7 +45,7 @@ describe('Create User ', () => {
 
     await expect(
       createUserUseCase.execute(user),
-    ).rejects.toEqual(new AppError(`User ${user.email} already exists`));
+    ).rejects.toEqual(new AppError('User already exists'));
   });
 
   it('should be able to create a user  with status active by default', async () => {

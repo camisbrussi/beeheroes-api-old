@@ -22,8 +22,8 @@ describe('Update Organization Controller', () => {
     );
 
     await connection.query(
-      `INSERT INTO ORGANIZATION_TYPES(id, name, description, created_at, updated_at) 
-      VALUES('${id}', 'Organization Type', 'xxxxxx', 'now()', 'now()')`,
+      `INSERT INTO ORGANIZATION_TYPES(id, name, created_at, updated_at) 
+      VALUES('1', 'Organization Type', 'now()', 'now()')`,
     );
 
     await connection.query(
@@ -56,7 +56,7 @@ describe('Update Organization Controller', () => {
       email: 'organization@beeheroes.com',
       cnpj: '000000000000',
       description: 'Description Organization',
-      organization_type_id: id,
+      organization_type_id: 1,
       address: {
         street: 'Street Example',
         number: '123',
@@ -71,9 +71,11 @@ describe('Update Organization Controller', () => {
 
     const organizationId = JSON.parse(organization.text).id;
 
-    await request(app).put(`/organizations?id=${organizationId}`).send({
-      name: 'Organization Name Editado',
-      email: 'editado@beeheroes.com',
+    const edit = await request(app).put(`/organizations?id=${organizationId}`).send({
+      data: {
+        name: 'Organization Name Editado',
+        email: 'editado@beeheroes.com',
+      },
     }).set({
       Authorization: `Bearer ${token}`,
     });
@@ -82,7 +84,7 @@ describe('Update Organization Controller', () => {
       Authorization: `Bearer ${token}`,
     });
 
-    expect(response.body.organization.name).toEqual('Organization Name Editado');
-    expect(response.body.organization.email).toEqual('editado@beeheroes.com');
+    expect(response.body.name).toEqual('Organization Name Editado');
+    expect(response.body.email).toEqual('editado@beeheroes.com');
   });
 });

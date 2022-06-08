@@ -14,14 +14,14 @@ describe('List Volunteer', () => {
   it('should be abe to find volunteer', async () => {
     const newVolunteer = {
       description: 'xxxx',
-      occupation_area_id: 'occupationArea',
+      occupation_area_id: 1,
       user_id: 'volunteer',
     };
 
-    const { id } = await volunteersRepositoryInMemory.create(newVolunteer);
+    const volunteerCreate = await volunteersRepositoryInMemory.create(newVolunteer);
 
-    const volunteer = await findVolunteerUseCase.execute(id);
+    const volunteer = await findVolunteerUseCase.execute(volunteerCreate.id);
 
-    expect(volunteer.id).toEqual(id);
+    expect(volunteer).toHaveProperty('id');
   });
 });

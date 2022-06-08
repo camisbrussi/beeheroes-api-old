@@ -24,7 +24,7 @@ describe('Create Volunteer Controller', () => {
 
     await connection.query(
       `INSERT INTO OCCUPATIONS_AREA(id, name, created_at, updated_at) 
-      VALUES('${id}', 'Occupation Area', 'now()', 'now()')`,
+      VALUES('1', 'Occupation Area', 'now()', 'now()')`,
     );
 
     await connection.query(
@@ -54,7 +54,7 @@ describe('Create Volunteer Controller', () => {
 
     const response = await request(app).post('/volunteers').send({
       description: 'xxxx',
-      occupation_area_id: id,
+      occupation_area_id: 1,
       user_id: id,
     }).set({
       Authorization: `Bearer ${token}`,

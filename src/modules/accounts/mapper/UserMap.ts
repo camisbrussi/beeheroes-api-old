@@ -24,7 +24,7 @@ class UserMap {
     is_volunteer,
     address,
   }: User): IUserDTO {
-    const organization = instanceToInstance({
+    const user = instanceToInstance({
       id,
       status,
       name,
@@ -33,7 +33,7 @@ class UserMap {
       address,
       is_volunteer,
     });
-    return organization;
+    return user;
   }
 }
 

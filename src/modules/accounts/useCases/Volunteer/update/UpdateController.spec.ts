@@ -23,7 +23,7 @@ describe('Update Volunteer Controller', () => {
 
     await connection.query(
       `INSERT INTO OCCUPATIONS_AREA(id, name, created_at, updated_at) 
-      VALUES('${id}', 'Volunteer Type', 'now()', 'now()')`,
+      VALUES('1', 'Volunteer Type', 'now()', 'now()')`,
     );
 
     await connection.query(
@@ -53,21 +53,25 @@ describe('Update Volunteer Controller', () => {
 
     const volunteer = await request(app).post('/volunteers').send({
       description: 'xxxx',
-      occupation_area_id: id,
+      occupation_area_id: 1,
       user_id: id,
     }).set({
       Authorization: `Bearer ${token}`,
     });
 
     const volunteerId = JSON.parse(volunteer.text).id;
+    const userId = JSON.parse(volunteer.text).user_id;
 
     await request(app).put(`/volunteers?id=${volunteerId}`).send({
-      description: 'description edited',
+      data: {
+        description: 'description edited',
+      },
+
     }).set({
       Authorization: `Bearer ${token}`,
     });
 
-    const response = await request(app).get(`/volunteers/find/?id=${volunteerId}`).send().set({
+    const response = await request(app).get(`/volunteers/find/?id=${userId}`).send().set({
       Authorization: `Bearer ${token}`,
     });
 

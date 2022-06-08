@@ -1,10 +1,43 @@
+import { Phone } from '@modules/addresses/infra/typeorm/entities/Phone';
+import { Donation } from '@modules/donations/infra/typeorm/entities/Donation';
 import { IOrganizationDTO } from '@modules/organizations/dtos/IOrganizationDTO';
 import { Organization } from '@modules/organizations/infra/typeorm/entities/Organization';
+import { OrganizationImage } from '@modules/organizations/infra/typeorm/entities/OrganizationImages';
+import { Project } from '@modules/projects/infra/typeorm/entities/Project';
 
 import { IOrganizationsRepository } from '../IOrganizationsRepository';
 
 class OrganizationsRepositoryInMemory implements IOrganizationsRepository {
   organizations: Organization[] = [];
+  projects: Project[] = [];
+  OrganizationImage: OrganizationImage[] = [];
+  donations: Donation[] = [];
+  phones: Phone[] = [];
+
+  async findById(id: string): Promise<{
+    organization: Organization;
+    images: OrganizationImage[];
+    projects: Project[];
+    donations: Donation[];
+    phones: Phone[]; }> {
+    const organization = this.organizations
+      .find((o) => o.id === id);
+
+    return {
+      organization,
+      images: this.OrganizationImage,
+      projects: this.projects,
+      donations: this.donations,
+      phones: this.phones,
+    };
+  }
+
+  async findByUser(id: string): Promise<Organization> {
+    const organization = this.organizations
+      .find((organization) => organization.users.filter((user) => user.id === id));
+
+    return organization;
+  }
 
   async create({
     name,
@@ -33,16 +66,6 @@ class OrganizationsRepositoryInMemory implements IOrganizationsRepository {
   async findByEmail(email: string): Promise<Organization> {
     const organization = this.organizations.find((organization) => organization.email === email);
     return organization;
-  }
-
-  async findById(id: string): Promise<{
-    organization: Organization
-  }> {
-    const organization = this.organizations.find((organization) => organization.id === id);
-
-    return {
-      organization,
-    };
   }
 
   async findByCnpj(cnpj: string): Promise<Organization> {

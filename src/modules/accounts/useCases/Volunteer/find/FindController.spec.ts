@@ -23,7 +23,7 @@ describe('Find Volunteer Controller', () => {
 
     await connection.query(
       `INSERT INTO OCCUPATIONS_AREA(id, name, created_at, updated_at) 
-      VALUES('${id}', 'Volunteer Type', 'now()', 'now()')`,
+      VALUES('1', 'Volunteer Type', 'now()', 'now()')`,
     );
   });
 
@@ -43,19 +43,19 @@ describe('Find Volunteer Controller', () => {
 
     const responseVolunteer = await request(app).post('/volunteers').send({
       description: 'xxxx',
-      occupation_area_id: id,
+      occupation_area_id: 1,
       user_id: id,
     }).set({
       Authorization: `Bearer ${token}`,
     });
 
-    const volunteerId = JSON.parse(responseVolunteer.text).id;
+    const userId = JSON.parse(responseVolunteer.text).user_id;
 
-    const response = await request(app).get(`/volunteers/find?id=${volunteerId}`).send().set({
+    const response = await request(app).get(`/volunteers/find?id=${userId}`).send().set({
       Authorization: `Bearer ${token}`,
     });
 
-    expect(response.body.id).toEqual(volunteerId);
+    expect(response.body.user.id).toEqual(userId);
     expect(response.body).toHaveProperty('id');
   });
 });

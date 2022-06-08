@@ -58,6 +58,19 @@ class VolunteersRepositoryInMemory implements IVolunteersRepository {
     });
     return volunteers;
   }
+
+  filter({
+    name, status, is_volunteer, state_id, city_id, occupation_area_id,
+  }:
+  { name: any;
+    status: any;
+    is_volunteer: any;
+    state_id: any;
+    city_id: any;
+    occupation_area_id: any;
+  }): Promise<Volunteer[]> {
+    throw new Error('Method not implemented.');
+  }
 }
 
 export { VolunteersRepositoryInMemory };

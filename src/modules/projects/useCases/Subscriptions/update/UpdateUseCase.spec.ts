@@ -49,17 +49,10 @@ describe('Update Subscription ', () => {
       password: '123456',
     });
 
-    const volunteer = await volunteersRepositoryInMemory.create({
-      profession: 'profession',
-      description: 'xxxx',
-      occupation_area_id: 'occupationArea',
-      user_id: user.id,
-    });
-
     const subscription = await subscriptionsRepositoryInMemory.create({
       registration_date: new Date(),
       project_id: project.id,
-      volunteer_id: volunteer.id,
+      user_id: user.id,
     });
 
     const subscriptionEdited = await updateSubscriptionUseCase.execute({

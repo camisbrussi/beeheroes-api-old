@@ -11,7 +11,6 @@ let findEvaluationUseCase: FindEvaluationUseCase;
 let evaluationsRepositoryInMemory: EvaluationsRepositoryInMemory;
 let subscriptionsRepositoryInMemory: SubscriptionsRepositoryInMemory;
 let projectsRepositoryInMemory: ProjectsRepositoryInMemory;
-let volunteersRepositoryInMemory: VolunteersRepositoryInMemory;
 let organizationsRepositoryInMemory: OrganizationsRepositoryInMemory;
 let usersRepositoryInMemory: UsersRepositoryInMemory;
 
@@ -20,7 +19,6 @@ describe('Find Evaluation', () => {
     subscriptionsRepositoryInMemory = new SubscriptionsRepositoryInMemory();
     projectsRepositoryInMemory = new ProjectsRepositoryInMemory();
     evaluationsRepositoryInMemory = new EvaluationsRepositoryInMemory();
-    volunteersRepositoryInMemory = new VolunteersRepositoryInMemory();
     usersRepositoryInMemory = new UsersRepositoryInMemory();
     organizationsRepositoryInMemory = new OrganizationsRepositoryInMemory();
     findEvaluationUseCase = new FindEvaluationUseCase(evaluationsRepositoryInMemory);
@@ -31,7 +29,7 @@ describe('Find Evaluation', () => {
       email: 'organization@beeheroes.com',
       cnpj: '000000000000',
       description: 'Description Organization',
-      organization_type_id: 'id',
+      organization_type_id: 1,
     });
 
     const project = await projectsRepositoryInMemory.create({
@@ -49,17 +47,10 @@ describe('Find Evaluation', () => {
       password: '123456',
     });
 
-    const volunteer = await volunteersRepositoryInMemory.create({
-      profession: 'profession',
-      description: 'xxxx',
-      occupation_area_id: 'occupationArea',
-      user_id: user.id,
-    });
-
     const subscription = await subscriptionsRepositoryInMemory.create({
       registration_date: new Date(),
       project_id: project.id,
-      volunteer_id: volunteer.id,
+      user_id: user.id,
     });
 
     const evaluation = await evaluationsRepositoryInMemory.create({

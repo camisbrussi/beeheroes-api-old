@@ -111,7 +111,6 @@ class ProjectsRepository implements IProjectsRepository {
         .count({ project_id: project.id });
 
       projects[index].total_subscription = totalSubscription;
-      console.log(projects[index]);
     }));
 
     return projects;

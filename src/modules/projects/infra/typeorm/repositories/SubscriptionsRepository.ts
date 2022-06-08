@@ -107,9 +107,6 @@ class SubscriptionsRepository implements ISubscriptionsRepository {
     if (participation_date) setSubscription.participation_date = participation_date;
     if (status) setSubscription.status = status;
 
-    console.log(status);
-    console.log(id);
-
     const subscriptionTypeEdited = await this.subscriptionsRepository
       .createQueryBuilder()
       .update()
@@ -117,8 +114,6 @@ class SubscriptionsRepository implements ISubscriptionsRepository {
       .where('id = :id')
       .setParameters({ id })
       .execute();
-
-    console.log(subscriptionTypeEdited);
 
     return subscriptionTypeEdited.raw;
   }

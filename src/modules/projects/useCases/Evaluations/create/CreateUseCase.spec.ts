@@ -1,5 +1,4 @@
 import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory';
-import { VolunteersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/VolunteersRepositoryInMemory';
 import { OrganizationsRepositoryInMemory } from '@modules/organizations/repositories/in-memory/OrganizationRepositoryInMemory';
 import { EvaluationsRepositoryInMemory } from '@modules/projects/repositories/in-memory/EvaluationRepositoryInMemory';
 import { ProjectsRepositoryInMemory } from '@modules/projects/repositories/in-memory/ProjectRepositoryInMemory';
@@ -12,7 +11,6 @@ let createEvaluationUseCase: CreateEvaluationUseCase;
 let evaluationsRepositoryInMemory: EvaluationsRepositoryInMemory;
 let subscriptionRepositoryInMemory: SubscriptionsRepositoryInMemory;
 let projectsRepositoryInMemory: ProjectsRepositoryInMemory;
-let volunteersRepositoryInMemory: VolunteersRepositoryInMemory;
 let organizationsRepositoryInMemory: OrganizationsRepositoryInMemory;
 let usersRepositoryInMemory: UsersRepositoryInMemory;
 
@@ -20,7 +18,6 @@ beforeEach(() => {
   evaluationsRepositoryInMemory = new EvaluationsRepositoryInMemory();
   subscriptionRepositoryInMemory = new SubscriptionsRepositoryInMemory();
   projectsRepositoryInMemory = new ProjectsRepositoryInMemory();
-  volunteersRepositoryInMemory = new VolunteersRepositoryInMemory();
   usersRepositoryInMemory = new UsersRepositoryInMemory();
   organizationsRepositoryInMemory = new OrganizationsRepositoryInMemory();
   createEvaluationUseCase = new CreateEvaluationUseCase(
@@ -36,7 +33,7 @@ describe('Create Evaluation ', () => {
       email: 'organization@beeheroes.com',
       cnpj: '000000000000',
       description: 'Description Organization',
-      organization_type_id: 'id',
+      organization_type_id: 1,
     });
 
     const project = await projectsRepositoryInMemory.create({
@@ -54,17 +51,10 @@ describe('Create Evaluation ', () => {
       password: '123456',
     });
 
-    const volunteer = await volunteersRepositoryInMemory.create({
-      profession: 'profession',
-      description: 'xxxx',
-      occupation_area_id: 'occupationArea',
-      user_id: user.id,
-    });
-
     const subscription = await subscriptionRepositoryInMemory.create({
       registration_date: new Date(),
       project_id: project.id,
-      volunteer_id: volunteer.id,
+      user_id: user.id,
     });
 
     const evaluation = await createEvaluationUseCase.execute({

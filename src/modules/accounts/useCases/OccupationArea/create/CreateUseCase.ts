@@ -5,6 +5,7 @@ import { IOccupationsAreaRepository } from '@modules/accounts/repositories/IOccu
 import { AppError } from '@shared/errors/AppError';
 
 interface IRequest{
+  id?: number;
   name: string,
 }
 
@@ -15,7 +16,7 @@ class CreateOccupationAreaUseCase {
     private occupationAreaRepository: IOccupationsAreaRepository,
   ) {}
 
-  async execute({ name }: IRequest): Promise<OccupationArea> {
+  async execute({ name, id }: IRequest): Promise<OccupationArea> {
     const occupationAreaExist = await this.occupationAreaRepository.findByName(name);
 
     if (occupationAreaExist) {
@@ -23,6 +24,7 @@ class CreateOccupationAreaUseCase {
     }
 
     const occupationArea = await this.occupationAreaRepository.create({
+      id,
       name,
     });
 

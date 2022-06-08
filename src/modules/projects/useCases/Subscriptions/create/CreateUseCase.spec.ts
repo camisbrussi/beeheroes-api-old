@@ -23,7 +23,7 @@ beforeEach(() => {
   createSubscriptionUseCase = new CreateSubscriptionUseCase(
     subscriptionsRepositoryInMemory,
     projectsRepositoryInMemory,
-    volunteersRepositoryInMemory,
+    usersRepositoryInMemory,
   );
 });
 
@@ -34,7 +34,7 @@ describe('Create Subscription ', () => {
       email: 'organization@beeheroes.com',
       cnpj: '000000000000',
       description: 'Description Organization',
-      organization_type_id: 'id',
+      organization_type_id: 1,
     });
 
     const project = await projectsRepositoryInMemory.create({
@@ -52,17 +52,9 @@ describe('Create Subscription ', () => {
       password: '123456',
     });
 
-    const volunteer = await volunteersRepositoryInMemory.create({
-      profession: 'profession',
-      description: 'xxxx',
-      occupation_area_id: 'occupationArea',
-      user_id: user.id,
-    });
-
     const subscription = await createSubscriptionUseCase.execute({
-      registration_date: new Date(),
       project_id: project.id,
-      volunteer_id: volunteer.id,
+      user_id: user.id,
     });
 
     expect(subscription).toHaveProperty('id');
@@ -76,17 +68,10 @@ describe('Create Subscription ', () => {
       password: '123456',
     });
 
-    const volunteer = await volunteersRepositoryInMemory.create({
-      profession: 'profession',
-      description: 'xxxx',
-      occupation_area_id: 'occupationArea',
-      user_id: user.id,
-    });
     await expect(
       createSubscriptionUseCase.execute({
-        registration_date: new Date(),
         project_id: 'project.id',
-        volunteer_id: volunteer.id,
+        user_id: user.id,
       }),
     ).rejects.toEqual(new AppError('Project does not exists!'));
   });
@@ -97,7 +82,7 @@ describe('Create Subscription ', () => {
       email: 'organization@beeheroes.com',
       cnpj: '000000000000',
       description: 'Description Organization',
-      organization_type_id: 'id',
+      organization_type_id: 5,
     });
 
     const project = await projectsRepositoryInMemory.create({
@@ -110,11 +95,10 @@ describe('Create Subscription ', () => {
     });
     await expect(
       createSubscriptionUseCase.execute({
-        registration_date: new Date(),
         project_id: project.id,
-        volunteer_id: 'volunteer.id',
+        user_id: 'user.id',
       }),
-    ).rejects.toEqual(new AppError('Volunteer does not exists!'));
+    ).rejects.toEqual(new AppError('User does not exists!'));
   });
 
   it('should not be able to create a subscription already exists', async () => {
@@ -123,7 +107,7 @@ describe('Create Subscription ', () => {
       email: 'organization@beeheroes.com',
       cnpj: '000000000000',
       description: 'Description Organization',
-      organization_type_id: 'id',
+      organization_type_id: 6,
     });
 
     const project = await projectsRepositoryInMemory.create({
@@ -141,24 +125,15 @@ describe('Create Subscription ', () => {
       password: '123456',
     });
 
-    const volunteer = await volunteersRepositoryInMemory.create({
-      profession: 'profession',
-      description: 'xxxx',
-      occupation_area_id: 'occupationArea',
-      user_id: user.id,
-    });
-
     await createSubscriptionUseCase.execute({
-      registration_date: new Date(),
       project_id: project.id,
-      volunteer_id: volunteer.id,
+      user_id: user.id,
     });
 
     await expect(
       createSubscriptionUseCase.execute({
-        registration_date: new Date(),
         project_id: project.id,
-        volunteer_id: volunteer.id,
+        user_id: user.id,
       }),
     ).rejects.toEqual(new AppError('Subscription already exists!'));
   });

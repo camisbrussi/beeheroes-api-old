@@ -3,11 +3,11 @@ import { PhonesRepositoryInMemory } from '@modules/addresses/repositories/in-mem
 import { CreatePhoneUseCase } from './CreateUseCase';
 
 let createPhoneUseCase: CreatePhoneUseCase;
-let usersRepositoryInMemory: PhonesRepositoryInMemory;
+let phonesRepositoryInMemory: PhonesRepositoryInMemory;
 
 beforeEach(() => {
-  usersRepositoryInMemory = new PhonesRepositoryInMemory();
-  createPhoneUseCase = new CreatePhoneUseCase(usersRepositoryInMemory);
+  phonesRepositoryInMemory = new PhonesRepositoryInMemory();
+  createPhoneUseCase = new CreatePhoneUseCase(phonesRepositoryInMemory);
 });
 
 describe('Create Phone ', () => {

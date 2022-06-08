@@ -20,13 +20,11 @@ describe('Update Type Organization', () => {
   it('should be able to edit a organization type', async () => {
     const organizationType = await createOrganizationTypeUseCase.execute({
       name: 'Organization Type name',
-      description: 'Organization type description',
     });
 
     const organizationTypeEdit = {
       id: organizationType.id,
       name: 'Organization Type name editado',
-      description: 'Organization type description editado',
     };
 
     await updateTypeUseCase.execute(organizationTypeEdit);
@@ -35,13 +33,11 @@ describe('Update Type Organization', () => {
       .findByName(organizationTypeEdit.name);
 
     expect(organizationTypeEdited.name).toEqual(organizationTypeEdit.name);
-    expect(organizationTypeEdited.description).toEqual(organizationTypeEdit.description);
   });
 
   it('should be able to edit a organization type name', async () => {
     const organizationType = await createOrganizationTypeUseCase.execute({
       name: 'Organization Type name',
-      description: 'Organization type description',
     });
 
     const organizationTypeEdit = {
@@ -64,7 +60,6 @@ describe('Update Type Organization', () => {
 
     const organizationTypeEdit = {
       id: organizationType.id,
-      description: 'Organization type description - editado',
     };
 
     await updateTypeUseCase.execute(organizationTypeEdit);
@@ -73,13 +68,12 @@ describe('Update Type Organization', () => {
       .findByName(organizationType.name);
 
     expect(organizationTypeEdited.name).toEqual(organizationType.name);
-    expect(organizationTypeEdited.description).toEqual(organizationTypeEdit.description);
   });
 
   it('should not be able to edit a organization type with exists name', async () => {
     await expect(async () => {
       const organizationType = await createOrganizationTypeUseCase.execute({
-        name: 'Organization Type name', s,
+        name: 'Organization Type name',
       });
 
       await createOrganizationTypeUseCase.execute({

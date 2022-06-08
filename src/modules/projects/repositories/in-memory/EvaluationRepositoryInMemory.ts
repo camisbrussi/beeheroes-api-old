@@ -24,6 +24,13 @@ class EvaluationsRepositoryInMemory implements IEvaluationsRepository {
     return (evaluation);
   }
 
+  async findByUserId(user_id: string): Promise<Evaluation[]> {
+    const evaluations = this.evaluations
+      .filter((evaluation) => evaluation.subscription.user_id === user_id);
+
+    return evaluations;
+  }
+
   async findBySubscriptionId(subscription_id: string): Promise<Evaluation[]> {
     const evaluations = this.evaluations
       .filter((evaluation) => subscription_id.includes(evaluation.subscription_id));

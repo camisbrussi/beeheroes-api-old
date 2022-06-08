@@ -22,8 +22,8 @@ describe('Filer Organization Controller', () => {
     );
 
     await connection.query(
-      `INSERT INTO ORGANIZATION_TYPES(id, name, description, created_at, updated_at) 
-      VALUES('${id}', 'Organization Type', 'xxxxxx', 'now()', 'now()')`,
+      `INSERT INTO ORGANIZATION_TYPES(id, name, created_at, updated_at) 
+      VALUES('1', 'Organization Type', 'xxxxxx', 'now()', 'now()')`,
     );
 
     await connection.query(
